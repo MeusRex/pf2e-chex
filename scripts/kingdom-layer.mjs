@@ -10,7 +10,6 @@ export default class ChexKingdomLayer extends PIXI.Container {
     this.visible = false;
   }
 
-  mode = C.MODE_KINGDOM;
   /**
    * Draw the layer.
    */
@@ -18,9 +17,84 @@ export default class ChexKingdomLayer extends PIXI.Container {
     this.removeChildren().forEach(c => c.destroy());
     this.mask = canvas.primary.mask;
     const g = this.addChild(new PIXI.Graphics());
+
+    switch (chex.manager.mode) {
+      case C.MODE_TERRAIN:
+        this.#drawTerrain(g);
+        break;
+
+      case C.MODE_TRAVEL: 
+        this.#drawTravel(g);
+        break;
+
+      case C.MODE_KINGDOM:
+      default:
+        this.#drawKingdoms(g);
+        break;
+    }
+
     const hexes = chex.manager.hexes.filter(h => h.hexData.claimed);
+    this.#drawSub(g, hexes, Color.from("FF0000"));
+  }
+
+  #drawKingdoms(g) {
+    
+  }
+
+  #drawTerrain(g) {
+    const groupedHexes = {};
+
+    // Iterate through each hex
+    chex.manager.hexes.forEach(hex => {
+      const terrainId = hex.terrain.id;
+
+      // If the travelId is not in the groupedHexes object, create an empty array
+      if (!groupedHexes[terrainId]) {
+        groupedHexes[terrainId] = [];
+      }
+
+    // Add the hex to the corresponding group
+      groupedHexes[terrainId].push(hex);
+    });
+    
+    for (const terrainId in groupedHexes) {
+      if (groupedHexes.hasOwnProperty(terrainId)) {
+        const hexGroup = groupedHexes[terrainId];
+    
+        // Assuming ChexKingdomLayer is the class containing the #drawSub method
+        this.#drawSub(g, hexGroup, C.TERRAIN[terrainId].color);
+      }
+    }
+  }
+
+  #drawTravel(g) {
+    const groupedHexes = {};
+
+    // Iterate through each hex
+    chex.manager.hexes.forEach(hex => {
+      const travelId = hex.travel.id;
+
+      // If the travelId is not in the groupedHexes object, create an empty array
+      if (!groupedHexes[travelId]) {
+        groupedHexes[travelId] = [];
+      }
+
+    // Add the hex to the corresponding group
+      groupedHexes[travelId].push(hex);
+    });
+    
+    for (const travelId in groupedHexes) {
+      if (groupedHexes.hasOwnProperty(travelId)) {
+        const hexGroup = groupedHexes[travelId];
+    
+        // Assuming ChexKingdomLayer is the class containing the #drawSub method
+        this.#drawSub(g, hexGroup, C.TRAVEL[travelId].color);
+      }
+    }
+  }
+
+  #drawSub(g, hexes, color) {
     const polygons = ChexKingdomLayer.#buildPolygons(hexes);
-    const color = game.actors.party?.getFlag("pf2e", "color") ?? Color.from("FF0000");
     g.beginFill(color, 0.15).lineStyle({alignment: 0, color: color, width: 4})
     for ( const polygon of polygons ) {
       g.drawShape(polygon.outer);
@@ -30,7 +104,6 @@ export default class ChexKingdomLayer extends PIXI.Container {
     }
     g.endFill();
   }
-
   /* -------------------------------------------- */
 
   /**

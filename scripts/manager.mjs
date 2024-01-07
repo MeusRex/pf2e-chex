@@ -50,6 +50,14 @@ export default class ChexManager {
     #chexToolkit;
     #enableChexTool;
     #showChexDetailsTool;
+    #showKingdomTool;
+    #showTerrainTool;
+    #showTravelTool;
+
+    /**
+     * Defines what mode the KingdomLayer is in. E.g. what overlay it should show.
+     */
+    mode = C.MODE_KINGDOM;
 
     _extendSceneControlButtons(buttons) {
         const tokens = buttons.find(b => b.name === "token");
@@ -61,13 +69,54 @@ export default class ChexManager {
                 name: "chexDetails",
                 title: "CHEX.TOOLS.ToggleHexTool",
                 icon: "fa-solid fa-hexagon-image",
-                visible: true,
                 toggle: true,
                 active: this.hud.enabled ?? false,
                 onClick: () => this.hud.toggle()
             };
 
-            tokens.tools.push(this.#showChexDetailsTool);
+            this.#showKingdomTool = {
+                name: "showKingdom",
+                title: "CHEX.TOOLS.ShowKingdomTool",
+                icon: "fa-solid fa-bank",
+                toggle: true,
+                active: this.mode === C.MODE_KINGDOM,
+                onClick: () => {
+                    this.mode = C.MODE_KINGDOM;
+                    this.#showTerrainTool.active = false;
+                    this.#showTravelTool.active = false;
+                    this.#refreshKingdomLayer();
+                }
+            }
+
+            this.#showTerrainTool = {
+                name: "showTerrain",
+                title: "CHEX.TOOLS.ShowTerrainTool",
+                icon: "fa-solid fa-mountain",
+                toggle: true,
+                active: this.mode === C.MODE_TERRAIN,
+                onClick: () => {
+                    this.mode = C.MODE_TERRAIN; 
+                    this.#showKingdomTool.active = false;
+                    this.#showTravelTool.active = false;
+                    this.#refreshKingdomLayer();
+                }
+            }
+
+            this.#showTravelTool = {
+                name: "showTravel",
+                title: "CHEX.TOOLS.ShowTravelTool",
+                icon: "fa-solid fa-road",
+                toggle: true,
+                active: this.mode === C.MODE_TRAVEL,
+                onClick: () => {
+                    this.mode = C.MODE_TRAVEL;
+                    this.#showKingdomTool.active = false;
+                    this.#showTerrainTool.active = false;
+                    this.#refreshKingdomLayer();
+                }
+            }
+
+            tokens.tools.push(this.#showChexDetailsTool, this.#showKingdomTool, this.#showTerrainTool, this.#showTravelTool);
         }
 
         this.#enableChexTool = {
@@ -97,6 +146,11 @@ export default class ChexManager {
             }
         }
 
+    }
+
+    #refreshKingdomLayer() {
+        if (this.kingdomLayer)
+            this.kingdomLayer.draw();
     }
 
     #enableChex() {

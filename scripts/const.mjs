@@ -2,7 +2,8 @@ export const MODULE_ID = "pf2e-chex";
 export const CHEX_DATA_KEY = "chex-data";
 export const HIGHLIGHT_LAYER = "KingmakerRegion";
 export const MODE_KINGDOM = "kingdom";
-export const MODE_LAND = "land";
+export const MODE_TERRAIN = "terrain";
+export const MODE_TRAVEL = "travel";
 
 export const REALMS = Object.freeze({
     helas: {
@@ -144,7 +145,7 @@ export const TERRAIN = Object.freeze({
         toolLabel: "CHEX.TOOLS.DESERT",
         toolIcon: "fa-solid fa-sun",
         travel: "open",
-        color: "##ffff00"
+        color: "#ffff00"
     }
 });
 
@@ -152,27 +153,32 @@ export const TRAVEL = Object.freeze({
     open: {
       id: "open",
       label: "REALMS.TRAVEL.OPEN",
-      multiplier: 1
+      multiplier: 1,
+      color: "#00ff00"
     },
     difficult: {
       id: "difficult",
       label: "REALMS.TRAVEL.DIFFICULT",
-      multiplier: 2
+      multiplier: 2,
+      color: "#ffa500"
     },
     greater: {
       id: "greater",
       label: "REALMS.TRAVEL.GREATER",
-      multiplier: 3
+      multiplier: 3,
+      color: "#ff0000"
     },
     water: {
       id: "water",
       label: "REALMS.TRAVEL.WATER",
-      multiplier: 1
+      multiplier: 1,
+      color: "#0000ff"
     },
     impassable: {
       id: "impassable",
       label: "REALMS.TRAVEL.IMPASSABLE",
-      multiplier: Infinity
+      multiplier: Infinity,
+      color: "#000000"
     }
 });
 

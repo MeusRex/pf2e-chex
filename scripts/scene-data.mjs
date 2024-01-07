@@ -24,6 +24,7 @@ export default class ChexSceneData {
         data.height = rect.height;
         data.numRows = data.width / data.size;
         data.numCols = data.height / (0.866 * data.size); // sqrt(3)/2 * size is the formula for a tightly packed hexgrid
+        data.numCols += 2; // +1 because we need to round up, since the calculation is just an aproximation. +2 because we want to have the last partial column too.
 
         const config = HexagonalGrid.getConfig(data.type, data.size);
 
