@@ -7,7 +7,7 @@ export default class ChexHexEdit extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: "kingmaker-hex-edit",
             classes: [chex.CSS_CLASS],
-            template: "modules/pf2e-realms/templates/hex-edit.hbs",
+            template: "modules/pf2e-chex/templates/hex-edit.hbs",
             width: 420,
             height: "auto",
             popOut: true,
@@ -15,7 +15,7 @@ export default class ChexHexEdit extends FormApplication {
         });
     }
 
-    static featurePartial = "modules/pf2e-realms/templates/hex-edit-feature.hbs";
+    static featurePartial = "modules/pf2e-chex/templates/hex-edit-feature.hbs";
 
     get title() {
         return `Edit Hex: ${this.object.toString()}`;
@@ -37,6 +37,7 @@ export default class ChexHexEdit extends FormApplication {
           camps: C.CAMPS,
           commodities: C.COMMODITIES,
           explorationStates: C.EXPLORATION_STATES,
+          claimees: C.REALMS,
           hex: this.object.hexData,
           features: C.FEATURES,
           featurePartial: this.constructor.featurePartial

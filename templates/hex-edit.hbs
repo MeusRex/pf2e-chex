@@ -30,7 +30,11 @@
         </div>
         <div class="form-group">
             <label data-tooltip="{{localize 'REALMS.HEXTOOL.ClaimedTooltip'}}" aria-label="{{localize 'REALMS.HEXTOOL.ClaimedTooltip'}}">{{localize 'REALMS.HEXTOOL.Claimed'}}</label>
-            <input type="checkbox" name="claimed" {{checked hex.claimed}}>
+            <div class="form-fields">
+                <select name="claimed">
+                    {{selectOptions claimees selected=hex.claimed nameAttr="id" labelAttr="label" localize=true blank="" }}
+                </select>
+            </div>
         </div>
     </fieldset>
 

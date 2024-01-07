@@ -32,13 +32,32 @@ export default class ChexKingdomLayer extends PIXI.Container {
         this.#drawKingdoms(g);
         break;
     }
-
-    const hexes = chex.manager.hexes.filter(h => h.hexData.claimed);
-    this.#drawSub(g, hexes, Color.from("FF0000"));
   }
 
   #drawKingdoms(g) {
+    const groupedHexes = {};
+
+    // Iterate through each hex
+    chex.manager.hexes.filter(h => h.hexData.claimed).forEach(hex => {
+      const realmId = hex.hexData.claimed;
+
+      // If the travelId is not in the groupedHexes object, create an empty array
+      if (!groupedHexes[realmId]) {
+        groupedHexes[realmId] = [];
+      }
+
+      // Add the hex to the corresponding group
+      groupedHexes[realmId].push(hex);
+    });
     
+    for (const realmId in groupedHexes) {
+      if (groupedHexes.hasOwnProperty(realmId)) {
+        const hexGroup = groupedHexes[realmId];
+    
+        // Assuming ChexKingdomLayer is the class containing the #drawSub method
+        this.#drawSub(g, hexGroup, C.REALMS[realmId].color);
+      }
+    }
   }
 
   #drawTerrain(g) {
