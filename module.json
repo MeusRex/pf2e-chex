@@ -1,0 +1,40 @@
+{
+    "id": "pf2e-chex",
+    "title": "PF2e cHex",
+    "description": "Improved grid overlay",
+    "authors": [
+      { "name": "cedi" }
+    ],
+    "version": "1.0.0",
+    "compatibility": {
+      "minimum": "11.315",
+      "verified": "11.315",
+      "maximum": "11"
+    },
+    "relationships": {
+      "systems": [
+        {
+          "id": "pf2e",
+          "type": "system",
+          "compatibility": {
+            "minimum": "5.11.0"
+          }
+        }
+      ]
+    },
+    "esmodules": [
+      "scripts/main.mjs"
+    ],
+    "styles": [
+      "styles/pf2e-km.css"
+    ],
+    "languages": [
+      {
+        "lang": "en",
+        "path": "lang/en.json"
+      }
+    ],
+    "protected": false,
+    "manifest": ""
+  }
+  

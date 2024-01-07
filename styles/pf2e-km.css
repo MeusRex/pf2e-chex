@@ -1,0 +1,3494 @@
+@font-face {
+  font-family: "Taroca";
+  src: url(fonts/taroca.ttf) format('truetype');
+}
+@font-face {
+  font-family: "Gin";
+  src: url(fonts/gin.otf) format('opentype');
+}
+@font-face {
+  font-family: "Roundest Bold";
+  src: url(fonts/roundest-bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Good OT';
+  src: url(fonts/goodot.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Good OT Bold';
+  src: url(fonts/goodot-bold.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Good OT Italic';
+  src: url(fonts/goodot-italic.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Good OT Bold Italic';
+  src: url(fonts/goodot-bolditalic.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Good OT Cond';
+  src: url(fonts/goodot-cond.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Good OT Cond Bold';
+  src: url(fonts/goodot-condbold.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Gloucester Initialen';
+  src: url(fonts/gloucester-initialen.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Meddon';
+  src: url(fonts/meddon.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Prince Valiant';
+  src: url(fonts/prince-valiant.woff2) format('woff2');
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header,
+div.adventure-importer.window-app.pf2e-km .window-content header {
+  margin-top: 12px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header h1,
+div.adventure-importer.window-app.pf2e-km .window-content header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header h2,
+div.adventure-importer.window-app.pf2e-km .window-content header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header h3,
+div.adventure-importer.window-app.pf2e-km .window-content header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header h4,
+div.adventure-importer.window-app.pf2e-km .window-content header h4 {
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content h1,
+div.adventure-importer.window-app.pf2e-km .window-content h1 {
+  font-family: "Taroca", sans-serif;
+  color: #004416;
+  font-size: 1.75rem;
+  border: unset;
+  line-height: 22px;
+  margin: 14px 0 10px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content h2,
+div.adventure-importer.window-app.pf2e-km .window-content h2 {
+  font-family: "Gin", sans-serif;
+  color: #004416;
+  font-size: 1.3rem;
+  line-height: 1.3rem;
+  margin: 1rem 0 0.75rem 0;
+  border: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content h3,
+div.adventure-importer.window-app.pf2e-km .window-content h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content h4,
+div.adventure-importer.window-app.pf2e-km .window-content h4 {
+  font-family: "Good OT Cond Bold", sans-serif;
+  font-size: 1.25rem;
+  border: unset;
+  margin: 12px 0 0 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content h3,
+div.adventure-importer.window-app.pf2e-km .window-content h3 {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content h4,
+div.adventure-importer.window-app.pf2e-km .window-content h4 {
+  color: #548433;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content h4.sub,
+div.adventure-importer.window-app.pf2e-km .window-content h4.sub {
+  color: #004416;
+  line-height: 2rem;
+  font-size: 1.5rem;
+  text-align: right;
+  position: absolute;
+  right: 0.75rem;
+  top: 0rem;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content p,
+div.adventure-importer.window-app.pf2e-km .window-content p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content li,
+div.adventure-importer.window-app.pf2e-km .window-content li,
+div.journal-sheet.window-app.pf2e-km .journal-page-content label,
+div.adventure-importer.window-app.pf2e-km .window-content label {
+  font-family: "Good OT", sans-serif;
+  font-size: 1rem;
+  text-align: justify;
+  line-height: 1.25rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul:not(.list),
+div.adventure-importer.window-app.pf2e-km .window-content ul:not(.list) {
+  list-style-type: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .with-repost,
+div.adventure-importer.window-app.pf2e-km .window-content .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .content-link,
+div.adventure-importer.window-app.pf2e-km .window-content .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .inline-roll,
+div.adventure-importer.window-app.pf2e-km .window-content .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .inline-check,
+div.adventure-importer.window-app.pf2e-km .window-content .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content span[data-visibility]:not([data-visibility=all]),
+div.adventure-importer.window-app.pf2e-km .window-content span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content .with-repost > i,
+div.adventure-importer.window-app.pf2e-km .window-content .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .content-link > i,
+div.adventure-importer.window-app.pf2e-km .window-content .content-link > i {
+  background: none;
+  border: none;
+  line-height: 1rem;
+  outline: none;
+  color: #004416;
+  padding: 0 2px 0 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .with-repost:hover,
+div.adventure-importer.window-app.pf2e-km .window-content .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .content-link:hover,
+div.adventure-importer.window-app.pf2e-km .window-content .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .inline-roll:hover,
+div.adventure-importer.window-app.pf2e-km .window-content .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .inline-check:hover,
+div.adventure-importer.window-app.pf2e-km .window-content .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content span[data-visibility]:not([data-visibility=all]):hover,
+div.adventure-importer.window-app.pf2e-km .window-content span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .with-repost > i:hover,
+div.adventure-importer.window-app.pf2e-km .window-content .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .content-link > i:hover,
+div.adventure-importer.window-app.pf2e-km .window-content .content-link > i:hover {
+  text-shadow: 0 0 10px #548433;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .with-repost i::before,
+div.adventure-importer.window-app.pf2e-km .window-content .with-repost i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .content-link i::before,
+div.adventure-importer.window-app.pf2e-km .window-content .content-link i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .inline-roll i::before,
+div.adventure-importer.window-app.pf2e-km .window-content .inline-roll i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .inline-check i::before,
+div.adventure-importer.window-app.pf2e-km .window-content .inline-check i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content span[data-visibility]:not([data-visibility=all]) i::before,
+div.adventure-importer.window-app.pf2e-km .window-content span[data-visibility]:not([data-visibility=all]) i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .with-repost > i i::before,
+div.adventure-importer.window-app.pf2e-km .window-content .with-repost > i i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .content-link > i i::before,
+div.adventure-importer.window-app.pf2e-km .window-content .content-link > i i::before {
+  margin-left: 2px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content p a.content-link,
+div.adventure-importer.window-app.pf2e-km .window-content p a.content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content p a.inline-roll,
+div.adventure-importer.window-app.pf2e-km .window-content p a.inline-roll {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content p span.label,
+div.adventure-importer.window-app.pf2e-km .window-content p span.label {
+  border-bottom: 1px solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content span.magic,
+div.adventure-importer.window-app.pf2e-km .window-content span.magic {
+  font-style: italic;
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content p > a.content-link > i,
+div.adventure-importer.window-app.pf2e-km .window-content p > a.content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content p > a.inline-check > i.fa-dice-d20,
+div.adventure-importer.window-app.pf2e-km .window-content p > a.inline-check > i.fa-dice-d20 {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul > li > p > a.content-link > i,
+div.adventure-importer.window-app.pf2e-km .window-content ul > li > p > a.content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul > li > p > a.inline-check > i.fa-dice-d20,
+div.adventure-importer.window-app.pf2e-km .window-content ul > li > p > a.inline-check > i.fa-dice-d20 {
+  display: inline-block;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #9b3532;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header .content-link > i {
+  color: #892522;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside {
+  background: #892522;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter span.magic {
+  color: #892522;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter ul.outcomes strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter span.magic::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter ul.outcomes strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter span.magic::after {
+  color: #892522;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter .content-link > i:hover {
+  text-shadow: 0 0 10px #892522;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter hr {
+  border-bottom: 1px #9b3532 solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter > article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter.background > p {
+  padding-top: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(130, 80, 80, 0.1) 5%, rgba(130, 80, 80, 0.1) 95%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #9b3532;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header + ul.traits {
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter header {
+  text-transform: uppercase;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #9b3532;
+  text-transform: uppercase;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter .content-link > i {
+  color: #892522;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.encounter h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside {
+  background: #892522;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+  border-bottom: 1rem solid white;
+  border-image: url("assets/border-encounter.webp") 0 0 100% 0/0 0 1.25rem 0/0 repeat;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter .content-link > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter h3 a.content-link i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter > p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter > p i.fas,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter > p i.fas.fa-comment-alt,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter ul,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter ul li,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.wide img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.thin img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.token,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.token.wide,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.token.thin,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.porthole,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.porthole > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.clip,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content aside.encounter.noimage,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.encounter aside.noimage {
+  border-top: 1rem solid white;
+  min-width: 180px;
+  border-image: url("assets/border-encounter.webp") 100% 0 100% 0/1.25rem 0 1.25rem 0/0 repeat;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #3b2200;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header .content-link > i {
+  color: #461502;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside {
+  background: white;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest span.magic {
+  color: #461502;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest ul.outcomes strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest span.magic::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest ul.outcomes strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest span.magic::after {
+  color: #461502;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest .content-link > i:hover {
+  text-shadow: 0 0 10px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest hr {
+  border-bottom: 1px #3b2200 solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest > article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest.background > p {
+  padding-top: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(160, 120, 50, 0.2) 5%, rgba(160, 120, 50, 0.2) 95%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #3b2200;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header + ul.traits {
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h3 {
+  font-size: 1.4rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header h3::before {
+  content: url(assets/quest-icon.webp);
+  position: relative;
+  bottom: -2px;
+  padding: 2px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest header {
+  border-bottom: 1px solid #3b2200;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest > p:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.quest article {
+  background: rgba(160, 120, 50, 0.2);
+  padding: 1px 0.5rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #12682d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header .content-link > i {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside {
+  background: #587455;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill span.magic {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill ul.outcomes strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill span.magic::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill ul.outcomes strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill span.magic::after {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill .content-link > i:hover {
+  text-shadow: 0 0 10px #587455;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill hr {
+  border-bottom: 1px #12682d solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill > article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill.background > p {
+  padding-top: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(60, 120, 60, 0.1) 5%, rgba(60, 120, 60, 0.1) 95%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #12682d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill header + ul.traits {
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill > p:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill > article:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill.mini {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(60, 120, 60, 0.1) 5%, rgba(60, 120, 60, 0.1) 95%, rgba(0, 0, 0, 0) 100%);
+  border-top: 1px solid #12682d;
+  border-bottom: 1px solid #12682d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill > p:only-child {
+  padding: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.skill aside {
+  border-top: 1.75rem solid white;
+  border-image: url("assets/border-skill.webp") 100% 0 0 0/1.75rem 0 0 0/0 round;
+  margin-top: 3px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #655fa7;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header .content-link > i {
+  color: #48438b;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside {
+  background: #48438b;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure span.magic {
+  color: #48438b;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure ul.outcomes strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure span.magic::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure ul.outcomes strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure span.magic::after {
+  color: #48438b;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure .content-link > i:hover {
+  text-shadow: 0 0 10px #48438b;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure hr {
+  border-bottom: 1px #655fa7 solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure > article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure.background > p {
+  padding-top: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(60, 60, 140, 0.1) 5%, rgba(60, 60, 140, 0.1) 95%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #655fa7;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure header + ul.traits {
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure > p:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure > article:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure.mini {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(60, 60, 140, 0.1) 5%, rgba(60, 60, 140, 0.1) 95%, rgba(0, 0, 0, 0) 100%);
+  border-top: 1px solid #655fa7;
+  border-bottom: 1px solid #655fa7;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure > p:only-child {
+  padding: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.treasure aside {
+  border-top: 1.2rem solid white;
+  border-image: url(assets/border-treasure.webp) 100% 0 0 0/1.7rem 0 0 0/0 round;
+  margin-top: 3px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #4F4F4F;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header .content-link > i {
+  color: #b5442a;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside {
+  background: white;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone span.magic {
+  color: #b5442a;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone ul.outcomes strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone span.magic::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone ul.outcomes strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone span.magic::after {
+  color: #b5442a;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone .content-link > i:hover {
+  text-shadow: 0 0 10px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone hr {
+  border-bottom: 1px #4F4F4F solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone > article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone.background > p {
+  padding-top: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(160, 99, 50, 0.1) 5%, rgba(160, 99, 50, 0.1) 95%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #4F4F4F;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone header + ul.traits {
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone > p:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone > article:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone.mini {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(160, 99, 50, 0.1) 5%, rgba(160, 99, 50, 0.1) 95%, rgba(0, 0, 0, 0) 100%);
+  border-top: 1px solid #4F4F4F;
+  border-bottom: 1px solid #4F4F4F;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone > p:only-child {
+  padding: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.milestone.head > p {
+  border-top: 0.75rem solid white;
+  border-bottom: 0.75rem solid white;
+  border-image: url(assets/border-milestone.webp) 100% 0/0.75rem 0/0 round;
+  padding: 0.75rem;
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #12682d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header .content-link > i {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside {
+  background: #587455;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social span.magic {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social ul.outcomes strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social span.magic::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social ul.outcomes strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social span.magic::after {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social .content-link > i:hover {
+  text-shadow: 0 0 10px #587455;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social hr {
+  border-bottom: 1px #12682d solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social > article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social.background > p {
+  padding-top: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(60, 120, 60, 0.025) 5%, rgba(60, 120, 60, 0.025) 95%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #12682d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social header + ul.traits {
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social > p:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social > article:only-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social.mini {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(60, 120, 60, 0.025) 5%, rgba(60, 120, 60, 0.025) 95%, rgba(0, 0, 0, 0) 100%);
+  border-top: 1px solid #12682d;
+  border-bottom: 1px solid #12682d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social > p:only-child {
+  padding: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social article > ul {
+  padding-left: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.social aside > img {
+  min-width: 110%;
+  margin: -10% -5% 0 -5%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: #ffffff5e;
+  border: 1px solid #87af94;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header {
+  border: unset;
+  margin: 0;
+  line-height: 26px;
+  border-bottom: 2px solid #87af94;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header .content-link > i {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header p {
+  font-family: 'Good OT Cond Bold';
+  font-size: 22px;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header h2 i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside {
+  background: #587455;
+  border: unset;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px inset #00000080;
+  display: flex;
+  flex-flow: column;
+  max-width: max-content;
+  min-width: max-content;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link > i {
+  text-shadow: unset;
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h4::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside p::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h4::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside p::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link > i::after {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside .content-link > i:hover {
+  text-shadow: 0 0 2px white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h3 {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside h3 a.content-link i {
+  display: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside > p {
+  margin: 0.2rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside > p i.fas {
+  float: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside > p i.fas.fa-comment-alt {
+  float: right;
+  margin-right: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside ul {
+  z-index: 1;
+  margin: auto;
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside ul li {
+  margin: 4px 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside img {
+  z-index: 0;
+  max-width: 150px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.wide img {
+  max-width: 200px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.thin img {
+  max-width: 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.token {
+  border-radius: 100px 100px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.token.wide {
+  border-radius: 110px 110px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.token.thin {
+  border-radius: 90px 90px 5px 5px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.porthole {
+  border-radius: 100%;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.token > img,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.porthole > img {
+  pointer-events: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats aside.clip {
+  clip-path: circle(35%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats span.magic {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats ul.outcomes strong::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h1::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h2::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h3::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-roll::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-check::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats span[data-visibility]:not([data-visibility=all])::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link > i::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats span.magic::before,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats ul.outcomes strong::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h1::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h2::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats h3::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-roll::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-check::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats span[data-visibility]:not([data-visibility=all])::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link > i::after,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats span.magic::after {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-roll:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .inline-check:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats span[data-visibility]:not([data-visibility=all]):hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .with-repost > i:hover,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats .content-link > i:hover {
+  text-shadow: 0 0 10px #587455;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats hr {
+  border-bottom: 1px #87af94 solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats > article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats.background > p {
+  padding-top: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #ffffff5e 5%, #ffffff5e 95%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #87af94;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header + ul.traits {
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats header {
+  text-transform: uppercase;
+  line-height: 1.3rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats > p:only-child {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.stats > p:not(:only-child) {
+  padding: 0;
+  margin: 0.25rem 0;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry {
+  min-width: 60rem;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry .journal-header {
+  background-image: url(assets/header-back.webp);
+  background-position: top center;
+  text-align: center;
+  height: 60px;
+  width: 100%;
+  margin: auto;
+  z-index: 2;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry .journal-header input.title {
+  background: transparent;
+  background-image: url(assets/header-input.webp);
+  background-size: cover;
+  background-position: bottom;
+  margin: 0 4.5rem;
+  padding: 0.4rem 1rem 0.6rem 1rem;
+  height: auto;
+  width: auto;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  border: none;
+  font-family: 'Taroca';
+  font-size: 1.8rem;
+  color: #004416;
+  text-overflow: ellipsis;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-content.editor-content figure.head img {
+  max-width: 700px;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-content.editor-content figure img {
+  max-width: 300px;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-content.editor-content aside img {
+  max-width: 128px;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content {
+  min-width: 44rem;
+  border: unset;
+  z-index: 0;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-entry-pages,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-entry-pages {
+  margin: unset;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-entry-pages article.journal-entry-page.text,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-entry-pages article.journal-entry-page.text {
+  scroll-margin-top: 2.5rem;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-entry-pages div.scrollable,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-entry-pages div.scrollable {
+  padding: 2rem 0 0.5rem 0;
+  scrollbar-gutter: stable both-edges;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-entry-pages div.scrollable div.edit-container,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-entry-pages div.scrollable div.edit-container {
+  z-index: 5;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-entry-pages div.scrollable section.journal-page-content,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-entry-pages div.scrollable section.journal-page-content {
+  padding: 0 1rem;
+  margin: 0.5rem 0;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-header,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-header {
+  z-index: 1;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-header input,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-header input {
+  font-family: "Taroca", sans-serif;
+  color: #004416;
+  text-overflow: ellipsis;
+  border: none;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-header aside div.heading-level,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-header aside div.heading-level {
+  font-family: "Gin", sans-serif;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-header aside div.show-title,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-header aside div.show-title {
+  font-family: "Good OT", sans-serif;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header {
+  position: relative;
+  margin: auto;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h1,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h1,
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h2,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h2,
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h3,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h3 {
+  width: 100%;
+  margin: unset;
+  clear: both;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h1,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h1 {
+  font-family: 'Taroca';
+  color: #004416;
+  text-align: center;
+  border: unset;
+  margin: 0.5rem 0 1rem 0;
+  line-height: 2.5rem;
+  font-size: 2rem;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h1::before,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h1::before {
+  content: "";
+  background: url(./assets/border.webp) center / cover repeat-x;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 60%;
+  opacity: 25%;
+  filter: drop-shadow(0px 0px 4px #004416);
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h1::after,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h1::after {
+  content: "";
+  background: url(./assets/border.webp) center / cover repeat-x;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  right: 60%;
+  opacity: 25%;
+  filter: drop-shadow(0px 0px 4px #004416);
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h2,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h2,
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h3,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h3 {
+  margin: 0.5rem 1rem 0.5rem 1rem;
+  width: auto;
+  font-family: "Good OT Cond Bold";
+  text-transform: uppercase;
+  line-height: 1.6rem;
+  font-size: 1.6rem;
+  color: #004416;
+  border-bottom: 2px solid #004416;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page .journal-page-header h3,
+div.journal-sheet.pf2e-km.window-app section.journal-entry-content .journal-page-header h3 {
+  color: #548433;
+  border-bottom: 2px solid #548433;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry-page section.window-content,
+div.journal-sheet.pf2e-km.window-app.journal-sheet section.journal-entry-content {
+  background-image: url(assets/page-back.webp);
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar {
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  color: white;
+  border: unset;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar div.action-buttons,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar header.directory-header {
+  z-index: 2;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar div.action-buttons button.next,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar header.directory-header button.next,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar div.action-buttons button.previous,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar header.directory-header button.previous,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar div.action-buttons a.action-button,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar header.directory-header a.action-button,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar div.action-buttons input,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar header.directory-header input,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar div.action-buttons button.create,
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar header.directory-header button.create {
+  margin: 0.25rem;
+  border: unset;
+  background: rgba(255, 255, 245, 0.75);
+  border-radius: 4px;
+  line-height: 28px;
+  height: 28px;
+  color: black;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list {
+  padding: 2rem 0 1rem 0;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item {
+  scroll-margin-top: 2rem;
+  line-height: 30px;
+  border: unset;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item span.page-title {
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item span.page-ownership {
+  width: 24px;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item span.page-ownership.observer {
+  color: #939393;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item span.page-ownership.none {
+  color: #7070CC;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item ol.headings {
+  display: none;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item.level1::before {
+  content: "";
+  background: url(assets/divider.webp) no-repeat;
+  background-size: contain;
+  background-position: center;
+  top: 0;
+  width: 100%;
+  height: 1rem;
+  margin: 0.25rem 0;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item.level1 span.page-title {
+  font-family: "Good OT Cond Bold", sans-serif;
+  font-size: 1.1rem;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item.level2 span.page-title {
+  text-indent: 0rem;
+  font-family: "Good OT", sans-serif;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar ol.directory-list li.directory-item.level3 span.page-title {
+  text-indent: 0.5rem;
+  font-family: "Good OT", sans-serif;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar:not(.collapsed) {
+  flex-basis: 16rem;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar:not(.collapsed) span.page-number {
+  color: transparent;
+  width: 24px;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar:not(.collapsed) .active span.page-number {
+  background-image: url(assets/toc-pointer.webp);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar:not(.collapsed) .active + .active span.page-number {
+  background-image: unset;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.sidebar.flexcol.directory.journal-sidebar.collapsed {
+  width: 2.75rem;
+}
+div.journal-sheet.pf2e-km.window-app:not(.minimized) header.window-header {
+  background-image: url(assets/window-header.webp);
+  background-size: contain;
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  padding-bottom: 2px;
+  line-height: 2rem;
+  z-index: 3;
+  border: unset;
+  filter: drop-shadow(1px 1px 4px #150c0c);
+}
+div.journal-sheet.pf2e-km.window-app:not(.minimized) header.window-header h4,
+div.journal-sheet.pf2e-km.window-app:not(.minimized) header.window-header a {
+  text-shadow: 1px 2px 3px black;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry section.window-content {
+  border: unset;
+  border-radius: unset;
+  position: relative;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry section.window-content section.journal-entry-content::before {
+  content: "";
+  pointer-events: none;
+  background-image: url(assets/header-left.webp), url(assets/header-right.webp);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 128px, 128px;
+  background-position: top left, top right;
+  z-index: 2;
+  width: auto;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  height: 256px;
+  position: absolute;
+}
+div.journal-sheet.pf2e-km.window-app.journal-entry aside.journal-sidebar:not(.collapsed) {
+  background-image: url(assets/toc-header.webp), url(assets/toc-bot.webp);
+  background-repeat: no-repeat, no-repeat;
+  background-size: contain, contain;
+  background-position: top, bottom;
+}
+div.adventure-importer.window-app.pf2e-km .window-content {
+  padding: 0;
+  background-image: url(assets/page-back.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /*
+    header {
+        padding: 0.5rem 0.5rem 1rem 0.5rem;
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+    */
+}
+div.adventure-importer.window-app.pf2e-km .window-content section.adventure-overview,
+div.adventure-importer.window-app.pf2e-km .window-content section.adventure-contents {
+  margin: 0 1rem 0 1rem;
+}
+div.adventure-importer.window-app.pf2e-km .window-content section.adventure-footer {
+  margin: 1rem;
+}
+div.adventure-importer.window-app.pf2e-km .window-content figure {
+  max-height: 280px;
+}
+div.adventure-importer.window-app.pf2e-km .window-content figure img {
+  filter: box-shadow(0 0 8px black);
+  max-height: 280px;
+  border-radius: 0;
+}
+div.adventure-importer.window-app.pf2e-km .window-content header {
+  background-image: url(/modules/pf2e-kingmaker/assets/journal-kingdom/km-logo.webp);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 12rem;
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  z-index: 1;
+}
+div.adventure-importer.window-app.pf2e-km .window-content header h1 {
+  color: transparent;
+  padding-top: 5rem;
+  font-size: 3rem;
+}
+div.adventure-importer.pf2e-km.window-app:not(.minimized) header.window-header {
+  background-image: url(assets/window-header.webp);
+  background-size: contain;
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  padding-bottom: 2px;
+  line-height: 2rem;
+  z-index: 3;
+  border: unset;
+  filter: drop-shadow(1px 1px 4px #150c0c);
+}
+div.adventure-importer.pf2e-km.window-app:not(.minimized) header.window-header h4,
+div.adventure-importer.pf2e-km.window-app:not(.minimized) header.window-header a {
+  text-shadow: 1px 2px 3px black;
+}
+div.adventure-importer.window-app.pf2e-km .window-content footer.adventure-footer {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  height: 3rem;
+}
+div.adventure-importer.window-app.pf2e-km .window-content footer.adventure-footer .changelog,
+div.adventure-importer.window-app.pf2e-km .window-content footer.adventure-footer .issuetracker {
+  flex: 25%;
+}
+div.adventure-importer.window-app.pf2e-km .window-content footer.adventure-footer button,
+div.adventure-importer.window-app.pf2e-km .window-content footer.adventure-footer a {
+  flex: 50%;
+  display: block;
+  margin: 0;
+  padding: 0 0.5rem;
+  background: rgba(0, 0, 0, 0.1);
+  border: 2px groove var(--color-border-light-highlight);
+  border-radius: 3px;
+  line-height: 2.25rem;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+}
+div.adventure-importer.window-app.pf2e-km .window-content footer.adventure-footer button:hover,
+div.adventure-importer.window-app.pf2e-km .window-content footer.adventure-footer a:hover {
+  outline: none;
+  text-shadow: none;
+  box-shadow: 0 0 5px var(--color-shadow-primary);
+}
+div[id="KingmakerJournalSheet-Compendium-pf2e-kingmaker-kingmaker-changelog-JournalEntry-U2iW75FuQ2n6Uo9a"] a.import,
+div[id="KingmakerJournalSheet-Compendium-pf2e-kingmaker-kingmaker-changelog-JournalEntry-U2iW75FuQ2n6Uo9a"] div.edit-container,
+div[id="KingmakerJournalSheet-Compendium-pf2e-kingmaker-kingmaker-changelog-JournalEntry-U2iW75FuQ2n6Uo9a"] button.create {
+  display: none;
+}
+.directory-list li.directory-item.compendium[data-pack="pf2e-kingmaker.kingmaker-changelog"] {
+  display: none !important;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.h3 {
+  font-size: 1rem;
+  line-height: 1rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon:before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  font-family: "Font Awesome 6 Pro";
+  width: 1.25rem;
+  text-align: center;
+  font-size: medium;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.scenes:before {
+  content: "\f279";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.actors:before {
+  content: "\f007";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.items:before {
+  content: "\f0f2";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.tables:before {
+  content: "\f00b";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.journals:before {
+  content: "\f518";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.cards:before {
+  content: "\e3ed";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.playlists:before {
+  content: "\f001";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.macros:before {
+  content: "\f121";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .documenticon.all:before {
+  content: "\f558";
+}
+#kingmaker-hex-hud {
+  background: rgba(0, 0, 0, 0.8);
+  color: #EEE;
+  padding: 0.5rem 1.5rem;
+  font-size: 2rem;
+  border: 2px solid #000;
+  border-radius: 1rem;
+}
+#kingmaker-hex-hud.default {
+  box-shadow: 0 0 16px inset rgba(200, 200, 255, 0.25);
+}
+#kingmaker-hex-hud.claimed {
+  box-shadow: 0 0 16px inset #ff0000;
+}
+#kingmaker-hex-hud .resources.unknown,
+#kingmaker-hex-hud p.item.unknown {
+  background: linear-gradient(to right, transparent, #b189ff15 10%, 90%, transparent);
+}
+#kingmaker-hex-hud .fa-eye-slash,
+#kingmaker-hex-hud .title .unknown {
+  color: #c9aeff;
+}
+#kingmaker-hex-hud .traits {
+  display: flex;
+  gap: 1rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.8rem;
+}
+#kingmaker-hex-hud .traits li {
+  border-left: 0.5rem solid #d8c483;
+  border-right: 0.5rem solid #d8c483;
+  background: #004416;
+  color: white;
+  padding: 0.2rem 0.75rem;
+  text-transform: uppercase;
+  font-family: 'Good OT Cond Bold';
+}
+#kingmaker-hex-hud div.group {
+  border-image: linear-gradient(to right, transparent, #999 10%, 90%, transparent) 1 / 2px 0 0 0;
+}
+#kingmaker-hex-hud div.group:empty {
+  display: none;
+}
+#kingmaker-hex-hud div.group p.item {
+  min-height: 32px;
+  margin: 0;
+  padding: 0.4rem 0;
+}
+#kingmaker-hex-hud div.group p.item i {
+  padding: 14px 0 0 0;
+  flex: 0 0 5rem;
+  text-align: center;
+}
+#kingmaker-hex-hud div.group p.item:first-child {
+  padding-top: 1rem;
+}
+#kingmaker-hex-hud div.group p.item:last-child {
+  padding-bottom: 1rem;
+}
+#kingmaker-hex-hud .flex {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+#kingmaker-hex-hud .flex div {
+  flex: 100%;
+}
+#kingmaker-hex-hud .flex img.terrain {
+  margin: 1rem 0;
+  flex: 0 0 160px;
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+}
+#kingmaker-hex-hud p.item {
+  border-radius: 50px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+#kingmaker-hex-hud p.item span {
+  align-self: center;
+}
+#kingmaker-hex-hud p.item.title {
+  font-size: 2.2rem;
+}
+#kingmaker-hex-hud p.item.title .key,
+#kingmaker-hex-hud p.item.title .value {
+  white-space: nowrap;
+}
+#kingmaker-hex-hud p.item.title i {
+  padding: 2px 0 0 0;
+}
+#kingmaker-hex-hud p.item .key {
+  flex: 1;
+  text-align: left;
+}
+#kingmaker-hex-hud p.item .value {
+  text-align: right;
+  width: 100%;
+}
+#kingmaker-hex-hud p.item .gray {
+  color: #a0a0a0;
+}
+#kingmaker-hex-hud p.item img {
+  height: 4rem;
+  border-radius: 24px;
+}
+#kingmaker-hex-edit legend {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+#kingmaker-hex-edit legend button {
+  font-size: var(--font-size-12);
+  line-height: 1rem;
+}
+#kingmaker-hex-edit form.flexcol {
+  gap: 1rem;
+}
+#kingmaker-hex-edit div.feature {
+  gap: 0.5rem;
+}
+#kingmaker-hex-edit div.feature > select {
+  flex: 0 0 100px;
+  width: 100px;
+}
+#kingmaker-hex-edit div.feature > button {
+  font-size: var(--font-size-12);
+  line-height: 1.5rem;
+  flex: 0 0 2rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table,
+div.adventure-importer.window-app.pf2e-km .window-content table {
+  border-top: unset;
+  border-bottom: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table:not(.noborder) td + td,
+div.adventure-importer.window-app.pf2e-km .window-content table:not(.noborder) td + td {
+  border-left: 1px solid black;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table tr,
+div.adventure-importer.window-app.pf2e-km .window-content table tr {
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table tr td,
+div.adventure-importer.window-app.pf2e-km .window-content table tr td,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table tr th,
+div.adventure-importer.window-app.pf2e-km .window-content table tr th {
+  min-width: 3rem;
+  padding: 0.25rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead,
+div.adventure-importer.window-app.pf2e-km .window-content table thead {
+  border-top: unset;
+  border-bottom: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th p,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th p {
+  font-size: 1rem;
+  font-family: "Roundest Bold";
+  background-color: #004416;
+  color: white;
+  text-align: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th a,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th a,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th p a,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th p a,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th a.inline-roll.roll,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th a.inline-roll.roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th p a.inline-roll.roll,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th p a.inline-roll.roll {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th a i,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th a i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th p a i,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th p a i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th a.inline-roll.roll i,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th a.inline-roll.roll i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table thead th p a.inline-roll.roll i,
+div.adventure-importer.window-app.pf2e-km .window-content table thead th p a.inline-roll.roll i {
+  color: white;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table tbody tr:nth-child(even),
+div.adventure-importer.window-app.pf2e-km .window-content table tbody tr:nth-child(even) {
+  background-color: #e0d5be;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table tbody tr:nth-child(odd),
+div.adventure-importer.window-app.pf2e-km .window-content table tbody tr:nth-child(odd) {
+  background-color: #d9c4a7;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table tbody td,
+div.adventure-importer.window-app.pf2e-km .window-content table tbody td {
+  font-family: "Good OT";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center1 tr :nth-child(1),
+div.adventure-importer.window-app.pf2e-km .window-content table.center1 tr :nth-child(1),
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center2 tr :nth-child(2),
+div.adventure-importer.window-app.pf2e-km .window-content table.center2 tr :nth-child(2),
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center3 tr :nth-child(3),
+div.adventure-importer.window-app.pf2e-km .window-content table.center3 tr :nth-child(3),
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center4 tr :nth-child(4),
+div.adventure-importer.window-app.pf2e-km .window-content table.center4 tr :nth-child(4),
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center5 tr :nth-child(5),
+div.adventure-importer.window-app.pf2e-km .window-content table.center5 tr :nth-child(5),
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.centerall tr td,
+div.adventure-importer.window-app.pf2e-km .window-content table.centerall tr td,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.centerall tr th,
+div.adventure-importer.window-app.pf2e-km .window-content table.centerall tr th {
+  white-space: nowrap;
+  text-align: center;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center1 tr :nth-child(1) p,
+div.adventure-importer.window-app.pf2e-km .window-content table.center1 tr :nth-child(1) p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center2 tr :nth-child(2) p,
+div.adventure-importer.window-app.pf2e-km .window-content table.center2 tr :nth-child(2) p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center3 tr :nth-child(3) p,
+div.adventure-importer.window-app.pf2e-km .window-content table.center3 tr :nth-child(3) p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center4 tr :nth-child(4) p,
+div.adventure-importer.window-app.pf2e-km .window-content table.center4 tr :nth-child(4) p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.center5 tr :nth-child(5) p,
+div.adventure-importer.window-app.pf2e-km .window-content table.center5 tr :nth-child(5) p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.centerall tr td p,
+div.adventure-importer.window-app.pf2e-km .window-content table.centerall tr td p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.centerall tr th p,
+div.adventure-importer.window-app.pf2e-km .window-content table.centerall tr th p {
+  text-align: center;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.mid,
+div.adventure-importer.window-app.pf2e-km .window-content table.mid {
+  width: 80%;
+  margin: auto;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.thin,
+div.adventure-importer.window-app.pf2e-km .window-content table.thin {
+  table-layout: fixed;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.thin th,
+div.adventure-importer.window-app.pf2e-km .window-content table.thin th,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.thin td,
+div.adventure-importer.window-app.pf2e-km .window-content table.thin td {
+  max-width: 100px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content table.static tr > :first-child,
+div.adventure-importer.window-app.pf2e-km .window-content table.static tr > :first-child {
+  width: 170px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside,
+div.adventure-importer.window-app.pf2e-km .window-content > aside,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside {
+  border-top: 0.5rem solid white;
+  border-bottom: 0.5rem solid white;
+  border-image: url(assets/border-aside.webp) 94% 0/1rem 0/0 repeat;
+  background-color: #d9c4a7;
+  border-radius: 8px;
+  padding: 0.1rem 0.7rem;
+  margin: 1rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside h3,
+div.adventure-importer.window-app.pf2e-km .window-content > aside h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside h3,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside h3 {
+  text-align: center;
+  font-family: "Roundest Bold";
+  font-size: 1.1rem;
+  color: #004416;
+  margin: 0.25rem 0 -0.25rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside.left p,
+div.adventure-importer.window-app.pf2e-km .window-content > aside.left p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside.left p,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside.left p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside.right p,
+div.adventure-importer.window-app.pf2e-km .window-content > aside.right p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside.right p,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside.right p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside.left li,
+div.adventure-importer.window-app.pf2e-km .window-content > aside.left li,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside.left li,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside.left li,
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside.right li,
+div.adventure-importer.window-app.pf2e-km .window-content > aside.right li,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside.right li,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside.right li {
+  font-family: "Good OT Cond";
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside ul,
+div.adventure-importer.window-app.pf2e-km .window-content > aside ul,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside ul,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside ul {
+  padding: unset;
+  margin: 0.25rem 0;
+  line-height: 1.2rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content > aside hr,
+div.adventure-importer.window-app.pf2e-km .window-content > aside hr,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > aside hr,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > aside hr {
+  background: repeat-x center / auto 12px url(assets/border-hr.webp);
+  border: unset;
+  height: 100%;
+  width: 100%;
+  min-height: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .left,
+div.adventure-importer.window-app.pf2e-km .window-content .left {
+  float: left;
+  margin: 0 0.75rem 0 0;
+  clear: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .right,
+div.adventure-importer.window-app.pf2e-km .window-content .right {
+  float: right;
+  margin: 0 0 0 0.75rem;
+  clear: right;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .left,
+div.adventure-importer.window-app.pf2e-km .window-content .left,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .right,
+div.adventure-importer.window-app.pf2e-km .window-content .right {
+  max-width: 350px;
+  padding: 0.5rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .left > h3,
+div.adventure-importer.window-app.pf2e-km .window-content .left > h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .right > h3,
+div.adventure-importer.window-app.pf2e-km .window-content .right > h3 {
+  text-align: center;
+  font-family: "Roundest Bold";
+  margin: 0 0 -8px 0;
+  font-size: 1rem;
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt {
+  padding: 0 0.5rem;
+  background-color: #ffffff50;
+  border: 1px #d0550d solid;
+  border-radius: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.thin,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.thin {
+  max-width: 250px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.right,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.right,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.left,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.left {
+  min-width: 250px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt header,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt header {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 1.5rem;
+  border-bottom: 1px solid #d0550d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt header p:first-child,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt header p:first-child {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt header > p,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt header > p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt strong,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .with-repost,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .content-link,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .inline-roll,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .inline-check,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt span[data-visibility]:not([data-visibility=all]),
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .with-repost > i,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .content-link > i,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt h4,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt ::marker,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt ::marker {
+  color: #d0550d;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt header > h4,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt header > h4 {
+  font-size: 1.15rem;
+  text-transform: uppercase;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green {
+  border-color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green header,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green header {
+  border-color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green header > p,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green header > p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green strong,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green .with-repost,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green .content-link,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green .inline-roll,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green .inline-check,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green span[data-visibility]:not([data-visibility=all]),
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green .with-repost > i,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green .content-link > i,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt.green h4,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt.green h4 {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility header > p,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility header > p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility strong,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility .with-repost,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility .with-repost,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility .content-link,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility .content-link,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility .inline-roll,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility .inline-roll,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility .inline-check,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility .inline-check,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility span[data-visibility]:not([data-visibility=all]),
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility span[data-visibility]:not([data-visibility=all]),
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility .with-repost > i,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility .with-repost > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility .content-link > i,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility .content-link > i,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility h4,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility h4 {
+  color: #28005c;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.fvtt .visibility:before,
+div.adventure-importer.window-app.pf2e-km .window-content section.fvtt .visibility:before {
+  content: "\f06e";
+  font: var(--fa-font-solid);
+  color: #28005c;
+  display: inline-block;
+  font-family: "Font Awesome 6 Pro";
+  padding-right: 0.25rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.legend,
+div.adventure-importer.window-app.pf2e-km .window-content section.legend {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.legend div,
+div.adventure-importer.window-app.pf2e-km .window-content section.legend div {
+  flex: 0 0 45%;
+  justify-content: space-around;
+  display: flex;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.legend p,
+div.adventure-importer.window-app.pf2e-km .window-content section.legend p {
+  flex: 1;
+  text-align: left;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.legend img,
+div.adventure-importer.window-app.pf2e-km .window-content section.legend img {
+  filter: invert();
+  flex: 0 0 24px;
+  text-align: right;
+  padding-right: 2px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.legend .caption,
+div.adventure-importer.window-app.pf2e-km .window-content section.legend .caption {
+  text-align: center;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.dialogue,
+div.adventure-importer.window-app.pf2e-km .window-content section.dialogue {
+  text-indent: 1rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.dialogue :not(strong),
+div.adventure-importer.window-app.pf2e-km .window-content section.dialogue :not(strong) {
+  color: #424242;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content dl.list dt,
+div.adventure-importer.window-app.pf2e-km .window-content dl.list dt {
+  float: left;
+  height: 2rem;
+  z-index: 1;
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content dl.list dd,
+div.adventure-importer.window-app.pf2e-km .window-content dl.list dd {
+  overflow: auto;
+  height: 2rem;
+  z-index: 0;
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content dl.list dd p,
+div.adventure-importer.window-app.pf2e-km .window-content dl.list dd p {
+  text-align: right;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content dl.list p,
+div.adventure-importer.window-app.pf2e-km .window-content dl.list p {
+  margin: 6px 0.5rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content dl.list > :nth-child(4n-2),
+div.adventure-importer.window-app.pf2e-km .window-content dl.list > :nth-child(4n-2),
+div.journal-sheet.window-app.pf2e-km .journal-page-content dl.list > :nth-child(4n-3),
+div.adventure-importer.window-app.pf2e-km .window-content dl.list > :nth-child(4n-3) {
+  background: #d2c3aa85;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten {
+  background-image: url("./assets/letter.webp");
+  background-size: 100% 100%;
+  filter: drop-shadow(0 0 4px);
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten.tall,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten.tall {
+  background-image: url("./assets/noteback-tall.webp");
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten.wide,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten.wide {
+  background-image: url("./assets/noteback-wide.webp");
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten p,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten p {
+  font-family: "La Belle Aurore";
+  line-height: 1.5rem;
+  font-size: 1.3rem;
+  color: #5e1100e3;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten .letter-textblock,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten .letter-textblock {
+  display: block;
+  padding-right: 6rem;
+  border: 2px solid #7a0303;
+  padding: 15px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten .letter-textblock span.dropcap,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten .letter-textblock span.dropcap {
+  font: 8rem "Gloucester Initialen", sans-serif;
+  float: left;
+  margin: -10px 5px -10px 0px;
+  color: #7a0303;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten .letter-textblock.formal p,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten .letter-textblock.formal p {
+  font-family: "Prince Valiant", sans-serif;
+  line-height: 1.5rem;
+  font-size: 1.6rem;
+  color: #3b2200;
+  text-shadow: 0 0 black;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten .letter-textblock figure.seal img,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten .letter-textblock figure.seal img {
+  width: 100px;
+  margin: 20px auto;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.handwritten .letter-textblock p.signature,
+div.adventure-importer.window-app.pf2e-km .window-content section.handwritten .letter-textblock p.signature {
+  font-family: "Meddon", script;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.secret,
+div.adventure-importer.window-app.pf2e-km .window-content section.secret {
+  margin: 0.5rem 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) -5%, rgba(120, 50, 160, 0.1) 10% 90%, rgba(0, 0, 0, 0) 105%);
+  border-top: 1px #4F4F4F solid;
+  border-bottom: 1px #4F4F4F solid;
+  padding: 0.5rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.secret strong,
+div.adventure-importer.window-app.pf2e-km .window-content section.secret strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.secret h3,
+div.adventure-importer.window-app.pf2e-km .window-content section.secret h3 {
+  color: #441239;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.secret h3,
+div.adventure-importer.window-app.pf2e-km .window-content section.secret h3 {
+  line-height: 1.5rem;
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.secret button,
+div.adventure-importer.window-app.pf2e-km .window-content section.secret button {
+  height: 1.5rem;
+  position: absolute;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.secret.revealed,
+div.adventure-importer.window-app.pf2e-km .window-content section.secret.revealed {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) -5%, rgba(50, 100, 160, 0.1) 10% 90%, rgba(0, 0, 0, 0) 105%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content p.bio,
+div.adventure-importer.window-app.pf2e-km .window-content p.bio {
+  font-family: "Good OT Italic";
+  font-size: 1.1rem;
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight .flexfill,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight .flexfill {
+  flex: 1 1 100%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight .flex70,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight .flex70 {
+  flex: 1 0 70%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight .flex50,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight .flex50 {
+  flex: 1 0 50%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight .flex40,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight .flex40 {
+  flex: 1 0 40%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight .flex30,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight .flex30 {
+  flex: 1 0 30%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight .thin,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight .thin {
+  flex: 0 0 180px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight > p,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight > p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight article,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight article,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight table,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight table {
+  flex: 1 1 60%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight aside,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight aside,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight figure,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight figure {
+  flex: 1 1 40%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight figure.round img,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight figure.round img {
+  border-radius: 25%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight.half > *,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight.half > * {
+  flex: 1 1 50%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.spotlight.baseline,
+div.adventure-importer.window-app.pf2e-km .window-content section.spotlight.baseline {
+  place-items: baseline;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block,
+div.adventure-importer.window-app.pf2e-km .window-content section.block {
+  box-shadow: 0px 0px 8px 1px #2772343b inset;
+  border-radius: 0;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block img,
+div.adventure-importer.window-app.pf2e-km .window-content section.block img {
+  filter: drop-shadow(0px 0px 4px 0px #004416);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block > h3,
+div.adventure-importer.window-app.pf2e-km .window-content section.block > h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block > header,
+div.adventure-importer.window-app.pf2e-km .window-content section.block > header {
+  padding-bottom: 2px;
+  border-bottom: 1px solid #548433;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block > h3 h3,
+div.adventure-importer.window-app.pf2e-km .window-content section.block > h3 h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block > header h3,
+div.adventure-importer.window-app.pf2e-km .window-content section.block > header h3 {
+  border: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block header,
+div.adventure-importer.window-app.pf2e-km .window-content section.block header {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block p:first-child,
+div.adventure-importer.window-app.pf2e-km .window-content section.block p:first-child,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block h3:first-child,
+div.adventure-importer.window-app.pf2e-km .window-content section.block h3:first-child {
+  margin-top: 0rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block p:last-child,
+div.adventure-importer.window-app.pf2e-km .window-content section.block p:last-child {
+  margin-bottom: 0rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block:first-child,
+div.adventure-importer.window-app.pf2e-km .window-content section.block:first-child {
+  border-radius: 1.25rem 1.25rem 0 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.block:last-child,
+div.adventure-importer.window-app.pf2e-km .window-content section.block:last-child {
+  border-radius: 0 0 1.25rem 1.25rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content article.blockgroup.icons figure,
+div.adventure-importer.window-app.pf2e-km .window-content article.blockgroup.icons figure {
+  flex: 0 0 128px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content article.blockgroup.icons figure img,
+div.adventure-importer.window-app.pf2e-km .window-content article.blockgroup.icons figure img {
+  border-radius: 5%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content article.blockgroup.iconsarray header,
+div.adventure-importer.window-app.pf2e-km .window-content article.blockgroup.iconsarray header {
+  align-items: center;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content article.blockgroup.iconsarray header figure,
+div.adventure-importer.window-app.pf2e-km .window-content article.blockgroup.iconsarray header figure {
+  display: flex;
+  gap: 0.25rem;
+  width: 40px;
+  justify-content: flex-end;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content article.blockgroup.iconsarray header figure img,
+div.adventure-importer.window-app.pf2e-km .window-content article.blockgroup.iconsarray header figure img {
+  border-radius: 30%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .center,
+div.adventure-importer.window-app.pf2e-km .window-content .center {
+  text-align: center;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul > p,
+div.adventure-importer.window-app.pf2e-km .window-content ul > p,
+div.journal-sheet.window-app.pf2e-km .journal-page-content table p,
+div.adventure-importer.window-app.pf2e-km .window-content table p {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.outcomes strong,
+div.adventure-importer.window-app.pf2e-km .window-content ul.outcomes strong,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.event strong,
+div.adventure-importer.window-app.pf2e-km .window-content section.event strong {
+  color: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.outcomes hr,
+div.adventure-importer.window-app.pf2e-km .window-content ul.outcomes hr,
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.event hr,
+div.adventure-importer.window-app.pf2e-km .window-content section.event hr {
+  border-color: #548433;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.outcomes,
+div.adventure-importer.window-app.pf2e-km .window-content ul.outcomes {
+  padding: 0 0.5rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.outcomes p,
+div.adventure-importer.window-app.pf2e-km .window-content ul.outcomes p {
+  margin: 0.25rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.outcomes li,
+div.adventure-importer.window-app.pf2e-km .window-content ul.outcomes li {
+  padding: 0 0 0 0.25rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits {
+  list-style-type: none;
+  display: flex;
+  gap: 0.2rem;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits li,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits li {
+  border-left: 3px solid #d8c483;
+  border-right: 3px solid #d8c483;
+  background: #548433;
+  color: white;
+  padding: 2px 6px 1px 6px;
+  text-transform: uppercase;
+  font-family: 'Good OT Cond Bold';
+  max-height: 24px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits li.rarity,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits li.rarity {
+  background: #662288;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits li.alignment,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits li.alignment {
+  background: #446699;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits li.size,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits li.size {
+  background: #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits li.rarity-unique,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits li.rarity-unique {
+  background: #800080;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits li.rarity-rare,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits li.rarity-rare {
+  background: #0c1466;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content ul.traits li.rarity-uncommon,
+div.adventure-importer.window-app.pf2e-km .window-content ul.traits li.rarity-uncommon {
+  background: #c45500;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content > ul.traits:first-child,
+div.adventure-importer.window-app.pf2e-km .window-content > ul.traits:first-child {
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  line-height: 1.6rem;
+  font-size: 1.6rem;
+  text-align: right;
+  margin: unset;
+  text-transform: uppercase;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content > .subtitle:first-child,
+div.adventure-importer.window-app.pf2e-km .window-content > .subtitle:first-child {
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  line-height: 1.6rem;
+  font-size: 1.6rem;
+  text-align: right;
+  margin: unset;
+  text-transform: uppercase;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .split,
+div.adventure-importer.window-app.pf2e-km .window-content .split {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .split h1,
+div.adventure-importer.window-app.pf2e-km .window-content .split h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .split h2,
+div.adventure-importer.window-app.pf2e-km .window-content .split h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .split h3,
+div.adventure-importer.window-app.pf2e-km .window-content .split h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .split h4,
+div.adventure-importer.window-app.pf2e-km .window-content .split h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content .split p,
+div.adventure-importer.window-app.pf2e-km .window-content .split p {
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .split ul,
+div.adventure-importer.window-app.pf2e-km .window-content .split ul {
+  margin: auto 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content hr,
+div.adventure-importer.window-app.pf2e-km .window-content hr {
+  border-top: none;
+  border-bottom: 1px #548433 solid;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .underlined,
+div.adventure-importer.window-app.pf2e-km .window-content .underlined {
+  border-bottom: 1px solid #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content h2.underlined,
+div.adventure-importer.window-app.pf2e-km .window-content h2.underlined {
+  border-bottom: 2px solid #004416;
+  padding-bottom: 2px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header,
+div.adventure-importer.window-app.pf2e-km .window-content header {
+  margin-bottom: 0.5rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.underlined,
+div.adventure-importer.window-app.pf2e-km .window-content header.underlined {
+  border-bottom: 2px solid #004416;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.underlined h1,
+div.adventure-importer.window-app.pf2e-km .window-content header.underlined h1,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.underlined h2,
+div.adventure-importer.window-app.pf2e-km .window-content header.underlined h2,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.underlined h3,
+div.adventure-importer.window-app.pf2e-km .window-content header.underlined h3,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.underlined h4,
+div.adventure-importer.window-app.pf2e-km .window-content header.underlined h4,
+div.journal-sheet.window-app.pf2e-km .journal-page-content header.underlined p,
+div.adventure-importer.window-app.pf2e-km .window-content header.underlined p {
+  margin: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .clear,
+div.adventure-importer.window-app.pf2e-km .window-content .clear {
+  clear: both;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content hr.clear,
+div.adventure-importer.window-app.pf2e-km .window-content hr.clear {
+  border: none;
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content .noclear,
+div.adventure-importer.window-app.pf2e-km .window-content .noclear {
+  clear: none;
+  overflow: auto;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure img,
+div.adventure-importer.window-app.pf2e-km .window-content figure img {
+  filter: drop-shadow(0px 0px 5px #f0c492);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure.head img,
+div.adventure-importer.window-app.pf2e-km .window-content figure.head img {
+  filter: drop-shadow(0px 0px 5px #004416);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure,
+div.adventure-importer.window-app.pf2e-km .window-content figure {
+  margin: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure.round img,
+div.adventure-importer.window-app.pf2e-km .window-content figure.round img {
+  border-radius: 50%;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure.balance img,
+div.adventure-importer.window-app.pf2e-km .window-content figure.balance img {
+  margin: auto;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure figcaption,
+div.adventure-importer.window-app.pf2e-km .window-content figure figcaption {
+  font-size: 1rem;
+  font-family: "Roundest Bold";
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure.head,
+div.adventure-importer.window-app.pf2e-km .window-content figure.head {
+  margin: 1rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure.head img,
+div.adventure-importer.window-app.pf2e-km .window-content figure.head img {
+  border-radius: 10px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure.right,
+div.adventure-importer.window-app.pf2e-km .window-content figure.right,
+div.journal-sheet.window-app.pf2e-km .journal-page-content figure.left,
+div.adventure-importer.window-app.pf2e-km .window-content figure.left {
+  padding: 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content img,
+div.adventure-importer.window-app.pf2e-km .window-content img {
+  border: unset;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content img.flip,
+div.adventure-importer.window-app.pf2e-km .window-content img.flip {
+  transform: scaleX(-1);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content img.scale150,
+div.adventure-importer.window-app.pf2e-km .window-content img.scale150 {
+  min-width: 150%;
+  margin: -25%;
+  -webkit-mask-image: radial-gradient(black 50%, transparent 60%);
+  mask-image: radial-gradient(black 50%, transparent 60%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content img.scale200,
+div.adventure-importer.window-app.pf2e-km .window-content img.scale200 {
+  min-width: 200%;
+  margin: -50%;
+  -webkit-mask-image: radial-gradient(black 45%, transparent 50%);
+  mask-image: radial-gradient(black 45%, transparent 50%);
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.description,
+section#chat li.chat-message section.description {
+  position: relative;
+  margin: 0.6rem 0;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.description p,
+section#chat li.chat-message section.description p {
+  margin: 8px 0;
+  overflow: auto;
+  color: #9d4433;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.description p:not(:first-child),
+section#chat li.chat-message section.description p:not(:first-child) {
+  text-indent: 1.2rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.description p:first-of-type,
+section#chat li.chat-message section.description p:first-of-type {
+  border-top: 1px solid #9d4433;
+  padding-top: 8px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.description p:last-of-type,
+section#chat li.chat-message section.description p:last-of-type {
+  border-bottom: 1px solid #9d4433;
+  padding-bottom: 7px;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content span.flavor-text div.page,
+section#chat li.chat-message span.flavor-text div.page {
+  width: 100%;
+  background: none;
+  outline: none;
+  height: 2.25rem;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content span.flavor-text div.page a.content-link,
+section#chat li.chat-message span.flavor-text div.page a.content-link {
+  text-align: center;
+  border-radius: 4px;
+  line-height: 1.5rem;
+  display: block;
+  border: 1px solid #a59999;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content span.flavor-text div.page a.content-link:active,
+section#chat li.chat-message span.flavor-text div.page a.content-link:active {
+  background: #c9c4c4;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.description.readout .readoutbutton,
+section#chat li.chat-message section.description.readout .readoutbutton {
+  content: "\f27a";
+  font: normal normal normal 18px/1 FontAwesome;
+  cursor: pointer;
+  color: #7a0303;
+  position: absolute;
+  right: -1.5rem;
+  padding: 0.5rem;
+  visibility: hidden;
+}
+div.journal-sheet.window-app.pf2e-km .journal-page-content section.description.readout:hover .readoutbutton {
+  visibility: initial;
+}
+div.strategy-maps .scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div.strategy-maps .scene img {
+  flex: 0 0 64px;
+  height: 64px;
+}
+div.strategy-maps .scene h4 {
+  font-size: 1rem;
+  text-indent: 0.25rem;
+}

@@ -1,0 +1,77 @@
+<form class="flexcol" autocomplete="off">
+
+    <fieldset>
+        <legend>{{localize 'REALMS.HEXTOOL.Visibility'}}</legend>
+        {{#if hex.page}}
+        <div class="form-group">
+            <label data-tooltip="{{localize 'REALMS.HEXTOOL.ShowEncounterTooltip'}}" aria-label="{{localize 'REALMS.HEXTOOL.ShowEncounterTooltip'}}">{{localize 'REALMS.HEXTOOL.ShowEncounter'}}</label>
+            <input type="checkbox" name="showEncounter" {{checked hex.showEncounter}}>
+        </div>
+        {{/if}}
+        <div class="form-group">
+            <label data-tooltip="{{localize 'REALMS.HEXTOOL.ShowResourcesTooltip'}}" aria-label="{{localize 'REALMS.HEXTOOL.ShowResourcesTooltip'}}">{{localize 'REALMS.HEXTOOL.ShowResources'}}</label>
+            <input type="checkbox" name="showResources" {{checked hex.showResources}}>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>{{localize 'REALMS.HEXTOOL.Exploration'}}</legend>
+        <div class="form-group">
+            <label data-tooltip="{{localize 'REALMS.HEXTOOL.ExplorationStatusTooltip'}}" aria-label="{{localize 'REALMS.HEXTOOL.ExplorationStatusTooltip'}}">{{localize 'REALMS.HEXTOOL.ExplorationStatus'}}</label>
+            <div class="form-fields">
+                <select name="exploration">
+                    {{selectOptions explorationStates selected=hex.exploration nameAttr="value" labelAttr="label" localize=true}}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-tooltip="{{localize 'REALMS.HEXTOOL.ClearedTooltip'}}" aria-label="{{localize 'REALMS.HEXTOOL.ClearedTooltip'}}">{{localize 'REALMS.HEXTOOL.Cleared'}}</label>
+            <input type="checkbox" name="cleared" {{checked hex.cleared}}>
+        </div>
+        <div class="form-group">
+            <label data-tooltip="{{localize 'REALMS.HEXTOOL.ClaimedTooltip'}}" aria-label="{{localize 'REALMS.HEXTOOL.ClaimedTooltip'}}">{{localize 'REALMS.HEXTOOL.Claimed'}}</label>
+            <input type="checkbox" name="claimed" {{checked hex.claimed}}>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>{{localize 'REALMS.HEXTOOL.Resources'}}</legend>
+        <div class="form-group">
+            <label>{{localize 'REALMS.HEXTOOL.Commodities'}}</label>
+            <div class="form-fields">
+                <select name="commodity">
+                    {{selectOptions commodities selected=hex.commodity nameAttr="id" labelAttr="label" localize=true blank=""}}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{localize 'REALMS.HEXTOOL.Camp'}}</label>
+            <div class="form-fields">
+                <select name="camp">
+                    {{selectOptions camps selected=hex.camp nameAttr="id" labelAttr="label" localize=true blank=""}}
+                </select>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            {{localize 'REALMS.HEXTOOL.Features'}}
+            <button type="button" data-action="addFeature">
+                <i class="fa-solid fa-plus"></i>
+                <span>{{localize 'REALMS.HEXTOOL.Add'}}</span>
+            </button>
+        </legend>
+        {{#each hex.features as |feature i|}}
+        {{> (lookup @root "featurePartial") id=i type=feature.type name=feature.name discovered=feature.discovered
+                features=@root.features}}
+        {{/each}}
+    </fieldset>
+
+    <footer>
+        <button type="submit">
+            <i class="fa-solid fa-save"></i>
+            <span>{{localize 'REALMS.HEXTOOL.Save'}}</span>
+        </button>
+    </footer>
+</form>
