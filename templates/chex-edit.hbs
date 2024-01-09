@@ -96,7 +96,7 @@
         {{#each hex.forageables as |item index|}}
             <div class="form-group">
                 <select name="forageables.{{index}}.type">
-                    {{selectOptions forageables selected=item.type labelAttr="label" blank=""}}
+                    {{selectOptions resources selected=item.type labelAttr="label" blank=""}}
                 </select>
                 <input type="text" name="forageables.{{index}}.name" value="{{name}}">
                 <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="forageables.{{id}}.show" {{checked item.show}}>
