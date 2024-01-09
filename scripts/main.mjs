@@ -1,3 +1,4 @@
+import ChexLayer from "./chex-layer.mjs";
 import * as C from "./const.mjs";
 import ChexData from "./hex-data.mjs";
 import ChexHexEdit from "./hex-edit.mjs";
@@ -20,6 +21,7 @@ Hooks.once("ready", async function() {
 });
 
 Hooks.once("setup", function() {
+    if (!CONFIG.Canvas.layers.chex) CONFIG.Canvas.layers.chex = { layerClass: ChexLayer, group: "interface" };
     chex.manager = new ChexManager();
 });
 

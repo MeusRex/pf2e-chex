@@ -1,0 +1,114 @@
+<form class="flexcol" autocomplete="off">
+    <fieldset>
+        <legend>{{localize 'CHEX.HEXEDIT.Exploration'}}</legend>
+        <div class="form-group">
+            <label data-tooltip="CHEX.HEXEDIT.ExplorationTooltip">{{localize 'CHEX.HEXEDIT.Exploration'}}</label>
+            <div class="form-fields">
+                <select name="exploration">
+                    {{selectOptions explorationStates selected=hex.exploration nameAttr="value" labelAttr="label" }}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label data-tooltip="CHEX.HEXEDIT.ClearedTooltip">{{localize 'CHEX.HEXEDIT.Cleared'}}</label>
+            <input type="checkbox" name="cleared" {{checked hex.cleared}}>
+        </div>
+
+        <div class="form-group">
+            <label data-tooltip="CHEX.HEXEDIT.ClaimedTooltip">{{localize 'CHEX.HEXEDIT.Claimed'}}</label>
+            <div class="form-fields">
+                <select name="claimed">
+                    {{selectOptions claimees selected=hex.claimed nameAttr="id" labelAttr="label" blank=""}}
+                </select>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            {{localize 'CHEX.HEXEDIT.Improvements'}}
+            <button type="button" data-action="addImprovement">
+                <i class="fa-solid fa-plus"/>
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each hex.improvements as |item index|}}
+            <div class="form-group">
+                <select name="improvements.{{index}}.type">
+                    {{selectOptions improvements selected=item.type labelAttr="label" blank=""}}
+                </select>
+                <input type="text" name="improvements.{{index}}.name" value="{{name}}">
+                <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="improvements.{{id}}.show" {{checked item.show}}>
+                <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="icon fa-solid fa-times" data-action="deleteImprovement"/>
+            </div>
+        {{/each}}
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            {{localize 'CHEX.HEXEDIT.Features'}}
+            <button type="button" data-action="addFeature">
+                <i class="fa-solid fa-plus"/>
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each hex.features as |item index|}}
+            <div class="form-group">
+                <select name="features.{{index}}.type">
+                    {{selectOptions features selected=item.type labelAttr="label" blank=""}}
+                </select>
+                <input type="text" name="features.{{index}}.name" value="{{name}}">
+                <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="features.{{id}}.show" {{checked item.show}}>
+                <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="icon fa-solid fa-times" data-action="deleteFeature"/>
+            </div>
+        {{/each}}
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            {{localize 'CHEX.HEXEDIT.Resources'}}
+            <button type="button" data-action="addResource">
+                <i class="fa-solid fa-plus"/>
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each hex.resources as |item index|}}
+            <div class="form-group">
+                <select name="resources.{{index}}.type">
+                    {{selectOptions resources selected=item.type labelAttr="label" blank=""}}
+                </select>
+                <input type="text" name="resources.{{index}}.name" value="{{name}}">
+                <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="resources.{{id}}.show" {{checked item.show}}>
+                <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="icon fa-solid fa-times" data-action="deleteResource"/>
+            </div>
+        {{/each}}
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            {{localize 'CHEX.HEXEDIT.Forageables'}}
+            <button type="button" data-action="addForageable">
+                <i class="fa-solid fa-plus"/>
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each hex.forageables as |item index|}}
+            <div class="form-group">
+                <select name="forageables.{{index}}.type">
+                    {{selectOptions forageables selected=item.type labelAttr="label" blank=""}}
+                </select>
+                <input type="text" name="forageables.{{index}}.name" value="{{name}}">
+                <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="forageables.{{id}}.show" {{checked item.show}}>
+                <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="icon fa-solid fa-times" data-action="deleteForageable"/>
+            </div>
+        {{/each}}
+    </fieldset>
+
+    <footer>
+        <button type="submit">
+            <i class="fa-solid fa-save"></i>
+            <span>{{localize 'CHEX.HEXEDIT.Save'}}</span>
+        </button>
+    </footer>
+</form>

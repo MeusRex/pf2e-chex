@@ -100,11 +100,19 @@ export default class ChexHexHUD extends Application {
       this.hex = hex;
 
       if ( this.enabled ) {
-        const {x, y} = hex.topLeft;
+        let {x, y} = hex.topLeft;
         const options = {left: x + hex.config.width + 20, top: y};
         // Highlights this hex  
         canvas.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
         canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(hex.color)});
+
+        if (chex.manager.pendingPatches.length > 0) {
+          chex.manager.pendingPatches.forEach(patch => {
+            let {x, y} = patch.hex.topLeft;
+            canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(C.TERRAIN[patch.patch.terrain].color)});
+          });
+        }
+
         return this._render(true, options);
       }
     }

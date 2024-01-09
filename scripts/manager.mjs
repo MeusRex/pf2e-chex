@@ -1,3 +1,4 @@
+import ChexLayer from "./chex-layer.mjs";
 import * as C from "./const.mjs";
 import ChexData from "./hex-data.mjs";
 import ChexHexEdit from "./hex-edit.mjs";
@@ -61,7 +62,6 @@ export default class ChexManager {
 
     _extendSceneControlButtons(buttons) {
         const tokens = buttons.find(b => b.name === "token");
-        this.#chexToolkit = buttons.find(b => b.name === "notes");
 
         if (this.active) {
 
@@ -119,31 +119,42 @@ export default class ChexManager {
             tokens.tools.push(this.#showChexDetailsTool, this.#showKingdomTool, this.#showTerrainTool, this.#showTravelTool);
         }
 
-        this.#enableChexTool = {
-            name: "chexEnable",
-            title: "CHEX.TOOLS.EnableChex",
-            icon: "fa-solid fa-chart-area",
-            visible: true,
-            toggle: true,
-            active: this.active,
-            onClick: async () => this.#enableChex()
-        }
-
-        this.#chexToolkit.tools.push(this.#enableChexTool);
-
-        // add terrain tools
-        if (this.active) {
-            for (const terrainKey in C.TERRAIN) {
-                if (C.TERRAIN.hasOwnProperty(terrainKey)) {
-                    const terrain = C.TERRAIN[terrainKey];
-                    const tool = {
-                        name: terrain.id,
-                        title: terrain.toolLabel,
-                        icon: terrain.toolIcon,
-                    };
-                    this.#chexToolkit.tools.push(tool);
+        if (game.user.isGM) {
+            
+            const toolBox = {
+                name: "chexTools",
+                title: "CHEX.TOOLS.ChexTools",
+                icon: "fas fa-hat-wizard",
+                layer: "chex",
+                tools: [
+                    {
+                        name: "chexEnable",
+                        title: "CHEX.TOOLS.EnableChex",
+                        icon: "fa-solid fa-chart-area",
+                        visible: true,
+                        toggle: true,
+                        active: this.active,
+                        onClick: async () => this.#enableChex()
+                    }
+                ]
+            }
+            
+            // add terrain tools
+            if (this.active) {
+                for (const terrainKey in C.TERRAIN) {
+                    if (C.TERRAIN.hasOwnProperty(terrainKey)) {
+                        const terrain = C.TERRAIN[terrainKey];
+                        const tool = {
+                            name: terrain.id,
+                            title: terrain.toolLabel,
+                            icon: terrain.toolIcon,
+                        };
+                        toolBox.tools.push(tool);
+                    }
                 }
             }
+
+            buttons.push(toolBox);
         }
 
     }
@@ -231,7 +242,7 @@ export default class ChexManager {
         }
         else if ( hex !== this.hoveredHex ) {
             if (this.#isMouseDown) {
-                this.#paintTerrain(hex);
+                this.#paintTerrainDeferred(hex);
             }
             this.hud.activate(hex);
         }
@@ -242,7 +253,7 @@ export default class ChexManager {
         this.#isMouseDown = true;
         if ( !this.hoveredHex ) return;
 
-        if (this.#paintTerrain(this.hoveredHex)) return;
+        if (this.#paintTerrainDeferred(this.hoveredHex)) return;
 
         const t0 = this.#clickTime;
         const t1 = this.#clickTime = Date.now();
@@ -254,30 +265,43 @@ export default class ChexManager {
 
     #onMouseUp(event) {
         this.#isMouseDown = false;
+        this.#paintTerrainDeferredEnd();
     }
 
-    #paintTerrain(hex) {
-        if (hex) {   
-            if (canvas.activeLayer.name === "NotesLayer") {
+    pendingPatches = [];
+    #paintTerrainDeferredEnd() {
+        if (this.pendingPatches.length > 0) {
+            const patches = this.pendingPatches.reduce((result, item) => {
+                result.hexes[item.key] = item.patch;
+                return result;
+            }, { hexes: {} });
+
+            canvas.scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, patches);
+        }
+
+        this.pendingPatches = [];
+    }
+
+    #paintTerrainDeferred(hex) {
+        if (hex) {
+            if (canvas.activeLayer.name === ChexLayer.name) {
                 const activeTool = ui.controls.tool;
-                if (C.TERRAIN[activeTool]) {
+                if (C.TERRAIN[activeTool] && hex.hexData.terrain !== activeTool) {
                     const patch = {
                         terrain: activeTool,
                         travel: C.TERRAIN[activeTool].travel
                     };
                     
-                    let key = ChexData.getKey(hex.offset);
-                    canvas.scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, {
-                        hexes: {
-                          [key]: patch
-                        }
-                      });
+                    const key = ChexData.getKey(hex.offset);
 
-                    return true;
+                    this.pendingPatches.push({
+                        hex: hex,
+                        key: key,
+                        patch: patch
+                    });
                 }
             }
         }
-        return false;
     }
 
     getHexFromPoint(point) {
