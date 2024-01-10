@@ -1,6 +1,12 @@
 import ChexLayer from "./chex-layer.mjs";
 import * as C from "./const.mjs";
-import ChexData from "./hex-data.mjs";
+import { Feature } from "./customizables/features.mjs";
+import { Improvement } from "./customizables/improvements.mjs";
+import { Realm } from "./customizables/realms.mjs";
+import { Resource } from "./customizables/resources.mjs";
+import { Terrain } from "./customizables/terrain.mjs";
+import { Travel } from "./customizables/travel.mjs";
+import ChexData, { ChexImprovement } from "./hex-data.mjs";
 import ChexHexEdit from "./hex-edit.mjs";
 import ChexHexHUD from "./hex-hud.mjs";
 import ChexManager from "./manager.mjs";
@@ -12,7 +18,63 @@ const MODULE_ID = "pf2e-chex";
 Hooks.once("init", function() {
     globalThis.chex = game.modules.get(MODULE_ID);
 
-    chex.CSS_CLASS = "pf2e-km";    
+    chex.CSS_CLASS = "pf2e-km";
+
+    // setup settings
+    game.settings.register(MODULE_ID, Feature.name, {
+        name: Feature.name,
+        scope: "world",
+        config: false,
+        requiresReload: false,
+        type: Object,
+        default: Feature.getDefaults()
+    });
+
+    game.settings.register(MODULE_ID, Improvement.name, {
+        name: Improvement.name,
+        scope: "world",
+        config: false,
+        requiresReload: false,
+        type: Object,
+        default: Improvement.getDefaults()
+    });
+
+    game.settings.register(MODULE_ID, Realm.name, {
+        name: Realm.name,
+        scope: "world",
+        config: false,
+        requiresReload: false,
+        type: Object,
+        default: Realm.getDefaults()
+    });
+
+    game.settings.register(MODULE_ID, Resource.name, {
+        name: Resource.name,
+        scope: "world",
+        config: false,
+        requiresReload: false,
+        type: Object,
+        default: Resource.getDefaults()
+    });
+
+    game.settings.register(MODULE_ID, Terrain.name, {
+        name: Terrain.name,
+        scope: "world",
+        config: false,
+        requiresReload: false,
+        type: Object,
+        default: Terrain.getDefaults()
+    });
+
+    game.settings.register(MODULE_ID, Travel.name, {
+        name: Travel.name,
+        scope: "world",
+        config: false,
+        requiresReload: false,
+        type: Object,
+        default: Travel.getDefaults()
+    });
+    
 });
 
 Hooks.once("ready", async function() {

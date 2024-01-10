@@ -13,10 +13,10 @@ export class Improvement {
 
     static getDefaults() {
         return {
-            road: new Improvement("road", "Road", "", "travel: -1"),
-            mine: new Improvement("mine", "Mine", "ore: +1", ""),
-            quarry: new Improvement("quarry", "Quarry", "stone: +1", ""),
-            lumbercamp: new Improvement("lumbercamp", "Lumbercamp", "lumber: +1")
+            road: new Improvement("road", "Road", "icons/environment/wilderness/terrain-river-road-gray.webp", "travel: -1"),
+            mine: new Improvement("mine", "Mine", "icons/environment/wilderness/mine-exterior-entrance.webp", "ore: +1"),
+            quarry: new Improvement("quarry", "Quarry", "icons/environment/settlement/quarry.webp", "stone: +1"),
+            lumbercamp: new Improvement("lumbercamp", "Lumbercamp", "icons/environment/settlement/lumbermill.webp", "lumber: +1")
         };
     }
 }

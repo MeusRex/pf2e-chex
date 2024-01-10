@@ -34,7 +34,7 @@
             </button>
         </legend>
         {{#each hex.improvements as |item index|}}
-            <div class="form-group">
+            <div class="form-group feature">
                 <select name="improvements.{{index}}.type">
                     {{selectOptions improvements selected=item.type labelAttr="label" blank=""}}
                 </select>
@@ -54,7 +54,7 @@
             </button>
         </legend>
         {{#each hex.features as |item index|}}
-            <div class="form-group">
+            <div class="form-group feature">
                 <select name="features.{{index}}.type">
                     {{selectOptions features selected=item.type labelAttr="label" blank=""}}
                 </select>
@@ -74,7 +74,7 @@
             </button>
         </legend>
         {{#each hex.resources as |item index|}}
-            <div class="form-group">
+            <div class="form-group feature">
                 <select name="resources.{{index}}.type">
                     {{selectOptions resources selected=item.type labelAttr="label" blank=""}}
                 </select>
@@ -94,7 +94,7 @@
             </button>
         </legend>
         {{#each hex.forageables as |item index|}}
-            <div class="form-group">
+            <div class="form-group feature">
                 <select name="forageables.{{index}}.type">
                     {{selectOptions resources selected=item.type labelAttr="label" blank=""}}
                 </select>

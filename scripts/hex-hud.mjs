@@ -11,7 +11,7 @@ export default class ChexHexHUD extends Application {
       return foundry.utils.mergeObject(super.defaultOptions, {
         id: "kingmaker-hex-hud",
         classes: [chex.CSS_CLASS],
-        template: "modules/pf2e-realms/templates/hex-hud.hbs",
+        template: "modules/pf2e-chex/templates/hex-hud.hbs",
         popOut: false,
         width: 760,
         height: "auto"
