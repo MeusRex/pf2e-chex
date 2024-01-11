@@ -110,27 +110,3 @@
   border-radius: 24px;
 }
 
-#kingmaker-hex-edit legend {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-#kingmaker-hex-edit legend button {
-  font-size: var(--font-size-12);
-  line-height: 1rem;
-}
-#kingmaker-hex-edit form.flexcol {
-  gap: 1rem;
-}
-#kingmaker-hex-edit div.feature {
-  gap: 0.5rem;
-}
-#kingmaker-hex-edit div.feature > select {
-  flex: 0 0 100px;
-  width: 100px;
-}
-#kingmaker-hex-edit div.feature > button {
-  font-size: var(--font-size-12);
-  line-height: 1.5rem;
-  flex: 0 0 2rem;
-}

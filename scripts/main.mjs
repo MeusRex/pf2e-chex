@@ -16,18 +16,22 @@ import ChexSceneData from "./scene-data.mjs";
 const MODULE_ID = "pf2e-chex";
 
 Hooks.once("init", function() {
+    // register for all, in case someone wants to get wild
     globalThis.chex = game.modules.get(MODULE_ID);
 
     chex.CSS_CLASS = "pf2e-km";
 
-    // setup settings
+    // setup customizables. Stored in settings as they are not linked with anyone scene
     game.settings.register(MODULE_ID, Feature.name, {
         name: Feature.name,
         scope: "world",
         config: false,
         requiresReload: false,
         type: Object,
-        default: Feature.getDefaults()
+        default: Feature.getDefaults(),
+        onChange: value => {
+            chex.features = value;
+        }
     });
 
     game.settings.register(MODULE_ID, Improvement.name, {
@@ -36,7 +40,10 @@ Hooks.once("init", function() {
         config: false,
         requiresReload: false,
         type: Object,
-        default: Improvement.getDefaults()
+        default: Improvement.getDefaults(),
+        onChange: value => {
+            chex.improvements = value;
+        }
     });
 
     game.settings.register(MODULE_ID, Realm.name, {
@@ -45,7 +52,10 @@ Hooks.once("init", function() {
         config: false,
         requiresReload: false,
         type: Object,
-        default: Realm.getDefaults()
+        default: Realm.getDefaults(),
+        onChange: value => {
+            chex.realms = value;
+        }
     });
 
     game.settings.register(MODULE_ID, Resource.name, {
@@ -54,7 +64,10 @@ Hooks.once("init", function() {
         config: false,
         requiresReload: false,
         type: Object,
-        default: Resource.getDefaults()
+        default: Resource.getDefaults(),
+        onChange: value => {
+            chex.resources = value;
+        }
     });
 
     game.settings.register(MODULE_ID, Terrain.name, {
@@ -63,7 +76,10 @@ Hooks.once("init", function() {
         config: false,
         requiresReload: false,
         type: Object,
-        default: Terrain.getDefaults()
+        default: Terrain.getDefaults(),
+        onChange: value => {
+            chex.terrains = value;
+        }
     });
 
     game.settings.register(MODULE_ID, Travel.name, {
@@ -72,7 +88,10 @@ Hooks.once("init", function() {
         config: false,
         requiresReload: false,
         type: Object,
-        default: Travel.getDefaults()
+        default: Travel.getDefaults(),
+        onChange: value => {
+            chex.travels = value;
+        }
     });
     
 });
@@ -83,8 +102,20 @@ Hooks.once("ready", async function() {
 });
 
 Hooks.once("setup", function() {
-    if (!CONFIG.Canvas.layers.chex) CONFIG.Canvas.layers.chex = { layerClass: ChexLayer, group: "interface" };
+    // register own layer for UI controls. Only register if it doesn't exist yet.
+    if (!CONFIG.Canvas.layers.chex)  {
+        CONFIG.Canvas.layers.chex = { layerClass: ChexLayer, group: "interface" };
+    }
+    
     chex.manager = new ChexManager();
+
+    // set up customizables
+    chex.features = game.settings.get(MODULE_ID, Feature.name);
+    chex.improvements = game.settings.get(MODULE_ID, Improvement.name);
+    chex.realms = game.settings.get(MODULE_ID, Realm.name);
+    chex.resources = game.settings.get(MODULE_ID, Resource.name);
+    chex.terrains = game.settings.get(MODULE_ID, Terrain.name);
+    chex.travels = game.settings.get(MODULE_ID, Travel.name);
 });
 
 Hooks.on("canvasReady", () => chex.manager._onReady());
