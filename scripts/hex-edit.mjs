@@ -117,7 +117,7 @@ _attach(html, control) {
           const html = await renderTemplate(ChexHexEdit.forageablesFrag, {
             id: foundry.utils.randomID(),
             amount: 1,
-            resources: chex.resources
+            forageables: chex.resources
           });
           this._attach(html, control);
           break;

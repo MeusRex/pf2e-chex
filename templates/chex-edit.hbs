@@ -57,7 +57,7 @@
             </button>
         </legend>
         {{#each hex.resources as |item3 i3|}}
-            {{> (lookup @root "resourcesFrag") id=i key=item3.id3 amount=item3.amount show=item3.show resources=@root.resources}}
+            {{> (lookup @root "resourcesFrag") id=i key=item3.id amount=item3.amount show=item3.show resources=@root.resources}}
         {{/each}}
     </fieldset>
 
@@ -69,7 +69,7 @@
             </button>
         </legend>
         {{#each hex.forageables as |item4 i4|}}
-            {{> (lookup @root "forageablesFrag") id=i4 key=item4.id amount=item4.amount show=item4.show resources=@root.resources}}
+            {{> (lookup @root "forageablesFrag") id=i4 key=item4.id amount=item4.amount show=item4.show forageables=@root.resources}}
         {{/each}}
     </fieldset>
 
