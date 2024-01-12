@@ -141,12 +141,12 @@ export default class ChexManager {
             
             // add terrain tools
             if (this.active) {
-                for (const terrainKey in C.TERRAIN) {
-                    if (C.TERRAIN.hasOwnProperty(terrainKey)) {
-                        const terrain = C.TERRAIN[terrainKey];
+                for (const terrainKey in chex.terrains) {
+                    if (chex.terrains.hasOwnProperty(terrainKey)) {
+                        const terrain = chex.terrains[terrainKey];
                         const tool = {
                             name: terrain.id,
-                            title: terrain.toolLabel,
+                            title: terrain.label + " Tool",
                             icon: terrain.toolIcon,
                         };
                         toolBox.tools.push(tool);
@@ -170,8 +170,13 @@ export default class ChexManager {
             canvas.scene.unsetFlag(C.MODULE_ID, C.CHEX_DATA_KEY);
         }
         else {
-            // add chex
-            const sceneData = ChexSceneData.create(canvas.scene)
+            if (canvas.grid.type === 2) {
+                // add chex
+                const sceneData = ChexSceneData.create(canvas.scene)
+            }
+            else {
+                // message that it wont work with other grids currently
+            }
         }
 
         this._onReady();
@@ -286,10 +291,10 @@ export default class ChexManager {
         if (hex) {
             if (canvas.activeLayer.name === ChexLayer.name) {
                 const activeTool = ui.controls.tool;
-                if (C.TERRAIN[activeTool] && hex.hexData.terrain !== activeTool) {
+                if (chex.terrains[activeTool] && hex.hexData.terrain !== activeTool) {
                     const patch = {
                         terrain: activeTool,
-                        travel: C.TERRAIN[activeTool].travel
+                        travel: chex.terrains[activeTool].travel
                     };
                     
                     const key = ChexData.getKey(hex.offset);

@@ -55,7 +55,7 @@ export default class ChexKingdomLayer extends PIXI.Container {
         const hexGroup = groupedHexes[realmId];
     
         // Assuming ChexKingdomLayer is the class containing the #drawSub method
-        this.#drawSub(g, hexGroup, C.REALMS[realmId].color);
+        this.#drawSub(g, hexGroup, chex.realms[realmId].color);
       }
     }
   }
@@ -81,7 +81,7 @@ export default class ChexKingdomLayer extends PIXI.Container {
         const hexGroup = groupedHexes[terrainId];
     
         // Assuming ChexKingdomLayer is the class containing the #drawSub method
-        this.#drawSub(g, hexGroup, C.TERRAIN[terrainId].color);
+        this.#drawSub(g, hexGroup, chex.terrains[terrainId].color);
       }
     }
   }
@@ -107,7 +107,7 @@ export default class ChexKingdomLayer extends PIXI.Container {
         const hexGroup = groupedHexes[travelId];
     
         // Assuming ChexKingdomLayer is the class containing the #drawSub method
-        this.#drawSub(g, hexGroup, C.TRAVEL[travelId].color);
+        this.#drawSub(g, hexGroup, chex.travels[travelId].color);
       }
     }
   }

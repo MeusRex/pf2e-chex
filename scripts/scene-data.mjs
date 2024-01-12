@@ -15,19 +15,16 @@ export default class ChexSceneData {
     static create(scene) {
         var data = new ChexSceneData();
         const dimensions = scene.dimensions;
-        const rect = dimensions.rect;
 
         data.sceneId = scene.id;
-        data.type = rect.type;
-        data.size = dimensions.size;
-        data.width = rect.width;
-        data.height = rect.height;
-        data.numRows = data.width / data.size;
-
-        // depends on grid type
-
-        data.numCols = data.height / (0.866 * data.size); // sqrt(3)/2 * size is the formula for a tightly packed hexgrid
-        data.numCols += 1; // +1 because we need to round up, since the calculation is just an aproximation. +2 because we want to have the last partial column too.
+        data.type = scene.grid.type;
+        data.size = scene.grid.size;
+        data.width = dimensions.width;
+        data.height = dimensions.height;
+        // Hexagonal Rows - Odd (type 2)
+        // since the pointy part points up, 
+        data.numRows = Math.ceil(data.height / (0.866 * data.size)); // sqrt(3)/2 * size is the formula for a tightly packed hexgrid
+        data.numCols = Math.ceil(data.width / data.size);
 
         const config = HexagonalGrid.getConfig(data.type, data.size);
 

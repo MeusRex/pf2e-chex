@@ -15,10 +15,6 @@ export class Terrain {
     travel;
     color;
 
-    get toolLabel() {
-        return label + " Tool";
-    }
-
     static getDefaults() {
         return {
             plains: new Terrain("plains", "Plains", "icons/environment/settlement/scarecrow.webp", "fa-solid fa-road", "open", "#66ff00"),

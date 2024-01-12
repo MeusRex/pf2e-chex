@@ -1,0 +1,48 @@
+<aside id="{{id}}" class="{{cssClass}}">
+    <div>
+        <p class="title item">
+            <span class="value gray">{{localize "CHEX.HUD.Hex"}}</span>
+        </p>
+    </div>
+
+    <div class="group flex">
+        <div>
+            <p class="item">
+                <span class="gray key">{{localize "CHEX.HUD.Terrain"}}</span>
+                <span class="value">{{hex.terrain.label}}</span>
+            </p>
+            <p class="item">
+                <span class="gray key">{{localize "CHEX.HUD.Travel"}}</span>
+                <span class="value">{{hex.travel.label}}</span>
+            </p>
+            <p class="item">
+                <span class="gray key">{{localize "CHEX.HUD.TravelMultiplier"}}</span>
+                <span class="value">x{{hex.travel.multiplier}}</span>
+            </p>
+        </div>
+        <img class="terrain" src="{{hex.terrain.img}}">
+    </div>
+
+    <div class="group">
+        {{#if explored}}
+        <p class="item">
+            <span class="key">{{localize "CHEX.HUD.Explored"}}</span>
+            <span class="value">{{localize hex.explorationState.label}}</span>
+        </p>
+        {{/if}}
+        {{#if hex.hexData.cleared}}
+        <p class="item">
+            <span class="key">{{localize "CHEX.HUD.Cleared"}}</span>
+            <i class="fa-solid fa-check"></i>
+        </p>
+        {{/if}}
+        {{#if hex.hexData.claimed}}
+        <p class="item">
+            <span class="key">{{localize "CHEX.HUD.Claimed"}}</span>
+            <i class="fa-solid fa-flag"></i>
+        </p>
+        {{/if}}
+    </div>
+
+    
+</aside>

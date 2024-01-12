@@ -38,19 +38,19 @@ export default class ChexHex extends GridHex {
     }
 
     get terrain() {
-        return C.TERRAIN[this.hexData.terrain];
+        return chex.terrains[this.hexData.terrain];
     }
 
     get travel() {
-        return C.TRAVEL[this.hexData.travel];
+        return chex.travels[this.hexData.travel];
     }
 
     get difficulty() {
-        return C.TRAVEL[this.hexData.difficulty];
+        return chex.travels[this.hexData.travel].label;
     }
 
-    get discoveryTrait() {
-        return C.DISCOVERY_TRAITS[this.hexData.discoveryTrait];
+    get multiplier() {
+        return chex.travels[this.hexData.travel].multiplierM
     }
 
     get explorationState() {
@@ -58,7 +58,8 @@ export default class ChexHex extends GridHex {
     }
 
     get color() {
-        return Color.from(this.hexData.color);
+        // maybe possible to set via settings. Then user can choose color depending on scene
+        return Color.from("#ff0000");
     }
 
     toString() {
