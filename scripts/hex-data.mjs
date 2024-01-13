@@ -41,12 +41,12 @@ export default class ChexData {
     improvements = [];
     /**
      * List of resources available on the hex. These are hidden until surveyed
-     * @type {ChexResource}
+     * @type {ChexResource[]}
      */
     resources = [];
     /**
      * Resources that the party/kingdom receives once the hex is visited
-     * @type {ChexResource}
+     * @type {ChexResource[]}
      */
     forageables = [];
 }

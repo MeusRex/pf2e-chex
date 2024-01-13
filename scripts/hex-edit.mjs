@@ -55,6 +55,9 @@ export default class ChexHexEdit extends FormApplication {
 
   async _updateObject(event, formData) {
       formData = foundry.utils.expandObject(formData);
+      if (formData.exploration) {
+        formData.exploration = +formData.exploration;
+      }
       formData.improvements = formData.improvements ? Object.values(formData.improvements) : [];
       formData.features = formData.features ? Object.values(formData.features) : [];
       formData.resources = formData.resources ? Object.values(formData.resources) : [];

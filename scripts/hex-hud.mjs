@@ -1,5 +1,6 @@
 import * as C from "./const.mjs";
 import ChexHex from "./hex.mjs";
+import ChexInstructionParser, { KEY_INCOME } from "./instruction-parser.mjs";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
@@ -11,7 +12,7 @@ export default class ChexHexHUD extends Application {
       return foundry.utils.mergeObject(super.defaultOptions, {
         id: "kingmaker-hex-hud",
         classes: [chex.CSS_CLASS],
-        template: "modules/pf2e-chex/templates/hex-hud.hbs",
+        template: "modules/pf2e-chex/templates/chex-hud.hbs",
         popOut: false,
         width: 760,
         height: "auto"
@@ -54,25 +55,92 @@ export default class ChexHexHUD extends Application {
   
     /** @inheritdoc */
     getData(options = {}) {
+      const visibleFrag = 'fa-eye';
+      const hiddenFrag = 'fa-eye-slash';
       const data = this.hex.hexData;
+      const isGM = game.user.isGM;
+
+      const terrain = {
+        label: chex.terrains[data.terrain].label,
+        img: chex.terrains[data.terrain].img
+      };
+
+      const currentTravel = ChexInstructionParser.getTravel(data);
+      const travel = {
+        label: chex.travels[currentTravel].label,
+        multiplier: chex.travels[currentTravel].multiplier
+      };
+
+      const explorationState = {
+        explored: data.exploration > 0,
+        label: Object.values(C.EXPLORATION_STATES).find(v => v.value === data.exploration).label
+      };
+
+      const improvements = data.improvements.reduce((arr, o) => {
+        if (isGM || o.show) {
+          let special = chex.improvements[o.id].special;
+          if (special.startsWith(KEY_INCOME)) {
+            special = special.substring(KEY_INCOME.length + 1);
+          }
+          arr.push({
+            label: chex.improvements[o.id].label,
+            img: chex.improvements[o.id].img,
+            special: special,
+            visiFrag: o.show ? visibleFrag : hiddenFrag
+          });
+        }
+        return arr;
+      }, []);
+
+      const features = data.features.reduce((arr, o) => {
+        if (isGM || o.show) {
+          arr.push({
+            label: chex.features[o.id].label,
+            img: chex.features[o.id].img,
+            name: o.name,
+            visiFrag: o.show ? visibleFrag : hiddenFrag
+          });
+        }
+        return arr;
+      }, []);
+
+      const resources = data.resources.reduce((arr, o) => {
+        if (isGM || o.show) {
+          arr.push({
+            label: chex.resources[o.id].label,
+            img: chex.resources[o.id].img,
+            amount: o.amount,
+            visiFrag: o.show ? visibleFrag : hiddenFrag
+          });
+        }
+        return arr;
+      }, []);
+      
+      const forageables = data.forageables.reduce((arr, o) => {
+        if (isGM || o.show) {
+          arr.push({
+            label: chex.resources[o.id].label,
+            img: chex.resources[o.id].img,
+            amount: o.amount,
+            visiFrag: o.show ? visibleFrag : hiddenFrag
+          });
+        }
+        return arr;
+      }, []);
+
       return {
         id: this.options.id,
         cssClass: this.options.classes.join(" "),
         hex: this.hex,
-        commodity: C.COMMODITIES[data.commodity],
-        camp: C.CAMPS[data.camp],
-        displayEncounter: data.page && (game.user.isGM || data.showEncounter),
-        displayResources: (data.camp || data.commodity) && (game.user.isGM || data.showResources),
-        explored: data.exploration > 0,
-        zone: this.hex.zone,
-        features: data.features.reduce((arr, f) => {
-          if ( game.user.isGM || f.discovered ) arr.push({
-            name: f.name || game.i18n.localize(C.FEATURES[f.type]?.label),
-            discovered: f.discovered,
-            img: game.i18n.localize(C.FEATURES[f.type]?.img) || "modules/pf2e-kingmaker/assets/maps-regions/stolen-lands/features/default.webp",
-          });
-          return arr;
-        }, [])
+
+        terrain,
+        travel,
+        explorationState,
+        
+        improvements: improvements,
+        features: features,
+        resources: resources,
+        forageables: forageables
       }
     }
   
@@ -109,7 +177,7 @@ export default class ChexHexHUD extends Application {
         if (chex.manager.pendingPatches.length > 0) {
           chex.manager.pendingPatches.forEach(patch => {
             let {x, y} = patch.hex.topLeft;
-            canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(C.TERRAIN[patch.patch.terrain].color)});
+            canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(chex.terrains[patch.patch.terrain].color)});
           });
         }
 

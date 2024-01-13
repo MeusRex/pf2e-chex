@@ -1,5 +1,5 @@
 export class Feature {
-    constructor(id, label, name, img) {
+    constructor(id, label, img) {
         this.id = id;
         this.label = label;
         this.img = img;
@@ -7,12 +7,11 @@ export class Feature {
 
     id;
     label;
-    name;
     img;
 
     static getDefaults() {
         return {
-            river: new Feature("river", "River", "", "icons/environment/settlement/bridge-stone.webp")
+            river: new Feature("river", "River", "icons/environment/settlement/bridge-stone.webp")
         };
     }
 }

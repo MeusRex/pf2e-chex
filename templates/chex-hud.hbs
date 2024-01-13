@@ -9,25 +9,25 @@
         <div>
             <p class="item">
                 <span class="gray key">{{localize "CHEX.HUD.Terrain"}}</span>
-                <span class="value">{{hex.terrain.label}}</span>
+                <span class="value">{{terrain.label}}</span>
             </p>
             <p class="item">
                 <span class="gray key">{{localize "CHEX.HUD.Travel"}}</span>
-                <span class="value">{{hex.travel.label}}</span>
+                <span class="value">{{travel.label}}</span>
             </p>
             <p class="item">
                 <span class="gray key">{{localize "CHEX.HUD.TravelMultiplier"}}</span>
-                <span class="value">x{{hex.travel.multiplier}}</span>
+                <span class="value">x{{travel.multiplier}}</span>
             </p>
         </div>
-        <img class="terrain" src="{{hex.terrain.img}}">
+        <img class="terrain" src="{{terrain.img}}">
     </div>
 
     <div class="group">
-        {{#if explored}}
+        {{#if explorationState.explored}}
         <p class="item">
             <span class="key">{{localize "CHEX.HUD.Explored"}}</span>
-            <span class="value">{{localize hex.explorationState.label}}</span>
+            <span class="value">{{localize explorationState.label}}</span>
         </p>
         {{/if}}
         {{#if hex.hexData.cleared}}
@@ -44,5 +44,56 @@
         {{/if}}
     </div>
 
-    
+    {{#if improvements.length}}
+        <div class="group feature">
+            {{#each improvements}}
+                <p class="item">
+                    <img src="{{this.img}}">
+                    <span class="key">{{this.label}}</span>
+                    <span class="formula">{{this.special}}</span>
+                    <i class="fa-solid {{this.visiFrag}}"></i>
+                </p>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    {{#if features.length}}
+        <div class="group feature">
+            {{#each features}}
+                <p class="item">
+                    <img src="{{this.img}}">
+                    <span class="key">{{this.label}}</span>
+                    <span class="key">{{this.name}}</span>
+                    <i class="fa-solid {{this.visiFrag}}"></i>
+                </p>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    {{#if resources.length}}
+        <div class="group feature">
+            {{#each resources}}
+                <p class="item">
+                    <img src="{{this.img}}">
+                    <span class="key">{{this.label}}</span>
+                    <span class="amount">{{this.amount}}</span>
+                    <i class="fa-solid {{this.visiFrag}}"></i>
+                </p>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    {{#if forageables.length}}
+        <div class="group feature">
+            {{#each forageables}}
+                <p class="item">
+                    <img src="{{this.img}}">
+                    <span class="key">{{this.label}}</span>
+                    <i class="fa-solid fa-gift"></i>
+                    <span class="amount">{{this.amount}}</span>
+                    <i class="fa-solid {{this.visiFrag}}"></i>
+                </p>
+            {{/each}}
+        </div>
+    {{/if}}
 </aside>
