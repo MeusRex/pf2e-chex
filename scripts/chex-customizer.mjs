@@ -91,12 +91,23 @@ export default class ChexCustomizer extends FormApplication {
     event.preventDefault();
     const control = event.currentTarget;
     const action = control.dataset.action;
-    
+
     switch ( action ) {
+      case "pickIcon": {
+        const formGroup = control.closest('div.form-group');
+        const inputField = formGroup.querySelector('.icon-path');
+        if (inputField) {
+          const filePicker = new FilePicker();
+          filePicker.callback = () => {
+            inputField.value = filePicker.result;
+          };
+        }
+        
+        break;
+      }
       case "addImprovement": {
         const html = await renderTemplate(ChexHexEdit.improvementsFrag, {
           id: foundry.utils.randomID(),
-          improvements: chex.improvements
         });
         this._attach(html, control);
         break;

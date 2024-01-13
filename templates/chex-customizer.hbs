@@ -7,7 +7,7 @@
             </button>
         </legend>
         {{#each improvements}}
-            {{> (lookup @root "improvementsFrag") }}
+            {{> (lookup @root "improvementsFrag") id=this.id }}
         {{/each}}
     </fieldset>
 </form>
