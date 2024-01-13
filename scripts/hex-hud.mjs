@@ -10,7 +10,7 @@ export default class ChexHexHUD extends Application {
     /** @inheritdoc */
     static get defaultOptions() {
       return foundry.utils.mergeObject(super.defaultOptions, {
-        id: "kingmaker-hex-hud",
+        id: "chex-hud",
         classes: [chex.CSS_CLASS],
         template: "modules/pf2e-chex/templates/chex-hud.hbs",
         popOut: false,
@@ -59,6 +59,14 @@ export default class ChexHexHUD extends Application {
       const hiddenFrag = 'fa-eye-slash';
       const data = this.hex.hexData;
       const isGM = game.user.isGM;
+
+      let claim = {};
+      if (data.claimed) {
+        claim = {
+          label: chex.realms[data.claimed].label,
+          color: chex.realms[data.claimed].color
+        };
+      }
 
       const terrain = {
         label: chex.terrains[data.terrain].label,
@@ -136,6 +144,7 @@ export default class ChexHexHUD extends Application {
         terrain,
         travel,
         explorationState,
+        claim,
         
         improvements: improvements,
         features: features,

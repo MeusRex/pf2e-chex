@@ -6,7 +6,7 @@ export const MODE_TERRAIN = "terrain";
 export const MODE_TRAVEL = "travel";
 
 export const EXPLORATION_STATES = Object.freeze({
-    NONE: {value: 0, label: "REALMS.EXPLORATION_STATES.NONE"},
-    RECON: {value: 1, label: "REALMS.EXPLORATION_STATES.RECON"},
-    MAP: {value: 2, label: "REALMS.EXPLORATION_STATES.MAP"}
+    NONE: {value: 0, label: "CHEX.EXPLORATION_STATES.None"},
+    RECON: {value: 1, label: "CHEX.EXPLORATION_STATES.Scouted"},
+    MAP: {value: 2, label: "CHEX.EXPLORATION_STATES.Mapped"}
   });

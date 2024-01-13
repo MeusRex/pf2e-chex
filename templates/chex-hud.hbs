@@ -26,20 +26,20 @@
     <div class="group">
         {{#if explorationState.explored}}
         <p class="item">
-            <span class="key">{{localize "CHEX.HUD.Explored"}}</span>
+            <span class="gray key">{{localize "CHEX.HUD.Explored"}}</span>
             <span class="value">{{localize explorationState.label}}</span>
         </p>
         {{/if}}
         {{#if hex.hexData.cleared}}
         <p class="item">
-            <span class="key">{{localize "CHEX.HUD.Cleared"}}</span>
+            <span class="gray key">{{localize "CHEX.HUD.Cleared"}}</span>
             <i class="fa-solid fa-check"></i>
         </p>
         {{/if}}
         {{#if hex.hexData.claimed}}
         <p class="item">
-            <span class="key">{{localize "CHEX.HUD.Claimed"}}</span>
-            <i class="fa-solid fa-flag"></i>
+            <span class="gray key">{{localize "CHEX.HUD.Claimed"}}</span>
+            <span class="value" style="color: {{claim.color}};">{{claim.label}}</span>
         </p>
         {{/if}}
     </div>
@@ -76,7 +76,7 @@
                 <p class="item">
                     <img src="{{this.img}}">
                     <span class="key">{{this.label}}</span>
-                    <span class="amount">{{this.amount}}</span>
+                    <span>{{this.amount}}</span>
                     <i class="fa-solid {{this.visiFrag}}"></i>
                 </p>
             {{/each}}
@@ -88,9 +88,9 @@
             {{#each forageables}}
                 <p class="item">
                     <img src="{{this.img}}">
-                    <span class="key">{{this.label}}</span>
+                    <span>{{this.label}}</span>
                     <i class="fa-solid fa-gift"></i>
-                    <span class="amount">{{this.amount}}</span>
+                    <span class="value">{{this.amount}}</span>
                     <i class="fa-solid {{this.visiFrag}}"></i>
                 </p>
             {{/each}}

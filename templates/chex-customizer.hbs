@@ -2,14 +2,12 @@
     <fieldset>
         <legend>
             {{localize 'CHEX.HEXEDIT.Improvements'}}
-            <button type="button" data-action="addImprovement">
-                <i class="fa-solid fa-plus"/>
+            <button type="button" data-action="addImprovement" class="chex-add-button">
                 <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
             </button>
         </legend>
-        {{#each improvements as |item index|}}
-            <div class="form-group">
-
-            </div>
+        {{#each improvements}}
+            {{> (lookup @root "improvementsFrag") }}
+        {{/each}}
     </fieldset>
 </form>

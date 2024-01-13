@@ -5,7 +5,7 @@
             <label data-tooltip="CHEX.HEXEDIT.ExplorationTooltip">{{localize 'CHEX.HEXEDIT.Exploration'}}</label>
             <div class="form-fields">
                 <select name="exploration">
-                    {{selectOptions explorationStates selected=hex.exploration nameAttr="value" labelAttr="label" }}
+                    {{selectOptions explorationStates selected=hex.exploration nameAttr="value" labelAttr="label" localize=true }}
                 </select>
             </div>
         </div>
@@ -28,7 +28,7 @@
     <fieldset>
         <legend>
             {{localize 'CHEX.HEXEDIT.Improvements'}}
-            <button type="button" data-action="addImprovement">
+            <button type="button" data-action="addImprovement" class="chex-add-button">
                 <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
             </button>
         </legend>
@@ -40,7 +40,7 @@
     <fieldset>
         <legend>
             {{localize 'CHEX.HEXEDIT.Features'}}
-            <button type="button" data-action="addFeature">
+            <button type="button" data-action="addFeature" class="chex-add-button">
                 <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
             </button>
         </legend>
@@ -52,7 +52,7 @@
     <fieldset>
         <legend>
             {{localize 'CHEX.HEXEDIT.Resources'}}
-            <button type="button" data-action="addResource">
+            <button type="button" data-action="addResource" class="chex-add-button">
                 <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
             </button>
         </legend>
@@ -64,7 +64,7 @@
     <fieldset>
         <legend>
             {{localize 'CHEX.HEXEDIT.Forageables'}}
-            <button type="button" data-action="addForageable">
+            <button type="button" data-action="addForageable" class="chex-add-button">
                 <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
             </button>
         </legend>

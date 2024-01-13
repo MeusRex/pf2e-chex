@@ -1,92 +1,43 @@
 {
-    "REALMS": {
-        "TERRAIN": {
-            "PLAINS": "Plains",
-            "FOREST": "Forest",
-            "HILLS": "Hills",
-            "MOUNTAINS": "Mountains",
-            "WETLANDS": "Wetlands",
-            "SWAMP": "Swamp",
-            "LAKE": "Lake",
-            "DESERT": "Desert"
-        },
-        "TRAVEL": {
-            "OPEN": "Open Terrain",
-            "DIFFICULT": "Difficult Terrain",
-            "GREATER": "Greater Difficult Terrain",
-            "WATER": "Water",
-            "IMPASSABLE": "Impassable"
-          },
-          "DISCOVERY_TRAITS": {
-            "LANDMARK": "Landmark",
-            "STANDARD": "Standard",
-            "SECRET": "Secret"
-          },
-          "EXPLORATION_STATES": {
-            "NONE": "None",
-            "RECON": "Reconnoitered",
-            "MAP": "Mapped"
-          },
-          "FEATURES": {
-            "LANDMARK": "Landmark",
-            "REFUGE": "Refuge",
-            "RUIN": "Ruin",
-            "STRUCTURE": "Structure",
-            "FARMLAND": "Farmland",
-            "ROAD": "Road",
-            "BRIDGE": "Bridge",
-            "FORD": "Ford",
-            "WATERFALL": "Waterfall",
-            "HAZARD": "Hazard",
-            "BLOOM": "Bloom",
-            "FREEHOLD": "Freehold",
-            "VILLAGE": "Village",
-            "TOWN": "Town",
-            "CITY": "City",
-            "METROPOLIS": "Metropolis"
-          },
-          "COMMODITIES": {
-            "NONE": "None",
-            "FOOD": "Food",
-            "ORE": "Ore",
-            "LUMBER": "Lumber",
-            "LUXURIES": "Luxuries",
-            "STONE": "Stone"
-          },
-          "CAMPS": {
-            "QUARRY": "Quarry",
-            "MINE": "Mine",
-            "LUMBER": "Lumber Camp"
-          },
-          "ToggleHexTool": "Toggle Hex Controls",
-          "ToggleRealmTool": "Toggle Realm Controls",
-          "HEXTOOL": {
-            "Visibility": "Visibility",
-            "Exploration": "Exploration",
-            "Hex": "Hex",
-            "Zone": "Zone",
-            "Terrain": "Terrain",
-            "Travel": "Travel",
-            "Explored": "Explored",
-            "Claimed": "Claimed",
-            "ClaimedTooltip": "Has the hex been Claimed by the Kingdom?",
-            "Cleared": "Cleared",
-            "ClearedTooltip": "Has the hex been Cleared by the Kingdom?",
-            "Discovered": "Show to Players",
-            "ShowEncounter": "Show Encounter to Players",
-            "ShowEncounterTooltip": "Allows players to see the name of the journal page that describes the contents of this hex.",
-            "ShowResources": "Show Camps and Commodities to Players",
-            "ShowResourcesTooltip": "Allows players to see commodities and camps present in this hex.",
-            "ExplorationStatus": "Exploration Status",
-            "ExplorationStatusTooltip": "Have the party reconnoitered or mapped this hex?",
-            "Commodity": "Commodity",
-            "Commodities": "Commodities",
-            "Camp": "Camp",
-            "Features": "Features",
-            "Resources": "Resources",
-            "Resource": "Resource",
-            "Add": "Add",
-            "Save": "Save"
-          }
+    "CHEX": {
+      "HUD": {
+        "Terrain": "Terrain",
+        "Travel": "Travel Dif.",
+        "TravelMultiplier": "Travel Cost",
+        "Explored": "Explored",
+        "Cleared": "Cleared",
+        "Claimed": "Owner"
+      },
+      "EXPLORATION_STATES": {
+        "None": "Unknown",
+        "Scouted": "Scouted",
+        "Mapped": "Mapped"
+      },
+      "HEXEDIT": {
+        "Exploration": "Exploration",
+        "ExplorationTooltip": "What is the knowledge level of the party for this hex?",
+        "Cleared": "Cleared",
+        "ClearedTooltip": "Has the party cleared the hex? This may involve some time consuming actions",
+        "Claimed": "Claimed",
+        "ClaimedTooltip": "Has any country or faction liad claim to this hex?",
+        "Improvements": "Improvements",
+        "Add": "Add",
+        "Delete": "Delete",
+        "ShowToPlayersTooltip": "If checked, this item will be visible to players",
+        "Name": "A custom name for this feature, e.g. the name of a river.",
+        "Resources": "Resources",
+        "Amount": "Amount",
+        "Forageables": "Forageables",
+        "Save": "Save",
+        "Features": "Features"
+      },
+      "TOOLS": {
+        "ToggleHexTool": "Toggle Chex Overlay",
+        "ShowKingdomTool": "Show Kingdom Overlay",
+        "ShowTerrainTool": "Show Terrain Overlay",
+        "ShowTravelTool": "Show Travel Overlay",
+        "ChexTools": "Chex",
+        "EnableChex": "Add/Remove Chex to current Scene"
+      }
     }
 }

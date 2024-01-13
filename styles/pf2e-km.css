@@ -1,5 +1,4 @@
-
-#kingmaker-hex-hud {
+#chex-hud {
   background: rgba(0, 0, 0, 0.8);
   color: #EEE;
   padding: 0.5rem 1.5rem;
@@ -7,106 +6,76 @@
   border: 2px solid #000;
   border-radius: 1rem;
 }
-#kingmaker-hex-hud.default {
-  box-shadow: 0 0 16px inset rgba(200, 200, 255, 0.25);
-}
-#kingmaker-hex-hud.claimed {
-  box-shadow: 0 0 16px inset #ff0000;
-}
-#kingmaker-hex-hud .resources.unknown,
-#kingmaker-hex-hud p.item.unknown {
-  background: linear-gradient(to right, transparent, #b189ff15 10%, 90%, transparent);
-}
-#kingmaker-hex-hud .fa-eye-slash,
-#kingmaker-hex-hud .title .unknown {
-  color: #c9aeff;
-}
-#kingmaker-hex-hud .traits {
-  display: flex;
-  gap: 1rem;
-  list-style-type: none;
-  padding: 0;
-  margin: 0 0 1.5rem 0;
-  font-size: 1.8rem;
-}
-#kingmaker-hex-hud .traits li {
-  border-left: 0.5rem solid #d8c483;
-  border-right: 0.5rem solid #d8c483;
-  background: #004416;
-  color: white;
-  padding: 0.2rem 0.75rem;
-  text-transform: uppercase;
-  font-family: 'Good OT Cond Bold';
-}
-#kingmaker-hex-hud div.group {
+
+#chex-hud div.group {
   border-image: linear-gradient(to right, transparent, #999 10%, 90%, transparent) 1 / 2px 0 0 0;
 }
-#kingmaker-hex-hud div.group:empty {
-  display: none;
-}
-#kingmaker-hex-hud div.group p.item {
+
+#chex-hud div.group p.item {
   min-height: 32px;
   margin: 0;
   padding: 0.4rem 0;
 }
-#kingmaker-hex-hud div.group p.item i {
+#chex-hud div.group p.item i {
   padding: 14px 0 0 0;
   flex: 0 0 5rem;
   text-align: center;
 }
-#kingmaker-hex-hud div.group p.item:first-child {
+#chex-hud div.group p.item:first-child {
   padding-top: 1rem;
 }
-#kingmaker-hex-hud div.group p.item:last-child {
+#chex-hud div.group p.item:last-child {
   padding-bottom: 1rem;
 }
-#kingmaker-hex-hud .flex {
+#chex-hud .flex {
   display: flex;
   gap: 1.5rem;
   align-items: center;
+  white-space: nowrap;
 }
-#kingmaker-hex-hud .flex div {
+#chex-hud .flex div {
   flex: 100%;
 }
-#kingmaker-hex-hud .flex img.terrain {
+#chex-hud .flex img.terrain {
   margin: 1rem 0;
   flex: 0 0 160px;
   width: 160px;
   height: 160px;
   border-radius: 10px;
 }
-#kingmaker-hex-hud p.item {
+#chex-hud p.item {
   border-radius: 50px;
   display: flex;
   gap: 1rem;
   flex-wrap: nowrap;
 }
-#kingmaker-hex-hud p.item span {
+#chex-hud p.item span {
   align-self: center;
 }
-#kingmaker-hex-hud p.item.title {
-  font-size: 2.2rem;
-}
-#kingmaker-hex-hud p.item.title .key,
-#kingmaker-hex-hud p.item.title .value {
-  white-space: nowrap;
-}
-#kingmaker-hex-hud p.item.title i {
-  padding: 2px 0 0 0;
-}
-#kingmaker-hex-hud p.item .key {
+#chex-hud p.item .key {
   flex: 1;
   text-align: left;
 }
-#kingmaker-hex-hud p.item .value {
+#chex-hud p.item .value {
   text-align: right;
   width: 100%;
 }
-#kingmaker-hex-hud p.item .gray {
+#chex-hud p.item .gray {
   color: #a0a0a0;
 }
-#kingmaker-hex-hud p.item img {
+#chex-hud p.item img {
   height: 4rem;
   border-radius: 24px;
 }
 
+.chex-delete {
+  max-width: 27px;
+  min-height: 27px;
+}
+
+.chex-add-button {
+  font-size: 11px;
+  height: 25px;
+  width: fit-content;
+  line-height: initial;
+}
