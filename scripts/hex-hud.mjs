@@ -63,20 +63,20 @@ export default class ChexHexHUD extends Application {
       let claim = {};
       if (data.claimed) {
         claim = {
-          label: chex.realms[data.claimed].label,
-          color: chex.realms[data.claimed].color
+          label: chex.realms[data.claimed]?.label || C.FALLBACK_LABEL,
+          color: chex.realms[data.claimed]?.color || C.FALLBACK_COLOR
         };
       }
 
       const terrain = {
-        label: chex.terrains[data.terrain].label,
-        img: chex.terrains[data.terrain].img
+        label: chex.terrains[data.terrain]?.label || C.FALLBACK_LABEL,
+        img: chex.terrains[data.terrain]?.img || C.FALLBACK_IMAGE
       };
 
       const currentTravel = ChexInstructionParser.getTravel(data);
       const travel = {
-        label: chex.travels[currentTravel].label,
-        multiplier: chex.travels[currentTravel].multiplier
+        label: chex.travels[currentTravel]?.label || C.FALLBACK_LABEL,
+        multiplier: chex.travels[currentTravel]?.multiplier || C.FALLBACK_MULTIPLIER
       };
 
       const explorationState = {
@@ -86,13 +86,13 @@ export default class ChexHexHUD extends Application {
 
       const improvements = data.improvements.reduce((arr, o) => {
         if (isGM || o.show) {
-          let special = chex.improvements[o.id].special;
+          let special = chex.improvements[o.id]?.special || "";
           if (special.startsWith(KEY_INCOME)) {
             special = special.substring(KEY_INCOME.length + 1);
           }
           arr.push({
-            label: chex.improvements[o.id].label,
-            img: chex.improvements[o.id].img,
+            label: chex.improvements[o.id]?.label || C.FALLBACK_LABEL,
+            img: chex.improvements[o.id]?.img || C.FALLBACK_IMAGE,
             special: special,
             visiFrag: o.show ? visibleFrag : hiddenFrag
           });
@@ -103,8 +103,8 @@ export default class ChexHexHUD extends Application {
       const features = data.features.reduce((arr, o) => {
         if (isGM || o.show) {
           arr.push({
-            label: chex.features[o.id].label,
-            img: chex.features[o.id].img,
+            label: chex.features[o.id]?.label || C.FALLBACK_LABEL,
+            img: chex.features[o.id]?.img || C.FALLBACK_IMAGE,
             name: o.name,
             visiFrag: o.show ? visibleFrag : hiddenFrag
           });
@@ -115,8 +115,8 @@ export default class ChexHexHUD extends Application {
       const resources = data.resources.reduce((arr, o) => {
         if (isGM || o.show) {
           arr.push({
-            label: chex.resources[o.id].label,
-            img: chex.resources[o.id].img,
+            label: chex.resources[o.id]?.label || C.FALLBACK_LABEL,
+            img: chex.resources[o.id]?.img || C.FALLBACK_IMAGE,
             amount: o.amount,
             visiFrag: o.show ? visibleFrag : hiddenFrag
           });
@@ -127,8 +127,8 @@ export default class ChexHexHUD extends Application {
       const forageables = data.forageables.reduce((arr, o) => {
         if (isGM || o.show) {
           arr.push({
-            label: chex.resources[o.id].label,
-            img: chex.resources[o.id].img,
+            label: chex.resources[o.id]?.label || C.FALLBACK_LABEL,
+            img: chex.resources[o.id]?.img || C.FALLBACK_IMAGE,
             amount: o.amount,
             visiFrag: o.show ? visibleFrag : hiddenFrag
           });
@@ -179,9 +179,9 @@ export default class ChexHexHUD extends Application {
             let {x, y} = patch.hex.topLeft;
             let color = "#ff0000";
             if (patch.patch.terrain)
-              color = chex.terrains[patch.patch.terrain].color
+              color = chex.terrains[patch.patch.terrain]?.color || C.FALLBACK_COLOR;
             else if (patch.patch.claimed)
-              color = chex.realms[patch.patch.claimed].color
+              color = chex.realms[patch.patch.claimed]?.color || C.FALLBACK_COLOR;
 
             canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(color)});
           });

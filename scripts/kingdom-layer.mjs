@@ -1,4 +1,5 @@
 import * as C from "./const.mjs"
+import { Terrain } from "./customizables/terrain.mjs";
 import ChexInstructionParser from "./instruction-parser.mjs";
 
 /**
@@ -56,7 +57,7 @@ export default class ChexKingdomLayer extends PIXI.Container {
         const hexGroup = groupedHexes[realmId];
     
         // Assuming ChexKingdomLayer is the class containing the #drawSub method
-        this.#drawSub(g, hexGroup, chex.realms[realmId].color);
+        this.#drawSub(g, hexGroup, chex.realms[realmId]?.color || C.FALLBACK_COLOR);
       }
     }
   }
@@ -80,8 +81,8 @@ export default class ChexKingdomLayer extends PIXI.Container {
     for (const terrainId in groupedHexes) {
       if (groupedHexes.hasOwnProperty(terrainId)) {
         const hexGroup = groupedHexes[terrainId];
-    
-        this.#drawSub(g, hexGroup, chex.terrains[terrainId].color);
+  
+        this.#drawSub(g, hexGroup, chex.terrains[terrainId]?.color || C.FALLBACK_COLOR);
       }
     }
   }
@@ -108,7 +109,7 @@ export default class ChexKingdomLayer extends PIXI.Container {
         const hexGroup = groupedHexes[travelId];
     
         // Assuming ChexKingdomLayer is the class containing the #drawSub method
-        this.#drawSub(g, hexGroup, chex.travels[travelId].color);
+        this.#drawSub(g, hexGroup, chex.travels[travelId]?.color || C.FALLBACK_COLOR);
       }
     }
   }
