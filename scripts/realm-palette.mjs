@@ -56,22 +56,25 @@ export default class RealmPalette extends FormApplication {
       let hexes = Object.values(canvas.scene.getFlag(MODULE_ID, CHEX_DATA_KEY).hexes);
       let mergedResources = {};
 
-        // Iterate over each hexData and sum up the resources
-        hexes.forEach((hexData) => {
-            const resources = ChexFormulaParser.getResources(hexData);
-            if (Object.keys(resources)) {
-              Object.entries(resources).forEach(([resource, amount]) => {
-                mergedResources[resource] = (mergedResources[resource] || 0) + amount;
-              });
-            }
-        });
-        if (Object.keys(mergedResources).length) {
-          let msg = `The income for this realm from owner hexes is:\n`;
-          Object.entries(mergedResources).forEach(([resource, amount]) => {
-            msg += `${resource}: ${amount}\n`
-          });
-          ui.chat.processMessage(msg);
+      // Iterate over each hexData and sum up the resources
+      hexes.forEach((hexData) => {
+        if (hexData.claimed === this.activeTool) {
+
+          const resources = ChexFormulaParser.getResources(hexData);
+          if (Object.keys(resources)) {
+            Object.entries(resources).forEach(([resource, amount]) => {
+              mergedResources[resource] = (mergedResources[resource] || 0) + amount;
+            });
+          }
         }
+      });
+      if (Object.keys(mergedResources).length) {
+        let msg = `The income for this realm from owner hexes is:\n`;
+        Object.entries(mergedResources).forEach(([resource, amount]) => {
+          msg += `${resource}: ${amount}\n`
+        });
+        ui.chat.processMessage(msg);
+      }
     }
   }
 }
