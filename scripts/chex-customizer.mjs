@@ -1,5 +1,6 @@
 import * as C from "./const.mjs";
-import ChexData from "./hex-data.mjs";
+import { Improvement } from "./customizables/improvements.mjs";
+import ChexData, { ChexImprovement } from "./hex-data.mjs";
 
 export default class ChexCustomizer extends FormApplication {
   static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
@@ -14,7 +15,7 @@ export default class ChexCustomizer extends FormApplication {
           id: "chex-customizer",
           classes: [chex.CSS_CLASS],
           template: "modules/pf2e-chex/templates/chex-customizer.hbs",
-          width: 420,
+          width: 800,
           height: "auto",
           popOut: true,
           closeOnSubmit: true
@@ -95,19 +96,22 @@ export default class ChexCustomizer extends FormApplication {
     switch ( action ) {
       case "pickIcon": {
         const formGroup = control.closest('div.form-group');
-        const inputField = formGroup.querySelector('.icon-path');
+        const inputField = formGroup.querySelector('.chex-icon-path');
         if (inputField) {
           const filePicker = new FilePicker();
-          filePicker.callback = () => {
-            inputField.value = filePicker.result;
+          filePicker.callback = (s) => {
+            inputField.value = s;
           };
+          filePicker.render(true);
         }
         
         break;
       }
       case "addImprovement": {
-        const html = await renderTemplate(ChexHexEdit.improvementsFrag, {
-          id: foundry.utils.randomID(),
+        const improvement = new Improvement();
+        improvement.id = foundry.utils.randomID();
+        const html = await renderTemplate(ChexCustomizer.improvementsFrag, {
+          improvement: improvement
         });
         this._attach(html, control);
         break;

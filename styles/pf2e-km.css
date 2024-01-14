@@ -68,6 +68,7 @@
   border-radius: 24px;
 }
 
+
 .chex-delete {
   max-width: 27px;
   min-height: 27px;
@@ -78,4 +79,36 @@
   height: 25px;
   width: fit-content;
   line-height: initial;
+}
+
+.chex-open-filepicker {
+  width: fit-content;
+}
+
+.chex-flex {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.chex-img-preview {
+  max-width: 100%;
+  max-height: 100px;
+  margin-top: 10px;
+}
+
+.chex-item {
+  border-radius: 50px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.chex-item span {
+  align-self: center;
+}
+.chex-item .chex-key {
+  flex: 1;
+  text-align: left;
 }

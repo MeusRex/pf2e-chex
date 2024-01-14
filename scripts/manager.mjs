@@ -1,3 +1,4 @@
+import ChexCustomizer from "./chex-customizer.mjs";
 import ChexLayer from "./chex-layer.mjs";
 import * as C from "./const.mjs";
 import ChexData from "./hex-data.mjs";
@@ -135,6 +136,14 @@ export default class ChexManager {
                         toggle: true,
                         active: this.active,
                         onClick: async () => this.#enableChex()
+                    },
+                    {
+                        name: "chexSettings",
+                        title: "CHEX.TOOLS.Settings",
+                        icon: "fa-solid fa-cog",
+                        visible: true,
+                        toggle: false,
+                        onClick: async () => this.#showSettings()
                     }
                 ]
             }
@@ -157,6 +166,13 @@ export default class ChexManager {
             buttons.push(toolBox);
         }
 
+    }
+
+    #showSettings() {
+        if (!chex.customizer) {
+            const customizer = new ChexCustomizer();
+            customizer.render(true);
+        }
     }
 
     #refreshKingdomLayer() {

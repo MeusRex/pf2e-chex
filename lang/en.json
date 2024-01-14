@@ -37,7 +37,15 @@
         "ShowTerrainTool": "Show Terrain Overlay",
         "ShowTravelTool": "Show Travel Overlay",
         "ChexTools": "Chex",
-        "EnableChex": "Add/Remove Chex to current Scene"
+        "EnableChex": "Add/Remove Chex to current Scene",
+        "Settings": "Settings"
+      },
+      "CUSTOMIZER": {
+        "Id": "ID",
+        "Label": "Label",
+        "Image": "Image",
+        "PickIcon": "Set Img",
+        "Formula": "Formula"
       }
     }
 }
