@@ -1,5 +1,10 @@
 import * as C from "./const.mjs";
+import { Feature } from "./customizables/features.mjs";
 import { Improvement } from "./customizables/improvements.mjs";
+import { Realm } from "./customizables/realms.mjs";
+import { Resource } from "./customizables/resources.mjs";
+import { Terrain } from "./customizables/terrain.mjs";
+import { Travel } from "./customizables/travel.mjs";
 import ChexData, { ChexImprovement } from "./hex-data.mjs";
 
 export default class ChexCustomizer extends FormApplication {
@@ -7,12 +12,13 @@ export default class ChexCustomizer extends FormApplication {
   static featuresFrag = "modules/pf2e-chex/templates/frags/chex-custom-features.hbs";
   static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-custom-resources.hbs";
   static realmsFrag = "modules/pf2e-chex/templates/frags/chex-custom-realms.hbs";
-  static terrainFrag = "modules/pf2e-chex/templates/frags/chex-custom-terrains.hbs";
-  static travelFrag = "modules/pf2e-chex/templates/frags/chex-custom-travels.hbs";
+  static terrainsFrag = "modules/pf2e-chex/templates/frags/chex-custom-terrains.hbs";
+  static travelsFrag = "modules/pf2e-chex/templates/frags/chex-custom-travels.hbs";
+  static formId = "chex-customizer";
 
   static get defaultOptions() {
       return foundry.utils.mergeObject(super.defaultOptions, {
-          id: "chex-customizer",
+          id: ChexCustomizer.formId,
           classes: [chex.CSS_CLASS],
           template: "modules/pf2e-chex/templates/chex-customizer.hbs",
           width: 800,
@@ -32,8 +38,8 @@ export default class ChexCustomizer extends FormApplication {
         ChexCustomizer.featuresFrag, 
         ChexCustomizer.resourcesFrag, 
         ChexCustomizer.realmsFrag,
-        ChexCustomizer.terrainFrag,
-        ChexCustomizer.travelFrag]);
+        ChexCustomizer.terrainsFrag,
+        ChexCustomizer.travelsFrag]);
       chex.customizer = this;
       return super._render(force, options);
   }
@@ -49,8 +55,8 @@ export default class ChexCustomizer extends FormApplication {
         featuresFrag: ChexCustomizer.featuresFrag,
         resourcesFrag: ChexCustomizer.resourcesFrag,
         realmsFrag: ChexCustomizer.realmsFrag,
-        terrainFrag: ChexCustomizer.terrainFrag,
-        travelFrag: ChexCustomizer.travelFrag,
+        terrainsFrag: ChexCustomizer.terrainsFrag,
+        travelsFrag: ChexCustomizer.travelsFrag,
 
         improvements: chex.improvements,
         features: chex.features,
@@ -61,16 +67,29 @@ export default class ChexCustomizer extends FormApplication {
       });
   }
 
+  _zip(array) {
+    return array.reduce((acc, item) => {
+      acc[item.id] = { ...item }; // Use spread operator to create a new object
+      return acc;
+    }, {});
+  }
+
   async _updateObject(event, formData) {
       formData = foundry.utils.expandObject(formData);
-      formData.improvements = formData.improvements ? Object.values(formData.improvements) : [];
-      formData.features = formData.features ? Object.values(formData.features) : [];
-      formData.resources = formData.resources ? Object.values(formData.resources) : [];
-      formData.realms = formData.realms ? Object.values(formData.realms) : [];
-      formData.terrains = formData.terrains ? Object.values(formData.terrains) : [];
-      formData.travels = formData.travels ? Object.values(formData.travels) : [];
+      const improvements = formData.improvements ? Object.values(formData.improvements) : [];
+      const features = formData.features ? Object.values(formData.features) : [];
+      const resources = formData.resources ? Object.values(formData.resources) : [];
+      const realms = formData.realms ? Object.values(formData.realms) : [];
+      const terrains = formData.terrains ? Object.values(formData.terrains) : [];
+      const travels = formData.travels ? Object.values(formData.travels) : [];
 
       // update settings
+      await game.settings.set(C.MODULE_ID, Improvement.name, this._zip(improvements));
+      await game.settings.set(C.MODULE_ID, Feature.name, this._zip(features));
+      await game.settings.set(C.MODULE_ID, Resource.name, this._zip(resources));
+      await game.settings.set(C.MODULE_ID, Realm.name, this._zip(realms));
+      await game.settings.set(C.MODULE_ID, Terrain.name, this._zip(terrains));
+      await game.settings.set(C.MODULE_ID, Travel.name, this._zip(travels));
     }
 
   activateListeners(html) {
@@ -88,6 +107,25 @@ export default class ChexCustomizer extends FormApplication {
     this._refreshPosition();
   }
 
+  #hideAll() {
+    const form = document.getElementById(ChexCustomizer.formId);
+    const childFieldsets = form.querySelectorAll('fieldset');
+
+    childFieldsets.forEach(function(fieldset) {
+      fieldset.style.display = 'none'; 
+    });
+  }
+
+  #showOne(name) {
+    const form = document.getElementById(ChexCustomizer.formId);
+    const chexImprovementsFieldset = form.querySelector(`[name="${name}"]`);
+    if (chexImprovementsFieldset) {
+      chexImprovementsFieldset.style.display = 'block'; // or 'inline', 'flex', etc.
+    }
+
+    this._refreshPosition();
+  }
+
   async #onClickAction(event) {
     event.preventDefault();
     const control = event.currentTarget;
@@ -95,12 +133,14 @@ export default class ChexCustomizer extends FormApplication {
 
     switch ( action ) {
       case "pickIcon": {
-        const formGroup = control.closest('div.form-group');
+        const formGroup = control.closest('div.chex-grid-container');
         const inputField = formGroup.querySelector('.chex-icon-path');
+        const imgField = formGroup.querySelector('.chex-img-preview');
         if (inputField) {
           const filePicker = new FilePicker();
           filePicker.callback = (s) => {
             inputField.value = s;
+            imgField.src = s;
           };
           filePicker.render(true);
         }
@@ -116,10 +156,85 @@ export default class ChexCustomizer extends FormApplication {
         this._attach(html, control);
         break;
       }
+      case "addFeature": {
+        const feature = new Feature();
+        feature.id = foundry.utils.randomID();
+        const html = await renderTemplate(ChexCustomizer.featuresFrag, {
+          feature: feature
+        });
+        this._attach(html, control);
+        break;
+      }
+      case "addRealm": {
+        const realm = new Realm();
+        realm.id = foundry.utils.randomID();
+        const html = await renderTemplate(ChexCustomizer.realmsFrag, {
+          realm: realm
+        });
+        this._attach(html, control);
+        break;
+      }
+      case "addResource": {
+        const resource = new Resource();
+        resource.id = foundry.utils.randomID();
+        const html = await renderTemplate(ChexCustomizer.resourcesFrag, {
+          resource: resource
+        });
+        this._attach(html, control);
+        break;
+      }
+      case "addTerrain": {
+        const terrain = new Terrain();
+        terrain.id = foundry.utils.randomID();
+        const html = await renderTemplate(ChexCustomizer.terrainsFrag, {
+          terrain: terrain
+        });
+        this._attach(html, control);
+        break;
+      }
+      case "addTravel": {
+        const travel = new Travel();
+        travel.id = foundry.utils.randomID();
+        const html = await renderTemplate(ChexCustomizer.travelsFrag, {
+          travel: travel
+        });
+        this._attach(html, control);
+        break;
+      }
       case "delete": {
-        const div = control.closest("div.form-group");
+        const div = control.closest("div.chex-grid-container");
         div.remove();
         this._refreshPosition();
+        break;
+      }
+      case "tabImprovements": {
+        this.#hideAll();
+        this.#showOne("chex-improvements");
+        break;
+      }
+      case "tabFeatures": {
+        this.#hideAll();
+        this.#showOne("chex-features");
+        break;
+      }
+      case "tabRealms": {
+        this.#hideAll();
+        this.#showOne("chex-realms");
+        break;
+      }
+      case "tabResources": {
+        this.#hideAll();
+        this.#showOne("chex-resources");
+        break;
+      }
+      case "tabTerrains": {
+        this.#hideAll();
+        this.#showOne("chex-terrains");
+        break;
+      }
+      case "tabTravels": {
+        this.#hideAll();
+        this.#showOne("chex-travels");
         break;
       }
     }

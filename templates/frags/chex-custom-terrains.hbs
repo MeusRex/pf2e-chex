@@ -1,28 +1,34 @@
-<div class="form-group">
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Id"}}
-        <input type="text" name="terrains.{{id}}.id" value="{{id}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Label"}}
-        <input type="text" name="terrains.{{id}}.label" value="{{this.label}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Image"}}
-        <input class="icon-path" type="text" name="terrains.{{id}}.img" value="{{this.img}}">
-        <button class="chex-open-filepicker" data-action="pickIcon">{{localize "CHEX.CUSTOMIZER.PickIcon"}}</button>
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.ToolIcon"}}
-        <input type="text" name="terrains.{{id}}.toolIcon" value="{{this.toolIcon}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.ToolIcon"}}
-        <input type="text" name="terrains.{{id}}.travel" value="{{this.travel}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Color"}}
-        <input type="color" name="terrains.{{id}}.color" value="{{this.color}}">
-    </label>
-    <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
-</div>
+{{#with terrain}}
+    <div class="chex-grid-container">
+        <!-- First Row -->
+        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"></button>
+        <div class="chex-item-container">
+            <p class="chex-item">
+                <span data-tooltip="CHEX.CUSTOMIZER.IdTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.Id"}}</span>
+                <input type="text" name="terrains.{{id}}.id" value="{{id}}">
+            </p>
+            <p class="chex-item">
+                <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Label"}}</span>
+                <input type="text" name="terrains.{{id}}.label" value="{{this.label}}">
+            </p>
+            <p class="chex-item">
+                <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Image"}}</span>
+                <input class="chex-icon-path" type="text" name="terrains.{{id}}.img" value="{{this.img}}">
+                <button data-tooltip="CHEX.CUSTOMIZER.PickIconTT" class="fa-solid fa-image chex-open-filepicker" data-action="pickIcon"></button>
+            </p>
+            <p class="chex-item">
+                <span data-tooltip="CHEX.CUSTOMIZER.ToolIconTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.ToolIcon"}}</span>
+                <input type="text" name="terrains.{{id}}.toolIcon" value="{{this.toolIcon}}">
+            </p>
+            <p class="chex-item">
+                <span data-tooltip="CHEX.CUSTOMIZER.TravelTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.Travel"}}</span>
+                <input type="text" name="terrains.{{id}}.travel" value="{{this.travel}}">
+            </p>
+            <p class="chex-item">
+                <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Color"}}</span>
+                <input type="color" name="terrains.{{id}}.color" value="{{this.color}}">
+            </p>
+        </div>
+        <img class="chex-img-preview" src="{{this.img}}" alt="Image Preview">
+    </div>
+{{/with}}

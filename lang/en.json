@@ -41,11 +41,26 @@
         "Settings": "Settings"
       },
       "CUSTOMIZER": {
+        "Title": "Chex Customizer",
         "Id": "ID",
         "Label": "Label",
         "Image": "Image",
-        "PickIcon": "Set Img",
-        "Formula": "Formula"
+        "Formula": "Formula",
+        "Realms": "Realms",
+        "Travels": "Travels",
+        "Terrains": "Terrains",
+        "ToolIcon": "Tool Icon",
+        "Travel": "Travel",
+        "Color": "Color",
+        "Special": "Special",
+        "Multiplier": "Multiplier",
+        "IdTT": "Internal identifier, ONLY use letters and numbers. DO NOT use spaces. Make sure that it is unique within its group.",
+        "FormulaTT": "Chex allows for certain formulas that modify behavior. So far the following two exist: travel: X where x is either a positive or negative number. When determining the Travel modifier for a hex with this improvement, the difficulty will go up or down by x steps. income: r: x (multiple r: x are allowed) r is a resource. For example lumber, healing_potions. They will be listed in the report.",
+        "ToolIconTT": "FontAwesome icon to use for drawing tool for this terrain. Generally is should always include fa-solid followed by some other key. Go to the FontAwesome website to see what exists.",
+        "TravelTT": "The ID of the travel that is the default difficulty for this terrain.",
+        "MultiplierTT": "How many times more time does it take to travel here?",
+        "SpecialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula",
+        "PickIconTT": "Open Filebrowser to select an image"
       }
     }
 }

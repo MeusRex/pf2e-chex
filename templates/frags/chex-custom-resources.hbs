@@ -1,16 +1,22 @@
-<div class="form-group">
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Id"}}
-        <input type="text" name="resources.{{id}}.id" value="{{id}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Label"}}
-        <input type="text" name="resources.{{id}}.label" value="{{this.label}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Image"}}
-        <input class="icon-path" type="text" name="resources.{{id}}.img" value="{{this.img}}">
-        <button class="chex-open-filepicker" data-action="pickIcon">{{localize "CHEX.CUSTOMIZER.PickIcon"}}</button>
-    </label>
-    <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
-</div>
+{{#with resource}}
+    <div class="chex-grid-container">
+        <!-- First Row -->
+        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"></button>
+        <div class="chex-item-container">
+            <p class="chex-item">
+                <span data-tooltip="CHEX.CUSTOMIZER.IdTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.Id"}}</span>
+                <input type="text" name="resources.{{id}}.id" value="{{id}}">
+            </p>
+            <p class="chex-item">
+                <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Label"}}</span>
+                <input type="text" name="resources.{{id}}.label" value="{{this.label}}">
+            </p>
+            <p class="chex-item">
+                <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Image"}}</span>
+                <input class="chex-icon-path" type="text" name="resources.{{id}}.img" value="{{this.img}}">
+                <button data-tooltip="CHEX.CUSTOMIZER.PickIconTT" class="fa-solid fa-image chex-open-filepicker" data-action="pickIcon"></button>
+            </p>
+        </div>
+        <img class="chex-img-preview" src="{{this.img}}" alt="Image Preview">
+    </div>
+{{/with}}

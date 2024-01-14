@@ -1,15 +1,20 @@
-<div class="form-group">
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Id"}}
-        <input type="text" name="realms.{{id}}.id" value="{{id}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Label"}}
-        <input type="text" name="realms.{{id}}.label" value="{{this.label}}">
-    </label>
-    <label>
-        {{localize "CHEX.CUSTOMIZER.Color"}}
-        <input type="color" name="realms.{{id}}.color" value="{{this.color}}">
-    </label>
-    <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
-</div>
+{{#with realm}}
+    <div class="chex-grid-container">
+        <!-- First Row -->
+        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"></button>
+        <div class="chex-item-container">
+            <p class="chex-item">
+                <span data-tooltip="CHEX.CUSTOMIZER.IdTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.Id"}}</span>
+                <input type="text" name="realms.{{id}}.id" value="{{id}}">
+            </p>
+            <p class="chex-item">
+                <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Label"}}</span>
+                <input type="text" name="realms.{{id}}.label" value="{{this.label}}">
+            </p>
+            <p class="chex-item">
+                <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Color"}}</span>
+                <input type="color" name="realms.{{id}}.color" value="{{this.color}}">
+            </p>
+        </div>
+    </div>
+{{/with}}

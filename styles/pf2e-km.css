@@ -87,7 +87,7 @@
 
 .chex-flex {
   display: flex;
-  gap: 1.5rem;
+  gap: 2px;
   align-items: center;
   white-space: nowrap;
 }
@@ -95,20 +95,39 @@
 .chex-img-preview {
   max-width: 100%;
   max-height: 100px;
-  margin-top: 10px;
-}
-
-.chex-item {
-  border-radius: 50px;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: nowrap;
-}
-
-.chex-item span {
   align-self: center;
 }
-.chex-item .chex-key {
-  flex: 1;
-  text-align: left;
+
+
+.chex-item {
+  display: flex;
+  align-items: center;
+  margin: 0px;
+}
+
+.chex-key {
+  font-weight: bold;
+  margin-right: 10px;
+  min-width: 60px;
+}
+
+.chex-grid-container {
+  display: grid;
+  grid-template-columns: 50px 1fr 100px; /* Adjust column widths as needed */
+  column-gap: 6px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.chex-item-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.chex-icon-path {
+  flex: 1; /* Take remaining space in the container */
+}
+
+.chex-button-row {
+  display: flex;
 }

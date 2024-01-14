@@ -1,5 +1,14 @@
 <form class="flexcol" autocomplete="off">
-    <fieldset>
+    <div class="chex-button-row">
+        <button data-action="tabImprovements">{{localize 'CHEX.HEXEDIT.Improvements'}}</button>
+        <button data-action="tabFeatures">{{localize 'CHEX.HEXEDIT.Features'}}</button>
+        <button data-action="tabRealms">{{localize 'CHEX.CUSTOMIZER.Realms'}}</button>
+        <button data-action="tabResources">{{localize 'CHEX.HEXEDIT.Resources'}}</button>
+        <button data-action="tabTravels">{{localize 'CHEX.CUSTOMIZER.Travels'}}</button>
+        <button data-action="tabTerrains">{{localize 'CHEX.CUSTOMIZER.Terrains'}}</button>
+    </div>
+
+    <fieldset name="chex-improvements">
         <legend>
             {{localize 'CHEX.HEXEDIT.Improvements'}}
             <button type="button" data-action="addImprovement" class="chex-add-button">
@@ -10,4 +19,71 @@
             {{> (lookup @root "improvementsFrag") improvement=this }}
         {{/each}}
     </fieldset>
+
+    <fieldset name="chex-features">
+        <legend>
+            {{localize 'CHEX.HEXEDIT.Features'}}
+            <button type="button" data-action="addFeature" class="chex-add-button">
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each features}}
+            {{> (lookup @root "featuresFrag") feature=this }}
+        {{/each}}
+    </fieldset>
+
+    <fieldset name="chex-realms">
+        <legend>
+            {{localize 'CHEX.CUSOMIZER.Realms'}}
+            <button type="button" data-action="addRealm" class="chex-add-button">
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each realms}}
+            {{> (lookup @root "realmsFrag") realm=this }}
+        {{/each}}
+    </fieldset>
+
+    <fieldset name="chex-resources">
+        <legend>
+            {{localize 'CHEX.HEXEDIT.Resources'}}
+            <button type="button" data-action="addResource" class="chex-add-button">
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each resources}}
+            {{> (lookup @root "resourcesFrag") resource=this }}
+        {{/each}}
+    </fieldset>
+
+    <fieldset name="chex-terrains">
+        <legend>
+            {{localize 'CHEX.CUSTOMIZER.Terrains'}}
+            <button type="button" data-action="addTerrain" class="chex-add-button">
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each terrains}}
+            {{> (lookup @root "terrainsFrag") terrain=this }}
+        {{/each}}
+    </fieldset>
+
+    <fieldset name="chex-travels">
+        <legend>
+            {{localize 'CHEX.CUSTOMIZER.Travels'}}
+            <button type="button" data-action="addTravel" class="chex-add-button">
+                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+            </button>
+        </legend>
+        {{#each travels}}
+            {{> (lookup @root "travelsFrag") travel=this }}
+        {{/each}}
+    </fieldset>
+
+    <footer>
+        <button type="submit">
+            <i class="fa-solid fa-save"></i>
+            <span>{{localize 'CHEX.HEXEDIT.Save'}}</span>
+        </button>
+    </footer>
 </form>
