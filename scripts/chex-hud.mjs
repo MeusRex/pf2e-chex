@@ -1,6 +1,6 @@
 import * as C from "./const.mjs";
 import ChexHex from "./hex.mjs";
-import ChexInstructionParser, { KEY_INCOME } from "./instruction-parser.mjs";
+import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
@@ -73,7 +73,7 @@ export default class ChexHexHUD extends Application {
         img: chex.terrains[data.terrain]?.img || C.FALLBACK_IMAGE
       };
 
-      const currentTravel = ChexInstructionParser.getTravel(data);
+      const currentTravel = ChexFormulaParser.getTravel(data);
       const travel = {
         label: chex.travels[currentTravel]?.label || C.FALLBACK_LABEL,
         multiplier: chex.travels[currentTravel]?.multiplier || C.FALLBACK_MULTIPLIER

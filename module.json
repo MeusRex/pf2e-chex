@@ -11,22 +11,11 @@
       "verified": "11.315",
       "maximum": "11"
     },
-    "relationships": {
-      "systems": [
-        {
-          "id": "pf2e",
-          "type": "system",
-          "compatibility": {
-            "minimum": "5.11.0"
-          }
-        }
-      ]
-    },
     "esmodules": [
       "scripts/main.mjs"
     ],
     "styles": [
-      "styles/pf2e-km.css"
+      "styles/chex.css"
     ],
     "languages": [
       {

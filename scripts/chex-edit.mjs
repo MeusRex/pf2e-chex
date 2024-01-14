@@ -1,5 +1,5 @@
 import * as C from "./const.mjs";
-import ChexData from "./hex-data.mjs";
+import ChexData from "./chex-data.mjs";
 
 export default class ChexHexEdit extends FormApplication {
   static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-improvements.hbs";

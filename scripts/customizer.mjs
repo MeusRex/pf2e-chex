@@ -5,9 +5,9 @@ import { Realm } from "./customizables/realms.mjs";
 import { Resource } from "./customizables/resources.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 import { Travel } from "./customizables/travel.mjs";
-import ChexData, { ChexImprovement } from "./hex-data.mjs";
+import ChexData, { ChexImprovement } from "./chex-data.mjs";
 
-export default class ChexCustomizer extends FormApplication {
+export default class Customizer extends FormApplication {
   static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
   static featuresFrag = "modules/pf2e-chex/templates/frags/chex-custom-features.hbs";
   static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-custom-resources.hbs";
@@ -18,7 +18,7 @@ export default class ChexCustomizer extends FormApplication {
 
   static get defaultOptions() {
       return foundry.utils.mergeObject(super.defaultOptions, {
-          id: ChexCustomizer.formId,
+          id: Customizer.formId,
           classes: [chex.CSS_CLASS],
           template: "modules/pf2e-chex/templates/chex-customizer.hbs",
           width: 800,
@@ -34,12 +34,12 @@ export default class ChexCustomizer extends FormApplication {
 
   async _render(force, options) {
       await loadTemplates([
-        ChexCustomizer.improvementsFrag, 
-        ChexCustomizer.featuresFrag, 
-        ChexCustomizer.resourcesFrag, 
-        ChexCustomizer.realmsFrag,
-        ChexCustomizer.terrainsFrag,
-        ChexCustomizer.travelsFrag]);
+        Customizer.improvementsFrag, 
+        Customizer.featuresFrag, 
+        Customizer.resourcesFrag, 
+        Customizer.realmsFrag,
+        Customizer.terrainsFrag,
+        Customizer.travelsFrag]);
       chex.customizer = this;
       return super._render(force, options);
   }
@@ -51,12 +51,12 @@ export default class ChexCustomizer extends FormApplication {
 
   async getData(options) {
       return Object.assign(await super.getData(options), {
-        improvementsFrag: ChexCustomizer.improvementsFrag,
-        featuresFrag: ChexCustomizer.featuresFrag,
-        resourcesFrag: ChexCustomizer.resourcesFrag,
-        realmsFrag: ChexCustomizer.realmsFrag,
-        terrainsFrag: ChexCustomizer.terrainsFrag,
-        travelsFrag: ChexCustomizer.travelsFrag,
+        improvementsFrag: Customizer.improvementsFrag,
+        featuresFrag: Customizer.featuresFrag,
+        resourcesFrag: Customizer.resourcesFrag,
+        realmsFrag: Customizer.realmsFrag,
+        terrainsFrag: Customizer.terrainsFrag,
+        travelsFrag: Customizer.travelsFrag,
 
         improvements: chex.improvements,
         features: chex.features,
@@ -108,7 +108,7 @@ export default class ChexCustomizer extends FormApplication {
   }
 
   #hideAll() {
-    const form = document.getElementById(ChexCustomizer.formId);
+    const form = document.getElementById(Customizer.formId);
     const childFieldsets = form.querySelectorAll('fieldset');
 
     childFieldsets.forEach(function(fieldset) {
@@ -117,7 +117,7 @@ export default class ChexCustomizer extends FormApplication {
   }
 
   #showOne(name) {
-    const form = document.getElementById(ChexCustomizer.formId);
+    const form = document.getElementById(Customizer.formId);
     const chexImprovementsFieldset = form.querySelector(`[name="${name}"]`);
     if (chexImprovementsFieldset) {
       chexImprovementsFieldset.style.display = 'block'; // or 'inline', 'flex', etc.
@@ -150,7 +150,7 @@ export default class ChexCustomizer extends FormApplication {
       case "addImprovement": {
         const improvement = new Improvement();
         improvement.id = foundry.utils.randomID();
-        const html = await renderTemplate(ChexCustomizer.improvementsFrag, {
+        const html = await renderTemplate(Customizer.improvementsFrag, {
           improvement: improvement
         });
         this._attach(html, control);
@@ -159,7 +159,7 @@ export default class ChexCustomizer extends FormApplication {
       case "addFeature": {
         const feature = new Feature();
         feature.id = foundry.utils.randomID();
-        const html = await renderTemplate(ChexCustomizer.featuresFrag, {
+        const html = await renderTemplate(Customizer.featuresFrag, {
           feature: feature
         });
         this._attach(html, control);
@@ -168,7 +168,7 @@ export default class ChexCustomizer extends FormApplication {
       case "addRealm": {
         const realm = new Realm();
         realm.id = foundry.utils.randomID();
-        const html = await renderTemplate(ChexCustomizer.realmsFrag, {
+        const html = await renderTemplate(Customizer.realmsFrag, {
           realm: realm
         });
         this._attach(html, control);
@@ -177,7 +177,7 @@ export default class ChexCustomizer extends FormApplication {
       case "addResource": {
         const resource = new Resource();
         resource.id = foundry.utils.randomID();
-        const html = await renderTemplate(ChexCustomizer.resourcesFrag, {
+        const html = await renderTemplate(Customizer.resourcesFrag, {
           resource: resource
         });
         this._attach(html, control);
@@ -186,7 +186,7 @@ export default class ChexCustomizer extends FormApplication {
       case "addTerrain": {
         const terrain = new Terrain();
         terrain.id = foundry.utils.randomID();
-        const html = await renderTemplate(ChexCustomizer.terrainsFrag, {
+        const html = await renderTemplate(Customizer.terrainsFrag, {
           terrain: terrain
         });
         this._attach(html, control);
@@ -195,7 +195,7 @@ export default class ChexCustomizer extends FormApplication {
       case "addTravel": {
         const travel = new Travel();
         travel.id = foundry.utils.randomID();
-        const html = await renderTemplate(ChexCustomizer.travelsFrag, {
+        const html = await renderTemplate(Customizer.travelsFrag, {
           travel: travel
         });
         this._attach(html, control);

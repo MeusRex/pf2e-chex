@@ -1,7 +1,7 @@
 export const MODULE_ID = "pf2e-chex";
 export const CHEX_DATA_KEY = "chex-data";
 export const HIGHLIGHT_LAYER = "KingmakerRegion";
-export const MODE_KINGDOM = "kingdom";
+export const MODE_REALM = "kingdom";
 export const MODE_TERRAIN = "terrain";
 export const MODE_TRAVEL = "travel";
 export const FALLBACK_COLOR = "#ff0000";

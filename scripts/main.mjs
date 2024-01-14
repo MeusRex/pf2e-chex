@@ -6,9 +6,9 @@ import { Realm } from "./customizables/realms.mjs";
 import { Resource } from "./customizables/resources.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 import { Travel } from "./customizables/travel.mjs";
-import ChexData, { ChexImprovement } from "./hex-data.mjs";
-import ChexHexEdit from "./hex-edit.mjs";
-import ChexHexHUD from "./hex-hud.mjs";
+import ChexData, { ChexImprovement } from "./chex-data.mjs";
+import ChexHexEdit from "./chex-edit.mjs";
+import ChexHexHUD from "./chex-hud.mjs";
 import ChexManager from "./manager.mjs";
 import ChexSceneData from "./scene-data.mjs";
 

@@ -1,14 +1,14 @@
-import ChexCustomizer from "./chex-customizer.mjs";
-import ChexDeleteCertain from "./chex-delete-certain.mjs";
+import Customizer from "./customizer.mjs";
+import DeleteCertain from "./delete-certain.mjs";
 import ChexLayer from "./chex-layer.mjs";
-import chexRealmSelector from "./chex-realm-selector.mjs";
-import ChexTerrainSelector from "./chex-terrain-selector.mjs";
+import RealmPalette from "./realm-palette.mjs";
+import TerrainPalette from "./terrain-palette.mjs";
 import * as C from "./const.mjs";
-import ChexData from "./hex-data.mjs";
-import ChexHexEdit from "./hex-edit.mjs";
-import ChexHexHUD from "./hex-hud.mjs";
+import ChexData from "./chex-data.mjs";
+import ChexHexEdit from "./chex-edit.mjs";
+import ChexHexHUD from "./chex-hud.mjs";
 import ChexHex from "./hex.mjs";
-import ChexKingdomLayer from "./kingdom-layer.mjs";
+import ChexDrawingLayer from "./chex-drawing-layer.mjs";
 import ChexSceneData from "./scene-data.mjs";
 import CHexData from "./scene-data.mjs";
 
@@ -17,7 +17,7 @@ export default class ChexManager {
         this.hud = new ChexHexHUD();
     }
     /**
-     * @type {ChexKingdomLayer}
+     * @type {ChexDrawingLayer}
      */
     kingdomLayer;
 
@@ -59,10 +59,7 @@ export default class ChexManager {
     #showTerrainTool;
     #showTravelTool;
 
-    /**
-     * Defines what mode the KingdomLayer is in. E.g. what overlay it should show.
-     */
-    mode = C.MODE_KINGDOM;
+    mode = C.MODE_REALM;
 
     _extendSceneControlButtons(buttons) {
         const tokens = buttons.find(b => b.name === "token");
@@ -83,9 +80,9 @@ export default class ChexManager {
                 title: "CHEX.TOOLS.ShowKingdomTool",
                 icon: "fa-solid fa-bank",
                 toggle: true,
-                active: this.mode === C.MODE_KINGDOM,
+                active: this.mode === C.MODE_REALM,
                 onClick: () => {
-                    this.mode = C.MODE_KINGDOM;
+                    this.mode = C.MODE_REALM;
                     this.#showTerrainTool.active = false;
                     this.#showTravelTool.active = false;
                     this.#refreshKingdomLayer();
@@ -160,7 +157,7 @@ export default class ChexManager {
                         if (chex.realmSelector)
                             chex.realmSelector.close();
                         if (!chex.terrainSelector) 
-                            new ChexTerrainSelector().render(true); 
+                            new TerrainPalette().render(true); 
                     }
                 },
                 {
@@ -173,14 +170,13 @@ export default class ChexManager {
                         if (chex.terrainSelector)
                             chex.terrainSelector.close(); 
                         if (!chex.realmSelector) 
-                            new chexRealmSelector().render(true); 
+                            new RealmPalette().render(true); 
                         }
                     }
                 );
             }
             buttons.push(toolBox);
         }
-
     }
 
     get isValidGrid() {
@@ -189,7 +185,7 @@ export default class ChexManager {
 
     #showSettings() {
         if (!chex.customizer) {
-            const customizer = new ChexCustomizer();
+            const customizer = new Customizer();
             customizer.render(true);
         }
     }
@@ -202,7 +198,7 @@ export default class ChexManager {
     async #enableChex() {
         if (this.active) {
             // remove chex
-            new ChexDeleteCertain(canvas.scene).render(true);
+            new DeleteCertain(canvas.scene).render(true);
         }
         else {
             if (this.isValidGrid) {
@@ -236,7 +232,7 @@ export default class ChexManager {
         this.#initHexes();
 
         if (!this.kingdomLayer) {
-            this.kingdomLayer = new ChexKingdomLayer();
+            this.kingdomLayer = new ChexDrawingLayer();
             canvas.grid.addChildAt(this.kingdomLayer, canvas.grid.children.indexOf(canvas.grid.borders));
         }
         this.kingdomLayer.draw();

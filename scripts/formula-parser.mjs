@@ -1,4 +1,4 @@
-import ChexData, { ChexImprovement } from "./hex-data.mjs";
+import ChexData, { ChexImprovement } from "./chex-data.mjs";
 
 export const KEY_INCOME = "income:";
 export const KEY_TRAVEL = "travel:"
@@ -6,7 +6,7 @@ export const KEY_TRAVEL = "travel:"
 const incomeRegex = new RegExp(`${KEY_INCOME} (\\w+): ([+-]?\\d+)`, 'g');
 const travelRegex = new RegExp(`${KEY_TRAVEL} ([+-]?\\d+)`);
 
-export default class ChexInstructionParser {
+export default class ChexFormulaParser {
     /**
      * 
      * @param {ChexImprovement[]} improvements 
@@ -42,7 +42,7 @@ export default class ChexInstructionParser {
      * @returns {string}
      */
     static getTravel(data) {
-        const result = ChexInstructionParser.parse(data.improvements);
+        const result = ChexFormulaParser.parse(data.improvements);
         if (result.travelSum === 0) {
             return data.travel;
         }
@@ -70,6 +70,6 @@ export default class ChexInstructionParser {
      * @param {ChexData} data 
      */
     static getResources(data) {
-        return ChexInstructionParser.parse(data.improvements).incomeSums;
+        return ChexFormulaParser.parse(data.improvements).incomeSums;
     }
 }

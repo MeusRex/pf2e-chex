@@ -1,9 +1,9 @@
-export default class ChexTerrainSelector extends FormApplication {
+export default class TerrainPalette extends FormApplication {
   static formId = "chex-terrainSelector";
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      id: ChexTerrainSelector.formId,
+      id: TerrainPalette.formId,
       classes: [chex.CSS_CLASS],
       template: "modules/pf2e-chex/templates/chex-terrain-selector.hbs",
       width: 240,
@@ -46,7 +46,7 @@ export default class ChexTerrainSelector extends FormApplication {
     const action = control.dataset.action;
     this.activeTool = action;
 
-    const form = document.getElementById(ChexTerrainSelector.formId);
+    const form = document.getElementById(TerrainPalette.formId);
     const buttons = form.querySelectorAll('button');
     buttons.forEach(element => {
       if (element.id === action) {

@@ -1,6 +1,9 @@
 import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
 
-export default class ChexDeleteCertain extends FormApplication {
+/**
+ * Dialog to check if the user is really sure about deleting the chex data linked to the scene.
+ */
+export default class DeleteCertain extends FormApplication {
   constructor(scene) {
     super();
     this.scene = scene;
@@ -9,7 +12,7 @@ export default class ChexDeleteCertain extends FormApplication {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      id: ChexDeleteCertain.formId,
+      id: DeleteCertain.formId,
       classes: [chex.CSS_CLASS],
       template: "modules/pf2e-chex/templates/chex-delete-certain.hbs",
       width: 240,

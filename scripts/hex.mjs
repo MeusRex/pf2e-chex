@@ -1,7 +1,7 @@
 import * as C from "./const.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 import { Travel } from "./customizables/travel.mjs";
-import ChexData from "./hex-data.mjs";
+import ChexData from "./chex-data.mjs";
 import ChexSceneData from "./scene-data.mjs";
 
 export default class ChexHex extends GridHex {
