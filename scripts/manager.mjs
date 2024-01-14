@@ -1,5 +1,7 @@
 import ChexCustomizer from "./chex-customizer.mjs";
 import ChexLayer from "./chex-layer.mjs";
+import chexRealmSelector from "./chex-realm-selector.mjs";
+import ChexTerrainSelector from "./chex-terrain-selector.mjs";
 import * as C from "./const.mjs";
 import ChexData from "./hex-data.mjs";
 import ChexHexEdit from "./hex-edit.mjs";
@@ -125,7 +127,7 @@ export default class ChexManager {
             const toolBox = {
                 name: "chexTools",
                 title: "CHEX.TOOLS.ChexTools",
-                icon: "fas fa-hat-wizard",
+                icon: "fa-solid fa-hexagon-image",
                 layer: "chex",
                 tools: [
                     {
@@ -144,23 +146,36 @@ export default class ChexManager {
                         visible: true,
                         toggle: false,
                         onClick: async () => this.#showSettings()
+                    },
+                    {
+                        name: "chexTerrainSelector",
+                        title: "CHEX.TOOLS.TerrainSelector",
+                        icon: "fa-solid fa-mountain",
+                        visible: true,
+                        toggle: false,
+                        onClick: async () => 
+                        { 
+                            if (chex.realmSelector)
+                                chex.realmSelector.close();
+                            if (!chex.terrainSelector) 
+                                new ChexTerrainSelector().render(true); 
+                        }
+                    },
+                    {
+                        name: "chexRealmSelector",
+                        title: "CHEX.TOOLS.RealmSelector",
+                        icon: "fa-solid fa-bank",
+                        visible: true,
+                        toggle: false,
+                        onClick: async () => 
+                        {
+                            if (chex.terrainSelector)
+                                chex.terrainSelector.close(); 
+                            if (!chex.realmSelector) 
+                                new chexRealmSelector().render(true); 
+                        }
                     }
                 ]
-            }
-            
-            // add terrain tools
-            if (this.active) {
-                for (const terrainKey in chex.terrains) {
-                    if (chex.terrains.hasOwnProperty(terrainKey)) {
-                        const terrain = chex.terrains[terrainKey];
-                        const tool = {
-                            name: terrain.id,
-                            title: terrain.label + " Tool",
-                            icon: terrain.toolIcon,
-                        };
-                        toolBox.tools.push(tool);
-                    }
-                }
             }
 
             buttons.push(toolBox);
@@ -304,16 +319,30 @@ export default class ChexManager {
     }
 
     #paintTerrainDeferred(hex) {
-        if (hex) {
-            if (canvas.activeLayer.name === ChexLayer.name) {
-                const activeTool = ui.controls.tool;
+        if (hex && canvas.activeLayer.name === ChexLayer.name) {
+            const key = ChexData.getKey(hex.offset);
+            // correct layer, first check terrain painter
+            if (chex.terrainSelector && chex.terrainSelector.activeTool) {
+                const activeTool = chex.terrainSelector.activeTool;
                 if (chex.terrains[activeTool] && hex.hexData.terrain !== activeTool) {
                     const patch = {
                         terrain: activeTool,
                         travel: chex.terrains[activeTool].travel
                     };
                     
-                    const key = ChexData.getKey(hex.offset);
+                    this.pendingPatches.push({
+                        hex: hex,
+                        key: key,
+                        patch: patch
+                    });
+                }
+            }
+            else if (chex.realmSelector && chex.realmSelector.activeTool) {
+                const activeTool = chex.realmSelector.activeTool;
+                if (chex.realms[activeTool] && hex.hexData.claimed !== activeTool) {
+                    const patch = {
+                        claimed: activeTool
+                    };
 
                     this.pendingPatches.push({
                         hex: hex,

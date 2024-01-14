@@ -153,8 +153,6 @@ export default class ChexHexHUD extends Application {
       }
     }
   
-    /* -------------------------------------------- */
-  
     /** @override */
     setPosition({left, top}={}) {
       const position = {
@@ -166,13 +164,6 @@ export default class ChexHexHUD extends Application {
       this.element.css(position);
     }
   
-    /* -------------------------------------------- */
-  
-    /**
-     * Activate this HUD element, binding it to a specific hex.
-     * @param {KingmakerHex} hex    The target hex for the HUD
-     * @returns {Promise<*>}
-     */
     async activate(hex) {
       this.hex = hex;
 
@@ -186,7 +177,13 @@ export default class ChexHexHUD extends Application {
         if (chex.manager.pendingPatches.length > 0) {
           chex.manager.pendingPatches.forEach(patch => {
             let {x, y} = patch.hex.topLeft;
-            canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(chex.terrains[patch.patch.terrain].color)});
+            let color = "#ff0000";
+            if (patch.patch.terrain)
+              color = chex.terrains[patch.patch.terrain].color
+            else if (patch.patch.claimed)
+              color = chex.realms[patch.patch.claimed].color
+
+            canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(color)});
           });
         }
 

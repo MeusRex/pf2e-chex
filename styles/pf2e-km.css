@@ -131,3 +131,24 @@
 .chex-button-row {
   display: flex;
 }
+
+.chex-terrain-selector {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+/* Style for each button */
+.chex-terrain-selector button {
+  margin-bottom: 5px; /* Adjust the margin as needed */
+  width: 30px;
+}
+
+.chex-terrain-selector button.active {
+  border: 1px solid var(--color-border-highlight-alt);
+  border-bottom: 1px solid var(--color-border-highlight);
+  box-shadow: 0 0 5px var(--color-shadow-highlight);
+}
+
+.chex-realm-select {
+  width: 100%;
+}

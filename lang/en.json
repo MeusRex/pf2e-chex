@@ -38,7 +38,8 @@
         "ShowTravelTool": "Show Travel Overlay",
         "ChexTools": "Chex",
         "EnableChex": "Add/Remove Chex to current Scene",
-        "Settings": "Settings"
+        "Settings": "Settings",
+        "TerrainSelector": "Terrain Palette"
       },
       "CUSTOMIZER": {
         "Title": "Chex Customizer",
@@ -61,6 +62,9 @@
         "MultiplierTT": "How many times more time does it take to travel here?",
         "SpecialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula",
         "PickIconTT": "Open Filebrowser to select an image"
+      },
+      "TERRAINSELECTOR": {
+        "Title": "Terrain Palette"
       }
     }
 }
