@@ -1,4 +1,5 @@
 import ChexCustomizer from "./chex-customizer.mjs";
+import ChexDeleteCertain from "./chex-delete-certain.mjs";
 import ChexLayer from "./chex-layer.mjs";
 import chexRealmSelector from "./chex-realm-selector.mjs";
 import ChexTerrainSelector from "./chex-terrain-selector.mjs";
@@ -134,7 +135,6 @@ export default class ChexManager {
                         name: "chexEnable",
                         title: "CHEX.TOOLS.EnableChex",
                         icon: "fa-solid fa-chart-area",
-                        visible: true,
                         toggle: true,
                         active: this.active,
                         onClick: async () => this.#enableChex()
@@ -143,44 +143,48 @@ export default class ChexManager {
                         name: "chexSettings",
                         title: "CHEX.TOOLS.Settings",
                         icon: "fa-solid fa-cog",
-                        visible: true,
                         toggle: false,
                         onClick: async () => this.#showSettings()
-                    },
-                    {
-                        name: "chexTerrainSelector",
-                        title: "CHEX.TOOLS.TerrainSelector",
-                        icon: "fa-solid fa-mountain",
-                        visible: true,
-                        toggle: false,
-                        onClick: async () => 
-                        { 
-                            if (chex.realmSelector)
-                                chex.realmSelector.close();
-                            if (!chex.terrainSelector) 
-                                new ChexTerrainSelector().render(true); 
-                        }
-                    },
-                    {
-                        name: "chexRealmSelector",
-                        title: "CHEX.TOOLS.RealmSelector",
-                        icon: "fa-solid fa-bank",
-                        visible: true,
-                        toggle: false,
-                        onClick: async () => 
-                        {
-                            if (chex.terrainSelector)
-                                chex.terrainSelector.close(); 
-                            if (!chex.realmSelector) 
-                                new chexRealmSelector().render(true); 
-                        }
                     }
                 ]
             }
 
+            if (this.active) {
+                toolBox.tools.push({
+                    name: "chexTerrainSelector",
+                    title: "CHEX.TOOLS.TerrainSelector",
+                    icon: "fa-solid fa-mountain",
+                    toggle: false,
+                    onClick: async () => 
+                    { 
+                        if (chex.realmSelector)
+                            chex.realmSelector.close();
+                        if (!chex.terrainSelector) 
+                            new ChexTerrainSelector().render(true); 
+                    }
+                },
+                {
+                    name: "chexRealmSelector",
+                    title: "CHEX.TOOLS.RealmSelector",
+                    icon: "fa-solid fa-bank",
+                    toggle: false,
+                    onClick: async () => 
+                    {
+                        if (chex.terrainSelector)
+                            chex.terrainSelector.close(); 
+                        if (!chex.realmSelector) 
+                            new chexRealmSelector().render(true); 
+                        }
+                    }
+                );
+            }
             buttons.push(toolBox);
         }
 
+    }
+
+    get isValidGrid() {
+        return canvas.grid.type === 2;
     }
 
     #showSettings() {
@@ -195,18 +199,20 @@ export default class ChexManager {
             this.kingdomLayer.draw();
     }
 
-    #enableChex() {
+    async #enableChex() {
         if (this.active) {
             // remove chex
-            canvas.scene.unsetFlag(C.MODULE_ID, C.CHEX_DATA_KEY);
+            new ChexDeleteCertain(canvas.scene).render(true);
         }
         else {
-            if (canvas.grid.type === 2) {
+            if (this.isValidGrid) {
                 // add chex
-                const sceneData = ChexSceneData.create(canvas.scene)
+                const sceneData = await ChexSceneData.create(canvas.scene)
+                location.reload();
             }
             else {
                 // message that it wont work with other grids currently
+                ui.notifications.warn("Currently, Chex only works for Hexagonal Rows - Odd");
             }
         }
 

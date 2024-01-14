@@ -1,3 +1,6 @@
+import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
+import ChexInstructionParser from "./instruction-parser.mjs";
+
 export default class chexRealmSelector extends FormApplication {
   static formId = "chex-realmSelector";
 
@@ -36,5 +39,39 @@ export default class chexRealmSelector extends FormApplication {
     return Object.assign(await super.getData(options), {
       realms: chex.realms
     });
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    html.on("click", "[data-action]", this.#onClickAction.bind(this));
+  }
+
+  async #onClickAction(event) {
+    event.preventDefault();
+    const control = event.currentTarget;
+    const action = control.dataset.action;
+    
+    if (action === "report" && this.activeTool) {
+      const realm = this.activeTool;
+      let hexes = Object.values(canvas.scene.getFlag(MODULE_ID, CHEX_DATA_KEY).hexes);
+      let mergedResources = {};
+
+        // Iterate over each hexData and sum up the resources
+        hexes.forEach((hexData) => {
+            const resources = ChexInstructionParser.getResources(hexData);
+            if (Object.keys(resources)) {
+              Object.entries(resources).forEach(([resource, amount]) => {
+                mergedResources[resource] = (mergedResources[resource] || 0) + amount;
+              });
+            }
+        });
+        if (Object.keys(mergedResources).length) {
+          let msg = `The income for this realm from owner hexes is:\n`;
+          Object.entries(mergedResources).forEach(([resource, amount]) => {
+            msg += `${resource}: ${amount}\n`
+          });
+          ui.chat.processMessage(msg);
+        }
+    }
   }
 }

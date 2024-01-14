@@ -24,7 +24,7 @@ export class Travel {
             water: new Travel("water", "Water", 1.5, "#0000ff", true),
             difficult: new Travel("difficult", "Difficult", 2, "#ffa500", false),
             greater: new Travel("greater", "Greater", 3, "#ff0000", false),
-            impassable: new Travel("impassable", "Impassable", Infinity, "#000000", false)
+            impassable: new Travel("impassable", "Impassable", 999, "#000000", false)
         };
     }
 }

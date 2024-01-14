@@ -1,4 +1,5 @@
 import * as C from "./const.mjs"
+import ChexInstructionParser from "./instruction-parser.mjs";
 
 /**
  * A canvas Container used to represent the boundaries of the Kingdom.
@@ -80,7 +81,6 @@ export default class ChexKingdomLayer extends PIXI.Container {
       if (groupedHexes.hasOwnProperty(terrainId)) {
         const hexGroup = groupedHexes[terrainId];
     
-        // Assuming ChexKingdomLayer is the class containing the #drawSub method
         this.#drawSub(g, hexGroup, chex.terrains[terrainId].color);
       }
     }
@@ -91,7 +91,8 @@ export default class ChexKingdomLayer extends PIXI.Container {
 
     // Iterate through each hex
     chex.manager.hexes.forEach(hex => {
-      const travelId = hex.travel.id;
+      const travelId = ChexInstructionParser.getTravel(hex.hexData);
+      //const travelId = hex.travel.id;
 
       // If the travelId is not in the groupedHexes object, create an empty array
       if (!groupedHexes[travelId]) {

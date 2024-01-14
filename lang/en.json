@@ -1,6 +1,7 @@
 {
     "CHEX": {
       "HUD": {
+        "Hex": "Hex",
         "Terrain": "Terrain",
         "Travel": "Travel Dif.",
         "TravelMultiplier": "Travel Cost",
@@ -65,6 +66,15 @@
       },
       "TERRAINSELECTOR": {
         "Title": "Terrain Palette"
+      },
+      "REALMSELECTOR": {
+        "Title": "Realm Palette",
+        "IncomeReport": "Income Report"
+      },
+      "REMOVE": {
+        "Title": "Remove Chex",
+        "Info": "Removes all Chex related data from this scene. This can't be undone.",
+        "Cancel": "Cancel"
       }
     }
 }

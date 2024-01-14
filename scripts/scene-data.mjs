@@ -12,7 +12,7 @@ export default class ChexSceneData {
 
     sceneId;
 
-    static create(scene) {
+    static async create(scene) {
         var data = new ChexSceneData();
         const dimensions = scene.dimensions;
 
@@ -37,6 +37,6 @@ export default class ChexSceneData {
             }
         }
 
-        scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, data);
+        await scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, data);
     }
 }
