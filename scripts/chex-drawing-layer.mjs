@@ -4,7 +4,7 @@ import ChexFormulaParser from "./formula-parser.mjs";
 export default class ChexDrawingLayer extends PIXI.Container {
   constructor() {
     super();
-    this.zIndex = 1;
+    this.zIndex = 0;
     this.visible = false;
   }
 

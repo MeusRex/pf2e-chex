@@ -233,7 +233,11 @@ export default class ChexManager {
 
         if (!this.kingdomLayer) {
             this.kingdomLayer = new ChexDrawingLayer();
-            canvas.grid.addChildAt(this.kingdomLayer, canvas.grid.children.indexOf(canvas.grid.borders));
+            
+            if (canvas.scene.tokenVision)
+                canvas.stage.rendered.environment.effects.addChildAt(chex.manager.kingdomLayer, 1);
+            else 
+                canvas.grid.addChildAt(this.kingdomLayer, canvas.grid.children.indexOf(canvas.grid.borders));
         }
         this.kingdomLayer.draw();
         canvas.grid.addHighlightLayer(C.HIGHLIGHT_LAYER);
@@ -356,9 +360,42 @@ export default class ChexManager {
         }
     }
 
+    _updateVisibility(visibility) {
+    }
+
     getHexFromPoint(point) {
+        const grid = canvas.grid.grid;
 		const [row, col] = canvas.grid.grid.getGridPositionFromPixels(point.x, point.y);
 		return this.hexes.get(ChexData.getKey({row, col}));
 	}
+
+      /**
+   * Compute the offset coordinate of a hexagon from a pixel coordinate contained within that hex.
+   * @param {Point} point                     The pixel coordinate
+   * @param {HexGridConfiguration} config     The hex grid configuration
+   * @param {string} [method=floor]           Which Math rounding method to use
+   * @returns {HexOffsetCoordinate}           The offset coordinate
+   */
+  pixelsToOffset({x, y}, config, method="floor") {
+    const {columns, even, width, height} = config;
+    const fn = Math[method];
+    let row;
+    let col;
+
+    // Columnar orientation
+    if ( columns ) {
+      col = fn(x / (width * 0.866));
+      const isEven = (col + 1) % 2 === 0;
+      row = fn((y / height) + (even === isEven ? 0.5 : 0));
+    }
+
+    // Row orientation
+    else {
+      row = fn(y / (height * 0.866));
+      const isEven = (row + 1) % 2 === 0;
+      col = fn((x / width) + (even === isEven ? 0.5 : 0));
+    }
+    return {row, col};
+  }
 
 }

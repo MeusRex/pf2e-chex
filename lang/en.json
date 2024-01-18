@@ -75,6 +75,7 @@
         "Title": "Remove Chex",
         "Info": "Removes all Chex related data from this scene. This can't be undone.",
         "Cancel": "Cancel"
-      }
+      },
+      "CHANGELOG": "v1.1.0: Removed code that would active PF2e Kingdoms/nChex will now only show seen hexes when token vision is enabled/n"
     }
 }
