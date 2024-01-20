@@ -1,0 +1,98 @@
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+  width: 1000,
+  height: 1000,
+  transparent: true, // Set to true if you want a transparent background
+});
+document.body.appendChild(app.view);
+
+// Create a Graphics object to draw the hexagon
+let graphics = new PIXI.Graphics();
+const hexagonSize = 125; // Adjust the size of the hexagon as needed
+
+// Calculate the center of the renderTexture
+const centerX = hexagonSize / 2;
+const centerY = hexagonSize / 2;
+
+const outlineShader = `precision mediump float;
+
+varying vec2 vTextureCoord;
+uniform sampler2D uSampler;
+uniform float uOutlineWidth;
+uniform vec3 uOutlineColor;
+
+void main(void) {
+    vec4 textureColor = texture2D(uSampler, vTextureCoord);
+    vec4 outlineColor = vec4(uOutlineColor, 1.0);
+
+    // Sample neighboring pixels
+    vec4 leftColor = texture2D(uSampler, vTextureCoord + vec2(-uOutlineWidth, 0.0));
+    vec4 rightColor = texture2D(uSampler, vTextureCoord + vec2(uOutlineWidth, 0.0));
+    vec4 topColor = texture2D(uSampler, vTextureCoord + vec2(0.0, -uOutlineWidth));
+    vec4 bottomColor = texture2D(uSampler, vTextureCoord + vec2(0.0, uOutlineWidth));
+
+    // Check for color change (red to blue)
+    bool isColorChange = any(notEqual(textureColor.rgb, leftColor.rgb)) ||
+                         any(notEqual(textureColor.rgb, rightColor.rgb)) ||
+                         any(notEqual(textureColor.rgb, topColor.rgb)) ||
+                         any(notEqual(textureColor.rgb, bottomColor.rgb));
+
+    // If color change, set outline color; otherwise, use texture color
+    gl_FragColor = isColorChange ? outlineColor : textureColor;
+}`;
+
+const  filter = new PIXI.Filter(undefined, outlineShader, {
+    uOutlineWidth: 0.001,
+    uOutlineColor: [0.0, 1.0, 0.0]
+});
+
+// Draw a filled hexagon at the center of the renderTexture
+graphics.beginFill(0xFF0000); // Replace with your desired fill color
+
+let x = centerX;
+let y = centerY;
+const angle = 2 * Math.PI / 6;
+  graphics.beginFill(0xFF0000); // Set fill color (replace with your desired color)
+  graphics.moveTo(x + hexagonSize * Math.cos(0), y + hexagonSize * Math.sin(0));
+
+  for (let i = 1; i < 6; i++) {
+    graphics.lineTo(x + hexagonSize * Math.cos(angle * i), y + hexagonSize * Math.sin(angle * i));
+  }
+
+  graphics.lineTo(x + hexagonSize * Math.cos(0), y + hexagonSize * Math.sin(0));
+  graphics.endFill();
+
+graphics.endFill();
+
+let tex = app.renderer.generateTexture(graphics);
+
+// Create a Sprite with the RenderTexture
+let sprite = PIXI.Sprite.from(tex);
+let sprite2 = PIXI.Sprite.from(tex);
+sprite2.x = 250;
+
+graphics = new PIXI.Graphics();
+graphics.beginFill(0x0000d0);
+graphics.moveTo(0, 0);
+graphics.drawRect(0,0,1000,1000);
+let bg = app.renderer.generateTexture(graphics);
+app.renderer.render(sprite, {renderTexture: bg, clear: false, transform: PIXI.Matrix.IDENTITY});
+let bgsprite = PIXI.Sprite.from(bg);
+bgsprite.filters = [filter]
+app.stage.addChild(bgsprite);
+
+// Add the Sprite to the stage
+//app.stage.addChild(sprite);
+//app.stage.addChild(sprite2);
+
+graphics.drawPolygon([
+  centerX, centerY - hexagonSize,
+  centerX + Math.sqrt(3) / 2 * hexagonSize, centerY - hexagonSize / 2,
+  centerX + Math.sqrt(3) / 2 * hexagonSize, centerY + hexagonSize / 2,
+  centerX, centerY + hexagonSize,
+  centerX - Math.sqrt(3) / 2 * hexagonSize, centerY + hexagonSize / 2,
+  centerX - Math.sqrt(3) / 2 * hexagonSize, centerY - hexagonSize / 2,
+]);
+
+-> https://pixijs.com/playground

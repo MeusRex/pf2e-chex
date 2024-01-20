@@ -287,6 +287,8 @@ export default class ChexManager {
                 this.#paintTerrainDeferred(hex);
             }
             this.hud.activate(hex);
+
+            // canvas.app.renderer.extract.pixels(canvas.effects.visibility.explored.children[0].texture, new PIXI.Rectangle(4001, 0, 1, 1))
         }
         this.hoveredHex = hex || null;
     }
