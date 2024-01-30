@@ -11,6 +11,7 @@ import ChexHexEdit from "./chex-edit.mjs";
 import ChexHexHUD from "./chex-hud.mjs";
 import ChexManager from "./manager.mjs";
 import ChexSceneData from "./scene-data.mjs";
+import * as ko from "./knockout.js"
 
 
 const MODULE_ID = "pf2e-chex";

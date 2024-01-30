@@ -5,7 +5,7 @@ export default class TerrainPalette extends FormApplication {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: TerrainPalette.formId,
       classes: [chex.CSS_CLASS],
-      template: "modules/pf2e-chex/templates/chex-terrain-selector.hbs",
+      template: "modules/pf2e-chex/templates/test.html",
       width: 240,
       height: "auto",
       popOut: true,
@@ -18,6 +18,10 @@ export default class TerrainPalette extends FormApplication {
   }
 
   activeTool = null;
+
+  showAlert() {
+    console.warn("yay, ko works");
+  }
 
   async _render(force, options) {
     chex.terrainSelector = this;
@@ -37,6 +41,7 @@ export default class TerrainPalette extends FormApplication {
 
   activateListeners(html) {
       super.activateListeners(html);
+      globalThis.ko.applyBindings(this, html[0]);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
 

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "knockout": "^3.5.1"
+  }
+}
