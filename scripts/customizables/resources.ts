@@ -1,15 +1,15 @@
 export class Resource {
-    constructor(id, label, img) {
+    constructor(id?: string, label?: string, img?: string) {
         this.id = id;
         this.label = label;
         this.img = img;
     }
 
-    id;
-    label;
-    img;
+    id?: string;
+    label?: string;
+    img?: string;
 
-    static getDefaults() {
+    static getDefaults(): any {
         return {
             stone: new Resource("stone", "Stone", "icons/commodities/stone/masonry-block-cube-tan.webp"),
             lumber: new Resource("lumber", "Lumber", "icons/commodities/wood/lumber-stack.webp"),

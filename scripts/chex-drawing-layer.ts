@@ -1,5 +1,6 @@
-import * as C from "./const.mjs"
-import ChexFormulaParser from "./formula-parser.mjs";
+import * as C from "./const"
+import ChexFormulaParser from "./formula-parser";
+import * as PIXI from 'pixi.js';
 
 export default class ChexDrawingLayer extends PIXI.Container {
   constructor() {
@@ -127,6 +128,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
     for ( const hex of hexes ) {
       const {x, y} = hex.topLeft;
       const p = new PIXI.Polygon(g.getPolygon(x, y, g.w, Math.ceil(g.h)+1));
+      // @ts-ignore
       c.AddPath(p.toClipperPoints(), ClipperLib.PolyType.ptClip, true);
     }
     c.Execute(ClipperLib.ClipType.ctUnion, polyTree, ClipperLib.PolyFillType.pftEvenOdd, ClipperLib.PolyFillType.pftNonZero);
@@ -134,7 +136,9 @@ export default class ChexDrawingLayer extends PIXI.Container {
     // Convert PolyTree solutions an ExPolygons format converted to PIXI.Polygons
     const polygons = ClipperLib.JS.PolyTreeToExPolygons(polyTree);
     for ( const polygon of polygons ) {
+      // @ts-ignore
       polygon.outer = PIXI.Polygon.fromClipperPoints(polygon.outer);
+      // @ts-ignore
       polygon.holes = polygon.holes.map(hole => PIXI.Polygon.fromClipperPoints(hole));
     }
     return polygons;

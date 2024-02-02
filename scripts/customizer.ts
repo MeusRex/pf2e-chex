@@ -1,11 +1,11 @@
-import * as C from "./const.mjs";
-import { Feature } from "./customizables/features.mjs";
-import { Improvement } from "./customizables/improvements.mjs";
-import { Realm } from "./customizables/realms.mjs";
-import { Resource } from "./customizables/resources.mjs";
-import { Terrain } from "./customizables/terrain.mjs";
-import { Travel } from "./customizables/travel.mjs";
-import ChexData, { ChexImprovement } from "./chex-data.mjs";
+import * as C from "./const";
+import { Feature } from "./customizables/features";
+import { Improvement } from "./customizables/improvements";
+import { Realm } from "./customizables/realms";
+import { Resource } from "./customizables/resources";
+import { Terrain } from "./customizables/terrain";
+import { Travel } from "./customizables/travel";
+import ChexData, { ChexImprovement } from "./chex-data";
 
 export default class Customizer extends FormApplication {
   static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
@@ -17,7 +17,7 @@ export default class Customizer extends FormApplication {
   static formId = "chex-customizer";
 
   static get defaultOptions() {
-      return foundry.utils.mergeObject(super.defaultOptions, {
+      return foundry.utils.mergeObject(this.defaultOptions, {
           id: Customizer.formId,
           classes: [chex.CSS_CLASS],
           template: "modules/pf2e-chex/templates/chex-customizer.hbs",
@@ -32,8 +32,8 @@ export default class Customizer extends FormApplication {
       return  game.i18n.localize("CHEX.CUSTOMIZER.Title");
   }
 
-  async _render(force, options) {
-      await loadTemplates([
+  async _render(force: boolean, options: { left: any; top: any; }) {
+      await super.loadTemplates([
         Customizer.improvementsFrag, 
         Customizer.featuresFrag, 
         Customizer.resourcesFrag, 
@@ -44,12 +44,12 @@ export default class Customizer extends FormApplication {
       return super._render(force, options);
   }
 
-  async close(options) {
+  async close(options: any) {
       await super.close(options);
       chex.customizer = null;
   }
 
-  async getData(options) {
+  async getData(options: any) {
       return Object.assign(await super.getData(options), {
         improvementsFrag: Customizer.improvementsFrag,
         featuresFrag: Customizer.featuresFrag,
@@ -67,14 +67,14 @@ export default class Customizer extends FormApplication {
       });
   }
 
-  _zip(array) {
-    return array.reduce((acc, item) => {
+  _zip(array: any[]) {
+    return array.reduce((acc: { [x: string]: any; }, item: { id: string | number; }) => {
       acc[item.id] = { ...item }; // Use spread operator to create a new object
       return acc;
     }, {});
   }
 
-  async _updateObject(event, formData) {
+  async _updateObject(event: any, formData: { improvements: { [s: string]: unknown; } | ArrayLike<unknown>; features: { [s: string]: unknown; } | ArrayLike<unknown>; resources: { [s: string]: unknown; } | ArrayLike<unknown>; realms: { [s: string]: unknown; } | ArrayLike<unknown>; terrains: { [s: string]: unknown; } | ArrayLike<unknown>; travels: { [s: string]: unknown; } | ArrayLike<unknown>; }) {
       formData = foundry.utils.expandObject(formData);
       const improvements = formData.improvements ? Object.values(formData.improvements) : [];
       const features = formData.features ? Object.values(formData.features) : [];
@@ -92,7 +92,7 @@ export default class Customizer extends FormApplication {
       await game.settings.set(C.MODULE_ID, Travel.name, this._zip(travels));
     }
 
-  activateListeners(html) {
+  activateListeners(html: { on: any; }) {
       super.activateListeners(html);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
@@ -101,7 +101,7 @@ export default class Customizer extends FormApplication {
     this.setPosition({height: "auto"});
   }
 
-  _attach(html, control) {
+  _attach(html: any, control: { closest: (arg0: string) => any; }) {
     const fieldset = control.closest("fieldset");
     fieldset.insertAdjacentHTML("beforeend", html);
     this._refreshPosition();
@@ -109,6 +109,8 @@ export default class Customizer extends FormApplication {
 
   #hideAll() {
     const form = document.getElementById(Customizer.formId);
+    if (!form)
+      return;
     const childFieldsets = form.querySelectorAll('fieldset');
 
     childFieldsets.forEach(function(fieldset) {
@@ -116,17 +118,20 @@ export default class Customizer extends FormApplication {
     });
   }
 
-  #showOne(name) {
+  #showOne(name: any) {
     const form = document.getElementById(Customizer.formId);
+    if (!form)
+      return;
     const chexImprovementsFieldset = form.querySelector(`[name="${name}"]`);
     if (chexImprovementsFieldset) {
+      //@ts-ignore
       chexImprovementsFieldset.style.display = 'block'; // or 'inline', 'flex', etc.
     }
 
     this._refreshPosition();
   }
 
-  async #onClickAction(event) {
+  async #onClickAction(event: { preventDefault: () => void; currentTarget: any; }) {
     event.preventDefault();
     const control = event.currentTarget;
     const action = control.dataset.action;
@@ -138,7 +143,7 @@ export default class Customizer extends FormApplication {
         const imgField = formGroup.querySelector('.chex-img-preview');
         if (inputField) {
           const filePicker = new FilePicker();
-          filePicker.callback = (s) => {
+          filePicker.callback = (s: any) => {
             inputField.value = s;
             imgField.src = s;
           };
@@ -150,7 +155,7 @@ export default class Customizer extends FormApplication {
       case "addImprovement": {
         const improvement = new Improvement();
         improvement.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.improvementsFrag, {
+        const html = await super.renderTemplate(Customizer.improvementsFrag, {
           improvement: improvement
         });
         this._attach(html, control);
@@ -159,7 +164,7 @@ export default class Customizer extends FormApplication {
       case "addFeature": {
         const feature = new Feature();
         feature.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.featuresFrag, {
+        const html = await super.renderTemplate(Customizer.featuresFrag, {
           feature: feature
         });
         this._attach(html, control);
@@ -168,7 +173,7 @@ export default class Customizer extends FormApplication {
       case "addRealm": {
         const realm = new Realm();
         realm.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.realmsFrag, {
+        const html = await super.renderTemplate(Customizer.realmsFrag, {
           realm: realm
         });
         this._attach(html, control);
@@ -177,7 +182,7 @@ export default class Customizer extends FormApplication {
       case "addResource": {
         const resource = new Resource();
         resource.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.resourcesFrag, {
+        const html = await super.renderTemplate(Customizer.resourcesFrag, {
           resource: resource
         });
         this._attach(html, control);
@@ -186,7 +191,7 @@ export default class Customizer extends FormApplication {
       case "addTerrain": {
         const terrain = new Terrain();
         terrain.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.terrainsFrag, {
+        const html = await super.renderTemplate(Customizer.terrainsFrag, {
           terrain: terrain
         });
         this._attach(html, control);
@@ -195,7 +200,7 @@ export default class Customizer extends FormApplication {
       case "addTravel": {
         const travel = new Travel();
         travel.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.travelsFrag, {
+        const html = await super.renderTemplate(Customizer.travelsFrag, {
           travel: travel
         });
         this._attach(html, control);

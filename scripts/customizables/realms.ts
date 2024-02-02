@@ -1,15 +1,15 @@
 export class Realm {
-    constructor(id, label, color) {
+    constructor(id?: string, label?: string, color?: string) {
         this.id = id;
         this.label = label;
         this.color = color;
     }
 
-    id;
-    label;
-    color;
+    id?: string;
+    label?: string;
+    color?: string;
 
-    static getDefaults() {
+    static getDefaults(): any {
         return {
             helas: new Realm("helas", "Council of Helas", "#ff0000"),
         };

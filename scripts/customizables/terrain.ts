@@ -1,5 +1,5 @@
 export class Terrain {
-    constructor(id, label, img, toolIcon, travel, color) {
+    constructor(id?: string, label?: string, img?: string, toolIcon?: string, travel?: string, color?: string) {
         this.id = id;
         this.label = label;
         this.img = img;
@@ -8,14 +8,14 @@ export class Terrain {
         this.color = color;
     }
 
-    id;
-    label;
-    img;
-    toolIcon;
-    travel;
-    color;
+    id?: string;
+    label?: string;
+    img?: string;
+    toolIcon?: string;
+    travel?: string;
+    color?: string;
 
-    static getDefaults() {
+    static getDefaults(): any {
         return {
             plains: new Terrain("plains", "Plains", "icons/environment/settlement/scarecrow.webp", "fa-solid fa-road", "open", "#66ff00"),
             forest: new Terrain("forest", "Forest", "icons/environment/wilderness/tree-spruce.webp", "fa-solid fa-tree", "greater", "#008000"),

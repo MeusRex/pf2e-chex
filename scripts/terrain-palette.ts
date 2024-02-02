@@ -2,7 +2,7 @@ export default class TerrainPalette extends FormApplication {
   static formId = "chex-terrainSelector";
 
   static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(this.defaultOptions, {
       id: TerrainPalette.formId,
       classes: [chex.CSS_CLASS],
       template: "modules/pf2e-chex/templates/test.html",
@@ -23,35 +23,37 @@ export default class TerrainPalette extends FormApplication {
     console.warn("yay, ko works");
   }
 
-  async _render(force, options) {
+  async _render(force: boolean, options: any) {
     chex.terrainSelector = this;
     return super._render(force, options);
   }
 
-  async close(options) {
+  async close(options: any) {
     await super.close(options);
     chex.terrainSelector = null;
   }
 
-  async getData(options) {
+  async getData(options: any) {
     return Object.assign(await super.getData(options), {
       terrains: chex.terrains
     });
   }
 
-  activateListeners(html) {
+  activateListeners(html: any) {
       super.activateListeners(html);
       globalThis.ko.applyBindings(this, html[0]);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
 
-  async #onClickAction(event) {
+  async #onClickAction(event: { preventDefault: () => void; currentTarget: any; }) {
     event.preventDefault();
     const control = event.currentTarget;
     const action = control.dataset.action;
     this.activeTool = action;
 
     const form = document.getElementById(TerrainPalette.formId);
+    if (form === null) 
+      return;
     const buttons = form.querySelectorAll('button');
     buttons.forEach(element => {
       if (element.id === action) {

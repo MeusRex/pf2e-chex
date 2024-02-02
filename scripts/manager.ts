@@ -1,36 +1,30 @@
-import Customizer from "./customizer.mjs";
-import DeleteCertain from "./delete-certain.mjs";
-import ChexLayer from "./chex-layer.mjs";
-import RealmPalette from "./realm-palette.mjs";
-import TerrainPalette from "./terrain-palette.mjs";
-import * as C from "./const.mjs";
-import ChexData from "./chex-data.mjs";
-import ChexHexEdit from "./chex-edit.mjs";
-import ChexHexHUD from "./chex-hud.mjs";
-import ChexHex from "./hex.mjs";
-import ChexDrawingLayer from "./chex-drawing-layer.mjs";
-import ChexSceneData from "./scene-data.mjs";
-import CHexData from "./scene-data.mjs";
+import Customizer from "./customizer";
+import DeleteCertain from "./delete-certain";
+import ChexLayer from "./chex-layer";
+import RealmPalette from "./realm-palette";
+import TerrainPalette from "./terrain-palette";
+import * as C from "./const";
+import ChexData from "./chex-data";
+import ChexHexEdit from "./chex-edit";
+import ChexHexHUD from "./chex-hud";
+import ChexHex from "./hex";
+import ChexDrawingLayer from "./chex-drawing-layer";
+import ChexSceneData from "./scene-data";
 
 export default class ChexManager {
     constructor() {
         this.hud = new ChexHexHUD();
     }
-    /**
-     * @type {ChexDrawingLayer}
-     */
-    kingdomLayer;
+    
+    kingdomLayer?: ChexDrawingLayer;
 
-    hoveredHex;
+    hoveredHex?: ChexHex;
 
-    hud;
+    hud: ChexHexHUD;
 
     hexes = new Collection();
 
-    /**
-     * @type {ChexSceneData}
-     */
-    get sceneData() {
+    get sceneData(): ChexSceneData {
         return canvas.scene.getFlag(C.MODULE_ID, C.CHEX_DATA_KEY);
     }
 
@@ -216,7 +210,7 @@ export default class ChexManager {
     }
 
     _updateScene(document, change) {
-        if (!this.active) return;
+        if (!this.active || !this.kingdomLayer) return;
 
         this.kingdomLayer.draw();
     }
@@ -255,7 +249,7 @@ export default class ChexManager {
     _onTearDown() {
         if (!this.active) return;
 
-        this.hoveredHex = null;
+        this.hoveredHex = undefined;
         this.hud.clear();
 
         canvas.stage.off(this.#mousemove);
@@ -290,7 +284,7 @@ export default class ChexManager {
 
             // canvas.app.renderer.extract.pixels(canvas.effects.visibility.explored.children[0].texture, new PIXI.Rectangle(4001, 0, 1, 1))
         }
-        this.hoveredHex = hex || null;
+        this.hoveredHex = hex || undefined;
     }
 
     #onMouseDown(event) {
@@ -302,7 +296,8 @@ export default class ChexManager {
         const t0 = this.#clickTime;
         const t1 = this.#clickTime = Date.now();
         if ( (t1 - t0) > 250 ) return;
-        const hex = this.hoveredHex;
+        const hex: ChexHex = this.hoveredHex;
+        // @ts-ignore
         const app = new ChexHexEdit(hex);
         app.render(true, {left: event.x + 100, top: event.y - 50});
     }
@@ -312,7 +307,7 @@ export default class ChexManager {
         this.#paintTerrainDeferredEnd();
     }
 
-    pendingPatches = [];
+    pendingPatches: any = [];
     #paintTerrainDeferredEnd() {
         if (this.pendingPatches.length > 0) {
             const patches = this.pendingPatches.reduce((result, item) => {
@@ -326,7 +321,7 @@ export default class ChexManager {
         this.pendingPatches = [];
     }
 
-    #paintTerrainDeferred(hex) {
+    #paintTerrainDeferred(hex): any {
         if (hex && canvas.activeLayer.name === ChexLayer.name) {
             const key = ChexData.getKey(hex.offset);
             // correct layer, first check terrain painter

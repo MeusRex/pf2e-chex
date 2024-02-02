@@ -1,16 +1,14 @@
 export class Improvement {
     constructor(id, label, img, special) {
-        this.id = id
+        this.id = id;
         this.label = label;
         this.img = img;
         this.special = special;
     }
-
     id;
     label;
     img;
     special;
-
     static getDefaults() {
         return {
             road: new Improvement("road", "Road", "icons/environment/wilderness/terrain-river-road-gray.webp", "travel: -1"),

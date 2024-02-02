@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "knockout": "^3.5.1"
+    "knockout": "^3.5.1",
+    "pixi.js": "^7.4.0"
   }
 }

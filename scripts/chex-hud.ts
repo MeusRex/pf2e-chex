@@ -1,6 +1,6 @@
-import * as C from "./const.mjs";
-import ChexHex from "./hex.mjs";
-import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
+import * as C from "./const";
+import ChexHex from "./hex";
+import ChexFormulaParser, { KEY_INCOME } from "./formula-parser";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
@@ -9,7 +9,7 @@ export default class ChexHexHUD extends Application {
 
     /** @inheritdoc */
     static get defaultOptions() {
-      return foundry.utils.mergeObject(super.defaultOptions, {
+      return foundry.utils.mergeObject(this.defaultOptions, {
         id: "chex-hud",
         classes: [chex.CSS_CLASS],
         template: "modules/pf2e-chex/templates/chex-hud.hbs",
@@ -36,12 +36,13 @@ export default class ChexHexHUD extends Application {
     /** @override */
     _injectHTML(html) {
       this._element = html;
+      // @ts-ignore
       document.getElementById("hud").appendChild(html[0]);
     }
   
     /* -------------------------------------------- */
   
-    toggle(enabled) {
+    toggle(enabled?: boolean) {
       enabled ??= !this.enabled;
       this.enabled = enabled;
       if ( enabled ) chex.manager.kingdomLayer.visible = true;
@@ -81,7 +82,7 @@ export default class ChexHexHUD extends Application {
 
       const explorationState = {
         explored: data.exploration > 0,
-        label: Object.values(C.EXPLORATION_STATES).find(v => v.value === data.exploration).label
+        label: Object.values(C.EXPLORATION_STATES).find(v => v.value === data.exploration)?.label ?? ""
       };
 
       const improvements = data.improvements.reduce((arr, o) => {
@@ -154,7 +155,7 @@ export default class ChexHexHUD extends Application {
     }
   
     /** @override */
-    setPosition({left, top}={}) {
+    setPosition({left, top}={left: 0, top: 0}) {
       const position = {
         height: undefined,
         left: left,
@@ -197,6 +198,7 @@ export default class ChexHexHUD extends Application {
      * Clear the HUD.
      */
     clear() {
+      // @ts-ignore
       let states = this.constructor.RENDER_STATES;
       canvas.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
       if ( this._state <= states.NONE ) return;

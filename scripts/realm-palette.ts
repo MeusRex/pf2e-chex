@@ -1,11 +1,12 @@
-import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
-import ChexFormulaParser from "./formula-parser.mjs";
+import ChexData from "./chex-data";
+import { CHEX_DATA_KEY, MODULE_ID } from "./const";
+import ChexFormulaParser from "./formula-parser";
 
 export default class RealmPalette extends FormApplication {
   static formId = "chex-realmSelector";
 
   static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(this.defaultOptions, {
       id: RealmPalette.formId,
       classes: [chex.CSS_CLASS],
       template: "modules/pf2e-chex/templates/chex-realm-selector.hbs",
@@ -22,6 +23,7 @@ export default class RealmPalette extends FormApplication {
 
   get activeTool() {
     const selectElement = document.getElementById('chex-realm-select');
+    // @ts-ignore
     return selectElement.options[selectElement.selectedIndex].value;
   }
 
@@ -53,7 +55,7 @@ export default class RealmPalette extends FormApplication {
     
     if (action === "report" && this.activeTool) {
       const realm = this.activeTool;
-      let hexes = Object.values(canvas.scene.getFlag(MODULE_ID, CHEX_DATA_KEY).hexes);
+      let hexes: ChexData[] = Object.values(canvas.scene.getFlag(MODULE_ID, CHEX_DATA_KEY).hexes);
       let mergedResources = {};
 
       // Iterate over each hexData and sum up the resources

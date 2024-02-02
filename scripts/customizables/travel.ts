@@ -1,5 +1,5 @@
 export class Travel {
-    constructor(id, label, multiplier, color, special) {
+    constructor(id?: string, label?: string, multiplier?: number, color?: string, special?: boolean) {
         this.id = id;
         this.label = label;
         this.multiplier = multiplier;
@@ -7,18 +7,17 @@ export class Travel {
         this.special = special;
     }
 
-    id;
-    label;
-    multiplier;
-    color;
+    id?: string;
+    label?: string;
+    multiplier?: number;
+    color?: string;
     /**
      * if true, skip this when determining the next travel speed.
      * an example of this would be water. Difficult terrain would not suddenly turn into water type travel
-     * @type {boolean}
      */
-    special;
+    special?: boolean;
 
-    static getDefaults() {
+    static getDefaults(): any {
         return {
             open: new Travel("open", "Open", 1, "#00ff00", false),
             water: new Travel("water", "Water", 1.5, "#0000ff", true),
