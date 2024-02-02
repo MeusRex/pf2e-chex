@@ -1,3 +1,5 @@
+import ko from "knockout";
+
 export default class TerrainPalette extends FormApplication {
   static formId = "chex-terrainSelector";
 
@@ -41,7 +43,7 @@ export default class TerrainPalette extends FormApplication {
 
   activateListeners(html: any) {
       super.activateListeners(html);
-      globalThis.ko.applyBindings(this, html[0]);
+      ko.applyBindings(this, html[0]);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
 

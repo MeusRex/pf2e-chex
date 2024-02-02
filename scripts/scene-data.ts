@@ -10,7 +10,7 @@ export default class ChexSceneData {
     width = 0;
     height = 0;
 
-    sceneId;
+    sceneId = "";
 
     static async create(scene) {
         var data = new ChexSceneData();

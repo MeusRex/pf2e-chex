@@ -8,7 +8,7 @@ export default class ChexSceneData {
     type = 0;
     width = 0;
     height = 0;
-    sceneId;
+    sceneId = "";
     static async create(scene) {
         var data = new ChexSceneData();
         const dimensions = scene.dimensions;
