@@ -1,10 +1,9 @@
-var _a;
 import ko from "knockout";
-class TerrainPalette extends FormApplication {
+export default class TerrainPalette extends FormApplication {
     static formId = "chex-terrainSelector";
     static get defaultOptions() {
         return foundry.utils.mergeObject(this.defaultOptions, {
-            id: _a.formId,
+            id: TerrainPalette.formId,
             classes: [chex.CSS_CLASS],
             template: "modules/pf2e-chex/templates/test.html",
             width: 240,
@@ -43,7 +42,7 @@ class TerrainPalette extends FormApplication {
         const control = event.currentTarget;
         const action = control.dataset.action;
         this.activeTool = action;
-        const form = document.getElementById(_a.formId);
+        const form = document.getElementById(TerrainPalette.formId);
         if (form === null)
             return;
         const buttons = form.querySelectorAll('button');
@@ -57,5 +56,3 @@ class TerrainPalette extends FormApplication {
         });
     }
 }
-_a = TerrainPalette;
-export default TerrainPalette;

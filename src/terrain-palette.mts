@@ -25,23 +25,23 @@ export default class TerrainPalette extends FormApplication {
     console.warn("yay, ko works");
   }
 
-  async _render(force: boolean, options: any) {
+  override async _render(force: boolean, options: any) {
     chex.terrainSelector = this;
     return super._render(force, options);
   }
 
-  async close(options: any) {
+  override async close(options: any) {
     await super.close(options);
     chex.terrainSelector = null;
   }
 
-  async getData(options: any) {
+  override async getData(options: any) {
     return Object.assign(await super.getData(options), {
       terrains: chex.terrains
     });
   }
 
-  activateListeners(html: any) {
+  override activateListeners(html: any) {
       super.activateListeners(html);
       ko.applyBindings(this, html[0]);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));

@@ -1,9 +1,9 @@
-import * as C from "./const";
-import ChexData from "./chex-data";
-import { Feature } from "./customizables/features";
-import { Resource } from "./customizables/resources";
-import { Improvement } from "./customizables/improvements";
-import { Realm } from "./customizables/realms";
+import * as C from "./const.mjs";
+import ChexData from "./chex-data.mjs";
+import { Feature } from "./customizables/features.mjs";
+import { Resource } from "./customizables/resources.mjs";
+import { Improvement } from "./customizables/improvements.mjs";
+import { Realm } from "./customizables/realms.mjs";
 
 export default class ChexHexEdit extends FormApplication {
   static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-improvements.hbs";
@@ -27,18 +27,18 @@ export default class ChexHexEdit extends FormApplication {
       return `Edit Hex: ${this.object.toString()}`;
   }
 
-  async _render(force: boolean, options: any) {
+  override async _render(force: boolean, options: any) {
       await super.loadTemplates([ChexHexEdit.improvementsFrag, ChexHexEdit.featuresFrag, ChexHexEdit.resourcesFrag, ChexHexEdit.forageablesFrag]);
       chex.hexConfig = this;
       return super._render(force, options);
   }
 
-  async close(options: any) {
+  override async close(options: any) {
       await super.close(options);
       chex.hexConfig = null;
   }
 
-  async getData(options: any) {
+  override async getData(options: any) {
       return Object.assign(await super.getData(options), {
         hex: this.object.hexData as ChexData,
 
@@ -75,7 +75,7 @@ export default class ChexHexEdit extends FormApplication {
       });
     }
 
-  activateListeners(html: { on: (arg0: string, arg1: string, arg2: (event: any) => Promise<void>) => void; }) {
+  override activateListeners(html: { on: (arg0: string, arg1: string, arg2: (event: any) => Promise<void>) => void; }) {
       super.activateListeners(html);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }

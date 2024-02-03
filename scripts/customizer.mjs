@@ -1,12 +1,11 @@
-var _a;
-import * as C from "./const";
-import { Feature } from "./customizables/features";
-import { Improvement } from "./customizables/improvements";
-import { Realm } from "./customizables/realms";
-import { Resource } from "./customizables/resources";
-import { Terrain } from "./customizables/terrain";
-import { Travel } from "./customizables/travel";
-class Customizer extends FormApplication {
+import * as C from "./const.mjs";
+import { Feature } from "./customizables/features.mjs";
+import { Improvement } from "./customizables/improvements.mjs";
+import { Realm } from "./customizables/realms.mjs";
+import { Resource } from "./customizables/resources.mjs";
+import { Terrain } from "./customizables/terrain.mjs";
+import { Travel } from "./customizables/travel.mjs";
+export default class Customizer extends FormApplication {
     static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
     static featuresFrag = "modules/pf2e-chex/templates/frags/chex-custom-features.hbs";
     static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-custom-resources.hbs";
@@ -16,7 +15,7 @@ class Customizer extends FormApplication {
     static formId = "chex-customizer";
     static get defaultOptions() {
         return foundry.utils.mergeObject(this.defaultOptions, {
-            id: _a.formId,
+            id: Customizer.formId,
             classes: [chex.CSS_CLASS],
             template: "modules/pf2e-chex/templates/chex-customizer.hbs",
             width: 800,
@@ -30,12 +29,12 @@ class Customizer extends FormApplication {
     }
     async _render(force, options) {
         await super.loadTemplates([
-            _a.improvementsFrag,
-            _a.featuresFrag,
-            _a.resourcesFrag,
-            _a.realmsFrag,
-            _a.terrainsFrag,
-            _a.travelsFrag
+            Customizer.improvementsFrag,
+            Customizer.featuresFrag,
+            Customizer.resourcesFrag,
+            Customizer.realmsFrag,
+            Customizer.terrainsFrag,
+            Customizer.travelsFrag
         ]);
         chex.customizer = this;
         return super._render(force, options);
@@ -46,12 +45,12 @@ class Customizer extends FormApplication {
     }
     async getData(options) {
         return Object.assign(await super.getData(options), {
-            improvementsFrag: _a.improvementsFrag,
-            featuresFrag: _a.featuresFrag,
-            resourcesFrag: _a.resourcesFrag,
-            realmsFrag: _a.realmsFrag,
-            terrainsFrag: _a.terrainsFrag,
-            travelsFrag: _a.travelsFrag,
+            improvementsFrag: Customizer.improvementsFrag,
+            featuresFrag: Customizer.featuresFrag,
+            resourcesFrag: Customizer.resourcesFrag,
+            realmsFrag: Customizer.realmsFrag,
+            terrainsFrag: Customizer.terrainsFrag,
+            travelsFrag: Customizer.travelsFrag,
             improvements: chex.improvements,
             features: chex.features,
             resources: chex.resources,
@@ -95,7 +94,7 @@ class Customizer extends FormApplication {
         this._refreshPosition();
     }
     #hideAll() {
-        const form = document.getElementById(_a.formId);
+        const form = document.getElementById(Customizer.formId);
         if (!form)
             return;
         const childFieldsets = form.querySelectorAll('fieldset');
@@ -104,7 +103,7 @@ class Customizer extends FormApplication {
         });
     }
     #showOne(name) {
-        const form = document.getElementById(_a.formId);
+        const form = document.getElementById(Customizer.formId);
         if (!form)
             return;
         const chexImprovementsFieldset = form.querySelector(`[name="${name}"]`);
@@ -136,7 +135,7 @@ class Customizer extends FormApplication {
             case "addImprovement": {
                 const improvement = new Improvement();
                 improvement.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(_a.improvementsFrag, {
+                const html = await super.renderTemplate(Customizer.improvementsFrag, {
                     improvement: improvement
                 });
                 this._attach(html, control);
@@ -145,7 +144,7 @@ class Customizer extends FormApplication {
             case "addFeature": {
                 const feature = new Feature();
                 feature.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(_a.featuresFrag, {
+                const html = await super.renderTemplate(Customizer.featuresFrag, {
                     feature: feature
                 });
                 this._attach(html, control);
@@ -154,7 +153,7 @@ class Customizer extends FormApplication {
             case "addRealm": {
                 const realm = new Realm();
                 realm.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(_a.realmsFrag, {
+                const html = await super.renderTemplate(Customizer.realmsFrag, {
                     realm: realm
                 });
                 this._attach(html, control);
@@ -163,7 +162,7 @@ class Customizer extends FormApplication {
             case "addResource": {
                 const resource = new Resource();
                 resource.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(_a.resourcesFrag, {
+                const html = await super.renderTemplate(Customizer.resourcesFrag, {
                     resource: resource
                 });
                 this._attach(html, control);
@@ -172,7 +171,7 @@ class Customizer extends FormApplication {
             case "addTerrain": {
                 const terrain = new Terrain();
                 terrain.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(_a.terrainsFrag, {
+                const html = await super.renderTemplate(Customizer.terrainsFrag, {
                     terrain: terrain
                 });
                 this._attach(html, control);
@@ -181,7 +180,7 @@ class Customizer extends FormApplication {
             case "addTravel": {
                 const travel = new Travel();
                 travel.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(_a.travelsFrag, {
+                const html = await super.renderTemplate(Customizer.travelsFrag, {
                     travel: travel
                 });
                 this._attach(html, control);
@@ -226,5 +225,3 @@ class Customizer extends FormApplication {
         }
     }
 }
-_a = Customizer;
-export default Customizer;

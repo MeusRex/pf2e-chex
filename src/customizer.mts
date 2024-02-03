@@ -1,11 +1,11 @@
-import * as C from "./const";
-import { Feature } from "./customizables/features";
-import { Improvement } from "./customizables/improvements";
-import { Realm } from "./customizables/realms";
-import { Resource } from "./customizables/resources";
-import { Terrain } from "./customizables/terrain";
-import { Travel } from "./customizables/travel";
-import ChexData, { ChexImprovement } from "./chex-data";
+import * as C from "./const.mjs";
+import { Feature } from "./customizables/features.mjs";
+import { Improvement } from "./customizables/improvements.mjs";
+import { Realm } from "./customizables/realms.mjs";
+import { Resource } from "./customizables/resources.mjs";
+import { Terrain } from "./customizables/terrain.mjs";
+import { Travel } from "./customizables/travel.mjs";
+import ChexData, { ChexImprovement } from "./chex-data.mjs";
 
 export default class Customizer extends FormApplication {
   static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
@@ -32,7 +32,7 @@ export default class Customizer extends FormApplication {
       return  game.i18n.localize("CHEX.CUSTOMIZER.Title");
   }
 
-  async _render(force: boolean, options: { left: any; top: any; }) {
+  override async _render(force: boolean, options: { left: any; top: any; }) {
       await super.loadTemplates([
         Customizer.improvementsFrag, 
         Customizer.featuresFrag, 
@@ -44,12 +44,12 @@ export default class Customizer extends FormApplication {
       return super._render(force, options);
   }
 
-  async close(options: any) {
+  override async close(options: any) {
       await super.close(options);
       chex.customizer = null;
   }
 
-  async getData(options: any) {
+  override async getData(options: any) {
       return Object.assign(await super.getData(options), {
         improvementsFrag: Customizer.improvementsFrag,
         featuresFrag: Customizer.featuresFrag,
@@ -92,7 +92,7 @@ export default class Customizer extends FormApplication {
       await game.settings.set(C.MODULE_ID, Travel.name, this._zip(travels));
     }
 
-  activateListeners(html: { on: any; }) {
+  override activateListeners(html: { on: any; }) {
       super.activateListeners(html);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }

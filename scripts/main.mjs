@@ -1,12 +1,11 @@
-import ChexLayer from "./chex-layer.js";
-import { Feature } from "./customizables/features.js";
-import { Improvement } from "./customizables/improvements.js";
-import { Realm } from "./customizables/realms.js";
-import { Resource } from "./customizables/resources.js";
-import { Terrain } from "./customizables/terrain.js";
-import { Travel } from "./customizables/travel.js";
-import ChexManager from "./manager.js";
-import "knockout";
+import ChexLayer from "./chex-layer.mjs";
+import { Feature } from "./customizables/features.mjs";
+import { Improvement } from "./customizables/improvements.mjs";
+import { Realm } from "./customizables/realms.mjs";
+import { Resource } from "./customizables/resources.mjs";
+import { Terrain } from "./customizables/terrain.mjs";
+import { Travel } from "./customizables/travel.mjs";
+import ChexManager from "./manager.mjs";
 const MODULE_ID = "pf2e-chex";
 Hooks.once("init", () => {
     // register for all, in case someone wants to get wild

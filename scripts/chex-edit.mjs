@@ -1,7 +1,6 @@
-var _a;
-import * as C from "./const";
-import ChexData from "./chex-data";
-class ChexHexEdit extends FormApplication {
+import * as C from "./const.mjs";
+import ChexData from "./chex-data.mjs";
+export default class ChexHexEdit extends FormApplication {
     static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-improvements.hbs";
     static featuresFrag = "modules/pf2e-chex/templates/frags/chex-features.hbs";
     static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-resources.hbs";
@@ -21,7 +20,7 @@ class ChexHexEdit extends FormApplication {
         return `Edit Hex: ${this.object.toString()}`;
     }
     async _render(force, options) {
-        await super.loadTemplates([_a.improvementsFrag, _a.featuresFrag, _a.resourcesFrag, _a.forageablesFrag]);
+        await super.loadTemplates([ChexHexEdit.improvementsFrag, ChexHexEdit.featuresFrag, ChexHexEdit.resourcesFrag, ChexHexEdit.forageablesFrag]);
         chex.hexConfig = this;
         return super._render(force, options);
     }
@@ -33,10 +32,10 @@ class ChexHexEdit extends FormApplication {
         return Object.assign(await super.getData(options), {
             hex: this.object.hexData,
             // templates
-            improvementsFrag: _a.improvementsFrag,
-            featuresFrag: _a.featuresFrag,
-            resourcesFrag: _a.resourcesFrag,
-            forageablesFrag: _a.forageablesFrag,
+            improvementsFrag: ChexHexEdit.improvementsFrag,
+            featuresFrag: ChexHexEdit.featuresFrag,
+            resourcesFrag: ChexHexEdit.resourcesFrag,
+            forageablesFrag: ChexHexEdit.forageablesFrag,
             // selection options
             explorationStates: C.EXPLORATION_STATES,
             claimees: chex.realms,
@@ -79,7 +78,7 @@ class ChexHexEdit extends FormApplication {
         const action = control.dataset.action;
         switch (action) {
             case "addImprovement": {
-                const html = await super.renderTemplate(_a.improvementsFrag, {
+                const html = await super.renderTemplate(ChexHexEdit.improvementsFrag, {
                     id: foundry.utils.randomID(),
                     improvements: chex.improvements
                 });
@@ -87,7 +86,7 @@ class ChexHexEdit extends FormApplication {
                 break;
             }
             case "addFeature": {
-                const html = await super.renderTemplate(_a.featuresFrag, {
+                const html = await super.renderTemplate(ChexHexEdit.featuresFrag, {
                     id: foundry.utils.randomID(),
                     features: chex.features
                 });
@@ -95,7 +94,7 @@ class ChexHexEdit extends FormApplication {
                 break;
             }
             case "addResource": {
-                const html = await super.renderTemplate(_a.resourcesFrag, {
+                const html = await super.renderTemplate(ChexHexEdit.resourcesFrag, {
                     id: foundry.utils.randomID(),
                     amount: 1,
                     resources: chex.resources
@@ -104,7 +103,7 @@ class ChexHexEdit extends FormApplication {
                 break;
             }
             case "addForageable": {
-                const html = await super.renderTemplate(_a.forageablesFrag, {
+                const html = await super.renderTemplate(ChexHexEdit.forageablesFrag, {
                     id: foundry.utils.randomID(),
                     amount: 1,
                     forageables: chex.resources
@@ -121,5 +120,3 @@ class ChexHexEdit extends FormApplication {
         }
     }
 }
-_a = ChexHexEdit;
-export default ChexHexEdit;

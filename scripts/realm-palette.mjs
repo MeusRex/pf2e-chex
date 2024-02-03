@@ -1,5 +1,5 @@
-import { CHEX_DATA_KEY, MODULE_ID } from "./const";
-import ChexFormulaParser from "./formula-parser";
+import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
+import ChexFormulaParser from "./formula-parser.mjs";
 export default class RealmPalette extends FormApplication {
     static formId = "chex-realmSelector";
     static get defaultOptions() {

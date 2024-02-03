@@ -1,5 +1,5 @@
-import * as C from "./const";
-import ChexFormulaParser, { KEY_INCOME } from "./formula-parser";
+import * as C from "./const.mjs";
+import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
  */

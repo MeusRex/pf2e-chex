@@ -12,7 +12,7 @@
       "maximum": "11"
     },
     "esmodules": [
-      "dist/main.js"
+      "scripts/main.mjs"
     ],
     "styles": [
       "styles/chex.css"

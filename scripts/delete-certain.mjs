@@ -1,4 +1,4 @@
-import { CHEX_DATA_KEY, MODULE_ID } from "./const";
+import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
 /**
  * Dialog to check if the user is really sure about deleting the chex data linked to the scene.
  */

@@ -1,4 +1,4 @@
-import { CHEX_DATA_KEY, MODULE_ID } from "./const";
+import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
 
 /**
  * Dialog to check if the user is really sure about deleting the chex data linked to the scene.
@@ -28,19 +28,19 @@ export default class DeleteCertain extends FormApplication {
 
   scene: { unsetFlag: (arg0: string, arg1: string) => any; };
 
-  async _render(force: boolean, options: { left: any; top: any; }) {
+  override async _render(force: boolean, options: { left: any; top: any; }) {
     return super._render(force, options);
   }
 
-  async close(options?: any) {
+  override async close(options?: any) {
     await super.close(options);
   }
 
-  async getData(options: any) {
+  override async getData(options: any) {
     return Object.assign(await super.getData(options), {});
   }
 
-  activateListeners(html: { on: any; }) {
+  override activateListeners(html: { on: any; }) {
     super.activateListeners(html);
     html.on("click", "[data-action]", this.#onClickAction.bind(this));
   }

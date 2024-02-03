@@ -1,6 +1,6 @@
-import * as C from "./const";
-import ChexHex from "./hex";
-import ChexFormulaParser, { KEY_INCOME } from "./formula-parser";
+import * as C from "./const.mjs";
+import ChexHex from "./hex.mjs";
+import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
@@ -55,7 +55,7 @@ export default class ChexHexHUD extends Application {
     /* -------------------------------------------- */
   
     /** @inheritdoc */
-    getData(options = {}) {
+    override getData(options = {}) {
       const visibleFrag = 'fa-eye';
       const hiddenFrag = 'fa-eye-slash';
       const data = this.hex.hexData;
@@ -155,7 +155,7 @@ export default class ChexHexHUD extends Application {
     }
   
     /** @override */
-    setPosition({left, top}={left: 0, top: 0}) {
+    override setPosition({left, top}={left: 0, top: 0}) {
       const position = {
         height: undefined,
         left: left,

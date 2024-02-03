@@ -1,14 +1,42 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
-        "module": "ES2022",
-        "outDir": "./dist",
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "lib": [
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "noEmit": false,
         "strict": true,
         "noImplicitAny": false,
-        "moduleResolution": "Node",
-        "esModuleInterop": true
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "sourceMap": false,
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "rootDir": ".",
+        "outDir": "./scripts",
+        "allowUnusedLabels": false,
+        "removeComments": false,
+        "resolveJsonModule": true,
+        "useDefineForClassFields": true,
+        "noErrorTruncation": true,
+        "declaration": false,
+        "declarationMap": false,
+        "emitDeclarationOnly": false,
     },
-    "include": [
-        "./**/*.ts"
-, "scripts/chex-drawing-layer.ts"    ]
+    "watchOptions": {
+        "excludeDirectories": [
+            "packs/",
+            "static/packs/"
+        ]
+    }
 }

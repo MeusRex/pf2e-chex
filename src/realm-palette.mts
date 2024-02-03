@@ -1,6 +1,6 @@
-import ChexData from "./chex-data";
-import { CHEX_DATA_KEY, MODULE_ID } from "./const";
-import ChexFormulaParser from "./formula-parser";
+import ChexData from "./chex-data.mjs";
+import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
+import ChexFormulaParser from "./formula-parser.mjs";
 
 export default class RealmPalette extends FormApplication {
   static formId = "chex-realmSelector";
@@ -27,23 +27,23 @@ export default class RealmPalette extends FormApplication {
     return selectElement.options[selectElement.selectedIndex].value;
   }
 
-  async _render(force, options) {
+  override async _render(force, options) {
     chex.realmSelector = this;
     return super._render(force, options);
   }
 
-  async close(options) {
+  override async close(options) {
     await super.close(options);
     chex.realmSelector = null;
   }
 
-  async getData(options) {
+  override async getData(options) {
     return Object.assign(await super.getData(options), {
       realms: chex.realms
     });
   }
 
-  activateListeners(html) {
+  override activateListeners(html) {
     super.activateListeners(html);
     html.on("click", "[data-action]", this.#onClickAction.bind(this));
   }

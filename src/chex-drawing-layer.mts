@@ -1,5 +1,5 @@
-import * as C from "./const"
-import ChexFormulaParser from "./formula-parser";
+import * as C from "./const.mjs"
+import ChexFormulaParser from "./formula-parser.mjs";
 import * as PIXI from 'pixi.js';
 
 export default class ChexDrawingLayer extends PIXI.Container {

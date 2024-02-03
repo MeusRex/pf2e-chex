@@ -1,15 +1,15 @@
-import Customizer from "./customizer";
-import DeleteCertain from "./delete-certain";
-import ChexLayer from "./chex-layer";
-import RealmPalette from "./realm-palette";
-import TerrainPalette from "./terrain-palette";
-import * as C from "./const";
-import ChexData from "./chex-data";
-import ChexHexEdit from "./chex-edit";
-import ChexHexHUD from "./chex-hud";
-import ChexHex from "./hex";
-import ChexDrawingLayer from "./chex-drawing-layer";
-import ChexSceneData from "./scene-data";
+import Customizer from "./customizer.mjs";
+import DeleteCertain from "./delete-certain.mjs";
+import ChexLayer from "./chex-layer.mjs";
+import RealmPalette from "./realm-palette.mjs";
+import TerrainPalette from "./terrain-palette.mjs";
+import * as C from "./const.mjs";
+import ChexData from "./chex-data.mjs";
+import ChexHexEdit from "./chex-edit.mjs";
+import ChexHexHUD from "./chex-hud.mjs";
+import ChexHex from "./hex.mjs";
+import ChexDrawingLayer from "./chex-drawing-layer.mjs";
+import ChexSceneData from "./scene-data.mjs";
 
 export default class ChexManager {
     constructor() {
@@ -362,7 +362,7 @@ export default class ChexManager {
 
     getHexFromPoint(point) {
         const grid = canvas.grid.grid;
-		const [row, col] = canvas.grid.grid.getGridPositionFromPixels(point.x, point.y);
+		const [row, col] = grid.getGridPositionFromPixels(point.x, point.y);
 		return this.hexes.get(ChexData.getKey({row, col}));
 	}
 

@@ -1,8 +1,7 @@
-var _a;
-import * as C from "./const";
-import ChexFormulaParser from "./formula-parser";
+import * as C from "./const.mjs";
+import ChexFormulaParser from "./formula-parser.mjs";
 import * as PIXI from 'pixi.js';
-class ChexDrawingLayer extends PIXI.Container {
+export default class ChexDrawingLayer extends PIXI.Container {
     constructor() {
         super();
         this.zIndex = 0;
@@ -79,7 +78,7 @@ class ChexDrawingLayer extends PIXI.Container {
         }
     }
     #drawSub(g, hexes, color) {
-        const polygons = _a.#buildPolygons(hexes);
+        const polygons = ChexDrawingLayer.#buildPolygons(hexes);
         g.beginFill(color, 0.15).lineStyle({ alignment: 0, color: color, width: 4 });
         for (const polygon of polygons) {
             g.drawShape(polygon.outer);
@@ -119,5 +118,3 @@ class ChexDrawingLayer extends PIXI.Container {
         return polygons;
     }
 }
-_a = ChexDrawingLayer;
-export default ChexDrawingLayer;
