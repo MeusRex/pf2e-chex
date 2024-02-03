@@ -5,7 +5,7 @@
     "authors": [
       { "name": "cedi" }
     ],
-    "version": "1.1.0",
+    "version": "1.0.2",
     "compatibility": {
       "minimum": "11.315",
       "verified": "11.315",
