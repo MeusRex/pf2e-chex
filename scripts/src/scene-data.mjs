@@ -21,7 +21,7 @@ export default class ChexSceneData {
         // since the pointy part points up, 
         data.numRows = Math.ceil(data.height / (0.866 * data.size)); // sqrt(3)/2 * size is the formula for a tightly packed hexgrid
         data.numCols = Math.ceil(data.width / data.size);
-        const config = HexagonalGrid.getConfig(data.type, data.size);
+        // const config = HexagonalGrid.getConfig(data.type, data.size);
         data.hexes = {};
         for (let row = 0; row < data.numRows; row++) {
             for (let col = 0; col < data.numCols; col++) {
