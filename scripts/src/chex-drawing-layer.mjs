@@ -1,6 +1,6 @@
 import * as C from "./const.mjs";
 import ChexFormulaParser from "./formula-parser.mjs";
-import * as PIXI from 'pixi.js';
+//@ts-ignore
 export default class ChexDrawingLayer extends PIXI.Container {
     constructor() {
         super();
@@ -10,6 +10,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
     draw() {
         this.removeChildren().forEach(c => c.destroy());
         this.mask = canvas.primary.mask;
+        //@ts-ignore
         const g = this.addChild(new PIXI.Graphics());
         switch (chex.manager.mode) {
             case C.MODE_TERRAIN:
@@ -102,6 +103,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
         c.AddPath([], ClipperLib.PolyType.ptSubject, true);
         for (const hex of hexes) {
             const { x, y } = hex.topLeft;
+            //@ts-ignore
             const p = new PIXI.Polygon(g.getPolygon(x, y, g.w, Math.ceil(g.h) + 1));
             // @ts-ignore
             c.AddPath(p.toClipperPoints(), ClipperLib.PolyType.ptClip, true);

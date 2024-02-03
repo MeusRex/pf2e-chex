@@ -14,7 +14,7 @@ export default class Customizer extends FormApplication {
     static travelsFrag = "modules/pf2e-chex/templates/frags/chex-custom-travels.hbs";
     static formId = "chex-customizer";
     static get defaultOptions() {
-        return foundry.utils.mergeObject(this.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: Customizer.formId,
             classes: [chex.CSS_CLASS],
             template: "modules/pf2e-chex/templates/chex-customizer.hbs",

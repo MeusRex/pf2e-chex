@@ -6,7 +6,7 @@ export default class ChexHexEdit extends FormApplication {
     static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-resources.hbs";
     static forageablesFrag = "modules/pf2e-chex/templates/frags/chex-forageables.hbs";
     static get defaultOptions() {
-        return foundry.utils.mergeObject(this.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "chex-edit",
             classes: [chex.CSS_CLASS],
             template: "modules/pf2e-chex/templates/chex-edit.hbs",

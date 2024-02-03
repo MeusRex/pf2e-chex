@@ -8,6 +8,10 @@
             "DOM",
             "DOM.Iterable"
         ],
+        "types": [
+            "knockout",
+            "pixi.js"
+        ],
         "noEmit": false,
         "strict": true,
         "noImplicitAny": false,
@@ -15,7 +19,7 @@
         "skipLibCheck": true,
         "noImplicitOverride": true,
         "noImplicitReturns": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "noUnusedParameters": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,

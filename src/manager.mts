@@ -376,8 +376,8 @@ export default class ChexManager {
   pixelsToOffset({x, y}, config, method="floor") {
     const {columns, even, width, height} = config;
     const fn = Math[method];
-    let row;
-    let col;
+    let row: number;
+    let col: number;
 
     // Columnar orientation
     if ( columns ) {

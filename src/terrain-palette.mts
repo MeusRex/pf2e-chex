@@ -1,10 +1,8 @@
-import ko from "knockout";
-
 export default class TerrainPalette extends FormApplication {
   static formId = "chex-terrainSelector";
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(this.defaultOptions, {
+  static override get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: TerrainPalette.formId,
       classes: [chex.CSS_CLASS],
       template: "modules/pf2e-chex/templates/test.html",
@@ -43,7 +41,7 @@ export default class TerrainPalette extends FormApplication {
 
   override activateListeners(html: any) {
       super.activateListeners(html);
-      ko.applyBindings(this, html[0]);
+      //ko.applyBindings(this, html[0]);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
 

@@ -1,4 +1,3 @@
-
 declare namespace Hooks {
     function once(event: string, callback: Function): void
     function on(event: string, callback: Function): void
@@ -9,7 +8,7 @@ declare namespace foundry {
 }
 
 declare class InteractionLayer {
-    declare layerOptions: any
+    static layerOptions: any
 }
 
 declare class FormApplication extends Application {
@@ -17,7 +16,7 @@ declare class FormApplication extends Application {
 }
 
 declare class Application {
-    defaultOptions: any;
+    static defaultOptions: any;
     object: any;
     element: any;
     _element: any;

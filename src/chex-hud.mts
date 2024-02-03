@@ -8,8 +8,8 @@ import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
 export default class ChexHexHUD extends Application {
 
     /** @inheritdoc */
-    static get defaultOptions() {
-      return foundry.utils.mergeObject(this.defaultOptions, {
+    static override get defaultOptions() {
+      return foundry.utils.mergeObject(super.defaultOptions, {
         id: "chex-hud",
         classes: [chex.CSS_CLASS],
         template: "modules/pf2e-chex/templates/chex-hud.hbs",

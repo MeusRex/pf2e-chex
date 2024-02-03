@@ -9,7 +9,7 @@ export default class DeleteCertain extends FormApplication {
     }
     static formId = "chex-deleteCertain";
     static get defaultOptions() {
-        return foundry.utils.mergeObject(this.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: DeleteCertain.formId,
             classes: [chex.CSS_CLASS],
             template: "modules/pf2e-chex/templates/chex-delete-certain.hbs",

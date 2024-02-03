@@ -7,8 +7,8 @@ export default class ChexLayer extends InteractionLayer {
         super();
     }
 
-    static get layerOptions() {
-        return foundry.utils.mergeObject(this.layerOptions, {
+    static override get layerOptions() {
+        return foundry.utils.mergeObject(super.layerOptions, {
             name: ChexLayer.LAYER_NAME,
             zIndex: 245
         });

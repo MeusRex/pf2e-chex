@@ -3,7 +3,7 @@ import ChexFormulaParser from "./formula-parser.mjs";
 export default class RealmPalette extends FormApplication {
     static formId = "chex-realmSelector";
     static get defaultOptions() {
-        return foundry.utils.mergeObject(this.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: RealmPalette.formId,
             classes: [chex.CSS_CLASS],
             template: "modules/pf2e-chex/templates/chex-realm-selector.hbs",
