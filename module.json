@@ -14,6 +14,9 @@
     "esmodules": [
       "scripts/src/main.mjs"
     ],
+    "scripts": [
+      "scripts/src/lib/knockout.js"
+    ],
     "styles": [
       "styles/chex.css"
     ],

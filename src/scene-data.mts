@@ -12,7 +12,7 @@ export default class ChexSceneData {
 
     sceneId = "";
 
-    static async create(scene) {
+    static async create(scene: any) {
         var data = new ChexSceneData();
         const dimensions = scene.dimensions;
 
@@ -26,7 +26,7 @@ export default class ChexSceneData {
         data.numRows = Math.ceil(data.height / (0.866 * data.size)); // sqrt(3)/2 * size is the formula for a tightly packed hexgrid
         data.numCols = Math.ceil(data.width / data.size);
 
-        const config = HexagonalGrid.getConfig(data.type, data.size);
+        // const config = HexagonalGrid.getConfig(data.type, data.size);
 
         data.hexes = {};
         for (let row = 0; row < data.numRows; row++) {

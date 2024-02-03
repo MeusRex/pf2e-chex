@@ -4,20 +4,21 @@ export default class TerrainPalette extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: TerrainPalette.formId,
             classes: [chex.CSS_CLASS],
-            template: "modules/pf2e-chex/templates/test.html",
+            template: "modules/pf2e-chex/templates/chex-terrain-selector.html",
             width: 240,
             height: "auto",
             popOut: true,
             closeOnSubmit: true
         });
     }
+    terrains = Object.values(chex.terrains);
     get title() {
         return game.i18n.localize("CHEX.TERRAINSELECTOR.Title");
     }
-    activeTool = null;
-    showAlert() {
-        console.warn("yay, ko works");
+    get activeTool() {
+        return this._activeTool()?.id ?? null;
     }
+    _activeTool = window.ko.observable(null);
     async _render(force, options) {
         chex.terrainSelector = this;
         return super._render(force, options);
@@ -26,32 +27,12 @@ export default class TerrainPalette extends FormApplication {
         await super.close(options);
         chex.terrainSelector = null;
     }
-    async getData(options) {
-        return Object.assign(await super.getData(options), {
-            terrains: chex.terrains
-        });
-    }
     activateListeners(html) {
         super.activateListeners(html);
-        //ko.applyBindings(this, html[0]);
-        html.on("click", "[data-action]", this.#onClickAction.bind(this));
+        window.ko.applyBindings(this, html[0]);
     }
-    async #onClickAction(event) {
+    selectTerrain(terrain, event) {
         event.preventDefault();
-        const control = event.currentTarget;
-        const action = control.dataset.action;
-        this.activeTool = action;
-        const form = document.getElementById(TerrainPalette.formId);
-        if (form === null)
-            return;
-        const buttons = form.querySelectorAll('button');
-        buttons.forEach(element => {
-            if (element.id === action) {
-                element.classList.add("active");
-            }
-            else {
-                element.classList.remove("active");
-            }
-        });
+        this._activeTool(terrain);
     }
 }

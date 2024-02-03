@@ -57,7 +57,14 @@ declare namespace Color {
 }
 
 declare const game: any;
-declare const chex: any;
+declare const chex: {
+    terrainSelector: any;
+    CSS_CLASS: string;
+    realmSelector: RealmPalette;
+    terrains: {};
+    realms: {},
+
+};
 declare const CONFIG: any;
 declare const canvas: any;
 declare const ClipperLib: any;

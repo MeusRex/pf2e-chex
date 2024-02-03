@@ -9,9 +9,11 @@
             "DOM.Iterable"
         ],
         "types": [
-            "knockout",
             "pixi.js"
         ],
+        "paths": {
+            "knockout": ["scripts/src/lib/knockout.js", "scripts/src/lib/knockout.d.ts"]
+        },
         "noEmit": false,
         "strict": true,
         "noImplicitAny": false,
