@@ -1,4 +1,5 @@
-export default class TerrainPalette extends FormApplication {
+import KoApplication from "./KoApplication.mjs";
+export default class TerrainPalette extends KoApplication {
     static formId = "chex-terrainSelector";
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -8,29 +9,20 @@ export default class TerrainPalette extends FormApplication {
             width: 240,
             height: "auto",
             popOut: true,
-            closeOnSubmit: true
+            closeOnSubmit: true,
+            title: "CHEX.TERRAINSELECTOR.Title"
         });
     }
-    terrains = Object.values(chex.terrains);
-    get title() {
-        return game.i18n.localize("CHEX.TERRAINSELECTOR.Title");
+    constructor() {
+        super();
+        this.register = () => chex.terrainSelector = this;
+        this.unregister = () => chex.terrainSelector = null;
     }
+    terrains = Object.values(chex.terrains);
     get activeTool() {
         return this._activeTool()?.id ?? null;
     }
     _activeTool = window.ko.observable(null);
-    async _render(force, options) {
-        chex.terrainSelector = this;
-        return super._render(force, options);
-    }
-    async close(options) {
-        await super.close(options);
-        chex.terrainSelector = null;
-    }
-    activateListeners(html) {
-        super.activateListeners(html);
-        window.ko.applyBindings(this, html[0]);
-    }
     selectTerrain(terrain, event) {
         event.preventDefault();
         this._activeTool(terrain);

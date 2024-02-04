@@ -1,6 +1,7 @@
+import KoApplication from "./KoApplication.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 
-export default class TerrainPalette extends FormApplication {
+export default class TerrainPalette extends KoApplication {
   static formId = "chex-terrainSelector";
 
   static override get defaultOptions() {
@@ -11,35 +12,23 @@ export default class TerrainPalette extends FormApplication {
       width: 240,
       height: "auto",
       popOut: true,
-      closeOnSubmit: true
+      closeOnSubmit: true,
+      title: "CHEX.TERRAINSELECTOR.Title"
     });
   }
 
-  terrains: Terrain[] = Object.values(chex.terrains);
-
-  get title() {
-    return  game.i18n.localize("CHEX.TERRAINSELECTOR.Title");
+  constructor() {
+    super();
+    this.register = () => chex.terrainSelector = this;
+    this.unregister = () => chex.terrainSelector = null;
   }
+
+  terrains: Terrain[] = Object.values(chex.terrains);
 
   get activeTool(): string | null {
     return this._activeTool()?.id ?? null;
   }
   _activeTool: ko.Observable<Terrain|null> = window.ko.observable(null);
-
-  override async _render(force: boolean, options: any) {
-    chex.terrainSelector = this;
-    return super._render(force, options);
-  }
-
-  override async close(options: any) {
-    await super.close(options);
-    chex.terrainSelector = null;
-  }
-
-  override activateListeners(html: any) {
-      super.activateListeners(html);
-      window.ko.applyBindings(this, html[0]);
-    }
 
   selectTerrain(terrain: Terrain, event: Event) {
     event.preventDefault();

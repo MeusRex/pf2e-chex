@@ -1,6 +1,7 @@
+import KoApplication from "./KoApplication.mjs";
 import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
 import ChexFormulaParser from "./formula-parser.mjs";
-export default class RealmPalette extends FormApplication {
+export default class RealmPalette extends KoApplication {
     static formId = "chex-realmSelector";
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -10,29 +11,20 @@ export default class RealmPalette extends FormApplication {
             width: 240,
             height: "auto",
             popOut: true,
-            closeOnSubmit: true
+            closeOnSubmit: true,
+            title: "CHEX.REALMSELECTOR.Title"
         });
     }
-    get title() {
-        return game.i18n.localize("CHEX.REALMSELECTOR.Title");
+    constructor() {
+        super();
+        this.register = () => chex.realmSelector = this;
+        this.unregister = () => chex.realmSelector = null;
     }
     realms = Object.values(chex.realms);
     get activeTool() {
         return this.selectedRealm()?.label ?? null;
     }
     selectedRealm = window.ko.observable();
-    async _render(force, options) {
-        chex.realmSelector = this;
-        return super._render(force, options);
-    }
-    async close(options) {
-        await super.close(options);
-        chex.realmSelector = null;
-    }
-    activateListeners(html) {
-        super.activateListeners(html);
-        window.ko.applyBindings(this, html[0]);
-    }
     async report() {
         let hexes = Object.values(canvas.scene.getFlag(MODULE_ID, CHEX_DATA_KEY).hexes);
         let mergedResources = {};

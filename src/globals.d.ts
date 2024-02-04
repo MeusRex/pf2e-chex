@@ -58,12 +58,17 @@ declare namespace Color {
 
 declare const game: any;
 declare const chex: {
-    terrainSelector: any;
+    terrainSelector: TerrainPalette;
     CSS_CLASS: string;
     realmSelector: RealmPalette;
+    customizer: Customizer;
+    manager: ChexManager;
     terrains: {};
-    realms: {},
-
+    realms: {};
+    features: {};
+    improvements: {};
+    resources: {};
+    travels: any;
 };
 declare const CONFIG: any;
 declare const canvas: any;

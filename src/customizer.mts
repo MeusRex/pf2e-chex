@@ -6,14 +6,9 @@ import { Resource } from "./customizables/resources.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 import { Travel } from "./customizables/travel.mjs";
 import ChexData, { ChexImprovement } from "./chex-data.mjs";
+import KoApplication from "./KoApplication.mjs";
 
-export default class Customizer extends FormApplication {
-  static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
-  static featuresFrag = "modules/pf2e-chex/templates/frags/chex-custom-features.hbs";
-  static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-custom-resources.hbs";
-  static realmsFrag = "modules/pf2e-chex/templates/frags/chex-custom-realms.hbs";
-  static terrainsFrag = "modules/pf2e-chex/templates/frags/chex-custom-terrains.hbs";
-  static travelsFrag = "modules/pf2e-chex/templates/frags/chex-custom-travels.hbs";
+export default class Customizer extends KoApplication {
   static formId = "chex-customizer";
 
   static override get defaultOptions() {
@@ -24,48 +19,16 @@ export default class Customizer extends FormApplication {
           width: 800,
           height: "auto",
           popOut: true,
-          closeOnSubmit: true
+          closeOnSubmit: true,
+          title: "CHEX.CUSTOMIZER.Title"
       });
   }
 
-  get title() {
-      return  game.i18n.localize("CHEX.CUSTOMIZER.Title");
-  }
-
-  override async _render(force: boolean, options: { left: any; top: any; }) {
-      await super.loadTemplates([
-        Customizer.improvementsFrag, 
-        Customizer.featuresFrag, 
-        Customizer.resourcesFrag, 
-        Customizer.realmsFrag,
-        Customizer.terrainsFrag,
-        Customizer.travelsFrag]);
-      chex.customizer = this;
-      return super._render(force, options);
-  }
-
-  override async close(options: any) {
-      await super.close(options);
-      chex.customizer = null;
-  }
-
-  override async getData(options: any) {
-      return Object.assign(await super.getData(options), {
-        improvementsFrag: Customizer.improvementsFrag,
-        featuresFrag: Customizer.featuresFrag,
-        resourcesFrag: Customizer.resourcesFrag,
-        realmsFrag: Customizer.realmsFrag,
-        terrainsFrag: Customizer.terrainsFrag,
-        travelsFrag: Customizer.travelsFrag,
-
-        improvements: chex.improvements,
-        features: chex.features,
-        resources: chex.resources,
-        realms: chex.realms,
-        terrains: chex.terrains,
-        travels: chex.travels
-      });
-  }
+constructor() {
+  super();
+  this.register = () => chex.customizer = this;
+  this.unregister = () => chex.customizer = null;
+}
 
   _zip(array: any[]) {
     return array.reduce((acc: { [x: string]: any; }, item: { id: string | number; }) => {
@@ -92,43 +55,8 @@ export default class Customizer extends FormApplication {
       await game.settings.set(C.MODULE_ID, Travel.name, this._zip(travels));
     }
 
-  override activateListeners(html: { on: any; }) {
-      super.activateListeners(html);
-      html.on("click", "[data-action]", this.#onClickAction.bind(this));
-    }
-
   _refreshPosition() {
     this.setPosition({height: "auto"});
-  }
-
-  _attach(html: any, control: { closest: (arg0: string) => any; }) {
-    const fieldset = control.closest("fieldset");
-    fieldset.insertAdjacentHTML("beforeend", html);
-    this._refreshPosition();
-  }
-
-  #hideAll() {
-    const form = document.getElementById(Customizer.formId);
-    if (!form)
-      return;
-    const childFieldsets = form.querySelectorAll('fieldset');
-
-    childFieldsets.forEach(function(fieldset) {
-      fieldset.style.display = 'none'; 
-    });
-  }
-
-  #showOne(name: any) {
-    const form = document.getElementById(Customizer.formId);
-    if (!form)
-      return;
-    const chexImprovementsFieldset = form.querySelector(`[name="${name}"]`);
-    if (chexImprovementsFieldset) {
-      //@ts-ignore
-      chexImprovementsFieldset.style.display = 'block'; // or 'inline', 'flex', etc.
-    }
-
-    this._refreshPosition();
   }
 
   async #onClickAction(event: { preventDefault: () => void; currentTarget: any; }) {

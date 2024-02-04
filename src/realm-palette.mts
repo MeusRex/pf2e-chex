@@ -1,9 +1,10 @@
+import KoApplication from "./KoApplication.mjs";
 import ChexData from "./chex-data.mjs";
 import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
 import { Realm } from "./customizables/realms.mjs";
 import ChexFormulaParser from "./formula-parser.mjs";
 
-export default class RealmPalette extends FormApplication {
+export default class RealmPalette extends KoApplication {
   static formId = "chex-realmSelector";
 
   static override get defaultOptions() {
@@ -14,12 +15,15 @@ export default class RealmPalette extends FormApplication {
       width: 240,
       height: "auto",
       popOut: true,
-      closeOnSubmit: true
+      closeOnSubmit: true,
+      title: "CHEX.REALMSELECTOR.Title"
     });
   }
 
-  get title() {
-    return  game.i18n.localize("CHEX.REALMSELECTOR.Title");
+  constructor() {
+    super();
+    this.register = () => chex.realmSelector = this
+    this.unregister = () => chex.realmSelector = null;
   }
 
   realms: Realm[] = Object.values(chex.realms);
@@ -28,21 +32,6 @@ export default class RealmPalette extends FormApplication {
     return this.selectedRealm()?.label ?? null;
   }
   selectedRealm: ko.Observable<Realm | null | undefined> = window.ko.observable();
-
-  override async _render(force: boolean, options: any) {
-    chex.realmSelector = this;
-    return super._render(force, options);
-  }
-
-  override async close(options: any) {
-    await super.close(options);
-    chex.realmSelector = null;
-  }
-
-  override activateListeners(html) {
-    super.activateListeners(html);
-    window.ko.applyBindings(this, html[0]);
-  }
 
   async report() {
     let hexes: ChexData[] = Object.values(canvas.scene.getFlag(MODULE_ID, CHEX_DATA_KEY).hexes);
