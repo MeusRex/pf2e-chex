@@ -1,4 +1,4 @@
-export class Feature {
+export class Feature implements IImage {
     constructor(id?: string, label?: string, img?: string) {
         this.id = id;
         this.label = label;

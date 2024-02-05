@@ -1,0 +1,26 @@
+<div class="chex-grid-container">
+    <!-- First Row -->
+    <button data-bind="attr: { 'data-tooltip': $root.localize('CHEX.HEXEDIT.Delete') }, click:$root.travels.remove($data)" type="button" class="fa-solid fa-times chex-delete"></button>
+    <div class="chex-item-container">
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.IdTT'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.IdTT') }" class="chex-key"></span>
+            <input type="text" data-bind="value: id">
+        </p>
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.Label'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.Label') }" class="chex-key"></span>
+            <input type="text" data-bind="value: label">
+        </p>
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.MultiplierTT'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.MultiplierTT') }" class="chex-key"></span>
+            <input type="number" data-bind="value: multiplier">
+        </p>
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.Color'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.Color') }" class="chex-key"></span>
+            <input type="color" data-bind="value: color">
+        </p>
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.SpecialTT'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.SpecialTT') }" class="chex-key"></span>
+            <input type="checkbox" data-bind="checked: special">
+        </p>
+    </div>
+</div>

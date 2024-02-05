@@ -1029,3 +1029,7 @@ export module utils {
 export const version: string;
 
 //#endregion
+export module mapping {
+    export function fromJS(object: {}): {}
+    export function toJS(object: {}): {}
+}

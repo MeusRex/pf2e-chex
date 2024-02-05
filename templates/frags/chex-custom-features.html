@@ -1,0 +1,20 @@
+<div class="chex-grid-container">
+    <!-- First Row -->
+    <button data-bind="attr: { 'data-tooltip': $root.localize('CHEX.HEXEDIT.Delete') }, click: $root.features.remove($data)" type="button" class="fa-solid fa-times chex-delete"></button>
+    <div class="chex-item-container">
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.IdTT'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.IdTT') }" class="chex-key"></span>
+            <input type="text" data-bind="value: id">
+        </p>
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.Label'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.Label') }" class="chex-key"></span>
+            <input type="text" data-bind="value: label">
+        </p>
+        <p class="chex-item">
+            <span data-bind="text: $root.localize('CHEX.CUSTOMIZER.Image'), attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.Image') }" class="chex-key"></span>
+            <input class="chex-icon-path" type="text" data-bind="value: img">
+            <button data-bind="attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.PickIconTT') }, click: $root.pickIcon($data)" class="fa-solid fa-image chex-open-filepicker"></button>
+        </p>
+    </div>
+    <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }">
+</div>

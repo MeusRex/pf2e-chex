@@ -5,13 +5,8 @@ import { Realm } from "./customizables/realms.mjs";
 import { Resource } from "./customizables/resources.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 import { Travel } from "./customizables/travel.mjs";
-export default class Customizer extends FormApplication {
-    static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
-    static featuresFrag = "modules/pf2e-chex/templates/frags/chex-custom-features.hbs";
-    static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-custom-resources.hbs";
-    static realmsFrag = "modules/pf2e-chex/templates/frags/chex-custom-realms.hbs";
-    static terrainsFrag = "modules/pf2e-chex/templates/frags/chex-custom-terrains.hbs";
-    static travelsFrag = "modules/pf2e-chex/templates/frags/chex-custom-travels.hbs";
+import KoApplication from "./KoApplication.mjs";
+export default class Customizer extends KoApplication {
     static formId = "chex-customizer";
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -21,207 +16,92 @@ export default class Customizer extends FormApplication {
             width: 800,
             height: "auto",
             popOut: true,
-            closeOnSubmit: true
+            closeOnSubmit: true,
+            title: "CHEX.CUSTOMIZER.Title"
         });
     }
-    get title() {
-        return game.i18n.localize("CHEX.CUSTOMIZER.Title");
+    constructor() {
+        super();
+        this.register = () => chex.customizer = this;
+        this.unregister = () => chex.customizer = null;
+        this.knockify(Object.values(chex.features), this.features);
+        this.knockify(Object.values(chex.improvements), this.improvements);
+        this.knockify(Object.values(chex.realms), this.realms);
+        this.knockify(Object.values(chex.resources), this.resources);
+        this.knockify(Object.values(chex.travels), this.travels);
+        this.knockify(Object.values(chex.terrains), this.terrains);
     }
-    async _render(force, options) {
-        await super.loadTemplates([
-            Customizer.improvementsFrag,
-            Customizer.featuresFrag,
-            Customizer.resourcesFrag,
-            Customizer.realmsFrag,
-            Customizer.terrainsFrag,
-            Customizer.travelsFrag
-        ]);
-        chex.customizer = this;
-        return super._render(force, options);
-    }
-    async close(options) {
-        await super.close(options);
-        chex.customizer = null;
-    }
-    async getData(options) {
-        return Object.assign(await super.getData(options), {
-            improvementsFrag: Customizer.improvementsFrag,
-            featuresFrag: Customizer.featuresFrag,
-            resourcesFrag: Customizer.resourcesFrag,
-            realmsFrag: Customizer.realmsFrag,
-            terrainsFrag: Customizer.terrainsFrag,
-            travelsFrag: Customizer.travelsFrag,
-            improvements: chex.improvements,
-            features: chex.features,
-            resources: chex.resources,
-            realms: chex.realms,
-            terrains: chex.terrains,
-            travels: chex.travels
+    knockify(origin, target) {
+        origin.forEach(o => {
+            target.push(window.ko.mapping.toJS(o));
         });
     }
-    _zip(array) {
+    deknockify(origin) {
+        const arr = [];
+        origin.forEach(o => {
+            arr.push(window.ko.mapping.fromJS(o));
+        });
+        return this.zip(arr);
+    }
+    features = window.ko.observableArray();
+    improvements = window.ko.observableArray();
+    resources = window.ko.observableArray();
+    realms = window.ko.observableArray();
+    travels = window.ko.observableArray();
+    terrains = window.ko.observableArray();
+    zip(array) {
         return array.reduce((acc, item) => {
             acc[item.id] = { ...item }; // Use spread operator to create a new object
             return acc;
         }, {});
     }
-    async _updateObject(event, formData) {
-        formData = foundry.utils.expandObject(formData);
-        const improvements = formData.improvements ? Object.values(formData.improvements) : [];
-        const features = formData.features ? Object.values(formData.features) : [];
-        const resources = formData.resources ? Object.values(formData.resources) : [];
-        const realms = formData.realms ? Object.values(formData.realms) : [];
-        const terrains = formData.terrains ? Object.values(formData.terrains) : [];
-        const travels = formData.travels ? Object.values(formData.travels) : [];
-        // update settings
-        await game.settings.set(C.MODULE_ID, Improvement.name, this._zip(improvements));
-        await game.settings.set(C.MODULE_ID, Feature.name, this._zip(features));
-        await game.settings.set(C.MODULE_ID, Resource.name, this._zip(resources));
-        await game.settings.set(C.MODULE_ID, Realm.name, this._zip(realms));
-        await game.settings.set(C.MODULE_ID, Terrain.name, this._zip(terrains));
-        await game.settings.set(C.MODULE_ID, Travel.name, this._zip(travels));
+    async save() {
+        await game.settings.set(C.MODULE_ID, Feature.name, this.zip(this.features()));
+        await game.settings.set(C.MODULE_ID, Improvement.name, this.zip(this.improvements()));
+        await game.settings.set(C.MODULE_ID, Realm.name, this.zip(this.realms()));
+        await game.settings.set(C.MODULE_ID, Resource.name, this.zip(this.resources()));
+        await game.settings.set(C.MODULE_ID, Terrain.name, this.zip(this.terrains()));
+        await game.settings.set(C.MODULE_ID, Travel.name, this.zip(this.travels()));
     }
-    activateListeners(html) {
-        super.activateListeners(html);
-        html.on("click", "[data-action]", this.#onClickAction.bind(this));
+    activeTab = window.ko.observable('');
+    toggleTab(tabName) {
+        if (this.activeTab() === tabName)
+            this.activeTab('');
+        else
+            this.activeTab(tabName);
     }
     _refreshPosition() {
         this.setPosition({ height: "auto" });
     }
-    _attach(html, control) {
-        const fieldset = control.closest("fieldset");
-        fieldset.insertAdjacentHTML("beforeend", html);
-        this._refreshPosition();
-    }
-    #hideAll() {
-        const form = document.getElementById(Customizer.formId);
-        if (!form)
-            return;
-        const childFieldsets = form.querySelectorAll('fieldset');
-        childFieldsets.forEach(function (fieldset) {
-            fieldset.style.display = 'none';
-        });
-    }
-    #showOne(name) {
-        const form = document.getElementById(Customizer.formId);
-        if (!form)
-            return;
-        const chexImprovementsFieldset = form.querySelector(`[name="${name}"]`);
-        if (chexImprovementsFieldset) {
-            //@ts-ignore
-            chexImprovementsFieldset.style.display = 'block'; // or 'inline', 'flex', etc.
+    addObject(type) {
+        switch (type) {
+            case "improvement":
+                this.improvements.push(window.ko.mapping.fromJS(new Improvement(foundry.utils.randomID())));
+                break;
+            case "features":
+                this.features.push(window.ko.mapping.fromJS(new Feature(foundry.utils.randomID())));
+                break;
+            case "realms":
+                this.realms.push(window.ko.mapping.fromJS(new Realm(foundry.utils.randomID())));
+                break;
+            case "resources":
+                this.resources.push(window.ko.mapping.fromJS(new Resource(foundry.utils.randomID())));
+                break;
+            case "terrains":
+                this.terrains.push(window.ko.mapping.fromJS(new Terrain(foundry.utils.randomID())));
+                break;
+            case "travels":
+                this.travels.push(window.ko.mapping.fromJS(new Travel(foundry.utils.randomID())));
+                break;
+            default:
+                break;
         }
-        this._refreshPosition();
     }
-    async #onClickAction(event) {
-        event.preventDefault();
-        const control = event.currentTarget;
-        const action = control.dataset.action;
-        switch (action) {
-            case "pickIcon": {
-                const formGroup = control.closest('div.chex-grid-container');
-                const inputField = formGroup.querySelector('.chex-icon-path');
-                const imgField = formGroup.querySelector('.chex-img-preview');
-                if (inputField) {
-                    const filePicker = new FilePicker();
-                    filePicker.callback = (s) => {
-                        inputField.value = s;
-                        imgField.src = s;
-                    };
-                    filePicker.render(true);
-                }
-                break;
-            }
-            case "addImprovement": {
-                const improvement = new Improvement();
-                improvement.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(Customizer.improvementsFrag, {
-                    improvement: improvement
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addFeature": {
-                const feature = new Feature();
-                feature.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(Customizer.featuresFrag, {
-                    feature: feature
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addRealm": {
-                const realm = new Realm();
-                realm.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(Customizer.realmsFrag, {
-                    realm: realm
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addResource": {
-                const resource = new Resource();
-                resource.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(Customizer.resourcesFrag, {
-                    resource: resource
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addTerrain": {
-                const terrain = new Terrain();
-                terrain.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(Customizer.terrainsFrag, {
-                    terrain: terrain
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addTravel": {
-                const travel = new Travel();
-                travel.id = foundry.utils.randomID();
-                const html = await super.renderTemplate(Customizer.travelsFrag, {
-                    travel: travel
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "delete": {
-                const div = control.closest("div.chex-grid-container");
-                div.remove();
-                this._refreshPosition();
-                break;
-            }
-            case "tabImprovements": {
-                this.#hideAll();
-                this.#showOne("chex-improvements");
-                break;
-            }
-            case "tabFeatures": {
-                this.#hideAll();
-                this.#showOne("chex-features");
-                break;
-            }
-            case "tabRealms": {
-                this.#hideAll();
-                this.#showOne("chex-realms");
-                break;
-            }
-            case "tabResources": {
-                this.#hideAll();
-                this.#showOne("chex-resources");
-                break;
-            }
-            case "tabTerrains": {
-                this.#hideAll();
-                this.#showOne("chex-terrains");
-                break;
-            }
-            case "tabTravels": {
-                this.#hideAll();
-                this.#showOne("chex-travels");
-                break;
-            }
-        }
+    pickIcon(object) {
+        const filePicker = new FilePicker();
+        filePicker.callback = (path) => {
+            object.img = path;
+        };
+        filePicker.render(true);
     }
 }

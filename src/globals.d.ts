@@ -3,8 +3,12 @@ declare namespace Hooks {
     function on(event: string, callback: Function): void
 }
 
-declare namespace foundry {
-    var utils: any;
+declare const foundry: {
+    utils: {
+        randomID(): string;
+        mergeObject(a: object, b: object): object;
+        expandObject(data: object): any;
+    };
 }
 
 declare class InteractionLayer {
@@ -13,6 +17,10 @@ declare class InteractionLayer {
 
 declare class FormApplication extends Application {
 
+}
+
+declare interface IImage {
+    img?: string;
 }
 
 declare class Application {
@@ -24,7 +32,7 @@ declare class Application {
     options: any;
 
     render(force: boolean, options?: any);
-    _render(force: boolean, options: any)
+    _render(force: boolean, options: any);
     close(options: any);
     getData(options: any);
     activateListeners(html: any);
@@ -56,7 +64,20 @@ declare namespace Color {
     function from(code: string): any;
 }
 
-declare const game: any;
+declare const game: {
+    settings: {
+        set(moduleId: string, key: string, object: object);
+        get(moduleId: string, key: string): object;
+        register(moduleId: string, key: string, data: object)
+    };
+    scenes: any;
+    user: {
+        isGM: boolean;
+    };
+    i18n: {
+        localize(key: string): string;
+    }
+};
 declare const chex: {
     terrainSelector: TerrainPalette;
     CSS_CLASS: string;
@@ -69,6 +90,7 @@ declare const chex: {
     improvements: {};
     resources: {};
     travels: any;
+    hexConfig: ChexHexEdit;
 };
 declare const CONFIG: any;
 declare const canvas: any;

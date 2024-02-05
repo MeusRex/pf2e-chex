@@ -1,4 +1,4 @@
-export class Improvement {
+export class Improvement implements IImage {
     constructor(id?: string, label?: string, img?: string, special?: string) {
         this.id = id
         this.label = label;

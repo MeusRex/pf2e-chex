@@ -15,7 +15,8 @@
       "scripts/src/main.mjs"
     ],
     "scripts": [
-      "scripts/src/lib/knockout.js"
+      "scripts/src/lib/knockout.js",
+      "scripts/src/lib/knockout.mapping.js"
     ],
     "styles": [
       "styles/chex.css"

@@ -1,4 +1,4 @@
-export class Resource {
+export class Resource implements IImage {
     constructor(id?: string, label?: string, img?: string) {
         this.id = id;
         this.label = label;

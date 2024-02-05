@@ -1,4 +1,4 @@
-export class Terrain {
+export class Terrain implements IImage {
     constructor(id?: string, label?: string, img?: string, toolIcon?: string, travel?: string, color?: string) {
         this.id = id;
         this.label = label;
