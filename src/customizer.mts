@@ -15,9 +15,9 @@ export default class Customizer extends KoApplication {
       return foundry.utils.mergeObject(super.defaultOptions, {
           id: Customizer.formId,
           classes: [chex.CSS_CLASS],
-          template: "modules/pf2e-chex/templates/chex-customizer.hbs",
+          template: "modules/pf2e-chex/templates/chex-customizer.html",
           width: 800,
-          height: "auto",
+          height: 1200,
           popOut: true,
           closeOnSubmit: true,
           title: "CHEX.CUSTOMIZER.Title"
@@ -83,10 +83,6 @@ export default class Customizer extends KoApplication {
       this.activeTab(tabName);
   }
 
-  _refreshPosition() {
-    this.setPosition({height: "auto"});
-  }
-
   addObject(type: string) {
     switch (type) {
       case "improvement":
@@ -118,12 +114,15 @@ export default class Customizer extends KoApplication {
     }
   }
 
-  pickIcon(object: IImage) {
+  pickIcon(object: any) {
     const filePicker = new FilePicker();
     filePicker.callback = (path: string) => {
-      object.img = path;
+      object.img(path);
     };
     filePicker.render(true);
   }
 
+  deleteObject(arr: ko.ObservableArray, data: any) {
+    arr.remove(data);
+  }
 }

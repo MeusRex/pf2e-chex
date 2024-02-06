@@ -1,4 +1,4 @@
-export default class KoApplication extends FormApplication {
+export default class KoApplication extends Application {
     override activateListeners(html: any) {
         super.activateListeners(html);
         window.ko.applyBindings(this, this._element[0]);
@@ -13,6 +13,10 @@ export default class KoApplication extends FormApplication {
 
     localize(key: string): string {
         return game.i18n.localize(key);
+    }
+
+    refreshPosition() {
+        this.setPosition({height: "auto"});
     }
 
     register: Function | null = null;

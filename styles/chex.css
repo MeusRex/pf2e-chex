@@ -132,6 +132,16 @@
   display: flex;
 }
 
+.chex-button-row button {
+  height: fit-content;
+}
+
+.chex-button-row button.active {
+  border: 1px solid var(--color-border-highlight-alt);
+  border-bottom: 1px solid var(--color-border-highlight);
+  box-shadow: 0 0 5px var(--color-shadow-highlight);
+}
+
 .chex-terrain-selector {
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap to the next line */
