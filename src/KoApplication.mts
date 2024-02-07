@@ -12,6 +12,8 @@ export default class KoApplication extends Application {
     }
 
     localize(key: string): string {
+        if (this.mlKey)
+            key = this.mlKey + key;
         return game.i18n.localize(key);
     }
 
@@ -21,4 +23,5 @@ export default class KoApplication extends Application {
 
     register: Function | null = null;
     unregister: Function | null = null; 
+    mlKey: string | null = null;
 }

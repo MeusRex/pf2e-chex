@@ -69,6 +69,7 @@
 }
 
 
+/* customizer */
 .chex-delete {
   max-width: 27px;
   min-height: 27px;
@@ -83,13 +84,6 @@
 
 .chex-open-filepicker {
   width: fit-content;
-}
-
-.chex-flex {
-  display: flex;
-  gap: 2px;
-  align-items: center;
-  white-space: nowrap;
 }
 
 .chex-img-preview {

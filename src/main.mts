@@ -15,7 +15,7 @@ Hooks.once("init", () => {
     // @ts-ignore
     globalThis.chex = game.modules.get(MODULE_ID);
     
-    chex.CSS_CLASS = "pf2e-km";
+    chex.CSS_CLASS = "chex";
 
     // setup customizables. Stored in settings as they are not linked with any scene
     game.settings.register(MODULE_ID, Feature.name, {

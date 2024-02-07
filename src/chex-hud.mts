@@ -1,24 +1,30 @@
 import * as C from "./const.mjs";
 import ChexHex from "./hex.mjs";
 import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
+import KoApplication from "./KoApplication.mjs";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
  */
-export default class ChexHexHUD extends Application {
+export default class ChexHexHUD extends KoApplication {
 
     /** @inheritdoc */
     static override get defaultOptions() {
       return foundry.utils.mergeObject(super.defaultOptions, {
         id: "chex-hud",
         classes: [chex.CSS_CLASS],
-        template: "modules/pf2e-chex/templates/chex-hud.hbs",
+        template: "modules/pf2e-chex/templates/chex-hud.html",
         popOut: false,
         width: 760,
         height: "auto"
       });
     }
   
+    constructor() {
+      super();
+      this.mlKey = "CHEX.HUD.";
+    }
+
     /**
      * The target Hex that the HUD describes.
      * @type {ChexHex}}

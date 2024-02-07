@@ -10,6 +10,8 @@ export default class KoApplication extends Application {
         this.unregister && this.unregister();
     }
     localize(key) {
+        if (this.mlKey)
+            key = this.mlKey + key;
         return game.i18n.localize(key);
     }
     refreshPosition() {
@@ -17,4 +19,5 @@ export default class KoApplication extends Application {
     }
     register = null;
     unregister = null;
+    mlKey = null;
 }
