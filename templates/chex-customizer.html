@@ -109,7 +109,7 @@
                 <button data-bind="attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.PickIconTT') }, click: $root.pickIcon.bind($root, $data)" class="fa-solid fa-image chex-open-filepicker"></button>
             </p>
         </div>
-        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }">
+        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }, click: $root.pickIcon.bind($root, $data)">
     </div>
 </script>
 
@@ -135,7 +135,7 @@
                 <input type="text" data-bind="value: special">
             </p>
         </div>
-        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }">
+        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }, click: $root.pickIcon.bind($root, $data)">
     </div>
 </script>
 
@@ -177,7 +177,7 @@
                 <button data-bind="attr: { 'data-tooltip': $root.localize('CHEX.CUSTOMIZER.PickIconTT') }, click: $root.pickIcon.bind($root, $data)" class="fa-solid fa-image chex-open-filepicker"></button>
             </p>
         </div>
-        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }">
+        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }, click: $root.pickIcon.bind($root, $data)">
     </div>
 </script>
 
@@ -211,7 +211,7 @@
                 <input type="color" data-bind="value: color">
             </p>
         </div>
-        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }">
+        <img class="chex-img-preview" data-bind="attr: { src: img, alt: 'Image Preview' }, click: $root.pickIcon.bind($root, $data)">
     </div>
 </script>
 
