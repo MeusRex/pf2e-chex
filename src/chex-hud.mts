@@ -1,14 +1,73 @@
-import * as C from "./const.mjs";
+import {FALLBACK_COLOR, FALLBACK_IMAGE, FALLBACK_LABEL, FALLBACK_MULTIPLIER, EXPLORATION_STATES, HIGHLIGHT_LAYER} from "./const.mjs";
 import ChexHex from "./hex.mjs";
 import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
 import KoApplication from "./KoApplication.mjs";
+import { Realm } from "./customizables/realms.mjs";
+import { Terrain } from "./customizables/terrain.mjs";
+import { Travel } from "./customizables/travel.mjs";
+import ImprovementVM from "./ViewModels/ImprovementVM.mjs";
+import FeatureVM from "./ViewModels/FeatureVM.mjs";
+import { Resource } from "./customizables/resources.mjs";
+import ResourceVM from "./ViewModels/ResourceVM.mjs";
+
+class ClaimVM {
+  claimed = window.ko.observable(false);
+  label = window.ko.observable("");
+  color = window.ko.observable("");
+
+  update(key: string) {
+    if (key) {
+      const realm: Realm = chex.realms[key];
+      this.label(realm?.label || FALLBACK_LABEL);
+      this.color(realm?.color || FALLBACK_COLOR)
+      this.claimed(true);
+    }
+    else {
+      this.claimed(false);
+      this.label("");
+      this.color("");
+    }
+  }
+}
+
+class TerrainVM {
+  label: ko.Observable<string> = window.ko.observable("");
+  img: ko.Observable<string> = window.ko.observable("");
+
+  update(key: string) {
+    const terrain: Terrain = chex.terrains[key];
+    this.label(terrain?.label || FALLBACK_LABEL);
+    this.img(terrain?.img || FALLBACK_IMAGE);
+  }
+}
+
+class TravelVM {
+  label: ko.Observable<string> = window.ko.observable("");
+  multiplier: ko.Observable<number> = window.ko.observable(1);
+
+  update(key: string) {
+    const travel: Travel = chex.travels[key];
+    this.label(travel?.label || FALLBACK_LABEL);
+    this.multiplier(travel?.multiplier || FALLBACK_MULTIPLIER);
+  }
+}
+
+class ExplorationVM {
+  explored = window.ko.observable(false);
+  cleared = window.ko.observable(false);
+  label = window.ko.observable("");
+
+  update(explored: boolean, cleared: boolean, label: string) {
+    this.explored(explored);
+    this.cleared(cleared);
+    this.label(label);
+  }
+}
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
  */
 export default class ChexHexHUD extends KoApplication {
-
-    /** @inheritdoc */
     static override get defaultOptions() {
       return foundry.utils.mergeObject(super.defaultOptions, {
         id: "chex-hud",
@@ -25,30 +84,10 @@ export default class ChexHexHUD extends KoApplication {
       this.mlKey = "CHEX.HUD.";
     }
 
-    /**
-     * The target Hex that the HUD describes.
-     * @type {ChexHex}}
-     */
-    hex;
+    public hex: ChexHex | null = null;
+    public enabled: boolean = false;
   
-    /**
-     * Is the hex hud enabled?
-     * @type {boolean}
-     */
-    enabled = false;
-  
-    /* -------------------------------------------- */
-  
-    /** @override */
-    _injectHTML(html) {
-      this._element = html;
-      // @ts-ignore
-      document.getElementById("hud").appendChild(html[0]);
-    }
-  
-    /* -------------------------------------------- */
-  
-    toggle(enabled?: boolean) {
+    toggle(enabled?: boolean): void {
       enabled ??= !this.enabled;
       this.enabled = enabled;
       if ( enabled ) chex.manager.kingdomLayer.visible = true;
@@ -58,109 +97,49 @@ export default class ChexHexHUD extends KoApplication {
       }
     }
   
-    /* -------------------------------------------- */
-  
-    /** @inheritdoc */
-    override getData(options = {}) {
-      const visibleFrag = 'fa-eye';
-      const hiddenFrag = 'fa-eye-slash';
+    private claimVM = window.ko.observable(new ClaimVM());
+    private terrainVM = window.ko.observable(new TerrainVM());
+    private travelVM = window.ko.observable(new TravelVM());
+    private explorationVM = window.ko.observable(new ExplorationVM());
+    private improvementVMs = window.ko.observableArray<ImprovementVM>([]);
+    private featureVMs = window.ko.observableArray<FeatureVM>([]);
+    private resourceVMs = window.ko.observableArray<ResourceVM>([]);
+    private forageableVMs = window.ko.observableArray<ResourceVM>([]);
+
+    loadData() {
+      if (!this.hex) return;
+
       const data = this.hex.hexData;
-      const isGM = game.user.isGM;
+      const gm = game.user.isGM;
 
-      let claim = {};
-      if (data.claimed) {
-        claim = {
-          label: chex.realms[data.claimed]?.label || C.FALLBACK_LABEL,
-          color: chex.realms[data.claimed]?.color || C.FALLBACK_COLOR
-        };
-      }
-
-      const terrain = {
-        label: chex.terrains[data.terrain]?.label || C.FALLBACK_LABEL,
-        img: chex.terrains[data.terrain]?.img || C.FALLBACK_IMAGE
-      };
+      this.claimVM().update(data.claimed);
+      this.terrainVM().update(data.terrain);
 
       const currentTravel = ChexFormulaParser.getTravel(data);
-      const travel = {
-        label: chex.travels[currentTravel]?.label || C.FALLBACK_LABEL,
-        multiplier: chex.travels[currentTravel]?.multiplier || C.FALLBACK_MULTIPLIER
-      };
+      this.travelVM().update(currentTravel);
 
-      const explorationState = {
-        explored: data.exploration > 0,
-        label: Object.values(C.EXPLORATION_STATES).find(v => v.value === data.exploration)?.label ?? ""
-      };
+      this.explorationVM().update(data.exploration > 0, data.cleared, Object.values(EXPLORATION_STATES).find(v => v.value === data.exploration)?.label ?? "");
+      this.improvementVMs(data.improvements
+        .filter(i => gm || i.show)
+        .map(i => new ImprovementVM(i)));
 
-      const improvements = data.improvements.reduce((arr, o) => {
-        if (isGM || o.show) {
-          let special = chex.improvements[o.id]?.special || "";
-          if (special.startsWith(KEY_INCOME)) {
-            special = special.substring(KEY_INCOME.length + 1);
-          }
-          arr.push({
-            label: chex.improvements[o.id]?.label || C.FALLBACK_LABEL,
-            img: chex.improvements[o.id]?.img || C.FALLBACK_IMAGE,
-            special: special,
-            visiFrag: o.show ? visibleFrag : hiddenFrag
-          });
-        }
-        return arr;
-      }, []);
+      this.featureVMs(data.features
+        .filter(f => gm || f.show)
+        .map(f => new FeatureVM(f)));
 
-      const features = data.features.reduce((arr, o) => {
-        if (isGM || o.show) {
-          arr.push({
-            label: chex.features[o.id]?.label || C.FALLBACK_LABEL,
-            img: chex.features[o.id]?.img || C.FALLBACK_IMAGE,
-            name: o.name,
-            visiFrag: o.show ? visibleFrag : hiddenFrag
-          });
-        }
-        return arr;
-      }, []);
+      this.resourceVMs(data.resources
+        .filter(r => gm || r.show)
+        .map(r => new ResourceVM(r)));
 
-      const resources = data.resources.reduce((arr, o) => {
-        if (isGM || o.show) {
-          arr.push({
-            label: chex.resources[o.id]?.label || C.FALLBACK_LABEL,
-            img: chex.resources[o.id]?.img || C.FALLBACK_IMAGE,
-            amount: o.amount,
-            visiFrag: o.show ? visibleFrag : hiddenFrag
-          });
-        }
-        return arr;
-      }, []);
-      
-      const forageables = data.forageables.reduce((arr, o) => {
-        if (isGM || o.show) {
-          arr.push({
-            label: chex.resources[o.id]?.label || C.FALLBACK_LABEL,
-            img: chex.resources[o.id]?.img || C.FALLBACK_IMAGE,
-            amount: o.amount,
-            visiFrag: o.show ? visibleFrag : hiddenFrag
-          });
-        }
-        return arr;
-      }, []);
+        this.forageableVMs(data.forageables
+          .filter(f => gm || f.show)
+          .map(f => new ResourceVM(f)));
+    }
 
-      return {
-        id: this.options.id,
-        cssClass: this.options.classes.join(" "),
-        hex: this.hex,
-
-        terrain,
-        travel,
-        explorationState,
-        claim,
-        
-        improvements: improvements,
-        features: features,
-        resources: resources,
-        forageables: forageables
-      }
+    eye(mode: boolean): string {
+      return mode ? "fa-eye" : "fa-eye-slash";
     }
   
-    /** @override */
     override setPosition({left, top}={left: 0, top: 0}) {
       const position = {
         height: undefined,
@@ -171,26 +150,27 @@ export default class ChexHexHUD extends KoApplication {
       this.element.css(position);
     }
   
-    async activate(hex) {
+    async activate(hex: any) {
       this.hex = hex;
 
+      this.loadData();
       if ( this.enabled ) {
         let {x, y} = hex.topLeft;
         const options = {left: x + hex.config.width + 20, top: y};
         // Highlights this hex  
-        canvas.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
-        canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(hex.color)});
+        canvas.grid.clearHighlightLayer(HIGHLIGHT_LAYER);
+        canvas.grid.highlightPosition(HIGHLIGHT_LAYER, {x, y, color: Color.from(hex.color)});
 
         if (chex.manager.pendingPatches.length > 0) {
           chex.manager.pendingPatches.forEach(patch => {
             let {x, y} = patch.hex.topLeft;
             let color = "#ff0000";
             if (patch.patch.terrain)
-              color = chex.terrains[patch.patch.terrain]?.color || C.FALLBACK_COLOR;
+              color = chex.terrains[patch.patch.terrain]?.color || FALLBACK_COLOR;
             else if (patch.patch.claimed)
-              color = chex.realms[patch.patch.claimed]?.color || C.FALLBACK_COLOR;
+              color = chex.realms[patch.patch.claimed]?.color || FALLBACK_COLOR;
 
-            canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(color)});
+            canvas.grid.highlightPosition(HIGHLIGHT_LAYER, {x, y, color: Color.from(color)});
           });
         }
 
@@ -206,7 +186,7 @@ export default class ChexHexHUD extends KoApplication {
     clear() {
       // @ts-ignore
       let states = this.constructor.RENDER_STATES;
-      canvas.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
+      canvas.grid.clearHighlightLayer(HIGHLIGHT_LAYER);
       if ( this._state <= states.NONE ) return;
       this._state = states.CLOSING;
       this.element.hide();

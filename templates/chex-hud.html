@@ -1,112 +1,74 @@
 <aside class="hud">
     <p class="item">
-        <span class="pull-right gray" data-bind="text: $root.localize('Hex')"></span>
+        <span class="pull-right gray" data-bind="text: localize('Hex')"></span>
     </p>
 
     <div class="separator flex">
         <div>
-
-        </div>
-        <img class="terrain" src="" data-bind="attr: {src: , alt: }">
-    </div>
-</aside>
-
-<aside id="{{id}}" class="{{cssClass}}">
-    <div>
-        <p class="title item">
-            <span class="value gray">{{localize "CHEX.HUD.Hex"}}</span>
-        </p>
-    </div>
-
-    <div class="group flex">
-        <div>
             <p class="item">
-                <span class="gray key">{{localize "CHEX.HUD.Terrain"}}</span>
-                <span class="value">{{terrain.label}}</span>
+                <span class="pull-left gray" data-bind="text: localize('Terrain')"></span>
+                <span class="pull-right" data-bind="text: terrainVM.label"></span>
             </p>
             <p class="item">
-                <span class="gray key">{{localize "CHEX.HUD.Travel"}}</span>
-                <span class="value">{{travel.label}}</span>
+                <span class="pull-left gray" data-bind="text: localize('Travel')"></span>
+                <span class="pull-right" data-bind="text: travel.label"></span>
             </p>
             <p class="item">
-                <span class="gray key">{{localize "CHEX.HUD.TravelMultiplier"}}</span>
-                <span class="value">x{{travel.multiplier}}</span>
+                <span class="pull-left gray" data-bind="text: localize('TravelMultiplier')"></span>
+                <span class="pull-right" data-bind="text: travel.multiplier"></span>
             </p>
         </div>
-        <img class="terrain" src="{{terrain.img}}">
+        <img class="terrain" data-bind="attr: {src: terrainVM.img }">
     </div>
 
-    <div class="group">
-        {{#if explorationState.explored}}
-        <p class="item">
-            <span class="gray key">{{localize "CHEX.HUD.Explored"}}</span>
-            <span class="value">{{localize explorationState.label}}</span>
+    <div class="separator">
+        <p class="item" data-bind="visible: explorationVM.explored">
+            <span class="pull-left gray" data-bind="text: localize('Explored')"></span>
+            <span class="pull-right" data-bind="text: explorationVM.label"></span>
         </p>
-        {{/if}}
-        {{#if hex.hexData.cleared}}
-        <p class="item">
-            <span class="gray key">{{localize "CHEX.HUD.Cleared"}}</span>
+        <p class="item" data-bind="visible: explorationVM.cleared">
+            <span class="pull-left gray" data-bind="text: localize('Cleared')"></span>
             <i class="fa-solid fa-check"></i>
         </p>
-        {{/if}}
-        {{#if hex.hexData.claimed}}
-        <p class="item">
-            <span class="gray key">{{localize "CHEX.HUD.Claimed"}}</span>
-            <span class="value" style="color: {{claim.color}};">{{claim.label}}</span>
+        <p class="item" data-bind="visible: claimVM.claimed">
+            <span class="pull-left gray" data-bind="text: localize('Claimed')"></span>
+            <span class="pull-right" data-bind="text: claimVM.label, style: claimVM.color"></span>
         </p>
-        {{/if}}
     </div>
 
-    {{#if improvements.length}}
-        <div class="group feature">
-            {{#each improvements}}
-                <p class="item">
-                    <img src="{{this.img}}">
-                    <span class="key">{{this.label}}</span>
-                    <span class="formula">{{this.special}}</span>
-                    <i class="fa-solid {{this.visiFrag}}"></i>
-                </p>
-            {{/each}}
-        </div>
-    {{/if}}
+    <div class="separator" data-bind="visible: improvementVMs().length > 0, foreach: improvementVMs">
+        <img data-bind="attr: { src: img }">
+        <span class="pull-left" data-bind="text: label"></span>
+        <span data-bind="text: special"></span>
+        <i class="fa-solid" data-bind="css: $root.eye(visiFrag())"></i>
+    </div>
 
-    {{#if features.length}}
-        <div class="group feature">
-            {{#each features}}
-                <p class="item">
-                    <img src="{{this.img}}">
-                    <span class="key">{{this.label}}</span>
-                    <span class="key">{{this.name}}</span>
-                    <i class="fa-solid {{this.visiFrag}}"></i>
-                </p>
-            {{/each}}
-        </div>
-    {{/if}}
+    <div class="separator" data-bind="visible: featureVMs().length > 0, foreach: featureVMs">
+        <p class="item">
+            <img data-bind="attr: { src: img }">
+            <span class="key" data-bind="text: label"></span>
+            <span class="key" data-bind="text: name"></span>
+            <i class="fa-solid" data-bind="css: $root.eye(visiFrag())"></i>
+        </p>
+    </div>
 
-    {{#if resources.length}}
-        <div class="group feature">
-            {{#each resources}}
-                <p class="item">
-                    <img src="{{this.img}}">
-                    <span class="key">{{this.label}}</span>
-                    <span>{{this.amount}}</span>
-                    <i class="fa-solid {{this.visiFrag}}"></i>
-                </p>
-            {{/each}}
-        </div>
-    {{/if}}
-
-    {{#if forageables.length}}
-        <div class="group feature">
-            {{#each forageables}}
-                <p class="item">
-                    <img src="{{this.img}}">
-                    <span>{{this.label}}</span>
-                    <i class="fa-solid fa-gift"></i>
-                    <span class="value">{{this.amount}}</span>
-                    <i class="fa-solid {{this.visiFrag}}"></i>
-                </p>
-            {{/each}}
-        </div>
-    {{/if}}
+    <div class="separator" data-bind="visible: resourceVMs().length > 0, foreach: resourceVMs">
+        <p class="item">
+            <img data-bind="attr: { src: img }">
+            <span class="key" data-bind="text: label"></span>
+            <span data-bind="text: amount"></span>
+            <i class="fa-solid" data-bind="css: $root.eye(visiFrag())"></i>
+        </p>
+    </div>
+    
+    <div class="separator" data-bind="visible: forageableVMs().length > 0, foreach: forageableVMs">
+        <p class="item">
+            <img data-bind="attr: { src: img }">
+            <span data-bind="text: label"></span>
+            <i class="fa-solid fa-gift"></i>
+            <span class="value" data-bind="text: amount"></span>
+            <i class="fa-solid" data-bind="css: $root.eye(visiFrag())"></i>
+        </p>
+    </div>
+    
 </aside>
