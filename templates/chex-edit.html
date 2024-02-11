@@ -1,19 +1,29 @@
-<form class="flexcol" autocomplete="off">
+<div>
     <fieldset>
-        <legend>{{localize 'CHEX.HEXEDIT.Exploration'}}</legend>
+        <legend data-bind="text: localize('Exploration')"></legend>
         <div class="form-group">
-            <label data-tooltip="CHEX.HEXEDIT.ExplorationTooltip">{{localize 'CHEX.HEXEDIT.Exploration'}}</label>
+            <label data-bind="tooltip: localize('ExplorationTooltip'), text: localize('Exploration')"></label>
             <div class="form-fields">
-                <select name="exploration">
-                    {{selectOptions explorationStates selected=hex.exploration nameAttr="value" labelAttr="label" localize=true }}
-                </select>
+                <select data-bind="options: explorationStates, optionsText: label, value: selectedExplorationState"></select>
             </div>
         </div>
 
         <div class="form-group">
-            <label data-tooltip="CHEX.HEXEDIT.ClearedTooltip">{{localize 'CHEX.HEXEDIT.Cleared'}}</label>
-            <input type="checkbox" name="cleared" {{checked hex.cleared}}>
+            <label data-bind="text: localize('Cleared'), tooltip: localize('ClearedTooltip')"></label>
+            <input type="checkbox" data-bind="checked: cleared">
         </div>
+
+        <div class="form-group">
+            <label data-bind="text: localize('Claimed'), tooltip: localize('ClaimedTooltip')"></label>
+            <div class="form-fields">
+                <select data-bind="options: "
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+<form class="flexcol" autocomplete="off">
+    <fieldset>
 
         <div class="form-group">
             <label data-tooltip="CHEX.HEXEDIT.ClaimedTooltip">{{localize 'CHEX.HEXEDIT.Claimed'}}</label>

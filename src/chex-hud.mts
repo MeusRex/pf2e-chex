@@ -1,68 +1,14 @@
-import {FALLBACK_COLOR, FALLBACK_IMAGE, FALLBACK_LABEL, FALLBACK_MULTIPLIER, EXPLORATION_STATES, HIGHLIGHT_LAYER} from "./const.mjs";
+import {FALLBACK_COLOR, EXPLORATION_STATES, HIGHLIGHT_LAYER} from "./const.mjs";
 import ChexHex from "./hex.mjs";
 import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
 import KoApplication from "./KoApplication.mjs";
-import { Realm } from "./customizables/realms.mjs";
-import { Terrain } from "./customizables/terrain.mjs";
-import { Travel } from "./customizables/travel.mjs";
 import ImprovementVM from "./ViewModels/ImprovementVM.mjs";
 import FeatureVM from "./ViewModels/FeatureVM.mjs";
-import { Resource } from "./customizables/resources.mjs";
 import ResourceVM from "./ViewModels/ResourceVM.mjs";
-
-class ClaimVM {
-  claimed = window.ko.observable(false);
-  label = window.ko.observable("");
-  color = window.ko.observable("");
-
-  update(key: string) {
-    if (key) {
-      const realm: Realm = chex.realms[key];
-      this.label(realm?.label || FALLBACK_LABEL);
-      this.color(realm?.color || FALLBACK_COLOR)
-      this.claimed(true);
-    }
-    else {
-      this.claimed(false);
-      this.label("");
-      this.color("");
-    }
-  }
-}
-
-class TerrainVM {
-  label: ko.Observable<string> = window.ko.observable("");
-  img: ko.Observable<string> = window.ko.observable("");
-
-  update(key: string) {
-    const terrain: Terrain = chex.terrains[key];
-    this.label(terrain?.label || FALLBACK_LABEL);
-    this.img(terrain?.img || FALLBACK_IMAGE);
-  }
-}
-
-class TravelVM {
-  label: ko.Observable<string> = window.ko.observable("");
-  multiplier: ko.Observable<number> = window.ko.observable(1);
-
-  update(key: string) {
-    const travel: Travel = chex.travels[key];
-    this.label(travel?.label || FALLBACK_LABEL);
-    this.multiplier(travel?.multiplier || FALLBACK_MULTIPLIER);
-  }
-}
-
-class ExplorationVM {
-  explored = window.ko.observable(false);
-  cleared = window.ko.observable(false);
-  label = window.ko.observable("");
-
-  update(explored: boolean, cleared: boolean, label: string) {
-    this.explored(explored);
-    this.cleared(cleared);
-    this.label(label);
-  }
-}
+import ClaimVM from "./ViewModels/ClaimVM.mjs";
+import TerrainVM from "./ViewModels/TerrainVM.mjs";
+import TravelVM from "./ViewModels/TravelVM.mjs";
+import ExplorationVM from "./ViewModels/ExplorationVM.mjs";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.

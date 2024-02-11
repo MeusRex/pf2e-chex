@@ -1,41 +1,51 @@
-import * as C from "./const.mjs";
 import ChexData from "./chex-data.mjs";
-export default class ChexHexEdit extends FormApplication {
-    static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-improvements.hbs";
-    static featuresFrag = "modules/pf2e-chex/templates/frags/chex-features.hbs";
-    static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-resources.hbs";
-    static forageablesFrag = "modules/pf2e-chex/templates/frags/chex-forageables.hbs";
+import KoApplication from "./KoApplication.mjs";
+import { EXPLORATION_STATES } from "./const.mjs";
+export default class ChexHexEdit extends KoApplication {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: "chex-edit",
             classes: [chex.CSS_CLASS],
-            template: "modules/pf2e-chex/templates/chex-edit.hbs",
+            template: "modules/pf2e-chex/templates/chex-edit.html",
             width: 420,
             height: "auto",
             popOut: true,
             closeOnSubmit: true
         });
     }
+    constructor() {
+        super();
+        this.register = () => chex.hexConfig = this;
+        this.unregister = () => chex.hexConfig = null;
+        this.mlKey = "CHEX.HEXEDIT.";
+    }
     get title() {
         return `Edit Hex: ${this.object.toString()}`;
     }
-    async _render(force, options) {
-        await super.loadTemplates([ChexHexEdit.improvementsFrag, ChexHexEdit.featuresFrag, ChexHexEdit.resourcesFrag, ChexHexEdit.forageablesFrag]);
-        chex.hexConfig = this;
-        return super._render(force, options);
+    get hexData() {
+        return this.object.hexData;
     }
-    async close(options) {
-        await super.close(options);
-        chex.hexConfig = null;
+    findExplorationState(val) {
+        for (const key in EXPLORATION_STATES) {
+            if (EXPLORATION_STATES.hasOwnProperty(key)) {
+                if (EXPLORATION_STATES[key].value === val) {
+                    return EXPLORATION_STATES[key];
+                }
+            }
+        }
+        return EXPLORATION_STATES.NONE; // fallback
     }
+    selectedExplorationState = window.ko.observable(this.findExplorationState(this.hexData.exploration));
+    get explorationStates() {
+        return EXPLORATION_STATES;
+    }
+    get realms() {
+        return chex.realms;
+    }
+    cleared = window.ko.observable(false);
     async getData(options) {
         return Object.assign(await super.getData(options), {
             hex: this.object.hexData,
-            // templates
-            improvementsFrag: ChexHexEdit.improvementsFrag,
-            featuresFrag: ChexHexEdit.featuresFrag,
-            resourcesFrag: ChexHexEdit.resourcesFrag,
-            forageablesFrag: ChexHexEdit.forageablesFrag,
             // selection options
             explorationStates: C.EXPLORATION_STATES,
             claimees: chex.realms,
@@ -59,10 +69,6 @@ export default class ChexHexEdit extends FormApplication {
                 [key]: formData
             }
         });
-    }
-    activateListeners(html) {
-        super.activateListeners(html);
-        html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
     _refreshPosition() {
         this.setPosition({ height: "auto" });
