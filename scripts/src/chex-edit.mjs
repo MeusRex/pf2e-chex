@@ -1,6 +1,6 @@
 import ChexData from "./chex-data.mjs";
 import KoApplication from "./KoApplication.mjs";
-import { EXPLORATION_STATES } from "./const.mjs";
+import { CHEX_DATA_KEY, EXPLORATION_STATES, MODULE_ID } from "./const.mjs";
 export default class ChexHexEdit extends KoApplication {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -18,6 +18,10 @@ export default class ChexHexEdit extends KoApplication {
         this.register = () => chex.hexConfig = this;
         this.unregister = () => chex.hexConfig = null;
         this.mlKey = "CHEX.HEXEDIT.";
+        this.knockify(this.hexData.improvements, this.improvements);
+        this.knockify(this.hexData.features, this.features);
+        this.knockify(this.hexData.resources, this.resources);
+        this.knockify(this.hexData.forageables, this.forageables);
     }
     get title() {
         return `Edit Hex: ${this.object.toString()}`;
@@ -25,104 +29,60 @@ export default class ChexHexEdit extends KoApplication {
     get hexData() {
         return this.object.hexData;
     }
-    findExplorationState(val) {
-        for (const key in EXPLORATION_STATES) {
-            if (EXPLORATION_STATES.hasOwnProperty(key)) {
-                if (EXPLORATION_STATES[key].value === val) {
-                    return EXPLORATION_STATES[key];
-                }
-            }
+    addObject(key) {
+        switch (key) {
+            case "improvement":
+                break;
+            case "feature":
+                break;
+            case "resource":
+                break;
+            case "forageable":
+                break;
+            default:
+                break;
         }
-        return EXPLORATION_STATES.NONE; // fallback
     }
-    selectedExplorationState = window.ko.observable(this.findExplorationState(this.hexData.exploration));
+    deleteObject(arr, data) {
+        arr.remove(data);
+    }
+    selectedExplorationState = window.ko.observable(EXPLORATION_STATES[this.hexData.exploration] || EXPLORATION_STATES.NONE);
     get explorationStates() {
         return EXPLORATION_STATES;
     }
-    get realms() {
-        return chex.realms;
-    }
-    cleared = window.ko.observable(false);
-    async getData(options) {
-        return Object.assign(await super.getData(options), {
-            hex: this.object.hexData,
-            // selection options
-            explorationStates: C.EXPLORATION_STATES,
-            claimees: chex.realms,
-            improvements: chex.improvements,
-            features: chex.features,
-            resources: chex.resources
-        });
-    }
-    async _updateObject(event, formData) {
-        formData = foundry.utils.expandObject(formData);
-        if (formData.exploration) {
-            formData.exploration = +formData.exploration;
-        }
-        formData.improvements = formData.improvements ? Object.values(formData.improvements) : [];
-        formData.features = formData.features ? Object.values(formData.features) : [];
-        formData.resources = formData.resources ? Object.values(formData.resources) : [];
-        formData.forageables = formData.forageables ? Object.values(formData.forageables) : [];
+    selectedClaim = window.ko.observable(this.hexData.claimed);
+    cleared = window.ko.observable(this.hexData.cleared);
+    realms = Object.values(chex.realms)
+        .filter((r) => !r.id)
+        .map((r) => r.id);
+    improvementTypes = Object.values(chex.improvements)
+        .filter((i) => !i.id)
+        .map((i) => i.id);
+    featureTypes = Object.values(chex.features)
+        .filter((f) => !f.id)
+        .map((f) => f.id);
+    resourceTypes = Object.values(chex.resources)
+        .filter((r) => !r.id)
+        .map((r) => r.id);
+    improvements = window.ko.observableArray();
+    features = window.ko.observableArray();
+    resources = window.ko.observableArray();
+    forageables = window.ko.observableArray();
+    async save() {
+        const data = this.hexData;
+        data.exploration = this.selectedExplorationState().value;
+        data.cleared = this.cleared();
+        data.claimed = this.selectedClaim();
+        data.improvements = this.deknockify(this.improvements()) || [];
+        data.features = this.deknockify(this.features()) || [];
+        data.resources = this.deknockify(this.resources()) || [];
+        data.forageables = this.deknockify(this.forageables()) || [];
         let key = ChexData.getKey(this.object.offset);
-        canvas.scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, {
+        canvas.scene.setFlag(MODULE_ID, CHEX_DATA_KEY, {
             hexes: {
-                [key]: formData
+                [key]: data
             }
         });
-    }
-    _refreshPosition() {
-        this.setPosition({ height: "auto" });
-    }
-    _attach(html, control) {
-        const fieldset = control.closest("fieldset");
-        fieldset.insertAdjacentHTML("beforeend", html);
-        this._refreshPosition();
-    }
-    async #onClickAction(event) {
-        event.preventDefault();
-        const control = event.currentTarget;
-        const action = control.dataset.action;
-        switch (action) {
-            case "addImprovement": {
-                const html = await super.renderTemplate(ChexHexEdit.improvementsFrag, {
-                    id: foundry.utils.randomID(),
-                    improvements: chex.improvements
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addFeature": {
-                const html = await super.renderTemplate(ChexHexEdit.featuresFrag, {
-                    id: foundry.utils.randomID(),
-                    features: chex.features
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addResource": {
-                const html = await super.renderTemplate(ChexHexEdit.resourcesFrag, {
-                    id: foundry.utils.randomID(),
-                    amount: 1,
-                    resources: chex.resources
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "addForageable": {
-                const html = await super.renderTemplate(ChexHexEdit.forageablesFrag, {
-                    id: foundry.utils.randomID(),
-                    amount: 1,
-                    forageables: chex.resources
-                });
-                this._attach(html, control);
-                break;
-            }
-            case "delete": {
-                const div = control.closest("div.form-group");
-                div.remove();
-                this._refreshPosition();
-                break;
-            }
-        }
+        this.close(null);
     }
 }

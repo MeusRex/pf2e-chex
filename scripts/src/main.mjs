@@ -83,6 +83,7 @@ Hooks.once("init", () => {
 Hooks.once("ready", async () => {
     // enable kingmaker features like kingdoms
     // game.settings.set("pf2e", "campaignType", "kingmaker");
+    /// !!!!!!!!!! MIGRATE
 });
 Hooks.once("setup", () => {
     // register own layer for UI controls. Only register if it doesn't exist yet.

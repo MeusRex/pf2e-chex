@@ -17,6 +17,27 @@ export default class KoApplication extends Application {
     refreshPosition() {
         this.setPosition({ height: "auto" });
     }
+    knockify(origin, target) {
+        origin.forEach(o => {
+            target.push(window.ko.mapping.toJS(o));
+        });
+    }
+    deknockify(origin) {
+        const arr = [];
+        origin.forEach(o => {
+            arr.push(window.ko.mapping.fromJS(o));
+        });
+        return arr;
+    }
+    deknockifyAndZip(origin) {
+        return this.zip(this.deknockify(origin));
+    }
+    zip(array) {
+        return array.reduce((acc, item) => {
+            acc[item.id] = { ...item }; // Use spread operator to create a new object
+            return acc;
+        }, {});
+    }
     register = null;
     unregister = null;
     mlKey = null;

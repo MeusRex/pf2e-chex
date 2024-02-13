@@ -1,3 +1,4 @@
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
 export class Resource {
     constructor(id, label, img) {
         this.id = id;
@@ -15,5 +16,8 @@ export class Resource {
             food: new Resource("food", "Food", "icons/consumables/food/cooked-grilled-ham-hock-glazed-brown.webp"),
             luxuries: new Resource("luxuries", "Luxuries", "icons/commodities/gems/gems-faceted-pink-crate.webp")
         };
+    }
+    static getFallback() {
+        return new Resource(undefined, FALLBACK_LABEL, FALLBACK_IMAGE);
     }
 }

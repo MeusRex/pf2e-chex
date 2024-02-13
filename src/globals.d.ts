@@ -78,20 +78,28 @@ declare const game: {
         localize(key: string): string;
     }
 };
+
+interface Dictionary<T> {
+    get(key: string): T;
+    set(key: string, val: T);
+    all(): T[];
+}
+
 declare const chex: {
     terrainSelector: TerrainPalette;
     CSS_CLASS: string;
     realmSelector: RealmPalette;
     customizer: Customizer;
     manager: ChexManager;
-    terrains: {};
-    realms: {};
-    features: {};
-    improvements: {};
-    resources: {};
-    travels: any;
+    terrains: { [key: string]: Terrain };
+    realms: { [key: string]: Realm };
+    features: { [key: string]: Feature};
+    improvements: { [key: string]: Improvement };
+    resources: { [key: string]: Resource };
+    travels: { [key: string]: Travel };
     hexConfig: ChexHexEdit;
 };
+
 declare const CONFIG: any;
 declare const canvas: any;
 declare const ClipperLib: any;

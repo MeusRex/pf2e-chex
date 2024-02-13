@@ -31,37 +31,19 @@ export default class Customizer extends KoApplication {
         this.knockify(Object.values(chex.travels), this.travels);
         this.knockify(Object.values(chex.terrains), this.terrains);
     }
-    knockify(origin, target) {
-        origin.forEach(o => {
-            target.push(window.ko.mapping.toJS(o));
-        });
-    }
-    deknockify(origin) {
-        const arr = [];
-        origin.forEach(o => {
-            arr.push(window.ko.mapping.fromJS(o));
-        });
-        return this.zip(arr);
-    }
     features = window.ko.observableArray();
     improvements = window.ko.observableArray();
     resources = window.ko.observableArray();
     realms = window.ko.observableArray();
     travels = window.ko.observableArray();
     terrains = window.ko.observableArray();
-    zip(array) {
-        return array.reduce((acc, item) => {
-            acc[item.id] = { ...item }; // Use spread operator to create a new object
-            return acc;
-        }, {});
-    }
     async save() {
-        await game.settings.set(C.MODULE_ID, Feature.name, this.zip(this.features()));
-        await game.settings.set(C.MODULE_ID, Improvement.name, this.zip(this.improvements()));
-        await game.settings.set(C.MODULE_ID, Realm.name, this.zip(this.realms()));
-        await game.settings.set(C.MODULE_ID, Resource.name, this.zip(this.resources()));
-        await game.settings.set(C.MODULE_ID, Terrain.name, this.zip(this.terrains()));
-        await game.settings.set(C.MODULE_ID, Travel.name, this.zip(this.travels()));
+        await game.settings.set(C.MODULE_ID, Feature.name, this.deknockifyAndZip(this.features()));
+        await game.settings.set(C.MODULE_ID, Improvement.name, this.deknockifyAndZip(this.improvements()));
+        await game.settings.set(C.MODULE_ID, Realm.name, this.deknockifyAndZip(this.realms()));
+        await game.settings.set(C.MODULE_ID, Resource.name, this.deknockifyAndZip(this.resources()));
+        await game.settings.set(C.MODULE_ID, Terrain.name, this.deknockifyAndZip(this.terrains()));
+        await game.settings.set(C.MODULE_ID, Travel.name, this.deknockifyAndZip(this.travels()));
     }
     activeTab = window.ko.observable('');
     toggleTab(tabName) {

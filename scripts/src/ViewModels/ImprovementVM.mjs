@@ -6,7 +6,7 @@ export default class ImprovementVM {
     special = window.ko.observable("");
     visiFrag = window.ko.observable(false);
     constructor(data) {
-        const improvement = chex.improvements[data.type];
+        const improvement = chex.improvements[data.id];
         let special = improvement?.special || "";
         if (special.startsWith(KEY_INCOME)) {
             special = special.substring(KEY_INCOME.length + 1);

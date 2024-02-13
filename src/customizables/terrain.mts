@@ -1,3 +1,5 @@
+import { FALLBACK_COLOR, FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
+
 export class Terrain implements IImage {
     constructor(id?: string, label?: string, img?: string, toolIcon?: string, travel?: string, color?: string) {
         this.id = id;
@@ -15,7 +17,7 @@ export class Terrain implements IImage {
     travel?: string;
     color?: string;
 
-    static getDefaults(): any {
+    static getDefaults(): { [key: string]: Terrain } {
         return {
             plains: new Terrain("plains", "Plains", "icons/environment/settlement/scarecrow.webp", "fa-solid fa-road", "open", "#66ff00"),
             forest: new Terrain("forest", "Forest", "icons/environment/wilderness/tree-spruce.webp", "fa-solid fa-tree", "greater", "#008000"),
@@ -26,5 +28,9 @@ export class Terrain implements IImage {
             water: new Terrain("water", "Water", "icons/environment/wilderness/island.webp", "fa-solid fa-tint", "water", "0000ff"),
             desert: new Terrain("desert", "Desert", "icons/environment/wilderness/cave-entrance-rocky.webp", "fa-solid fa-sun", "open", "#ffff00")
         };
+    }
+
+    static getFallback(): Terrain {
+        return new Terrain(undefined, FALLBACK_LABEL, FALLBACK_IMAGE, FALLBACK_IMAGE, undefined, FALLBACK_COLOR);
     }
 }

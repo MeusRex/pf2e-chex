@@ -1,3 +1,4 @@
+import { FALLBACK_COLOR, FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
 export class Terrain {
     constructor(id, label, img, toolIcon, travel, color) {
         this.id = id;
@@ -24,5 +25,8 @@ export class Terrain {
             water: new Terrain("water", "Water", "icons/environment/wilderness/island.webp", "fa-solid fa-tint", "water", "0000ff"),
             desert: new Terrain("desert", "Desert", "icons/environment/wilderness/cave-entrance-rocky.webp", "fa-solid fa-sun", "open", "#ffff00")
         };
+    }
+    static getFallback() {
+        return new Terrain(undefined, FALLBACK_LABEL, FALLBACK_IMAGE, FALLBACK_IMAGE, undefined, FALLBACK_COLOR);
     }
 }

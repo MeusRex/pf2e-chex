@@ -5,7 +5,7 @@ export default class ResourceVM {
     amount = window.ko.observable(0);
     visiFrag = window.ko.observable(false);
     constructor(data) {
-        const resource = chex.resources[data.type];
+        const resource = chex.resources[data.id];
         this.update(resource.label, resource.img, data.amount, data.show);
     }
     update(label, img, amount, visiFrag) {

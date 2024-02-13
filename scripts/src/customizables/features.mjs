@@ -1,3 +1,4 @@
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
 export class Feature {
     constructor(id, label, img) {
         this.id = id;
@@ -11,5 +12,8 @@ export class Feature {
         return {
             river: new Feature("river", "River", "icons/environment/settlement/bridge-stone.webp")
         };
+    }
+    static getFallback() {
+        return new Feature(undefined, FALLBACK_LABEL, FALLBACK_IMAGE);
     }
 }

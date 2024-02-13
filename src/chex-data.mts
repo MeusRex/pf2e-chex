@@ -15,19 +15,19 @@ export default class ChexData {
 }
 
 export class ChexFeature {
-    type: string = "";
+    id: string = "";
     name: string = "";
     show: boolean = false;
 }
 
 export class ChexImprovement {
-    type: string = "";
+    id: string = "";
     name: string = "";
     show: boolean = false;
 }
 
 export class ChexResource {
-    type: string = "";
+    id: string = "";
     name: string = "";
     amount: number = 1;
     show: boolean = false;

@@ -1,3 +1,4 @@
+import { FALLBACK_COLOR, FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "src/const.mjs";
 export class Travel {
     constructor(id, label, multiplier, color, special) {
         this.id = id;
@@ -23,5 +24,8 @@ export class Travel {
             greater: new Travel("greater", "Greater", 3, "#ff0000", false),
             impassable: new Travel("impassable", "Impassable", 999, "#000000", false)
         };
+    }
+    static getFallback() {
+        return new Travel(undefined, FALLBACK_LABEL, FALLBACK_MULTIPLIER, FALLBACK_COLOR, false);
     }
 }

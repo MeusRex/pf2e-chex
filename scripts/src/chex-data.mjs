@@ -13,17 +13,17 @@ export default class ChexData {
     forageables = [];
 }
 export class ChexFeature {
-    type = "";
+    id = "";
     name = "";
     show = false;
 }
 export class ChexImprovement {
-    type = "";
+    id = "";
     name = "";
     show = false;
 }
 export class ChexResource {
-    type = "";
+    id = "";
     name = "";
     amount = 1;
     show = false;

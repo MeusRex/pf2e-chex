@@ -1,3 +1,4 @@
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
 export class Improvement {
     constructor(id, label, img, special) {
         this.id = id;
@@ -16,5 +17,8 @@ export class Improvement {
             quarry: new Improvement("quarry", "Quarry", "icons/environment/settlement/quarry.webp", "income: stone: +1"),
             lumbercamp: new Improvement("lumbercamp", "Lumbercamp", "icons/environment/settlement/lumbermill.webp", "income: lumber: +1")
         };
+    }
+    static getFallback() {
+        return new Improvement(undefined, FALLBACK_LABEL, FALLBACK_IMAGE, "");
     }
 }

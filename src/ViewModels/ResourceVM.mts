@@ -9,7 +9,7 @@ export default class ResourceVM {
     visiFrag = window.ko.observable(false);
 
     constructor(data: ChexResource) {
-        const resource: Resource = chex.resources[data.type];
+        const resource: Resource = chex.resources[data.id];
         this.update(resource.label, resource.img, data.amount, data.show)
     }
 

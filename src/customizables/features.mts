@@ -1,4 +1,6 @@
-export class Feature implements IImage {
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
+
+export class Feature {
     constructor(id?: string, label?: string, img?: string) {
         this.id = id;
         this.label = label;
@@ -9,9 +11,13 @@ export class Feature implements IImage {
     label?: string;
     img?: string;
 
-    static getDefaults(): any {
+    static getDefaults(): { [key: string]: Feature } {
         return {
             river: new Feature("river", "River", "icons/environment/settlement/bridge-stone.webp")
         };
+    }
+
+    static getFallback(): Feature {
+        return new Feature(undefined, FALLBACK_LABEL, FALLBACK_IMAGE);
     }
 }

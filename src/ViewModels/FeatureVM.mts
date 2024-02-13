@@ -9,7 +9,7 @@ export default class FeatureVM {
     visiFrag = window.ko.observable(false);
 
     constructor(data: ChexFeature) {
-        const feature: Feature = chex.features[data.type];
+        const feature: Feature = chex.features[data.id];
         this.update(feature.label, feature.img, data.name, data.show)
     }
 

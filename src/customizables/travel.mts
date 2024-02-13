@@ -1,3 +1,5 @@
+import { FALLBACK_COLOR, FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "src/const.mjs";
+
 export class Travel {
     constructor(id?: string, label?: string, multiplier?: number, color?: string, special?: boolean) {
         this.id = id;
@@ -17,7 +19,7 @@ export class Travel {
      */
     special?: boolean;
 
-    static getDefaults(): any {
+    static getDefaults(): { [key: string]: Travel } {
         return {
             open: new Travel("open", "Open", 1, "#00ff00", false),
             water: new Travel("water", "Water", 1.5, "#0000ff", true),
@@ -25,5 +27,9 @@ export class Travel {
             greater: new Travel("greater", "Greater", 3, "#ff0000", false),
             impassable: new Travel("impassable", "Impassable", 999, "#000000", false)
         };
+    }
+
+    static getFallback(): Travel {
+        return new Travel(undefined, FALLBACK_LABEL, FALLBACK_MULTIPLIER, FALLBACK_COLOR, false);
     }
 }

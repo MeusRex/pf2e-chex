@@ -7,8 +7,8 @@ export default class ChexFormulaParser {
         const incomeSums = {};
         let travelSum = 0;
         improvements.forEach((improvement) => {
-            if (improvement.type) {
-                const special = chex.improvements[improvement.type].special;
+            if (improvement.id) {
+                const special = chex.improvements[improvement.id].special;
                 if (special.startsWith(KEY_INCOME)) {
                     const matches = special.matchAll(incomeRegex);
                     for (const match of matches) {

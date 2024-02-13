@@ -2,7 +2,7 @@ import * as C from "./const.mjs";
 import ChexData from "./chex-data.mjs";
 
 export default class ChexSceneData {
-    hexes = {};
+    hexes: { [key: string]: ChexData } = {};
     numRows = 0;
     numCols = 0;
     size = 0;

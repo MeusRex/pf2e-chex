@@ -16,77 +16,103 @@
         <div class="form-group">
             <label data-bind="text: localize('Claimed'), tooltip: localize('ClaimedTooltip')"></label>
             <div class="form-fields">
-                <select data-bind="options: "
-            </div>
-        </div>
-    </fieldset>
-</div>
-
-<form class="flexcol" autocomplete="off">
-    <fieldset>
-
-        <div class="form-group">
-            <label data-tooltip="CHEX.HEXEDIT.ClaimedTooltip">{{localize 'CHEX.HEXEDIT.Claimed'}}</label>
-            <div class="form-fields">
-                <select name="claimed">
-                    {{selectOptions claimees selected=hex.claimed nameAttr="id" labelAttr="label" blank=""}}
-                </select>
+                <select data-bind="options: realms, optionsText: label, value: selectedClaim"></select>
             </div>
         </div>
     </fieldset>
 
     <fieldset>
-        <legend>
-            {{localize 'CHEX.HEXEDIT.Improvements'}}
-            <button type="button" data-action="addImprovement" class="chex-add-button">
-                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+        <legend data-bind="text: localize('Improvements')">
+            <button type="button" data-bind="click: addObject.bind($root, 'improvement')" class="chex-add-button">
+                <span data-bind="text: localize('Add')"></span>
             </button>
         </legend>
-        {{#each hex.improvements as |item i|}}
-            {{> (lookup @root "improvementsFrag") id=i key=item.id show=item.show improvements=@root.improvements}}
-        {{/each}}
+
+        <div data-bind="template: { name: 'improvementTemplate', foreach: realms }">
+
+        </div>
     </fieldset>
 
     <fieldset>
-        <legend>
-            {{localize 'CHEX.HEXEDIT.Features'}}
-            <button type="button" data-action="addFeature" class="chex-add-button">
-                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+        <legend data-bind="text: localize('Features')">
+            <button type="button" data-bind="click: addObject.bind($root, 'feature')" class="chex-add-button">
+                <span data-bind="text: localize('Add')"></span>
             </button>
         </legend>
-        {{#each hex.features as |item2 i2|}}
-            {{> (lookup @root "featuresFrag") id=i2 key=item2.id name=item2.name show=item2.show features=@root.features}}
-        {{/each}}
+
+        <div data-bind="template: { name: 'featureTemplate', foreach: realms }">
+
+        </div>
     </fieldset>
 
     <fieldset>
-        <legend>
-            {{localize 'CHEX.HEXEDIT.Resources'}}
-            <button type="button" data-action="addResource" class="chex-add-button">
-                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+        <legend data-bind="text: localize('Resources')">
+            <button type="button" data-bind="click: addObject.bind($root, 'resource')" class="chex-add-button">
+                <span data-bind="text: localize('Add')"></span>
             </button>
         </legend>
-        {{#each hex.resources as |item3 i3|}}
-            {{> (lookup @root "resourcesFrag") id=i key=item3.id amount=item3.amount show=item3.show resources=@root.resources}}
-        {{/each}}
+
+        <div data-bind="template: { name: 'resourceTemplate', foreach: realms }">
+
+        </div>
     </fieldset>
 
     <fieldset>
-        <legend>
-            {{localize 'CHEX.HEXEDIT.Forageables'}}
-            <button type="button" data-action="addForageable" class="chex-add-button">
-                <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
+        <legend data-bind="text: localize('Forageables')">
+            <button type="button" data-bind="click: addObject.bind($root, 'forageable')" class="chex-add-button">
+                <span data-bind="text: localize('Add')"></span>
             </button>
         </legend>
-        {{#each hex.forageables as |item4 i4|}}
-            {{> (lookup @root "forageablesFrag") id=i4 key=item4.id amount=item4.amount show=item4.show forageables=@root.resources}}
-        {{/each}}
+
+        <div data-bind="template: { name: 'foreageableTemplate', foreach: realms }">
+
+        </div>
     </fieldset>
 
     <footer>
-        <button type="submit">
-            <i class="fa-solid fa-save"></i>
-            <span>{{localize 'CHEX.HEXEDIT.Save'}}</span>
-        </button>
+        <button type="button" data-bind="click: save"></button>
+        <i class="fa-solid fa-save"></i>
+        <span data-bind="text: localize('Save')"></span>
     </footer>
-</form>
+</div>
+
+<script type="text/html" id="improvementTemplate">
+    <div class="form-group">
+        <select data-bind="options: $root.improvementTypes value: id"></select>
+        <input type="checkbox" data-bind="tooltip: localize('ShowToPlayersTooltip'), checked: show">
+        <button data-bind="text: localize('Delete'), click: $root.deleteObject.bind($root, $root.improvements, $data)"  type="button" class="fa-solid fa-times chex-delete"></button>
+    </div>
+</script>
+
+<script type="text/html" id="featureTemplate">
+    <div class="form-group">
+        <select name="features.{{id}}.id">
+            {{selectOptions features selected=key nameAttr="id" labelAttr="label" blank=""}}
+        </select>
+        <input type="text" data-tooltip="CHEX.HEXEDIT.Name" name="features.{{id}}.name" value="{{name}}">
+        <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="features.{{id}}.show" {{checked show}}>
+        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
+    </div>
+</script>
+
+<script type="text/html" id="resourceTemplate">
+    <div class="form-group">
+        <select name="resources.{{id}}.id">
+            {{selectOptions resources selected=key nameAttr="id" labelAttr="label" blank=""}}
+        </select>
+        <input type="number" data-tooltip="CHEX.HEXEDIT.Amount" name="resources.{{id}}.amount" value="{{amount}}">
+        <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="resources.{{id}}.show" {{checked show}}>
+        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
+    </div>
+</script>
+
+<script type="text/html" id="foreageableTemplate">
+    <div class="form-group">
+        <select name="forageables.{{id}}.id">
+            {{selectOptions forageables selected=key nameAttr="id" labelAttr="label" blank=""}}
+        </select>
+        <input type="number" data-tooltip="CHEX.HEXEDIT.Amount" name="forageables.{{id}}.amount" value="{{amount}}">
+        <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="forageables.{{id}}.show" {{checked show}}>
+        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
+    </div>
+</script>

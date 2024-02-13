@@ -94,6 +94,9 @@ Hooks.once("init", () => {
 Hooks.once("ready", async () => {
     // enable kingmaker features like kingdoms
     // game.settings.set("pf2e", "campaignType", "kingmaker");
+
+
+    /// !!!!!!!!!! MIGRATE
 });
 
 Hooks.once("setup", () => {
