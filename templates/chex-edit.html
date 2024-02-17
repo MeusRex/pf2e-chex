@@ -1,86 +1,85 @@
-<div>
-    <fieldset>
-        <legend data-bind="text: localize('Exploration')"></legend>
-        <div class="form-group">
-            <label data-bind="tooltip: localize('ExplorationTooltip'), text: localize('Exploration')"></label>
-            <div class="form-fields">
-                <select data-bind="options: explorationStates, optionsText: label, value: selectedExplorationState"></select>
+<div class="chex">
+    <div class="edit">
+        <fieldset>
+            <legend data-bind="text: localize('Exploration')"></legend>
+            <div class="form-group">
+                <label data-bind="tooltip: localize('ExplorationTooltip'), text: localize('Exploration')"></label>
+    <!--     <div class="form-fields">
+                    <select data-bind="options: explorationStates, optionsText: label, value: selectedExplorationState"></select>
+                </div> -->
             </div>
-        </div>
 
-        <div class="form-group">
-            <label data-bind="text: localize('Cleared'), tooltip: localize('ClearedTooltip')"></label>
-            <input type="checkbox" data-bind="checked: cleared">
-        </div>
-
-        <div class="form-group">
-            <label data-bind="text: localize('Claimed'), tooltip: localize('ClaimedTooltip')"></label>
-            <div class="form-fields">
-                <select data-bind="options: realms, optionsText: label, value: selectedClaim"></select>
+            <div class="form-group">
+                <label data-bind="text: localize('Cleared'), tooltip: localize('ClearedTooltip')"></label>
+                <input type="checkbox" data-bind="checked: cleared">
             </div>
-        </div>
-    </fieldset>
 
-    <fieldset>
-        <legend data-bind="text: localize('Improvements')">
-            <button type="button" data-bind="click: addObject.bind($root, 'improvement')" class="chex-add-button">
-                <span data-bind="text: localize('Add')"></span>
+            <div class="form-group">
+                <label data-bind="text: localize('Claimed'), tooltip: localize('ClaimedTooltip')"></label>
+                <div class="form-fields">
+                    <select data-bind="options: realms, value: selectedClaim"></select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <span data-bind="text: localize('Improvements')"></span>
+                <button type="button" data-bind="click: addObject.bind($root, 'improvement'), text: localize('Add')" class="add"></button>
+            </legend>
+
+            <div data-bind="template: { name: 'improvementTemplate', foreach: improvements }">
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <span data-bind="text: localize('Features')"></span>
+                <button type="button" data-bind="click: addObject.bind($root, 'feature'), text: localize('Add')" class="add"></button>
+            </legend>
+
+            <div data-bind="template: { name: 'featureTemplate', foreach: features }">
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <span data-bind="text: localize('Resources')"></span>
+                <button type="button" data-bind="click: addObject.bind($root, 'resource'), text: localize('Add')" class="add"></button>
+            </legend>
+
+            <div data-bind="template: { name: 'resourceTemplate', foreach: resources }">
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <span data-bind="text: localize('Forageables')"></span>
+                <button type="button" data-bind="click: addObject.bind($root, 'forageable'), text: localize('Add')" class="add"></button>
+            </legend>
+
+            <div data-bind="template: { name: 'foreageableTemplate', foreach: forageables }">
+
+            </div>
+        </fieldset>
+
+        <footer>
+            <button type="button" data-bind="click: save.bind($root)">
+                <i class="fa-solid fa-save"></i>
+                <span data-bind="text: localize('Save')"></span>
             </button>
-        </legend>
-
-        <div data-bind="template: { name: 'improvementTemplate', foreach: realms }">
-
-        </div>
-    </fieldset>
-
-    <fieldset>
-        <legend data-bind="text: localize('Features')">
-            <button type="button" data-bind="click: addObject.bind($root, 'feature')" class="chex-add-button">
-                <span data-bind="text: localize('Add')"></span>
-            </button>
-        </legend>
-
-        <div data-bind="template: { name: 'featureTemplate', foreach: realms }">
-
-        </div>
-    </fieldset>
-
-    <fieldset>
-        <legend data-bind="text: localize('Resources')">
-            <button type="button" data-bind="click: addObject.bind($root, 'resource')" class="chex-add-button">
-                <span data-bind="text: localize('Add')"></span>
-            </button>
-        </legend>
-
-        <div data-bind="template: { name: 'resourceTemplate', foreach: realms }">
-
-        </div>
-    </fieldset>
-
-    <fieldset>
-        <legend data-bind="text: localize('Forageables')">
-            <button type="button" data-bind="click: addObject.bind($root, 'forageable')" class="chex-add-button">
-                <span data-bind="text: localize('Add')"></span>
-            </button>
-        </legend>
-
-        <div data-bind="template: { name: 'foreageableTemplate', foreach: realms }">
-
-        </div>
-    </fieldset>
-
-    <footer>
-        <button type="button" data-bind="click: save"></button>
-        <i class="fa-solid fa-save"></i>
-        <span data-bind="text: localize('Save')"></span>
-    </footer>
+        </footer>
+    </div>
 </div>
 
 <script type="text/html" id="improvementTemplate">
     <div class="form-group">
         <select data-bind="options: $root.improvementTypes, value: id"></select>
         <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
-        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.improvements, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
+        <button data-bind="attr: { 'data-tooltip': $root.localize('Delete') }, click: $root.deleteObject.bind($root, $root.improvements, $data)" type="button" class="fa-solid fa-times delete"></button>
     </div>
 </script>
 
@@ -89,7 +88,7 @@
         <select data-bind="options: $root.featureTypes, value: id"></select>
         <input type="text" data-bind="value: name, attr: {'data-tooltip': $root.localize('Name')}" >
         <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
-        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.features, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
+        <button data-bind="attr: { 'data-tooltip': $root.localize('Delete') }, click: $root.deleteObject.bind($root, $root.features, $data)" type="button" class="fa-solid fa-times delete"></button>
     </div>
 </script>
 
@@ -98,7 +97,7 @@
         <select data-bind="options: $root.resourceTypes, value: id"></select>
         <input type="number" data-bind="attr: {'data-tooltip': $root.localize('Amount')}, value: amount">
         <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
-        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.resources, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
+        <button data-bind="attr: { 'data-tooltip': $root.localize('Delete') }, click: $root.deleteObject.bind($root, $root.resources, $data)" type="button" class="fa-solid fa-times delete"></button>
     </div>
 </script>
 
@@ -107,6 +106,6 @@
         <select data-bind="options: $root.resourceTypes, value: id"></select>
         <input type="number" data-bind="attr: {'data-tooltip': $root.localize('Amount')}, value: amount">
         <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
-        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.forageables, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
+        <button data-bind="attr: { 'data-tooltip': $root.localize('Delete') }, click: $root.deleteObject.bind($root, $root.forageables, $data)" type="button" class="fa-solid fa-times delete"></button>
     </div>
 </script>

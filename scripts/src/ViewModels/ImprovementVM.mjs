@@ -11,7 +11,7 @@ export default class ImprovementVM {
         if (special.startsWith(KEY_INCOME)) {
             special = special.substring(KEY_INCOME.length + 1);
         }
-        this.update(improvement.label, improvement.img, special, data.show);
+        this.update(improvement?.label, improvement?.img, special, data.show);
     }
     update(label, img, special, visiFrag) {
         this.label(label || FALLBACK_LABEL);

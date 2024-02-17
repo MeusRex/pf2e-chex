@@ -10,7 +10,7 @@ export default class FeatureVM {
 
     constructor(data: ChexFeature) {
         const feature: Feature = chex.features[data.id];
-        this.update(feature.label, feature.img, data.name, data.show)
+        this.update(feature?.label, feature?.img, data.name, data.show)
     }
 
     update(label: string | undefined, img: string | undefined, name: string, visiFrag: boolean) {

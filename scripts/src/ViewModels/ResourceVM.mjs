@@ -6,7 +6,7 @@ export default class ResourceVM {
     visiFrag = window.ko.observable(false);
     constructor(data) {
         const resource = chex.resources[data.id];
-        this.update(resource.label, resource.img, data.amount, data.show);
+        this.update(resource?.label, resource?.img, data.amount, data.show);
     }
     update(label, img, amount, visiFrag) {
         this.label(label || FALLBACK_LABEL);

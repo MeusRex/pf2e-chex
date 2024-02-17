@@ -89,26 +89,43 @@
     .hud {
         background-color: rgba(0, 0, 0, 0.8);
         color: ivory;
-        padding: 0.5rem, 1.5rem;
+        padding: 0.5rem 1.5rem;
         font-size: 2rem;
         border: 2px solid black;
         border-radius: 1rem;
 
         .separator {
-            border-image: linear-gradient(to right, transparent, grey, 10%, 90%, transparent) 1 / 2px 0 0 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-image: linear-gradient(to right, transparent, #999 10%, 90%, transparent) 1 / 2px 0 0 0;
+        }
+
+        .terrain-details {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
         }
 
         .row-item {
-            padding: 14px, 0, 0, 0;
-            flex: 0 0 5rem;
+            display: flex;
+            flex: 1;
             text-align: center;
+            white-space: nowrap;
+            margin: 0.2rem;
+            align-items: center;
             
             &:first-child {
-                padding-top: 1rem;
+                padding-top: 0.5rem;
             }
 
             &:last-child {
-                padding-bottom: 1rem;
+                padding-bottom: 0.5rem;
+            }
+
+            .amount {
+                flex: 1;
             }
         }
 
@@ -124,26 +141,14 @@
         }
 
         .terrain {
-            margin: 1rem 0;
+            margin: 1rem 0rem 1rem 1rem;
             flex: 0 0 160px;
             width: 160px;
             height: 160px;
             border-radius: 10px;
         }
 
-        .item {
-            border-radius: 50px;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: nowrap;
-
-            span {
-                align-self: center;
-            }
-        }
-
         .pull-left {
-            flex: 1;
             text-align: left;
         }
 
@@ -159,6 +164,42 @@
         .icon {
             height: 4rem;
             border-radius: 24px;
+            margin-right: 20px;
+        }
+        
+        i {
+            text-align: center;
+            margin-left: 20px;
         }
     }
+
+    .edit {
+        .form-group {
+            display: flex;
+            label {
+                flex: 1;
+            }
+        }
+        
+        select {
+            width: 200px;
+        }
+
+        .add {
+            font-size: 11px;
+            height: 25px;
+            width: fit-content;
+            line-height: initial;
+        }
+
+        .delete {
+            max-width: 27px;
+            min-height: 27px;
+        }
+    }
+}
+
+.ko-window {
+    height: auto !important;
+    max-height: 800px;
 }

@@ -17,6 +17,7 @@ export default class ChexManager {
     kingdomLayer;
     hoveredHex;
     hud;
+    hudEnabled = false;
     hexes = new Collection();
     get sceneData() {
         return canvas.scene.getFlag(C.MODULE_ID, C.CHEX_DATA_KEY);
@@ -52,8 +53,12 @@ export default class ChexManager {
                 title: "CHEX.TOOLS.ToggleHexTool",
                 icon: "fa-solid fa-hexagon-image",
                 toggle: true,
-                active: this.hud.enabled ?? false,
-                onClick: () => this.hud.toggle()
+                active: this.hudEnabled ?? false,
+                onClick: () => {
+                    this.hudEnabled = !this.hudEnabled;
+                    chex.manager.kingdomLayer.visible = this.hudEnabled;
+                    this.hud.show(this.hudEnabled);
+                }
             };
             this.#showKingdomTool = {
                 name: "showKingdom",
@@ -216,14 +221,15 @@ export default class ChexManager {
         if (!this.active)
             return;
         this.hoveredHex = undefined;
-        this.hud.clear();
+        this.hud.close(null);
         canvas.stage.off(this.#mousemove);
         this.#mousemove = undefined;
         canvas.stage.off(this.#mousedown);
         this.#mousedown = undefined;
         canvas.grid.destroyHighlightLayer(C.HIGHLIGHT_LAYER);
         this.kingdomLayer = undefined;
-        this.hud.enabled = false;
+        this.hudEnabled = false;
+        this.hud.show(false);
     }
     #mousemove;
     #mousedown;
@@ -232,17 +238,17 @@ export default class ChexManager {
     #isMouseDown = false;
     #onMouseMove(event) {
         let hex = null;
-        if ((this.hud.enabled) && (event.srcElement?.id === "board")) {
+        if ((this.hudEnabled) && (event.srcElement?.id === "board")) {
             hex = this.getHexFromPoint(event.data.getLocalPosition(canvas.stage));
         }
         if (!hex) {
-            this.hud.clear();
+            this.hud.show(false);
         }
         else if (hex !== this.hoveredHex) {
             if (this.#isMouseDown) {
                 this.#paintTerrainDeferred(hex);
             }
-            this.hud.activate(hex);
+            this.hud.setHex(hex);
             // canvas.app.renderer.extract.pixels(canvas.effects.visibility.explored.children[0].texture, new PIXI.Rectangle(4001, 0, 1, 1))
         }
         this.hoveredHex = hex || undefined;

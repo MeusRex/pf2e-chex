@@ -21,6 +21,7 @@ export default class ChexManager {
     hoveredHex?: ChexHex;
 
     hud: ChexHexHUD;
+    hudEnabled: boolean = false;
 
     hexes = new Collection();
 
@@ -65,8 +66,12 @@ export default class ChexManager {
                 title: "CHEX.TOOLS.ToggleHexTool",
                 icon: "fa-solid fa-hexagon-image",
                 toggle: true,
-                active: this.hud.enabled ?? false,
-                onClick: () => this.hud.toggle()
+                active: this.hudEnabled ?? false,
+                onClick: () => {
+                    this.hudEnabled = !this.hudEnabled;
+                    chex.manager.kingdomLayer.visible = this.hudEnabled;
+                    this.hud.show(this.hudEnabled);
+                }
             };
 
             this.#showKingdomTool = {
@@ -250,7 +255,7 @@ export default class ChexManager {
         if (!this.active) return;
 
         this.hoveredHex = undefined;
-        this.hud.clear();
+        this.hud.close(null);
 
         canvas.stage.off(this.#mousemove);
         this.#mousemove = undefined;
@@ -259,7 +264,8 @@ export default class ChexManager {
 
         canvas.grid.destroyHighlightLayer(C.HIGHLIGHT_LAYER);
         this.kingdomLayer = undefined;
-        this.hud.enabled = false;
+        this.hudEnabled = false;
+        this.hud.show(false);
     }
 
     #mousemove;
@@ -270,17 +276,17 @@ export default class ChexManager {
 
     #onMouseMove(event) {
         let hex = null;
-        if ( ( this.hud.enabled ) && ( event.srcElement?.id === "board" ) ) {
+        if ( ( this.hudEnabled ) && ( event.srcElement?.id === "board" ) ) {
           hex = this.getHexFromPoint(event.data.getLocalPosition(canvas.stage));
         }
         if ( !hex ) {
-            this.hud.clear();
+            this.hud.show(false);
         }
         else if ( hex !== this.hoveredHex ) {
             if (this.#isMouseDown) {
                 this.#paintTerrainDeferred(hex);
             }
-            this.hud.activate(hex);
+            this.hud.setHex(hex);
 
             // canvas.app.renderer.extract.pixels(canvas.effects.visibility.explored.children[0].texture, new PIXI.Rectangle(4001, 0, 1, 1))
         }

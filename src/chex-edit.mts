@@ -5,12 +5,13 @@ import { Improvement } from "./customizables/improvements.mjs";
 import { Realm } from "./customizables/realms.mjs";
 import KoApplication from "./KoApplication.mjs";
 import { CHEX_DATA_KEY, EXPLORATION_STATES, MODULE_ID } from "./const.mjs";
+import ChexHex from "./hex.mjs";
 
 export default class ChexHexEdit extends KoApplication {
   static override get defaultOptions() {
       return foundry.utils.mergeObject(super.defaultOptions, {
           id: "chex-edit",
-          classes: [chex.CSS_CLASS],
+          classes: ["ko-window"],
           template: "modules/pf2e-chex/templates/chex-edit.html",
           width: 420,
           height: "auto",
@@ -19,9 +20,10 @@ export default class ChexHexEdit extends KoApplication {
       });
   }
 
-  constructor(data: ChexData) {
+  constructor(hex: ChexHex) {
     super();
-    this.hexData = data;
+    this.hex = hex;
+    this.hexData = hex.hexData;
     this.register = () => chex.hexConfig = this;
     this.unregister = () => chex.hexConfig = null;
     this.mlKey = "CHEX.HEXEDIT.";
@@ -37,9 +39,10 @@ export default class ChexHexEdit extends KoApplication {
   }
 
   get title() {
-      return `Edit Hex: ${this.hexData}`;
+      return `Edit Hex: ${this.hex}`;
   }
 
+  public hex: ChexHex;
   public hexData: ChexData;
 
   addObject(key: string) {
@@ -74,27 +77,25 @@ export default class ChexHexEdit extends KoApplication {
   }
 
   selectedExplorationState = window.ko.observable();
-  get explorationStates() {
-    return Object.values(EXPLORATION_STATES);
-  }
+  explorationStates = Object.values(EXPLORATION_STATES);
 
   selectedClaim = window.ko.observable<string>("");
   cleared = window.ko.observable<boolean>(false);
   
-  realms: string[] = Object.values(chex.realms)
-    .filter((r: Realm) => !r.id)
-    .map((r: Realm) => r.id!);
+  realms: string[] = ["", ...Object.values(chex.realms)
+    .filter((r: Realm) => r.id)
+    .map((r: Realm) => r.id!)];
 
   improvementTypes: string[] = Object.values(chex.improvements)
-    .filter((i: Improvement) => !i.id)
+    .filter((i: Improvement) => i.id)
     .map((i: Improvement) => i.id!);
 
   featureTypes: string[] = Object.values(chex.features)
-    .filter((f: Feature) => !f.id)
+    .filter((f: Feature) => f.id)
     .map((f: Feature) => f.id!);
 
   resourceTypes: string[] = Object.values(chex.resources)
-    .filter((r: Resource) => !r.id)
+    .filter((r: Resource) => r.id)
     .map((r: Resource) => r.id!);
 
   improvements: ko.ObservableArray<any> = window.ko.observableArray();
@@ -114,14 +115,14 @@ export default class ChexHexEdit extends KoApplication {
     data.resources = this.deknockify(this.resources()) || [];
     data.forageables = this.deknockify(this.forageables()) || [];
 
-    let key = ChexData.getKey(this.object.offset);
+    let key = ChexData.getKey(this.hex.offset);
     canvas.scene.setFlag(MODULE_ID, CHEX_DATA_KEY, {
       hexes: {
         [key]: data
       }
     });
 
-    this.close(null);
+    this.close(undefined);
   }
 
 }

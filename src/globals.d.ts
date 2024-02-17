@@ -30,10 +30,11 @@ declare class Application {
     _element: any;
     _state: any;
     options: any;
+    rendered: boolean;
 
     render(force: boolean, options?: any);
     _render(force: boolean, options: any);
-    close(options: any);
+    close(options: any | undefined);
     getData(options: any);
     activateListeners(html: any);
     loadTemplates(templates: string[]);
@@ -54,6 +55,8 @@ declare class GridOffset {
 declare class GridHex {
     constructor(offset: GridOffset, config: any)
     offset: GridOffset;
+    topLeft: any;
+    config: any;
 }
 
 declare class FilePicker extends Application {

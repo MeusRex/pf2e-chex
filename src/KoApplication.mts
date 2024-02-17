@@ -5,7 +5,7 @@ export default class KoApplication extends Application {
         this.register && this.register();
     }
 
-    override close(options: any) {
+    override close(options: any | undefined) {
         window.ko.cleanNode(this._element[0]);
         super.close(options);
         this.unregister && this.unregister();

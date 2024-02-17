@@ -10,7 +10,7 @@ export default class ResourceVM {
 
     constructor(data: ChexResource) {
         const resource: Resource = chex.resources[data.id];
-        this.update(resource.label, resource.img, data.amount, data.show)
+        this.update(resource?.label, resource?.img, data.amount, data.show)
     }
 
     update(label: string | undefined, img: string | undefined, amount: number, visiFrag: boolean) {

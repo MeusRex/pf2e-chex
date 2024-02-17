@@ -27,30 +27,28 @@ export default class ChexHexHUD extends KoApplication {
         this.mlKey = "CHEX.HUD.";
     }
     hex = null;
-    enabled = false;
-    toggle(enabled) {
-        enabled ??= !this.enabled;
-        this.enabled = enabled;
-        if (enabled)
-            chex.manager.kingdomLayer.visible = true;
-        else {
-            chex.manager.kingdomLayer.visible = false;
-            this.clear();
-        }
-    }
     claimVM = window.ko.observable(new ClaimVM());
     terrainVM = window.ko.observable(new TerrainVM());
     travelVM = window.ko.observable(new TravelVM());
     explorationVM = window.ko.observable(new ExplorationVM());
-    improvementVMs = window.ko.observableArray([]);
-    featureVMs = window.ko.observableArray([]);
-    resourceVMs = window.ko.observableArray([]);
-    forageableVMs = window.ko.observableArray([]);
+    improvementVMs = window.ko.observableArray();
+    featureVMs = window.ko.observableArray();
+    resourceVMs = window.ko.observableArray();
+    forageableVMs = window.ko.observableArray();
+    title = window.ko.observable("");
+    showHud = window.ko.observable(false);
+    // inject directly into the hud, which is the playable area. If this isn't done, you get wierd ass effects.
+    _injectHTML(html) {
+        this._element = html;
+        // @ts-ignore
+        document.getElementById("hud").appendChild(html[0]);
+    }
     loadData() {
         if (!this.hex)
             return;
         const data = this.hex.hexData;
         const gm = game.user.isGM;
+        this.title(`${this.hex}`);
         this.claimVM().update(data.claimed);
         this.terrainVM().update(data.terrain);
         const currentTravel = ChexFormulaParser.getTravel(data);
@@ -81,42 +79,40 @@ export default class ChexHexHUD extends KoApplication {
         };
         this.element.css(position);
     }
-    async activate(hex) {
+    setHex(hex) {
         this.hex = hex;
         this.loadData();
-        if (this.enabled) {
-            let { x, y } = hex.topLeft;
-            const options = { left: x + hex.config.width + 20, top: y };
-            // Highlights this hex  
-            canvas.grid.clearHighlightLayer(HIGHLIGHT_LAYER);
-            canvas.grid.highlightPosition(HIGHLIGHT_LAYER, { x, y, color: Color.from(hex.color) });
-            if (chex.manager.pendingPatches.length > 0) {
-                chex.manager.pendingPatches.forEach(patch => {
-                    let { x, y } = patch.hex.topLeft;
-                    let color = "#ff0000";
-                    if (patch.patch.terrain)
-                        color = chex.terrains[patch.patch.terrain]?.color || FALLBACK_COLOR;
-                    else if (patch.patch.claimed)
-                        color = chex.realms[patch.patch.claimed]?.color || FALLBACK_COLOR;
-                    canvas.grid.highlightPosition(HIGHLIGHT_LAYER, { x, y, color: Color.from(color) });
-                });
-            }
-            return this._render(true, options);
-        }
-    }
-    /* -------------------------------------------- */
-    /**
-     * Clear the HUD.
-     */
-    clear() {
-        // @ts-ignore
-        let states = this.constructor.RENDER_STATES;
+        const { x, y } = hex.topLeft;
+        const options = { left: x + hex.config.width + 20, top: y };
         canvas.grid.clearHighlightLayer(HIGHLIGHT_LAYER);
-        if (this._state <= states.NONE)
-            return;
-        this._state = states.CLOSING;
-        this.element.hide();
-        this._element = null;
-        this._state = states.NONE;
+        canvas.grid.highlightPosition(HIGHLIGHT_LAYER, { x, y, color: Color.from(hex.color) });
+        if (chex.manager.pendingPatches.length > 0) {
+            chex.manager.pendingPatches.forEach(patch => {
+                const { x, y } = patch.hex.topLeft;
+                let color = "#ff0000";
+                if (patch.patch.terrain)
+                    color = chex.terrains[patch.patch.terrain]?.color || FALLBACK_COLOR;
+                else if (patch.patch.claimed)
+                    color = chex.realms[patch.patch.claimed]?.color || FALLBACK_COLOR;
+                canvas.grid.highlightPosition(HIGHLIGHT_LAYER, { x, y, color: Color.from(color) });
+            });
+        }
+        if (!this.rendered) {
+            this.render(true, options);
+        }
+        else {
+            this.setPosition(options);
+        }
+        this.show(true);
+    }
+    show(visible) {
+        this.showHud(visible);
+        if (!visible)
+            canvas.grid.clearHighlightLayer(HIGHLIGHT_LAYER);
+        // this.element.hide();
+    }
+    close(options) {
+        canvas.grid.clearHighlightLayer(HIGHLIGHT_LAYER);
+        super.close(options);
     }
 }

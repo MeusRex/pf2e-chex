@@ -74,25 +74,40 @@
 .chex .hud {
   background-color: rgba(0, 0, 0, 0.8);
   color: ivory;
-  padding: 0.5rem, 1.5rem;
+  padding: 0.5rem 1.5rem;
   font-size: 2rem;
   border: 2px solid black;
   border-radius: 1rem;
 }
 .chex .hud .separator {
-  -o-border-image: linear-gradient(to right, transparent, grey, 10%, 90%, transparent) 1/2px 0 0 0;
-     border-image: linear-gradient(to right, transparent, grey, 10%, 90%, transparent) 1/2px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  -o-border-image: linear-gradient(to right, transparent, #999 10%, 90%, transparent) 1/2px 0 0 0;
+     border-image: linear-gradient(to right, transparent, #999 10%, 90%, transparent) 1/2px 0 0 0;
+}
+.chex .hud .terrain-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 .chex .hud .row-item {
-  padding: 14px, 0, 0, 0;
-  flex: 0 0 5rem;
+  display: flex;
+  flex: 1;
   text-align: center;
+  white-space: nowrap;
+  margin: 0.2rem;
+  align-items: center;
 }
 .chex .hud .row-item:first-child {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 .chex .hud .row-item:last-child {
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+.chex .hud .row-item .amount {
+  flex: 1;
 }
 .chex .hud .flex {
   display: flex;
@@ -104,23 +119,13 @@
   flex: 100%;
 }
 .chex .hud .terrain {
-  margin: 1rem 0;
+  margin: 1rem 0rem 1rem 1rem;
   flex: 0 0 160px;
   width: 160px;
   height: 160px;
   border-radius: 10px;
 }
-.chex .hud .item {
-  border-radius: 50px;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: nowrap;
-}
-.chex .hud .item span {
-  align-self: center;
-}
 .chex .hud .pull-left {
-  flex: 1;
   text-align: left;
 }
 .chex .hud .pull-right {
@@ -133,4 +138,34 @@
 .chex .hud .icon {
   height: 4rem;
   border-radius: 24px;
+  margin-right: 20px;
+}
+.chex .hud i {
+  text-align: center;
+  margin-left: 20px;
+}
+.chex .edit .form-group {
+  display: flex;
+}
+.chex .edit .form-group label {
+  flex: 1;
+}
+.chex .edit select {
+  width: 200px;
+}
+.chex .edit .add {
+  font-size: 11px;
+  height: 25px;
+  width: -moz-fit-content;
+  width: fit-content;
+  line-height: initial;
+}
+.chex .edit .delete {
+  max-width: 27px;
+  min-height: 27px;
+}
+
+.ko-window {
+  height: auto !important;
+  max-height: 800px;
 }/*# sourceMappingURL=chex.css.map */

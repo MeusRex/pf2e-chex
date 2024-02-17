@@ -6,7 +6,7 @@ export default class FeatureVM {
     visiFrag = window.ko.observable(false);
     constructor(data) {
         const feature = chex.features[data.id];
-        this.update(feature.label, feature.img, data.name, data.show);
+        this.update(feature?.label, feature?.img, data.name, data.show);
     }
     update(label, img, name, visiFrag) {
         this.label(label || FALLBACK_LABEL);
