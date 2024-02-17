@@ -1,5 +1,5 @@
-import { FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "src/const.mjs";
-import { Travel } from "src/customizables/travel.mjs";
+import { FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "../const.mjs";
+import { Travel } from "../customizables/travel.mjs";
 
 export default class TravelVM {
     label: ko.Observable<string> = window.ko.observable("");

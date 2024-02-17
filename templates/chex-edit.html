@@ -78,41 +78,35 @@
 
 <script type="text/html" id="improvementTemplate">
     <div class="form-group">
-        <select data-bind="options: $root.improvementTypes value: id"></select>
-        <input type="checkbox" data-bind="tooltip: localize('ShowToPlayersTooltip'), checked: show">
-        <button data-bind="text: localize('Delete'), click: $root.deleteObject.bind($root, $root.improvements, $data)"  type="button" class="fa-solid fa-times chex-delete"></button>
+        <select data-bind="options: $root.improvementTypes, value: id"></select>
+        <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
+        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.improvements, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
     </div>
 </script>
 
 <script type="text/html" id="featureTemplate">
     <div class="form-group">
-        <select name="features.{{id}}.id">
-            {{selectOptions features selected=key nameAttr="id" labelAttr="label" blank=""}}
-        </select>
-        <input type="text" data-tooltip="CHEX.HEXEDIT.Name" name="features.{{id}}.name" value="{{name}}">
-        <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="features.{{id}}.show" {{checked show}}>
-        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
+        <select data-bind="options: $root.featureTypes, value: id"></select>
+        <input type="text" data-bind="value: name, attr: {'data-tooltip': $root.localize('Name')}" >
+        <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
+        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.features, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
     </div>
 </script>
 
 <script type="text/html" id="resourceTemplate">
     <div class="form-group">
-        <select name="resources.{{id}}.id">
-            {{selectOptions resources selected=key nameAttr="id" labelAttr="label" blank=""}}
-        </select>
-        <input type="number" data-tooltip="CHEX.HEXEDIT.Amount" name="resources.{{id}}.amount" value="{{amount}}">
-        <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="resources.{{id}}.show" {{checked show}}>
-        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
+        <select data-bind="options: $root.resourceTypes, value: id"></select>
+        <input type="number" data-bind="attr: {'data-tooltip': $root.localize('Amount')}, value: amount">
+        <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
+        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.resources, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
     </div>
 </script>
 
 <script type="text/html" id="foreageableTemplate">
     <div class="form-group">
-        <select name="forageables.{{id}}.id">
-            {{selectOptions forageables selected=key nameAttr="id" labelAttr="label" blank=""}}
-        </select>
-        <input type="number" data-tooltip="CHEX.HEXEDIT.Amount" name="forageables.{{id}}.amount" value="{{amount}}">
-        <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="forageables.{{id}}.show" {{checked show}}>
-        <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>
+        <select data-bind="options: $root.resourceTypes, value: id"></select>
+        <input type="number" data-bind="attr: {'data-tooltip': $root.localize('Amount')}, value: amount">
+        <input type="checkbox" data-bind="attr: {'data-tooltip': $root.localize('ShowToPlayersTooltip')}, checked: show">
+        <button data-bind="text: $root.localize('Delete'), click: $root.deleteObject.bind($root, $root.forageables, $data)" type="button" class="fa-solid fa-times chex-delete"></button>
     </div>
 </script>

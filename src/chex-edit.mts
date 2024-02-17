@@ -1,4 +1,4 @@
-import ChexData from "./chex-data.mjs";
+import ChexData, { ChexFeature, ChexImprovement, ChexResource } from "./chex-data.mjs";
 import { Feature } from "./customizables/features.mjs";
 import { Resource } from "./customizables/resources.mjs";
 import { Improvement } from "./customizables/improvements.mjs";
@@ -19,8 +19,9 @@ export default class ChexHexEdit extends KoApplication {
       });
   }
 
-  constructor() {
+  constructor(data: ChexData) {
     super();
+    this.hexData = data;
     this.register = () => chex.hexConfig = this;
     this.unregister = () => chex.hexConfig = null;
     this.mlKey = "CHEX.HEXEDIT.";
@@ -29,32 +30,38 @@ export default class ChexHexEdit extends KoApplication {
     this.knockify(this.hexData.features, this.features);
     this.knockify(this.hexData.resources, this.resources);
     this.knockify(this.hexData.forageables, this.forageables);
+
+    this.selectedClaim(this.hexData.claimed);
+    this.selectedExplorationState(EXPLORATION_STATES[this.hexData.exploration] || EXPLORATION_STATES.NONE);
+    this.cleared(this.hexData.cleared);
   }
 
   get title() {
-      return `Edit Hex: ${this.object.toString()}`;
+      return `Edit Hex: ${this.hexData}`;
   }
 
-  get hexData() : ChexData {
-    return this.object.hexData as ChexData;
-  }
+  public hexData: ChexData;
 
   addObject(key: string) {
+    const add = (arr: ko.ObservableArray, item: any) => {
+      item = window.ko.mapping.fromJS(item);
+      arr.push(item);
+    }
     switch (key) {
       case "improvement":
-        
+        add(this.improvements, new ChexImprovement());
       break;
-
+        
       case "feature":
-      
+        add(this.features, new ChexFeature());
       break;
 
       case "resource":
-      
+        add(this.resources, new ChexResource());
       break;
 
       case "forageable":
-      
+        add(this.forageables, new ChexResource());
       break;
     
       default:
@@ -66,13 +73,13 @@ export default class ChexHexEdit extends KoApplication {
     arr.remove(data);
   }
 
-  selectedExplorationState = window.ko.observable(EXPLORATION_STATES[this.hexData.exploration] || EXPLORATION_STATES.NONE);
+  selectedExplorationState = window.ko.observable();
   get explorationStates() {
-    return EXPLORATION_STATES;
+    return Object.values(EXPLORATION_STATES);
   }
 
-  selectedClaim = window.ko.observable<string>(this.hexData.claimed);
-  cleared = window.ko.observable<boolean>(this.hexData.cleared);
+  selectedClaim = window.ko.observable<string>("");
+  cleared = window.ko.observable<boolean>(false);
   
   realms: string[] = Object.values(chex.realms)
     .filter((r: Realm) => !r.id)

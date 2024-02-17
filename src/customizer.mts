@@ -5,7 +5,6 @@ import { Realm } from "./customizables/realms.mjs";
 import { Resource } from "./customizables/resources.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 import { Travel } from "./customizables/travel.mjs";
-import ChexData, { ChexImprovement } from "./chex-data.mjs";
 import KoApplication from "./KoApplication.mjs";
 
 export default class Customizer extends KoApplication {
@@ -28,6 +27,7 @@ export default class Customizer extends KoApplication {
     super();
     this.register = () => chex.customizer = this;
     this.unregister = () => chex.customizer = null;
+    this.mlKey = "CHEX.CUSTOMIZER.";
 
     this.knockify(Object.values(chex.features), this.features);
     this.knockify(Object.values(chex.improvements), this.improvements);

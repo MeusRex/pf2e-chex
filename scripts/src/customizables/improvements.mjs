@@ -1,10 +1,10 @@
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
 export class Improvement {
     constructor(id, label, img, special) {
-        this.id = id;
-        this.label = label;
-        this.img = img;
-        this.special = special;
+        this.id = id || foundry.utils.randomID();
+        this.label = label || this.id;
+        this.img = img || "";
+        this.special = special || "";
     }
     id;
     label;

@@ -209,7 +209,7 @@ export default class ChexManager {
         this._onReady();
     }
 
-    _updateScene(document, change) {
+    _updateScene(document: any, change: any) {
         if (!this.active || !this.kingdomLayer) return;
 
         this.kingdomLayer.draw();

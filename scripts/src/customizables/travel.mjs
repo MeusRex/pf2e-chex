@@ -1,11 +1,11 @@
-import { FALLBACK_COLOR, FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "src/const.mjs";
+import { FALLBACK_COLOR, FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "../const.mjs";
 export class Travel {
     constructor(id, label, multiplier, color, special) {
-        this.id = id;
-        this.label = label;
-        this.multiplier = multiplier;
-        this.color = color;
-        this.special = special;
+        this.id = id || foundry.utils.randomID();
+        this.label = label || this.id;
+        this.multiplier = multiplier || 1;
+        this.color = color || "#FFFFFF";
+        this.special = special || false;
     }
     id;
     label;

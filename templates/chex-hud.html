@@ -1,4 +1,4 @@
-<aside class="hud">
+<aside class="chex hud">
     <p class="item">
         <span class="pull-right gray" data-bind="text: localize('Hex')"></span>
     </p>
@@ -11,11 +11,11 @@
             </p>
             <p class="item">
                 <span class="pull-left gray" data-bind="text: localize('Travel')"></span>
-                <span class="pull-right" data-bind="text: travel.label"></span>
+                <span class="pull-right" data-bind="text: travelVM.label"></span>
             </p>
             <p class="item">
                 <span class="pull-left gray" data-bind="text: localize('TravelMultiplier')"></span>
-                <span class="pull-right" data-bind="text: travel.multiplier"></span>
+                <span class="pull-right" data-bind="text: travelVM.multiplier"></span>
             </p>
         </div>
         <img class="terrain" data-bind="attr: {src: terrainVM.img }">

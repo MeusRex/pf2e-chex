@@ -1,5 +1,5 @@
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
-import { KEY_INCOME } from "src/formula-parser.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
+import { KEY_INCOME } from "../formula-parser.mjs";
 export default class ImprovementVM {
     label = window.ko.observable("");
     img = window.ko.observable("");

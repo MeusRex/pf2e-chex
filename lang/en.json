@@ -62,7 +62,13 @@
         "TravelTT": "The ID of the travel that is the default difficulty for this terrain.",
         "MultiplierTT": "How many times more time does it take to travel here?",
         "SpecialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula",
-        "PickIconTT": "Open Filebrowser to select an image"
+        "PickIconTT": "Open Filebrowser to select an image",
+        "Improvements": "Improvements",
+        "Features": "Features",
+        "Resources": "Resources",
+        "Add": "Add",
+        "Delete": "Delete",
+        "Save": "Save"
       },
       "TERRAINSELECTOR": {
         "Title": "Terrain Palette"

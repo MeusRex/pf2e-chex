@@ -1,9 +1,9 @@
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
 export class Resource {
     constructor(id, label, img) {
-        this.id = id;
-        this.label = label;
-        this.img = img;
+        this.id = id || foundry.utils.randomID();
+        this.label = label || this.id;
+        this.img = img || "";
     }
     id;
     label;

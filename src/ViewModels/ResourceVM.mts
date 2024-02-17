@@ -1,6 +1,6 @@
-import { ChexResource } from "src/chex-data.mjs";
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
-import { Resource } from "src/customizables/resources.mjs";
+import { ChexResource } from "../chex-data.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
+import { Resource } from "../customizables/resources.mjs";
 
 export default class ResourceVM {
     label = window.ko.observable("");

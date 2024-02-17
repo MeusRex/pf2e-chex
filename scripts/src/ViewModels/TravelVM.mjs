@@ -1,4 +1,4 @@
-import { FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "src/const.mjs";
+import { FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "../const.mjs";
 export default class TravelVM {
     label = window.ko.observable("");
     multiplier = window.ko.observable(1);

@@ -24,6 +24,7 @@ export default class Customizer extends KoApplication {
         super();
         this.register = () => chex.customizer = this;
         this.unregister = () => chex.customizer = null;
+        this.mlKey = "CHEX.CUSTOMIZER.";
         this.knockify(Object.values(chex.features), this.features);
         this.knockify(Object.values(chex.improvements), this.improvements);
         this.knockify(Object.values(chex.realms), this.realms);

@@ -1,18 +1,17 @@
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
-import { Feature } from "./features.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
 
 export class Improvement {
     constructor(id?: string, label?: string, img?: string, special?: string) {
-        this.id = id
-        this.label = label;
-        this.img = img;
-        this.special = special;
+        this.id = id || foundry.utils.randomID();
+        this.label = label || this.id;
+        this.img = img || "";
+        this.special = special || "";
     }
 
-    id?: string;
-    label?: string;
-    img?: string;
-    special?: string;
+    id: string;
+    label: string;
+    img: string;
+    special: string;
 
     static getDefaults(): { [key: string]: Improvement } {
         return {
@@ -23,7 +22,7 @@ export class Improvement {
         };
     }
 
-    static getFallback(): Feature {
+    static getFallback(): Improvement {
         return new Improvement(undefined, FALLBACK_LABEL, FALLBACK_IMAGE, "");
     }
 }

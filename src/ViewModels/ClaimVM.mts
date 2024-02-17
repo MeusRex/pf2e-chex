@@ -1,5 +1,5 @@
-import { FALLBACK_COLOR, FALLBACK_LABEL } from "src/const.mjs";
-import { Realm } from "src/customizables/realms.mjs";
+import { FALLBACK_COLOR, FALLBACK_LABEL } from "../const.mjs";
+import { Realm } from "../customizables/realms.mjs";
 
 export default class ClaimVM {
     claimed = window.ko.observable(false);

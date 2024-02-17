@@ -1,5 +1,4 @@
 import ChexData, { ChexImprovement } from "./chex-data.mjs";
-import { Improvement } from "./customizables/improvements.mjs";
 import { Travel } from "./customizables/travel.mjs";
 
 export const KEY_INCOME = "income:";

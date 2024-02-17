@@ -1,6 +1,6 @@
-import { ChexFeature } from "src/chex-data.mjs";
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
-import { Feature } from "src/customizables/features.mjs";
+import { ChexFeature } from "../chex-data.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
+import { Feature } from "../customizables/features.mjs";
 
 export default class FeatureVM {
     label = window.ko.observable("");

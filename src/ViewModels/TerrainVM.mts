@@ -1,5 +1,5 @@
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
-import { Terrain } from "src/customizables/terrain.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
+import { Terrain } from "../customizables/terrain.mjs";
 
 export default class TerrainVM {
     label: ko.Observable<string> = window.ko.observable("");

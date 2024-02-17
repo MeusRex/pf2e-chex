@@ -18,14 +18,18 @@ export default class KoApplication extends Application {
         this.setPosition({ height: "auto" });
     }
     knockify(origin, target) {
+        if (!origin)
+            origin = [];
         origin.forEach(o => {
-            target.push(window.ko.mapping.toJS(o));
+            target.push(window.ko.mapping.fromJS(o));
         });
     }
     deknockify(origin) {
+        if (!origin)
+            origin = [];
         const arr = [];
         origin.forEach(o => {
-            arr.push(window.ko.mapping.fromJS(o));
+            arr.push(window.ko.mapping.toJS(o));
         });
         return arr;
     }

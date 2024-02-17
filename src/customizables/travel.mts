@@ -1,23 +1,23 @@
-import { FALLBACK_COLOR, FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "src/const.mjs";
+import { FALLBACK_COLOR, FALLBACK_LABEL, FALLBACK_MULTIPLIER } from "../const.mjs";
 
 export class Travel {
     constructor(id?: string, label?: string, multiplier?: number, color?: string, special?: boolean) {
-        this.id = id;
-        this.label = label;
-        this.multiplier = multiplier;
-        this.color = color;
-        this.special = special;
+        this.id = id || foundry.utils.randomID();
+        this.label = label || this.id;
+        this.multiplier = multiplier || 1;
+        this.color = color || "#FFFFFF";
+        this.special = special || false;
     }
 
-    id?: string;
-    label?: string;
-    multiplier?: number;
-    color?: string;
+    id: string;
+    label: string;
+    multiplier: number;
+    color: string;
     /**
      * if true, skip this when determining the next travel speed.
      * an example of this would be water. Difficult terrain would not suddenly turn into water type travel
      */
-    special?: boolean;
+    special: boolean;
 
     static getDefaults(): { [key: string]: Travel } {
         return {

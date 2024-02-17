@@ -1,12 +1,12 @@
-import { FALLBACK_COLOR, FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
+import { FALLBACK_COLOR, FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
 export class Terrain {
     constructor(id, label, img, toolIcon, travel, color) {
-        this.id = id;
-        this.label = label;
-        this.img = img;
-        this.toolIcon = toolIcon;
-        this.travel = travel;
-        this.color = color;
+        this.id = id || foundry.utils.randomID();
+        this.label = label || this.id;
+        this.img = img || "";
+        this.toolIcon = toolIcon || "";
+        this.travel = travel || "open";
+        this.color = color || "#FFFFFF";
     }
     id;
     label;

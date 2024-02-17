@@ -1,9 +1,9 @@
-import { FALLBACK_COLOR, FALLBACK_LABEL } from "src/const.mjs";
+import { FALLBACK_COLOR, FALLBACK_LABEL } from "../const.mjs";
 export class Realm {
     constructor(id, label, color) {
-        this.id = id;
-        this.label = label;
-        this.color = color;
+        this.id = id || foundry.utils.randomID();
+        this.label = label || this.id;
+        this.color = color || "#FFFFFF";
     }
     id;
     label;

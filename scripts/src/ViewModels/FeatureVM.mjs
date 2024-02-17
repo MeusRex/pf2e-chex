@@ -1,4 +1,4 @@
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
 export default class FeatureVM {
     label = window.ko.observable("");
     img = window.ko.observable("");

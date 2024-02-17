@@ -22,15 +22,21 @@ export default class KoApplication extends Application {
     }
 
     knockify(origin: any[], target: ko.ObservableArray) {
+      if (!origin)
+        origin = [];
+
         origin.forEach(o => {
-          target.push(window.ko.mapping.toJS(o));
+          target.push(window.ko.mapping.fromJS(o));
         });
       }
     
     deknockify(origin: any[]): any[] {
+      if (!origin)
+        origin = [];
+
         const arr: any[] = [];
         origin.forEach(o => {
-          arr.push(window.ko.mapping.fromJS(o));
+          arr.push(window.ko.mapping.toJS(o));
         });
 
         return arr;

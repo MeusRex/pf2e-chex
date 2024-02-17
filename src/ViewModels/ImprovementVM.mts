@@ -1,7 +1,7 @@
-import { ChexImprovement } from "src/chex-data.mjs";
-import { FALLBACK_IMAGE, FALLBACK_LABEL } from "src/const.mjs";
-import { Improvement } from "src/customizables/improvements.mjs";
-import { KEY_INCOME } from "src/formula-parser.mjs";
+import { ChexImprovement } from "../chex-data.mjs";
+import { FALLBACK_IMAGE, FALLBACK_LABEL } from "../const.mjs";
+import { Improvement } from "../customizables/improvements.mjs";
+import { KEY_INCOME } from "../formula-parser.mjs";
 
 export default class ImprovementVM {
     label = window.ko.observable("");
