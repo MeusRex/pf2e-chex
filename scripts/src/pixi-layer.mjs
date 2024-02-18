@@ -1,15 +1,38 @@
 import * as PIXI from "pixi.js";
 //@ts-ignore
-export default class ChexDrawingLayer extends PIXI.Container {
+export default class PixiLayer {
     constructor() {
-        super();
-        this.zIndex = 0;
-        this.visible = false;
     }
-    draw() {
-        this.removeChildren().forEach(c => c.destroy());
-        this.mask = canvas.primary.mask;
-        const g = this.addChild(new PIXI.Graphics());
+    container = new PIXI.Container();
+    hexSize = 0;
+    createHexagonTexture(size, color) {
+        const graphics = new PIXI.Graphics();
+        size++;
+        //graphics.lineStyle(2, color, 0.5);
+        graphics.beginFill(color, 1);
+        graphics.moveTo(size * Math.cos(0), size * Math.sin(0));
+        for (let i = 1; i <= 6; i++) {
+            graphics.lineTo(size * Math.cos(i * 2 * Math.PI / 6), size * Math.sin(i * 2 * Math.PI / 6));
+        }
+        graphics.endFill();
+        // Convert graphics to texture and cache it
+        const texture = app.renderer.generateTexture(graphics);
+        return texture;
+    }
+    setup(xHexes, yHexes, hexSize) {
+        this.hexSize = hexSize;
+        let size = hexSize + 1;
+        const graphics = new PIXI.Graphics();
+        //graphics.lineStyle(2, color, 0.5);
+        graphics.beginFill(color, 1);
+        graphics.moveTo(size * Math.cos(0), size * Math.sin(0));
+        for (let i = 1; i <= 6; i++) {
+            graphics.lineTo(size * Math.cos(i * 2 * Math.PI / 6), size * Math.sin(i * 2 * Math.PI / 6));
+        }
+        graphics.endFill();
+        // Convert graphics to texture and cache it
+        const texture = app.renderer.generateTexture(graphics);
+        return texture;
     }
     antialiasing = `
         precision mediump float;
