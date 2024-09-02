@@ -126,7 +126,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
     c.AddPath([], ClipperLib.PolyType.ptSubject, true);
     for ( const hex of hexes ) {
       const {x, y} = hex.topLeft;
-      const p = new PIXI.Polygon(g.getPolygon(x, y, g.w, Math.ceil(g.h)+1));
+      const p = new PIXI.Polygon(g.getVertices(hex.offset));
       c.AddPath(p.toClipperPoints(), ClipperLib.PolyType.ptClip, true);
     }
     c.Execute(ClipperLib.ClipType.ctUnion, polyTree, ClipperLib.PolyFillType.pftEvenOdd, ClipperLib.PolyFillType.pftNonZero);
