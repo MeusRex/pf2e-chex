@@ -39,6 +39,7 @@
         "ShowTravelTool": "Show Travel Overlay",
         "ChexTools": "Chex",
         "EnableChex": "Add/Remove Chex to current Scene",
+        "RealmSelector": "Realm Selector",
         "Settings": "Settings",
         "TerrainSelector": "Terrain Palette"
       },
