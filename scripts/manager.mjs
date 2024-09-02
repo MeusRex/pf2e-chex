@@ -372,33 +372,4 @@ export default class ChexManager {
 		return this.hexes.get(ChexData.getKey({i, j}));
 	}
 
-      /**
-   * Compute the offset coordinate of a hexagon from a pixel coordinate contained within that hex.
-   * @param {Point} point                     The pixel coordinate
-   * @param {HexGridConfiguration} config     The hex grid configuration
-   * @param {string} [method=floor]           Which Math rounding method to use
-   * @returns {HexOffsetCoordinate}           The offset coordinate
-   */
-  pixelsToOffset({x, y}, config, method="floor") {
-    const {columns, even, width, height} = config;
-    const fn = Math[method];
-    let row;
-    let col;
-
-    // Columnar orientation
-    if ( columns ) {
-      col = fn(x / (width * 0.866));
-      const isEven = (col + 1) % 2 === 0;
-      row = fn((y / height) + (even === isEven ? 0.5 : 0));
-    }
-
-    // Row orientation
-    else {
-      row = fn(y / (height * 0.866));
-      const isEven = (row + 1) % 2 === 0;
-      col = fn((x / width) + (even === isEven ? 0.5 : 0));
-    }
-    return {row, col};
-  }
-
 }
