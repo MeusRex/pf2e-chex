@@ -182,7 +182,7 @@ export default class ChexManager {
     }
 
     get isValidGrid() {
-        return canvas.grid.type === 2;
+        return canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDR || canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDQ;
     }
 
     #showSettings() {
@@ -210,7 +210,7 @@ export default class ChexManager {
             }
             else {
                 // message that it wont work with other grids currently
-                ui.notifications.warn("Currently, Chex only works for Hexagonal Rows - Odd");
+                ui.notifications.warn("Currently, Chex only works for Hexagonal Rows - Odd, or Hexagonal Columns - Odd");
             }
         }
 
