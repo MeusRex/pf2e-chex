@@ -4,9 +4,10 @@ import { Travel } from "./customizables/travel.mjs";
 import ChexData from "./chex-data.mjs";
 import ChexSceneData from "./scene-data.mjs";
 
-export default class ChexHex extends GridHex {
-    constructor(offset, config, sceneId) {
-        super(offset, config);
+export default class ChexHex extends foundry.grid.GridHex {
+
+    constructor(coordinates, grid, sceneId) {
+        super(coordinates, grid);
         this.sceneId = sceneId;
     }
 
@@ -65,6 +66,6 @@ export default class ChexHex extends GridHex {
     }
 
     toString() {
-        return `${this.offset.row}.${this.offset.col}`;
+        return `${this.offset.i}.${this.offset.j}`;
     }
 }

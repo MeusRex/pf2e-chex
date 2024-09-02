@@ -10,6 +10,7 @@ import ChexHexHUD from "./chex-hud.mjs";
 import ChexHex from "./hex.mjs";
 import ChexDrawingLayer from "./chex-drawing-layer.mjs";
 import ChexSceneData from "./scene-data.mjs";
+import ChexOffset from "./chex-offset.mjs";
 import CHexData from "./scene-data.mjs";
 
 export default class ChexManager {
@@ -42,12 +43,13 @@ export default class ChexManager {
         if (!this.active) return;
         this.hexes = new Collection();
         const data = this.sceneData;
-        const config = HexagonalGrid.getConfig(data.type, data.size);
+        const grid = canvas.scene.grid;
 
         for (let row = 0; row < data.numRows; row++) {
             for (let col = 0; col < data.numCols; col++) {
-                const hex = new ChexHex({row, col}, config, data.sceneId)
-                this.hexes.set(ChexData.getKey({row, col}), hex);
+                const offset = new ChexOffset(row, col);
+                const hex = new ChexHex(offset, grid, data.sceneId)
+                this.hexes.set(ChexData.getKey(offset), hex);
             }
         }
     }
@@ -237,10 +239,10 @@ export default class ChexManager {
             if (canvas.scene.tokenVision)
                 canvas.stage.rendered.environment.effects.addChildAt(chex.manager.kingdomLayer, 1);
             else 
-                canvas.grid.addChildAt(this.kingdomLayer, canvas.grid.children.indexOf(canvas.grid.borders));
+                canvas.interface.grid.addChild(this.kingdomLayer);
         }
         this.kingdomLayer.draw();
-        canvas.grid.addHighlightLayer(C.HIGHLIGHT_LAYER);
+        canvas.interface.grid.addHighlightLayer(C.HIGHLIGHT_LAYER);
 
         this.#mousemove = this.#onMouseMove.bind(this);
         canvas.stage.on("mousemove", this.#mousemove);
@@ -263,7 +265,7 @@ export default class ChexManager {
         canvas.stage.off(this.#mousedown);
         this.#mousedown = undefined;
 
-        canvas.grid.destroyHighlightLayer(C.HIGHLIGHT_LAYER);
+        canvas.interface.grid.destroyHighlightLayer(C.HIGHLIGHT_LAYER);
         this.kingdomLayer = undefined;
         this.hud.enabled = false;
     }
@@ -366,9 +368,8 @@ export default class ChexManager {
     }
 
     getHexFromPoint(point) {
-        const grid = canvas.grid.grid;
-		const [row, col] = canvas.grid.grid.getGridPositionFromPixels(point.x, point.y);
-		return this.hexes.get(ChexData.getKey({row, col}));
+		const {i, j} = canvas.grid.getOffset(point.x, point.y);
+		return this.hexes.get(ChexData.getKey({i, j}));
 	}
 
       /**

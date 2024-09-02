@@ -118,7 +118,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
    * @returns {Array<{outer: PIXI.Polygon, holes: PIXI.Polygon[]}>}
    */
   static #buildPolygons(hexes) {
-    const g = canvas.grid.grid;
+    const g = canvas.grid;
     const c = new ClipperLib.Clipper();
     let polyTree = new ClipperLib.PolyTree();
 

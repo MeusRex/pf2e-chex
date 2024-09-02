@@ -1,5 +1,6 @@
 import * as C from "./const.mjs";
 import ChexData from "./chex-data.mjs";
+import ChexOffset from "./chex-offset.mjs";
 
 export default class ChexSceneData {
     hexes = {};
@@ -32,7 +33,8 @@ export default class ChexSceneData {
         for (let row = 0; row < data.numRows; row++) {
             for (let col = 0; col < data.numCols; col++) {
                 const hex = new ChexData();
-                let key = ChexData.getKey({row, col});
+                const offset = new ChexOffset(row, col);
+                let key = ChexData.getKey(offset);
                 data.hexes[key] = hex;
             }
         }

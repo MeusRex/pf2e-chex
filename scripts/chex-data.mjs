@@ -1,6 +1,12 @@
+import ChexOffset from "./chex-offset.mjs";
+
 export default class ChexData {
+     /**
+     * The key used to store data on this hex
+     * @type {ChexOffset}
+     */
     static getKey(offset) {
-        return (1000 * offset.row) + offset.col;
+        return (1000 * offset.i) + offset.j;
     }
 
     /**
