@@ -368,7 +368,7 @@ export default class ChexManager {
     }
 
     getHexFromPoint(point) {
-		const {i, j} = canvas.grid.getOffset(point.x, point.y);
+		const {i, j} = canvas.grid.getOffset(point);
 		return this.hexes.get(ChexData.getKey({i, j}));
 	}
 
