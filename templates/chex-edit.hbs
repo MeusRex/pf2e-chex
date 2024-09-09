@@ -5,7 +5,7 @@
             <label data-tooltip="CHEX.HEXEDIT.ExplorationTooltip">{{localize 'CHEX.HEXEDIT.Exploration'}}</label>
             <div class="form-fields">
                 <select name="exploration">
-                    {{selectOptions explorationStates selected=hex.exploration nameAttr="value" labelAttr="label" localize=true }}
+                    {{selectOptions explorationStates selected=hex.exploration valueAttr="value" labelAttr="label" localize=true }}
                 </select>
             </div>
         </div>
@@ -19,7 +19,7 @@
             <label data-tooltip="CHEX.HEXEDIT.ClaimedTooltip">{{localize 'CHEX.HEXEDIT.Claimed'}}</label>
             <div class="form-fields">
                 <select name="claimed">
-                    {{selectOptions claimees selected=hex.claimed nameAttr="id" labelAttr="label" blank=""}}
+                    {{selectOptions claimees selected=hex.claimed valueAttr="id" labelAttr="label" blank=""}}
                 </select>
             </div>
         </div>

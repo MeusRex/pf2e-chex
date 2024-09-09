@@ -1,6 +1,6 @@
 <div class="form-group">
     <select name="resources.{{id}}.id">
-        {{selectOptions resources selected=key nameAttr="id" labelAttr="label" blank=""}}
+        {{selectOptions resources selected=key valueAttr="id" labelAttr="label" blank=""}}
     </select>
     <input type="number" data-tooltip="CHEX.HEXEDIT.Amount" name="resources.{{id}}.amount" value="{{amount}}">
     <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="resources.{{id}}.show" {{checked show}}>

@@ -5,11 +5,11 @@
     "authors": [
       { "name": "cedi" }
     ],
-    "version": "1.0.2",
+    "version": "2.0.0",
     "compatibility": {
-      "minimum": "11.315",
-      "verified": "11.315",
-      "maximum": "11"
+      "minimum": "12.331",
+      "verified": "12.331",
+      "maximum": "12"
     },
     "esmodules": [
       "scripts/main.mjs"

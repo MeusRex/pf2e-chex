@@ -1,6 +1,6 @@
 <div class="form-group">
     <select name="forageables.{{id}}.id">
-        {{selectOptions forageables selected=key nameAttr="id" labelAttr="label" blank=""}}
+        {{selectOptions forageables selected=key valueAttr="id" labelAttr="label" blank=""}}
     </select>
     <input type="number" data-tooltip="CHEX.HEXEDIT.Amount" name="forageables.{{id}}.amount" value="{{amount}}">
     <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="forageables.{{id}}.show" {{checked show}}>

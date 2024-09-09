@@ -169,10 +169,10 @@ export default class ChexHexHUD extends Application {
 
       if ( this.enabled ) {
         let {x, y} = hex.topLeft;
-        const options = {left: x + hex.config.width + 20, top: y};
+        const options = {left: x + hex.grid.sizeX + 20, top: y};
         // Highlights this hex  
-        canvas.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
-        canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(hex.color)});
+        canvas.interface.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
+        canvas.interface.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(hex.color)});
 
         if (chex.manager.pendingPatches.length > 0) {
           chex.manager.pendingPatches.forEach(patch => {
@@ -183,7 +183,7 @@ export default class ChexHexHUD extends Application {
             else if (patch.patch.claimed)
               color = chex.realms[patch.patch.claimed]?.color || C.FALLBACK_COLOR;
 
-            canvas.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(color)});
+            canvas.interface.grid.highlightPosition(C.HIGHLIGHT_LAYER, {x, y, color: Color.from(color)});
           });
         }
 
@@ -198,7 +198,7 @@ export default class ChexHexHUD extends Application {
      */
     clear() {
       let states = this.constructor.RENDER_STATES;
-      canvas.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
+      canvas.interface.grid.clearHighlightLayer(C.HIGHLIGHT_LAYER);
       if ( this._state <= states.NONE ) return;
       this._state = states.CLOSING;
       this.element.hide();

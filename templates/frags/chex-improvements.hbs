@@ -1,6 +1,6 @@
 <div class="form-group">
     <select name="improvements.{{id}}.id">
-        {{selectOptions improvements selected=key nameAttr="id" labelAttr="label" blank=""}}
+        {{selectOptions improvements selected=key valueAttr="id" labelAttr="label" blank=""}}
     </select>
     <input type="checkbox" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip" name="improvements.{{id}}.show" {{checked show}}>
     <button data-tooltip="CHEX.HEXEDIT.Delete" type="button" class="fa-solid fa-times chex-delete" data-action="delete"/>

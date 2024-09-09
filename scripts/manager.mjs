@@ -10,6 +10,7 @@ import ChexHexHUD from "./chex-hud.mjs";
 import ChexHex from "./hex.mjs";
 import ChexDrawingLayer from "./chex-drawing-layer.mjs";
 import ChexSceneData from "./scene-data.mjs";
+import ChexOffset from "./chex-offset.mjs";
 import CHexData from "./scene-data.mjs";
 
 export default class ChexManager {
@@ -42,12 +43,13 @@ export default class ChexManager {
         if (!this.active) return;
         this.hexes = new Collection();
         const data = this.sceneData;
-        const config = HexagonalGrid.getConfig(data.type, data.size);
+        const grid = canvas.scene.grid;
 
         for (let row = 0; row < data.numRows; row++) {
             for (let col = 0; col < data.numCols; col++) {
-                const hex = new ChexHex({row, col}, config, data.sceneId)
-                this.hexes.set(ChexData.getKey({row, col}), hex);
+                const offset = new ChexOffset(row, col);
+                const hex = new ChexHex(offset, grid, data.sceneId)
+                this.hexes.set(ChexData.getKey(offset), hex);
             }
         }
     }
@@ -180,7 +182,7 @@ export default class ChexManager {
     }
 
     get isValidGrid() {
-        return canvas.grid.type === 2;
+        return canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDR || canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDQ;
     }
 
     #showSettings() {
@@ -208,7 +210,7 @@ export default class ChexManager {
             }
             else {
                 // message that it wont work with other grids currently
-                ui.notifications.warn("Currently, Chex only works for Hexagonal Rows - Odd");
+                ui.notifications.warn("Currently, Chex only works for Hexagonal Rows - Odd, or Hexagonal Columns - Odd");
             }
         }
 
@@ -237,10 +239,10 @@ export default class ChexManager {
             if (canvas.scene.tokenVision)
                 canvas.stage.rendered.environment.effects.addChildAt(chex.manager.kingdomLayer, 1);
             else 
-                canvas.grid.addChildAt(this.kingdomLayer, canvas.grid.children.indexOf(canvas.grid.borders));
+                canvas.interface.grid.addChild(this.kingdomLayer);
         }
         this.kingdomLayer.draw();
-        canvas.grid.addHighlightLayer(C.HIGHLIGHT_LAYER);
+        canvas.interface.grid.addHighlightLayer(C.HIGHLIGHT_LAYER);
 
         this.#mousemove = this.#onMouseMove.bind(this);
         canvas.stage.on("mousemove", this.#mousemove);
@@ -263,7 +265,7 @@ export default class ChexManager {
         canvas.stage.off(this.#mousedown);
         this.#mousedown = undefined;
 
-        canvas.grid.destroyHighlightLayer(C.HIGHLIGHT_LAYER);
+        canvas.interface.grid.destroyHighlightLayer(C.HIGHLIGHT_LAYER);
         this.kingdomLayer = undefined;
         this.hud.enabled = false;
     }
@@ -366,38 +368,8 @@ export default class ChexManager {
     }
 
     getHexFromPoint(point) {
-        const grid = canvas.grid.grid;
-		const [row, col] = canvas.grid.grid.getGridPositionFromPixels(point.x, point.y);
-		return this.hexes.get(ChexData.getKey({row, col}));
+		const {i, j} = canvas.grid.getOffset(point);
+		return this.hexes.get(ChexData.getKey({i, j}));
 	}
-
-      /**
-   * Compute the offset coordinate of a hexagon from a pixel coordinate contained within that hex.
-   * @param {Point} point                     The pixel coordinate
-   * @param {HexGridConfiguration} config     The hex grid configuration
-   * @param {string} [method=floor]           Which Math rounding method to use
-   * @returns {HexOffsetCoordinate}           The offset coordinate
-   */
-  pixelsToOffset({x, y}, config, method="floor") {
-    const {columns, even, width, height} = config;
-    const fn = Math[method];
-    let row;
-    let col;
-
-    // Columnar orientation
-    if ( columns ) {
-      col = fn(x / (width * 0.866));
-      const isEven = (col + 1) % 2 === 0;
-      row = fn((y / height) + (even === isEven ? 0.5 : 0));
-    }
-
-    // Row orientation
-    else {
-      row = fn(y / (height * 0.866));
-      const isEven = (row + 1) % 2 === 0;
-      col = fn((x / width) + (even === isEven ? 0.5 : 0));
-    }
-    return {row, col};
-  }
 
 }
