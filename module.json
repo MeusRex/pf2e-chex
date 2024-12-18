@@ -21,6 +21,10 @@
       {
         "lang": "en",
         "path": "lang/en.json"
+      },        
+      {
+        "lang": "pl",
+        "path": "lang/pl.json"
       }
     ],
     "protected": false,
