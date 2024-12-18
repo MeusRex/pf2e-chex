@@ -1,0 +1,82 @@
+{
+    "CHEX": {
+      "HUD": {
+        "Hex": "Heks",
+        "Terrain": "Teren",
+        "Travel": "Trudność w podróży",
+        "TravelMultiplier": "Koszt podróży",
+        "Explored": "Odkryty",
+        "Cleared": "Wyczyszczono",
+        "Claimed": "Właściciel"
+      },
+      "EXPLORATION_STATES": {
+        "None": "Nieznany",
+        "Scouted": "Rozpoznany",
+        "Mapped": "Zmapowany"
+      },
+      "HEXEDIT": {
+        "Exploration": "Eksploracja",
+        "ExplorationTooltip": "Jaki jest poziom wiedzy drużyny dla danego heksu?",
+        "Cleared": "Wyczyszczono",
+        "ClearedTooltip": "Czy drużyna oczyściła heks? Może to wymagać pewnych czasochłonnych działań",
+        "Claimed": "Przejęto",
+        "ClaimedTooltip": "Czy jakikolwiek kraj lub frakcja rości sobie prawa do tego heksu?",
+        "Improvements": "Ulepszenia",
+        "Add": "Dodaj",
+        "Delete": "Usuń",
+        "ShowToPlayersTooltip": "Jeśli zaznaczone, ten element będzie widoczny dla graczy",
+        "Name": "Niestandardowa nazwa dla tej funkcji, np. nazwa rzeki.",
+        "Resources": "Zasoby",
+        "Amount": "Ilość",
+        "Forageables": "Rośliny paszowe",
+        "Save": "Zapisz",
+        "Features": "Cechy"
+      },
+      "TOOLS": {
+        "ToggleHexTool": "Przełącz nakładkę Chex",
+        "ShowKingdomTool": "Pokaż nakładkę Krain",
+        "ShowTerrainTool": "Pokaż nakładkę Terenu",
+        "ShowTravelTool": "Pokaż nakładkę Podróży",
+        "ChexTools": "Chex",
+        "EnableChex": "Dodaj/usuń Chex do bieżącej sceny",
+        "RealmSelector": "Selektor Krain",
+        "Settings": "Ustawienia",
+        "TerrainSelector": "Paleta terenu"
+      },
+      "CUSTOMIZER": {
+        "Title": "Dostosowywanie Chex",
+        "Id": "ID",
+        "Label": "Etykieta",
+        "Image": "Obraz",
+        "Formula": "Formuła",
+        "Realms": "Krainy",
+        "Travels": "Podróże",
+        "Terrains": "Tereny",
+        "ToolIcon": "Ikona narzędzia",
+        "Travel": "Podróż",
+        "Color": "Kolor",
+        "Special": "Specjalne",
+        "Multiplier": "Mnożnik",
+        "IdTT": "Identyfikator wewnętrzny, należy używać TYLKO liter i cyfr. NIE używaj spacji. Upewnij się, że jest on unikalny w swojej grupie.",
+        "FormulaTT": "Chex pozwala na pewne formuły, które modyfikują zachowanie. Jak dotąd istnieją dwie następujące: podróż: X, gdzie x jest liczbą dodatnią lub ujemną. Określając modyfikator podróży dla heksu z tym ulepszeniem, trudność wzrośnie lub spadnie o x kroków. dochód: r: x (dozwolonych jest wiele r: x) r jest zasobem. Na przykład tarcica, eliksiry_leczenia. Zostaną one wymienione w raporcie.",
+        "ToolIconTT": "Ikona FontAwesome używana jako narzędzie do rysowania dla tego terenu. Generalnie powinna ona zawsze zawierać fa-solid, po którym następuje inny klucz. Przejdź do strony FontAwesome, aby zobaczyć, co istnieje.",
+        "TravelTT": "Identyfikator podróży, która jest domyślną trudnością dla tego terenu.",
+        "MultiplierTT": "Ile razy więcej czasu zajmuje podróż tutaj?",
+        "SpecialTT": "Czy jest to specjalny typ podróży? Jeśli tak, to zostanie pominięty, gdy ulepszenie obniży lub zwiększy trudność podróży za pomocą swojej formuły.",
+        "PickIconTT": "Otwórz przeglądarkę plików, aby wybrać obraz"
+      },
+      "TERRAINSELECTOR": {
+        "Title": "Paleta terenu"
+      },
+      "REALMSELECTOR": {
+        "Title": "Paleta krain",
+        "IncomeReport": "Raport o przychodach"
+      },
+      "REMOVE": {
+        "Title": "Usuń Chex",
+        "Info": "Usuwa wszystkie dane związane z Chex z tej sceny. Nie można tego cofnąć.",
+        "Cancel": "Anuluj"
+      },
+      "CHANGELOG": "v1.1.0: Usunięto kod, który aktywował PF2e Kingdoms/nChex będzie teraz pokazywał widziane heksy tylko wtedy, gdy włączona jest wizja tokenów"
+    }
+}
