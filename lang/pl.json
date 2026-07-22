@@ -67,11 +67,19 @@
         "PickIconTT": "Otwórz przeglądarkę plików, aby wybrać obraz"
       },
       "TERRAINSELECTOR": {
-        "Title": "Paleta terenu"
+        "Title": "Paleta terenu",
+        "PaintBucket": "Tryb wiadra z farbą"
       },
       "REALMSELECTOR": {
         "Title": "Paleta krain",
         "IncomeReport": "Raport o przychodach"
+      },
+      "PAINTBUCKET": {
+        "ConfirmTitle": "Potwierdź wiadro z farbą",
+        "ConfirmMessage": "Spowoduje to zmianę {hexCount} heks(ów) z {fromTerrain} na {toTerrain}, zaczynając od heksu {startHex}. Kontynuować?",
+        "PreviewNote": "Dotknięte heksy są podświetlone na mapie w kolorze docelowym.",
+        "Confirm": "Potwierdź",
+        "Cancel": "Anuluj"
       },
       "REMOVE": {
         "Title": "Usuń Chex",

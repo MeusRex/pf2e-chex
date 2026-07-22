@@ -139,6 +139,34 @@
 
 .chex-button-row {
   display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.chex-terrain-selector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chex-paint-bucket-option {
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 1px solid var(--color-border-light-tertiary);
+}
+
+.chex-paint-bucket-option label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.chex-paint-bucket-option input[type="checkbox"] {
+  margin: 0;
 }
 
 .chex-terrain-selector {
@@ -161,4 +189,12 @@
 
 .chex-realm-select {
   width: 100%;
+}
+
+.chex-preview-note {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  margin: 8px 0;
+  text-align: center;
 }

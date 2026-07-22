@@ -1,5 +1,13 @@
-<div class="chex-terrain-selector">
-    {{#each terrains}}
-        <button id="{{id}}" data-tooltip="{{label}}" data-action="{{id}}"> <i class="{{toolIcon}}"> </i></button>
-    {{/each}}
+<div class="chex-terrain-selector-container">
+    <div class="chex-paint-bucket-option">
+        <label>
+            <input type="checkbox" id="paint-bucket-checkbox" {{checked paintBucketMode}}>
+            {{localize "CHEX.TERRAINSELECTOR.PaintBucket"}}
+        </label>
+    </div>
+    <div class="chex-terrain-selector">
+        {{#each terrains}}
+            <button id="{{id}}" data-tooltip="{{label}}" data-action="{{id}}"> <i class="{{toolIcon}}"></i></button>
+        {{/each}}
+    </div>
 </div>

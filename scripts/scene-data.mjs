@@ -40,10 +40,10 @@ export default class ChexSceneData {
                 const hex = new ChexData();
                 const offset = new ChexOffset(row, col);
                 let key = ChexData.getKey(offset);
-                data.hexes[key] = hex;
+                data.hexes[key] = {...hex}; //pass as plain object instead of class object so v14 doesn't discard it
             }
         }
 
-        await scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, data);
+        await scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, {...data}); //pass as plain object instead of class object so v14 doesn't discard it
     }
 }

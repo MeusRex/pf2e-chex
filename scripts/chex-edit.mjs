@@ -24,7 +24,7 @@ export default class ChexHexEdit extends FormApplication {
   }
 
   async _render(force, options) {
-      await loadTemplates([ChexHexEdit.improvementsFrag, ChexHexEdit.featuresFrag, ChexHexEdit.resourcesFrag, ChexHexEdit.forageablesFrag]);
+      await foundry.applications.handlebars.loadTemplates([ChexHexEdit.improvementsFrag, ChexHexEdit.featuresFrag, ChexHexEdit.resourcesFrag, ChexHexEdit.forageablesFrag]);
       chex.hexConfig = this;
       return super._render(force, options);
   }
@@ -92,7 +92,7 @@ _attach(html, control) {
       const action = control.dataset.action;
       switch ( action ) {
         case "addImprovement": {
-          const html = await renderTemplate(ChexHexEdit.improvementsFrag, {
+          const html = await foundry.applications.handlebars.renderTemplate(ChexHexEdit.improvementsFrag, {
             id: foundry.utils.randomID(),
             improvements: chex.improvements
           });
@@ -100,7 +100,7 @@ _attach(html, control) {
           break;
         }
         case "addFeature": {
-          const html = await renderTemplate(ChexHexEdit.featuresFrag, {
+          const html = await foundry.applications.handlebars.renderTemplate(ChexHexEdit.featuresFrag, {
             id: foundry.utils.randomID(),
             features: chex.features
           });
@@ -108,7 +108,7 @@ _attach(html, control) {
           break;
         }
         case "addResource": {
-          const html = await renderTemplate(ChexHexEdit.resourcesFrag, {
+          const html = await foundry.applications.handlebars.renderTemplate(ChexHexEdit.resourcesFrag, {
             id: foundry.utils.randomID(),
             amount: 1,
             resources: chex.resources
@@ -117,7 +117,7 @@ _attach(html, control) {
           break;
         }
         case "addForageable": {
-          const html = await renderTemplate(ChexHexEdit.forageablesFrag, {
+          const html = await foundry.applications.handlebars.renderTemplate(ChexHexEdit.forageablesFrag, {
             id: foundry.utils.randomID(),
             amount: 1,
             forageables: chex.resources

@@ -9,7 +9,7 @@ export default class TerrainPalette extends FormApplication {
       width: 240,
       height: "auto",
       popOut: true,
-      closeOnSubmit: true
+      closeOnSubmit: false
     });
   }
 
@@ -18,6 +18,7 @@ export default class TerrainPalette extends FormApplication {
   }
 
   activeTerrainTool = null;
+  paintBucketMode = false;
 
   async _render(force, options) {
     chex.terrainSelector = this;
@@ -31,14 +32,20 @@ export default class TerrainPalette extends FormApplication {
 
   async getData(options) {
     return Object.assign(await super.getData(options), {
-      terrains: chex.terrains
+      terrains: chex.terrains,
+      paintBucketMode: this.paintBucketMode
     });
   }
 
   activateListeners(html) {
       super.activateListeners(html);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
+      html.on("change", "#paint-bucket-checkbox", this.#onPaintBucketToggle.bind(this));
     }
+
+  #onPaintBucketToggle(event) {
+    this.paintBucketMode = event.target.checked;
+  }
 
   async #onClickAction(event) {
     event.preventDefault();
@@ -47,9 +54,9 @@ export default class TerrainPalette extends FormApplication {
     this.activeTerrainTool = action;
 
     const form = document.getElementById(TerrainPalette.formId);
-    const buttons = form.querySelectorAll('button');
+    const buttons = form.querySelectorAll('button[data-action]');
     buttons.forEach(element => {
-      if (element.id === action) {
+      if (element.dataset.action === action) {
         element.classList.add("active");
       }
       else {

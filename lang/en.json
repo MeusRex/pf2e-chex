@@ -67,11 +67,19 @@
         "PickIconTT": "Open Filebrowser to select an image"
       },
       "TERRAINSELECTOR": {
-        "Title": "Terrain Palette"
+        "Title": "Terrain Palette",
+        "PaintBucket": "Paint Bucket Mode"
       },
       "REALMSELECTOR": {
         "Title": "Realm Palette",
         "IncomeReport": "Income Report"
+      },
+      "PAINTBUCKET": {
+        "ConfirmTitle": "Confirm Paint Bucket",
+        "ConfirmMessage": "This will change {hexCount} hex(es) from {fromTerrain} to {toTerrain}, starting from hex {startHex}. Continue?",
+        "PreviewNote": "Affected hexes are highlighted on the map in the target color.",
+        "Confirm": "Confirm",
+        "Cancel": "Cancel"
       },
       "REMOVE": {
         "Title": "Remove Chex",

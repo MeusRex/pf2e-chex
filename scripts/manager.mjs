@@ -3,6 +3,7 @@ import DeleteCertain from "./delete-certain.mjs";
 import ChexLayer from "./chex-layer.mjs";
 import RealmPalette from "./realm-palette.mjs";
 import TerrainPalette from "./terrain-palette.mjs";
+import PaintBucketConfirm from "./paint-bucket-confirm.mjs";
 import * as C from "./const.mjs";
 import ChexData from "./chex-data.mjs";
 import ChexHexEdit from "./chex-edit.mjs";
@@ -73,7 +74,7 @@ export default class ChexManager {
                 icon: "fa-solid fa-hexagon-image",
                 toggle: true,
                 active: this.hud.enabled ?? false,
-                onClick: () => {this.hud.toggle()}
+                onChange: () => {this.hud.toggle()}
             };
 
             this.#showKingdomTool = {
@@ -82,7 +83,7 @@ export default class ChexManager {
                 icon: "fa-solid fa-bank",
                 toggle: false,
                 active: this.mode === C.MODE_REALM,
-                onClick: () => {
+                onChange: () => {
                     this.mode = C.MODE_REALM;
                     this.#showKingdomTool.active = true;
                     this.#showTerrainTool.active = false;
@@ -97,7 +98,7 @@ export default class ChexManager {
                 icon: "fa-solid fa-mountain",
                 toggle: false,
                 active: this.mode === C.MODE_TERRAIN,
-                onClick: () => {
+                onChange: () => {
                     this.mode = C.MODE_TERRAIN; 
                     this.#showTerrainTool.active = true;
                     this.#showKingdomTool.active = false;
@@ -112,7 +113,7 @@ export default class ChexManager {
                 icon: "fa-solid fa-road",
                 toggle: false,
                 active: this.mode === C.MODE_TRAVEL,
-                onClick: () => {
+                onChange: () => {
                     this.mode = C.MODE_TRAVEL;
                     this.#showTravelTool.active = true;
                     this.#showKingdomTool.active = false;
@@ -140,7 +141,7 @@ export default class ChexManager {
                 tools: {
 // This button exists because Foundry VTT v13 has a mandatory "activeTool" parameter which will immediately activate the button when switching to these tools.
 // Enabling/Disabling Chex, launching the settings, or launching one of the edit tools would be awkward, so instead there's just this dead button.
-// Sadly, it logs an error if it's not visible.
+// Sadly, it logs an error if it's not visible in v13, but this was addressed in v14. Leaving in place with the hopes of maintaining v13+v14 compatibility.
                     chexDummy: {
                         name: "chexDummy",
                         title: "CHEX.TOOLS.Dummy",
@@ -283,7 +284,7 @@ export default class ChexManager {
             this.kingdomLayer = new ChexDrawingLayer();
             
             if (canvas.scene.tokenVision)
-                canvas.stage.rendered.environment.effects.addChildAt(chex.manager.kingdomLayer, 1);
+                canvas.rendered.environment.effects.addChildAt(chex.manager.kingdomLayer, 1);
             else 
                 canvas.interface.grid.addChild(this.kingdomLayer);
         }
@@ -345,6 +346,15 @@ export default class ChexManager {
         this.#isMouseDown = true;
         if ( !this.hoveredHex ) return;
 
+        // Check for paint bucket mode first
+        if (chex.terrainSelector && chex.terrainSelector.paintBucketMode && 
+            chex.terrainSelector.activeTerrainTool && this.mode === C.MODE_TERRAIN && 
+            canvas.activeLayer.name === ChexLayer.name) {
+            this.#executePaintBucket(this.hoveredHex, chex.terrainSelector.activeTerrainTool);
+            return;
+        }
+
+        // Normal painting mode
         if (this.#paintTerrainDeferred(this.hoveredHex)) return;
 
         const t0 = this.#clickTime;
@@ -377,6 +387,12 @@ export default class ChexManager {
     #paintTerrainDeferred(hex) {
         if (hex && canvas.activeLayer.name === ChexLayer.name) {
             const key = ChexData.getKey(hex.offset);
+            
+            // Skip deferred painting if paint bucket mode is active
+            if (chex.terrainSelector && chex.terrainSelector.paintBucketMode && this.mode === C.MODE_TERRAIN) {
+                return false;
+            }
+            
             // correct layer, first check terrain painter
             if (chex.terrainSelector && chex.terrainSelector.activeTerrainTool && this.mode === C.MODE_TERRAIN) {
                 const activeTerrainTool = chex.terrainSelector.activeTerrainTool;
@@ -391,6 +407,7 @@ export default class ChexManager {
                         key: key,
                         patch: patch
                     });
+                    return true;
                 }
             }
             else if (chex.realmSelector && chex.realmSelector.activeRealmTool && this.mode === C.MODE_REALM) {
@@ -405,9 +422,131 @@ export default class ChexManager {
                         key: key,
                         patch: patch
                     });
+                    return true;
                 }
             }
         }
+        return false;
+    }
+
+    /**
+     * Execute paint bucket fill operation
+     * @param {ChexHex} startHex - The hex where the paint bucket was clicked
+     * @param {string} targetTerrain - The terrain type to fill with
+     */
+    async #executePaintBucket(startHex, targetTerrain) {
+        const originalTerrain = startHex.hexData.terrain;
+        
+        // Don't fill if the target terrain is the same as the original
+        if (originalTerrain === targetTerrain) {
+            return;
+        }
+
+        // Find all connected hexes with the same terrain
+        const affectedHexes = this.#floodFill(startHex, originalTerrain);
+        
+        // Show confirmation dialog
+        new PaintBucketConfirm(startHex, targetTerrain, affectedHexes).render(true);
+    }
+
+    /**
+     * Flood fill algorithm to find all connected hexes of the same terrain
+     * @param {ChexHex} startHex - Starting hex
+     * @param {string} targetTerrain - Terrain type to match
+     * @returns {ChexHex[]} Array of connected hexes
+     */
+    #floodFill(startHex, targetTerrain) {
+        const visited = new Set();
+        const result = [];
+        const queue = [startHex];
+        
+        while (queue.length > 0) {
+            const currentHex = queue.shift();
+            const key = ChexData.getKey(currentHex.offset);
+            
+            if (visited.has(key)) continue;
+            if (currentHex.hexData.terrain !== targetTerrain) continue;
+            
+            visited.add(key);
+            result.push(currentHex);
+            
+            // Add adjacent hexes to queue
+            const neighbors = this.#getAdjacentHexes(currentHex);
+            for (const neighbor of neighbors) {
+                const neighborKey = ChexData.getKey(neighbor.offset);
+                if (!visited.has(neighborKey)) {
+                    queue.push(neighbor);
+                }
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Get adjacent hexes for flood fill using proper hex grid adjacency
+     * @param {ChexHex} hex - Center hex
+     * @returns {ChexHex[]} Array of adjacent hexes
+     */
+    #getAdjacentHexes(hex) {
+        const adjacent = [];
+        const { i, j } = hex.offset;
+        
+        // Hex adjacency patterns depend on grid type and whether row/col is odd/even
+        let directions = [];
+        
+        if (canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDR) {
+            // Hexagonal Rows - Odd
+            if (i % 2 === 0) {
+                // Even row
+                directions = [
+                    [-1, -1], [-1, 0],  // NW, NE
+                    [0, -1],  [0, 1],   // W, E  
+                    [1, -1],  [1, 0]    // SW, SE
+                ];
+            } else {
+                // Odd row
+                directions = [
+                    [-1, 0],  [-1, 1],  // NW, NE
+                    [0, -1],  [0, 1],   // W, E
+                    [1, 0],   [1, 1]    // SW, SE
+                ];
+            }
+        } else if (canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDQ) {
+            // Hexagonal Columns - Odd
+            if (j % 2 === 0) {
+                // Even column
+                directions = [
+                    [-1, 0],  [0, -1],  // N, NW
+                    [0, 1],   [1, -1],  // NE, SW
+                    [1, 0],   [1, 1]    // S, SE
+                ];
+            } else {
+                // Odd column  
+                directions = [
+                    [-1, -1], [-1, 0],  // NW, N
+                    [-1, 1],  [0, -1],  // NE, W
+                    [0, 1],   [1, 0]    // E, S
+                ];
+            }
+        }
+        
+        for (const [di, dj] of directions) {
+            const newI = i + di;
+            const newJ = j + dj;
+            
+            // Check bounds
+            if (newI >= 0 && newI < this.sceneData.numRows && 
+                newJ >= 0 && newJ < this.sceneData.numCols) {
+                const neighborKey = ChexData.getKey({i: newI, j: newJ});
+                const neighborHex = this.hexes.get(neighborKey);
+                if (neighborHex) {
+                    adjacent.push(neighborHex);
+                }
+            }
+        }
+        
+        return adjacent;
     }
 
     _updateVisibility(visibility) {

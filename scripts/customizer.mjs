@@ -33,7 +33,7 @@ export default class Customizer extends FormApplication {
   }
 
   async _render(force, options) {
-      await loadTemplates([
+      await foundry.applications.handlebars.loadTemplates([
         Customizer.improvementsFrag, 
         Customizer.featuresFrag, 
         Customizer.resourcesFrag, 
@@ -150,7 +150,7 @@ export default class Customizer extends FormApplication {
       case "addImprovement": {
         const improvement = new Improvement();
         improvement.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.improvementsFrag, {
+        const html = await foundry.applications.handlebars.renderTemplate(Customizer.improvementsFrag, {
           improvement: improvement
         });
         this._attach(html, control);
@@ -159,7 +159,7 @@ export default class Customizer extends FormApplication {
       case "addFeature": {
         const feature = new Feature();
         feature.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.featuresFrag, {
+        const html = await foundry.applications.handlebars.renderTemplate(Customizer.featuresFrag, {
           feature: feature
         });
         this._attach(html, control);
@@ -168,7 +168,7 @@ export default class Customizer extends FormApplication {
       case "addRealm": {
         const realm = new Realm();
         realm.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.realmsFrag, {
+        const html = await foundry.applications.handlebars.renderTemplate(Customizer.realmsFrag, {
           realm: realm
         });
         this._attach(html, control);
@@ -177,7 +177,7 @@ export default class Customizer extends FormApplication {
       case "addResource": {
         const resource = new Resource();
         resource.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.resourcesFrag, {
+        const html = await foundry.applications.handlebars.renderTemplate(Customizer.resourcesFrag, {
           resource: resource
         });
         this._attach(html, control);
@@ -186,7 +186,7 @@ export default class Customizer extends FormApplication {
       case "addTerrain": {
         const terrain = new Terrain();
         terrain.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.terrainsFrag, {
+        const html = await foundry.applications.handlebars.renderTemplate(Customizer.terrainsFrag, {
           terrain: terrain
         });
         this._attach(html, control);
@@ -195,7 +195,7 @@ export default class Customizer extends FormApplication {
       case "addTravel": {
         const travel = new Travel();
         travel.id = foundry.utils.randomID();
-        const html = await renderTemplate(Customizer.travelsFrag, {
+        const html = await foundry.applications.handlebars.renderTemplate(Customizer.travelsFrag, {
           travel: travel
         });
         this._attach(html, control);
