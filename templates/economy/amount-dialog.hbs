@@ -1,0 +1,11 @@
+{{{header}}}
+<p class="hint">{{localize "CHEX.ECONOMY.AmountsHint"}}</p>
+<div class="chex-amount-grid">
+    {{#each options}}
+    <label class="chex-amount-cell" data-tooltip="{{this.label}}">
+        <img src="{{this.img}}">
+        <span>{{this.label}}</span>
+        <input type="number" name="amounts.{{this.key}}" value="{{this.value}}" step="1">
+    </label>
+    {{/each}}
+</div>

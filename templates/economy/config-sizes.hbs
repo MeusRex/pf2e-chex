@@ -1,0 +1,18 @@
+<section class="tab {{tab.cssClass}}" data-tab="sizes" data-group="primary">
+    <p class="hint">{{localize "CHEX.ECONOMY.Config.SizesHint"}}</p>
+    {{#each draft.sizes as |s i|}}
+    <div class="chex-config-card">
+        <div class="chex-config-card-header">
+            <label>{{localize "CHEX.CUSTOMIZER.Id"}} <input type="text" name="sizes.{{i}}.id" value="{{s.id}}" data-tooltip="CHEX.CUSTOMIZER.IdTT"></label>
+            <label>{{localize "CHEX.CUSTOMIZER.Label"}} <input type="text" name="sizes.{{i}}.label" value="{{s.label}}"></label>
+            <label data-tooltip="CHEX.ECONOMY.Field.rankTT">{{localize "CHEX.ECONOMY.Field.rank"}} <input type="number" name="sizes.{{i}}.rank" value="{{s.rank}}" step="1"></label>
+            <label data-tooltip="CHEX.ECONOMY.Field.sizeLotsTT">{{localize "CHEX.ECONOMY.Field.lots"}} <input type="number" name="sizes.{{i}}.lots" value="{{s.lots}}" min="0" step="1"></label>
+            <a class="chex-row-control" data-action="deleteRow" data-category="sizes" data-index="{{i}}" data-tooltip="CHEX.HEXEDIT.Delete"><i class="fa-solid fa-trash"></i></a>
+        </div>
+        <div class="chex-config-card-body">
+            {{> "modules/pf2e-chex/templates/economy/amount-list.hbs" label="CHEX.ECONOMY.Field.needs" path=(concat "sizes." i ".needs") entries=s.needs options=@root.needOptions}}
+        </div>
+    </div>
+    {{/each}}
+    <button type="button" data-action="addRow" data-category="sizes"><i class="fa-solid fa-plus"></i> {{localize "CHEX.HEXEDIT.Add"}}</button>
+</section>

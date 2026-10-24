@@ -1,0 +1,110 @@
+<div class="chex-settlement-content">
+{{#if missing}}
+    <p>{{localize "CHEX.ECONOMY.Settlement.Missing"}}</p>
+{{else}}
+    <header class="chex-kingdom-header" style="--realm-color: {{realm.color}}">
+        <div class="chex-realm-swatch"></div>
+        <div class="chex-kingdom-stats">
+            <span>
+                <strong>{{settlement.name}}</strong>
+                {{#if isGM}}<a class="chex-row-control" data-action="rename" data-tooltip="CHEX.ECONOMY.Settlement.Rename"><i class="fa-solid fa-pen"></i></a>{{/if}}
+            </span>
+            <span>
+                {{#if isGM}}
+                <select name="size">{{selectOptions sizes selected=settlement.size valueAttr="id" labelAttr="label"}}</select>
+                {{else}}
+                {{sizeLabel}}
+                {{/if}}
+            </span>
+            <span data-tooltip="CHEX.ECONOMY.Settlement.LotsTT"><i class="fa-solid fa-table-cells"></i> {{lots}} / {{maxLots}}</span>
+            <span data-tooltip="CHEX.ECONOMY.Kingdom.HappinessTT">
+                <i class="fa-solid fa-face-smile"></i> {{settlement.happiness}}%
+                <i class="fa-solid fa-arrow-right chex-muted"></i>
+                <span class="{{#if (lt nextHappiness 100)}}chex-bad{{/if}}">{{nextHappiness}}%</span>
+            </span>
+        </div>
+        <div class="chex-kingdom-actions">
+            <a class="chex-row-control" data-action="openKingdom" data-tooltip="CHEX.ECONOMY.Kingdom.Open"><i class="fa-solid fa-crown"></i> {{realm.label}}</a>
+        </div>
+    </header>
+
+    <div class="chex-location">
+        {{#if location}}
+        <a data-action="panTo" data-tooltip="CHEX.ECONOMY.Settlement.PanTo"><i class="fa-solid fa-location-dot"></i> {{location}}</a>
+        {{#if isGM}}<a class="chex-row-control" data-action="unplace" data-tooltip="CHEX.ECONOMY.Settlement.Unplace"><i class="fa-solid fa-location-pin-lock"></i></a>{{/if}}
+        {{else}}
+        <span class="chex-muted"><i class="fa-solid fa-location-dot"></i> {{localize "CHEX.ECONOMY.Settlement.NotPlacedTT"}}</span>
+        {{/if}}
+        {{#if isGM}}<a class="chex-row-control chex-danger" data-action="deleteSettlement" data-tooltip="CHEX.ECONOMY.Settlement.Delete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+    </div>
+
+    <div class="chex-scroll">
+        <section>
+            <h3 data-tooltip="CHEX.ECONOMY.Settlement.NeedsTT">{{localize "CHEX.ECONOMY.Field.needs"}}</h3>
+            <ul class="chex-needs">
+                {{#each needs}}
+                <li class="{{#if this.met}}chex-good{{else}}chex-bad{{/if}}">
+                    <img src="{{this.img}}"> {{this.label}}: {{this.received}} / {{this.required}}
+                    <i class="fa-solid {{#if this.met}}fa-check{{else}}fa-xmark{{/if}}"></i>
+                </li>
+                {{else}}
+                <li class="chex-muted">{{localize "CHEX.ECONOMY.Settlement.NoNeeds"}}</li>
+                {{/each}}
+            </ul>
+        </section>
+
+        <section>
+            <h3>{{localize "CHEX.ECONOMY.Settlement.Buildings"}}</h3>
+            <table class="chex-table">
+                <tbody>
+                    {{#each buildings}}
+                    <tr data-uid="{{this.uid}}" class="{{#unless this.active}}chex-inactive{{/unless}}">
+                        <td class="chex-icon-cell"><img src="{{this.img}}"></td>
+                        <td>{{this.label}}</td>
+                        <td data-tooltip="CHEX.ECONOMY.Field.upkeep">{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
+                        <td data-tooltip="CHEX.ECONOMY.Field.production">{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.production sign="+"}}</td>
+                        <td>{{#unless this.active}}<span class="chex-bad" data-tooltip="CHEX.ECONOMY.Settlement.IdleTT"><i class="fa-solid fa-pause"></i> {{localize "CHEX.ECONOMY.Settlement.Idle"}}</span>{{/unless}}</td>
+                        <td><a class="chex-row-control" data-action="demolish" data-tooltip="CHEX.ECONOMY.Settlement.Demolish"><i class="fa-solid fa-hammer"></i></a></td>
+                    </tr>
+                    {{else}}
+                    <tr><td colspan="6" class="chex-muted">{{localize "CHEX.ECONOMY.Settlement.NoBuildings"}}</td></tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h3>{{localize "CHEX.ECONOMY.Settlement.Construct"}}</h3>
+            <table class="chex-table chex-construct">
+                <thead>
+                    <tr>
+                        <th colspan="2"></th>
+                        <th>{{localize "CHEX.ECONOMY.Field.cost"}}</th>
+                        <th>{{localize "CHEX.ECONOMY.Field.upkeep"}}</th>
+                        <th>{{localize "CHEX.ECONOMY.Field.production"}}</th>
+                        <th>{{localize "CHEX.ECONOMY.Field.lots"}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each constructable}}
+                    <tr class="{{#if this.locked}}chex-inactive{{/if}}">
+                        <td class="chex-icon-cell"><img src="{{this.img}}"></td>
+                        <td>{{this.label}}{{#if this.minSize}}<br><span class="chex-muted">{{this.minSize}}+</span>{{/if}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.cost}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.production sign="+"}}</td>
+                        <td>{{this.lots}}</td>
+                        <td {{#if this.reason}}data-tooltip="{{this.reason}}"{{/if}}>
+                            <button type="button" data-action="build" data-building="{{this.id}}" {{#if this.reason}}disabled{{/if}}>
+                                <i class="fa-solid fa-trowel-bricks"></i> {{localize "CHEX.ECONOMY.Settlement.Build"}}
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{{/if}}
+</div>

@@ -1,16 +1,12 @@
 import * as C from "./const.mjs";
 import { Feature } from "./customizables/features.mjs";
-import { Improvement } from "./customizables/improvements.mjs";
 import { Realm } from "./customizables/realms.mjs";
-import { Resource } from "./customizables/resources.mjs";
 import { Terrain } from "./customizables/terrain.mjs";
 import { Travel } from "./customizables/travel.mjs";
-import ChexData, { ChexImprovement } from "./chex-data.mjs";
+import EconomyConfig from "./apps/economy-config.mjs";
 
 export default class Customizer extends FormApplication {
-  static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-custom-improvements.hbs";
   static featuresFrag = "modules/pf2e-chex/templates/frags/chex-custom-features.hbs";
-  static resourcesFrag = "modules/pf2e-chex/templates/frags/chex-custom-resources.hbs";
   static realmsFrag = "modules/pf2e-chex/templates/frags/chex-custom-realms.hbs";
   static terrainsFrag = "modules/pf2e-chex/templates/frags/chex-custom-terrains.hbs";
   static travelsFrag = "modules/pf2e-chex/templates/frags/chex-custom-travels.hbs";
@@ -34,9 +30,7 @@ export default class Customizer extends FormApplication {
 
   async _render(force, options) {
       await foundry.applications.handlebars.loadTemplates([
-        Customizer.improvementsFrag, 
         Customizer.featuresFrag, 
-        Customizer.resourcesFrag, 
         Customizer.realmsFrag,
         Customizer.terrainsFrag,
         Customizer.travelsFrag]);
@@ -51,19 +45,16 @@ export default class Customizer extends FormApplication {
 
   async getData(options) {
       return Object.assign(await super.getData(options), {
-        improvementsFrag: Customizer.improvementsFrag,
         featuresFrag: Customizer.featuresFrag,
-        resourcesFrag: Customizer.resourcesFrag,
         realmsFrag: Customizer.realmsFrag,
         terrainsFrag: Customizer.terrainsFrag,
         travelsFrag: Customizer.travelsFrag,
 
-        improvements: chex.improvements,
         features: chex.features,
-        resources: chex.resources,
         realms: chex.realms,
         terrains: chex.terrains,
-        travels: chex.travels
+        travels: chex.travels,
+        users: game.users.filter(u => !u.isGM).map(u => ({id: u.id, name: u.name}))
       });
   }
 
@@ -76,17 +67,14 @@ export default class Customizer extends FormApplication {
 
   async _updateObject(event, formData) {
       formData = foundry.utils.expandObject(formData);
-      const improvements = formData.improvements ? Object.values(formData.improvements) : [];
       const features = formData.features ? Object.values(formData.features) : [];
-      const resources = formData.resources ? Object.values(formData.resources) : [];
       const realms = formData.realms ? Object.values(formData.realms) : [];
+      for (const realm of realms) realm.owners = [realm.owners ?? []].flat().filter(o => o);
       const terrains = formData.terrains ? Object.values(formData.terrains) : [];
       const travels = formData.travels ? Object.values(formData.travels) : [];
 
       // update settings
-      await game.settings.set(C.MODULE_ID, Improvement.name, this._zip(improvements));
       await game.settings.set(C.MODULE_ID, Feature.name, this._zip(features));
-      await game.settings.set(C.MODULE_ID, Resource.name, this._zip(resources));
       await game.settings.set(C.MODULE_ID, Realm.name, this._zip(realms));
       await game.settings.set(C.MODULE_ID, Terrain.name, this._zip(terrains));
       await game.settings.set(C.MODULE_ID, Travel.name, this._zip(travels));
@@ -147,15 +135,6 @@ export default class Customizer extends FormApplication {
         
         break;
       }
-      case "addImprovement": {
-        const improvement = new Improvement();
-        improvement.id = foundry.utils.randomID();
-        const html = await foundry.applications.handlebars.renderTemplate(Customizer.improvementsFrag, {
-          improvement: improvement
-        });
-        this._attach(html, control);
-        break;
-      }
       case "addFeature": {
         const feature = new Feature();
         feature.id = foundry.utils.randomID();
@@ -169,16 +148,8 @@ export default class Customizer extends FormApplication {
         const realm = new Realm();
         realm.id = foundry.utils.randomID();
         const html = await foundry.applications.handlebars.renderTemplate(Customizer.realmsFrag, {
-          realm: realm
-        });
-        this._attach(html, control);
-        break;
-      }
-      case "addResource": {
-        const resource = new Resource();
-        resource.id = foundry.utils.randomID();
-        const html = await foundry.applications.handlebars.renderTemplate(Customizer.resourcesFrag, {
-          resource: resource
+          realm: realm,
+          users: game.users.filter(u => !u.isGM).map(u => ({id: u.id, name: u.name}))
         });
         this._attach(html, control);
         break;
@@ -207,11 +178,6 @@ export default class Customizer extends FormApplication {
         this._refreshPosition();
         break;
       }
-      case "tabImprovements": {
-        this.#hideAll();
-        this.#showOne("chex-improvements");
-        break;
-      }
       case "tabFeatures": {
         this.#hideAll();
         this.#showOne("chex-features");
@@ -222,14 +188,13 @@ export default class Customizer extends FormApplication {
         this.#showOne("chex-realms");
         break;
       }
-      case "tabResources": {
-        this.#hideAll();
-        this.#showOne("chex-resources");
-        break;
-      }
       case "tabTerrains": {
         this.#hideAll();
         this.#showOne("chex-terrains");
+        break;
+      }
+      case "openEconomy": {
+        EconomyConfig.open();
         break;
       }
       case "tabTravels": {

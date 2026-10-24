@@ -1,52 +1,27 @@
-import ChexData, { ChexImprovement } from "./chex-data.mjs";
-
-export const KEY_INCOME = "income:";
-export const KEY_TRAVEL = "travel:"
-
-const incomeRegex = new RegExp(`${KEY_INCOME} (\\w+): ([+-]?\\d+)`, 'g');
-const travelRegex = new RegExp(`${KEY_TRAVEL} ([+-]?\\d+)`);
+import ChexData from "./chex-data.mjs";
+import { hexProduction } from "./economy/engine.mjs";
+import { getDefs } from "./economy/realm-store.mjs";
 
 export default class ChexFormulaParser {
     /**
-     * 
-     * @param {ChexImprovement[]} improvements 
+     * Sum of the travel modifiers of the improvements of a hex.
+     * @param {object[]} improvements
      */
-    static parse(improvements) {
-        const incomeSums = {};
-        let travelSum = 0;
-
-        improvements.forEach((improvement) => {
-            const special = chex.improvements[improvement.id].special;
-
-            if (special.startsWith(KEY_INCOME)) {
-                const matches = special.matchAll(incomeRegex);
-                for (const match of matches) {
-                    const [, resource, amount] = match;
-                    incomeSums[resource] = (incomeSums[resource] || 0) + parseInt(amount);
-                }
-            } else if (special.startsWith(KEY_TRAVEL)) {
-                const [, travelChange] = special.match(travelRegex);
-                travelSum += parseInt(travelChange);
-            }
-        });
-
-        return {
-            incomeSums: incomeSums,
-            travelSum: travelSum
-        }
+    static travelModifier(improvements) {
+        return (improvements ?? []).reduce((sum, i) => sum + (Number(chex.improvements[i.id]?.travel) || 0), 0);
     }
 
     /**
-     * 
-     * @param {ChexData} data 
+     *
+     * @param {ChexData} data
      * @returns {string}
      */
     static getTravel(data) {
-        const result = ChexFormulaParser.parse(data.improvements);
-        if (result.travelSum === 0) {
+        const travelSum = ChexFormulaParser.travelModifier(data.improvements);
+        if (travelSum === 0) {
             return data.travel;
         }
-        
+
         /**
          * @type {Travel[]}
          */
@@ -55,21 +30,17 @@ export default class ChexFormulaParser {
             .sort((a, b) => a.multiplier - b.multiplier);
 
         let index = sortedTravels.findIndex((t, i) => t.id === data.travel);
-        if (index >= 0) {
-            index += result.travelSum;
-            if (index < 0)
-                index = 0;
-            else if (index >= sortedTravels.length)
-                index = sortedTravels.length - 1;
-        }
+        if (index < 0) return data.travel;
+        index = Math.clamp(index + travelSum, 0, sortedTravels.length - 1);
         return sortedTravels[index].id;
     }
 
     /**
-     * 
-     * @param {ChexData} data 
+     * Resources produced by the hex per turn, independent of who claimed it.
+     * @param {ChexData} data
+     * @returns {Record<string, number>}
      */
     static getResources(data) {
-        return ChexFormulaParser.parse(data.improvements).incomeSums;
+        return hexProduction([{data}], data.claimed, getDefs()).total;
     }
 }

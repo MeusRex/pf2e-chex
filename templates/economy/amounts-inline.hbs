@@ -1,0 +1,8 @@
+{{!-- Parameters: amounts (from amountList), sign (optional prefix) --}}
+<span class="chex-amounts">
+    {{#each amounts}}
+    <span class="chex-amount" data-tooltip="{{this.label}}"><img src="{{this.img}}" alt="{{this.label}}">{{../sign}}{{this.amount}}</span>
+    {{else}}
+    <span class="chex-muted">—</span>
+    {{/each}}
+</span>

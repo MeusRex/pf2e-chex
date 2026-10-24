@@ -1,5 +1,6 @@
 import { CHEX_DATA_KEY, MODULE_ID } from "./const.mjs";
 import ChexFormulaParser from "./formula-parser.mjs";
+import KingdomView from "./apps/kingdom-view.mjs";
 
 export default class RealmPalette extends FormApplication {
   static formId = "chex-realmSelector";
@@ -51,6 +52,10 @@ export default class RealmPalette extends FormApplication {
     const control = event.currentTarget;
     const action = control.dataset.action;
     
+    if (action === "kingdom" && this.activeRealmTool) {
+      KingdomView.open(this.activeRealmTool);
+    }
+
     if (action === "report" && this.activeRealmTool) {
       const realm = this.activeRealmTool;
       let hexes = Object.values(canvas.scene.getFlag(MODULE_ID, CHEX_DATA_KEY).hexes);
@@ -71,7 +76,7 @@ export default class RealmPalette extends FormApplication {
       if (Object.keys(mergedResources).length) {
         let msg = `The income for this realm from owner hexes is:\n`;
         Object.entries(mergedResources).forEach(([resource, amount]) => {
-          msg += `${resource}: ${amount}\n`
+          msg += `${chex.resources[resource]?.label ?? resource}: ${amount}\n`
         });
         ui.chat.processMessage(msg);
       }

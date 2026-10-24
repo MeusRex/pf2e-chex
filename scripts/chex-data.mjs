@@ -78,6 +78,11 @@ export class ChexImprovement {
      */
     type = "";
     /**
+     * Id of the resource an extracting improvement produces. Chosen when the improvement is placed.
+     * @type {string}
+     */
+    resource = "";
+    /**
      * @type {string}
      */
     name = "";

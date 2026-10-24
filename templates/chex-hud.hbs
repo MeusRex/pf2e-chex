@@ -23,6 +23,16 @@
         <img class="terrain" src="{{terrain.img}}">
     </div>
 
+    {{#if settlement}}
+    <div class="group">
+        <p class="item">
+            <i class="fa-solid fa-city" style="color: {{settlement.color}};"></i>
+            <span class="value">{{settlement.name}}</span>
+            <span class="gray">{{settlement.size}}</span>
+        </p>
+    </div>
+    {{/if}}
+
     <div class="group">
         {{#if explorationState.explored}}
         <p class="item">

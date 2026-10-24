@@ -12,6 +12,11 @@ import ChexHex from "./hex.mjs";
 import ChexDrawingLayer from "./chex-drawing-layer.mjs";
 import ChexSceneData from "./scene-data.mjs";
 import ChexOffset from "./chex-offset.mjs";
+import EconomyConfig from "./apps/economy-config.mjs";
+import KingdomView from "./apps/kingdom-view.mjs";
+import SettlementSheet from "./apps/settlement-sheet.mjs";
+import { manageableRealms, pickRealm } from "./apps/economy-ui.mjs";
+import { canManage, findSettlementAt } from "./economy/realm-store.mjs";
 
 export default class ChexManager {
     constructor() {
@@ -128,6 +133,20 @@ export default class ChexManager {
             tokenControls.tools["showTravelTool"] = this.#showTravelTool;
         }
 
+        if (manageableRealms().length) {
+            tokenControls.tools["chexKingdom"] = {
+                name: "chexKingdom",
+                title: "CHEX.TOOLS.Kingdom",
+                icon: "fa-solid fa-crown",
+                button: true,
+                onChange: async (event, active) => {
+                    if (!active) return;
+                    const realmId = await pickRealm();
+                    if (realmId) KingdomView.open(realmId);
+                }
+            };
+        }
+
         if (game.user.isGM) {
             
             const chexTools = {
@@ -166,6 +185,14 @@ export default class ChexManager {
                         button: true,
                         toggle: false,
                         onChange: async (event,active) => {if (active){this.#showSettings()}}
+                    },
+                    chexEconomyConfig: {
+                        name: "chexEconomyConfig",
+                        title: "CHEX.TOOLS.EconomyConfig",
+                        icon: "fa-solid fa-coins",
+                        button: true,
+                        toggle: false,
+                        onChange: (event, active) => {if (active) EconomyConfig.open()}
                     }
                 },
                 activeTool: "chexDummy"
@@ -293,12 +320,11 @@ export default class ChexManager {
 
         this.#mousemove = this.#onMouseMove.bind(this);
         canvas.stage.on("mousemove", this.#mousemove);
-        if ( game.user.isGM ) {
-          this.#mousedown = this.#onMouseDown.bind(this);
-          canvas.stage.on("mousedown", this.#mousedown);
-          this.#mouseup = this.#onMouseUp.bind(this);
-          canvas.stage.on("mouseup", this.#mouseup);
-        }
+        // players need clicks to open settlements, GMs also paint with them
+        this.#mousedown = this.#onMouseDown.bind(this);
+        canvas.stage.on("mousedown", this.#mousedown);
+        this.#mouseup = this.#onMouseUp.bind(this);
+        canvas.stage.on("mouseup", this.#mouseup);
     }
 
     _onTearDown() {
@@ -307,10 +333,12 @@ export default class ChexManager {
         this.hoveredHex = null;
         this.hud.clear();
 
-        canvas.stage.off(this.#mousemove);
+        canvas.stage.off("mousemove", this.#mousemove);
         this.#mousemove = undefined;
-        canvas.stage.off(this.#mousedown);
+        canvas.stage.off("mousedown", this.#mousedown);
         this.#mousedown = undefined;
+        canvas.stage.off("mouseup", this.#mouseup);
+        this.#mouseup = undefined;
 
         canvas.interface.grid.destroyHighlightLayer(C.HIGHLIGHT_LAYER);
         this.kingdomLayer = undefined;
@@ -343,8 +371,12 @@ export default class ChexManager {
     }
 
     #onMouseDown(event) {
-        this.#isMouseDown = true;
         if ( !this.hoveredHex ) return;
+        if ( !game.user.isGM ) {
+            if ( this.#isDoubleClick() ) this.#openSettlementAt(this.hoveredHex);
+            return;
+        }
+        this.#isMouseDown = true;
 
         // Check for paint bucket mode first
         if (chex.terrainSelector && chex.terrainSelector.paintBucketMode && 
@@ -357,12 +389,27 @@ export default class ChexManager {
         // Normal painting mode
         if (this.#paintTerrainDeferred(this.hoveredHex)) return;
 
-        const t0 = this.#clickTime;
-        const t1 = this.#clickTime = Date.now();
-        if ( (t1 - t0) > 250 ) return;
+        if ( !this.#isDoubleClick() ) return;
         const hex = this.hoveredHex;
         const app = new ChexHexEdit(hex);
         app.render(true, {left: event.x + 100, top: event.y - 50});
+    }
+
+    #isDoubleClick() {
+        const t0 = this.#clickTime;
+        const t1 = this.#clickTime = Date.now();
+        return (t1 - t0) <= 250;
+    }
+
+    /**
+     * Open the settlement on a hex, if there is one the user may see.
+     * @returns {boolean} whether a settlement was opened
+     */
+    #openSettlementAt(hex) {
+        const found = findSettlementAt(canvas.scene.id, ChexData.getKey(hex.offset));
+        if ( !found || !canManage(game.user, found.realmId) ) return false;
+        SettlementSheet.open(found.realmId, found.settlement.id);
+        return true;
     }
 
     #onMouseUp(event) {

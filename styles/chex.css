@@ -198,3 +198,388 @@
   margin: 8px 0;
   text-align: center;
 }
+/* ---------------------------------------- */
+/*  Economy                                 */
+/* ---------------------------------------- */
+
+.chex-economy .window-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chex-economy section.tab {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.chex-economy section.tab:not(.active) {
+  display: none;
+}
+
+.chex-economy .hint {
+  color: var(--color-text-subtle, #777);
+  font-size: var(--font-size-12, 12px);
+  margin: 0 0 0.5rem;
+}
+
+.chex-economy .chex-config-img {
+  width: 32px;
+  height: 32px;
+  border: none;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+.chex-economy .chex-row-control {
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.chex-config-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.chex-config-table th,
+.chex-config-table td {
+  padding: 2px 4px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.chex-config-table input[type="number"] {
+  width: 4rem;
+}
+
+.chex-config-table select.chex-multi {
+  height: 4.5rem;
+  min-width: 8rem;
+}
+
+.chex-config-card {
+  border: 1px solid var(--color-border, #999);
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.chex-config-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chex-config-card-header label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.chex-config-card-header input[type="number"] {
+  width: 4rem;
+}
+
+.chex-config-card-header input[type="text"] {
+  width: 9rem;
+}
+
+.chex-config-card-header .chex-row-control {
+  margin-left: auto;
+}
+
+.chex-config-card-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.chex-amount-list {
+  flex: 1;
+  min-width: 12rem;
+}
+
+.chex-amount-list header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 1px solid var(--color-border, #999);
+  margin-bottom: 0.25rem;
+}
+
+.chex-amount-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 2px;
+}
+
+.chex-amount-row select {
+  flex: 1;
+}
+
+.chex-amount-row input[type="number"] {
+  width: 3.5rem;
+}
+
+.chex-economy .chex-good { color: var(--color-level-success, #2e7d32); }
+.chex-economy .chex-bad { color: var(--color-level-error, #c62828); }
+.chex-economy .chex-muted { color: var(--color-text-subtle, #888); }
+.chex-economy .chex-danger { margin-left: auto; }
+.chex-economy .chex-inactive { opacity: 0.55; }
+.chex-economy .chex-highlight { background: rgba(255, 200, 0, 0.12); }
+
+.chex-economy h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0.75rem 0 0.25rem;
+  border-bottom: 1px solid var(--color-border, #999);
+}
+
+.chex-economy h3 .chex-row-control {
+  margin-left: auto;
+  font-size: var(--font-size-12, 12px);
+}
+
+.chex-kingdom-content,
+.chex-settlement-content,
+.chex-trade-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.chex-economy .chex-scroll {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 4px;
+}
+
+.chex-kingdom-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--realm-color, #888);
+}
+
+.chex-realm-swatch {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--realm-color, #888);
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  flex: none;
+}
+
+.chex-kingdom-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.chex-kingdom-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.chex-kingdom-actions button {
+  white-space: nowrap;
+}
+
+.chex-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.chex-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.chex-table th,
+.chex-table td {
+  padding: 2px 4px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.chex-table tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.chex-table .chex-icon-cell {
+  width: 28px;
+}
+
+.chex-table .chex-icon-cell img {
+  width: 24px;
+  height: 24px;
+  border: none;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.chex-table .chex-controls {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.chex-construct button {
+  white-space: nowrap;
+}
+
+.chex-shortages {
+  border: 1px solid var(--color-level-error, #c62828);
+  border-radius: 4px;
+  padding: 0 0.5rem 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.chex-shortages h3 {
+  border: none;
+  color: var(--color-level-error, #c62828);
+}
+
+.chex-shortages ul,
+.chex-sites,
+.chex-needs {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.chex-sites,
+.chex-needs {
+  list-style: none;
+  padding-left: 0;
+}
+
+.chex-sites li,
+.chex-needs li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1px 0;
+}
+
+.chex-sites img,
+.chex-needs img {
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.chex-amounts {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chex-amount {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.chex-amount img {
+  width: 18px;
+  height: 18px;
+  border: none;
+  object-fit: contain;
+}
+
+.chex-drop-hint {
+  margin-top: 0.25rem;
+}
+
+.chex-trade-table input[type="number"] {
+  width: 4.5rem;
+}
+
+.chex-trade-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--color-border, #999);
+}
+
+.chex-trade-summary label {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.chex-amount-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.25rem 0.75rem;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.chex-amount-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.chex-amount-cell img {
+  width: 22px;
+  height: 22px;
+  border: none;
+}
+
+.chex-amount-cell span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chex-amount-cell input {
+  width: 3.5rem;
+  flex: none;
+}
+
+.chex-turn-report img {
+  border: none;
+}
+
+.chex-economy h3 {
+  font-size: var(--font-size-16, 16px);
+  font-family: var(--font-body, inherit);
+  font-weight: bold;
+}
+
+.chex-economy .form-footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex: none;
+}
+
+.chex-economy .form-footer button {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.chex-economy-config .form-footer button[type="submit"] {
+  flex: 2;
+}

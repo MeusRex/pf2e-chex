@@ -1,5 +1,8 @@
 import * as C from "./const.mjs";
 import ChexData from "./chex-data.mjs";
+import { assignExtraction } from "./economy/migration.mjs";
+import * as Store from "./economy/realm-store.mjs";
+import SettlementSheet from "./apps/settlement-sheet.mjs";
 
 export default class ChexHexEdit extends FormApplication {
   static improvementsFrag = "modules/pf2e-chex/templates/frags/chex-improvements.hbs";
@@ -49,8 +52,38 @@ export default class ChexHexEdit extends FormApplication {
         claimees: chex.realms,
         improvements: chex.improvements,
         features: chex.features,
-        resources: chex.resources
+        resources: chex.resources,
+        extractables: ChexHexEdit.extractables,
+        ...this.#settlementContext()
       });
+  }
+
+  get hexKey() {
+    return ChexData.getKey(this.object.offset);
+  }
+
+  #settlementContext() {
+    const found = Store.findSettlementAt(canvas.scene.id, this.hexKey);
+    const claimed = this.object.hexData.claimed;
+    if (found) {
+      return {settlement: {
+        ...found.settlement,
+        realmId: found.realmId,
+        realmLabel: chex.realms[found.realmId]?.label,
+        sizeLabel: chex.settlementSizes[found.settlement.size]?.label ?? found.settlement.size
+      }};
+    }
+    return {
+      canFound: !!chex.realms[claimed],
+      unplaced: chex.realms[claimed] ? Object.values(Store.getRealmState(claimed).settlements).filter(s => s.hexKey === "" || s.hexKey == null) : []
+    };
+  }
+
+  /**
+   * Raw resources, which improvements can extract.
+   */
+  static get extractables() {
+    return Object.values(chex.resources).filter(r => r.kind === "raw");
   }
 
   async _updateObject(event, formData) {
@@ -62,6 +95,7 @@ export default class ChexHexEdit extends FormApplication {
       formData.features = formData.features ? Object.values(formData.features) : [];
       formData.resources = formData.resources ? Object.values(formData.resources) : [];
       formData.forageables = formData.forageables ? Object.values(formData.forageables) : [];
+      formData.improvements = assignExtraction(formData) ?? formData.improvements;
 
       let key = ChexData.getKey(this.object.offset);
       canvas.scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, {
@@ -75,6 +109,23 @@ export default class ChexHexEdit extends FormApplication {
       super.activateListeners(html);
       html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
+
+async #foundSettlement() {
+  const realmId = this.object.hexData.claimed;
+  const sizes = Object.values(chex.settlementSizes).sort((a, b) => a.rank - b.rank);
+  const options = sizes.map(s => `<option value="${s.id}">${foundry.utils.escapeHTML(s.label)}</option>`).join("");
+  const data = await foundry.applications.api.DialogV2.input({
+    window: {title: "CHEX.ECONOMY.Kingdom.CreateSettlement", icon: "fa-solid fa-city"},
+    content: `
+      <div class="form-group"><label>${game.i18n.localize("CHEX.CUSTOMIZER.Label")}</label><input type="text" name="name" required autofocus></div>
+      <div class="form-group"><label>${game.i18n.localize("CHEX.ECONOMY.Settlement.Size")}</label><select name="size">${options}</select></div>`,
+    rejectClose: false
+  });
+  if (!data) return;
+  const id = await Store.request(realmId, "createSettlement", {name: data.name, size: data.size, sceneId: canvas.scene.id, hexKey: String(this.hexKey)});
+  this.render();
+  SettlementSheet.open(realmId, id);
+}
 
 _refreshPosition() {
   this.setPosition({height: "auto"});
@@ -94,7 +145,8 @@ _attach(html, control) {
         case "addImprovement": {
           const html = await foundry.applications.handlebars.renderTemplate(ChexHexEdit.improvementsFrag, {
             id: foundry.utils.randomID(),
-            improvements: chex.improvements
+            improvements: chex.improvements,
+            extractables: ChexHexEdit.extractables
           });
           this._attach(html, control);
           break;
@@ -123,6 +175,29 @@ _attach(html, control) {
             forageables: chex.resources
           });
           this._attach(html, control);
+          break;
+        }
+        case "openSettlement": {
+          const found = Store.findSettlementAt(canvas.scene.id, this.hexKey);
+          if (found) SettlementSheet.open(found.realmId, found.settlement.id);
+          break;
+        }
+        case "unplaceSettlement": {
+          const found = Store.findSettlementAt(canvas.scene.id, this.hexKey);
+          if (!found) break;
+          await Store.request(found.realmId, "updateSettlement", {settlementId: found.settlement.id, changes: {sceneId: "", hexKey: ""}});
+          this.render();
+          break;
+        }
+        case "placeSettlement": {
+          const settlementId = this.element.find(".chex-unplaced-settlement").val();
+          if (!settlementId) break;
+          await Store.request(this.object.hexData.claimed, "updateSettlement", {settlementId, changes: {sceneId: canvas.scene.id, hexKey: String(this.hexKey)}});
+          this.render();
+          break;
+        }
+        case "foundSettlement": {
+          await this.#foundSettlement();
           break;
         }
         case "delete": {

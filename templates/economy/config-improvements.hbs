@@ -1,0 +1,43 @@
+<section class="tab {{tab.cssClass}}" data-tab="improvements" data-group="primary">
+    <p class="hint">{{localize "CHEX.ECONOMY.Config.ImprovementsHint"}}</p>
+    <table class="chex-config-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>{{localize "CHEX.CUSTOMIZER.Id"}}</th>
+                <th>{{localize "CHEX.CUSTOMIZER.Label"}}</th>
+                <th data-tooltip="CHEX.ECONOMY.Field.extractsTT">{{localize "CHEX.ECONOMY.Field.extracts"}}</th>
+                <th data-tooltip="CHEX.ECONOMY.Field.allowedTT">{{localize "CHEX.ECONOMY.Field.allowed"}}</th>
+                <th data-tooltip="CHEX.ECONOMY.Field.yieldTT">{{localize "CHEX.ECONOMY.Field.yield"}}</th>
+                <th data-tooltip="CHEX.ECONOMY.Field.travelTT">{{localize "CHEX.ECONOMY.Field.travel"}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each draft.improvements as |m i|}}
+            <tr>
+                <td>
+                    <img class="chex-config-img" src="{{m.img}}" data-action="pickImage" data-path="improvements.{{i}}.img" data-tooltip="CHEX.CUSTOMIZER.PickIconTT">
+                    <input type="hidden" name="improvements.{{i}}.img" value="{{m.img}}">
+                </td>
+                <td><input type="text" name="improvements.{{i}}.id" value="{{m.id}}" data-tooltip="CHEX.CUSTOMIZER.IdTT"></td>
+                <td><input type="text" name="improvements.{{i}}.label" value="{{m.label}}"></td>
+                <td>
+                    <select name="improvements.{{i}}.extracts">
+                        {{selectOptions @root.categories selected=m.extracts localize=true blank=(localize "CHEX.ECONOMY.Nothing")}}
+                    </select>
+                </td>
+                <td>
+                    <select name="improvements.{{i}}.allowed" multiple class="chex-multi">
+                        {{selectOptions @root.rawResources selected=m.allowed valueAttr="id" labelAttr="label"}}
+                    </select>
+                </td>
+                <td><input type="number" name="improvements.{{i}}.yield" value="{{m.yield}}" min="0" step="1"></td>
+                <td><input type="number" name="improvements.{{i}}.travel" value="{{m.travel}}" step="1"></td>
+                <td><a class="chex-row-control" data-action="deleteRow" data-category="improvements" data-index="{{i}}" data-tooltip="CHEX.HEXEDIT.Delete"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button type="button" data-action="addRow" data-category="improvements"><i class="fa-solid fa-plus"></i> {{localize "CHEX.HEXEDIT.Add"}}</button>
+</section>

@@ -1,0 +1,42 @@
+<div class="chex-trade-content">
+    <div class="form-group">
+        <label>{{localize "CHEX.ECONOMY.Trade.Partner"}}</label>
+        <select name="partner">{{selectOptions partners selected=partner valueAttr="id" labelAttr="label"}}</select>
+    </div>
+    <p class="hint">{{localize "CHEX.ECONOMY.Trade.Hint"}}</p>
+
+    <div class="chex-scroll">
+        <table class="chex-table chex-trade-table">
+            <thead>
+                <tr>
+                    <th colspan="2">{{localize "CHEX.ECONOMY.Resource"}}</th>
+                    <th data-tooltip="CHEX.ECONOMY.Field.tradeValueTT">{{localize "CHEX.ECONOMY.Field.tradeValue"}}</th>
+                    <th>{{localize "CHEX.ECONOMY.Kingdom.Have"}}</th>
+                    <th>{{localize "CHEX.ECONOMY.Trade.WeGive"}}</th>
+                    <th>{{localize "CHEX.ECONOMY.Trade.WeReceive"}}</th>
+                    {{#if showTheirs}}<th data-tooltip="CHEX.ECONOMY.Trade.TheyHaveTT">{{localize "CHEX.ECONOMY.Trade.TheyHave"}}</th>{{/if}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rows}}
+                <tr>
+                    <td class="chex-icon-cell"><img src="{{this.img}}"></td>
+                    <td>{{this.label}}</td>
+                    <td class="chex-muted">{{this.value}}</td>
+                    <td>{{this.ours}}</td>
+                    <td><input type="number" name="give.{{this.id}}" value="{{this.give}}" min="0" step="1"></td>
+                    <td><input type="number" name="receive.{{this.id}}" value="{{this.receive}}" min="0" step="1"></td>
+                    {{#if ../showTheirs}}<td class="chex-muted">{{this.theirs}}</td>{{/if}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chex-trade-summary">
+        <span>{{localize "CHEX.ECONOMY.Trade.WeGive"}}: <strong class="chex-total-give">0</strong></span>
+        <span>{{localize "CHEX.ECONOMY.Trade.WeReceive"}}: <strong class="chex-total-receive">0</strong></span>
+        <span data-tooltip="CHEX.ECONOMY.Trade.BalanceTT">{{localize "CHEX.ECONOMY.Trade.Balance"}}: <strong class="chex-total-balance">0</strong></span>
+        <label data-tooltip="CHEX.ECONOMY.Trade.RecurringTT"><input type="checkbox" name="recurring" {{checked recurring}}> {{localize "CHEX.ECONOMY.Trade.Recurring"}}</label>
+    </div>
+</div>

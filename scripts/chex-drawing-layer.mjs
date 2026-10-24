@@ -1,5 +1,6 @@
 import * as C from "./const.mjs";
 import ChexFormulaParser from "./formula-parser.mjs";
+import { allSettlements } from "./economy/realm-store.mjs";
 
 export default class ChexDrawingLayer extends PIXI.Container {
   constructor() {
@@ -12,6 +13,11 @@ export default class ChexDrawingLayer extends PIXI.Container {
      * Map<string, { graphics: PIXI.Graphics, fingerprint: string }>
      */
     this._graphicsByType = new Map();
+
+    /**
+     * Markers of the settlements on this scene, drawn on top of every mode.
+     */
+    this.settlementMarkers = this.addChild(new PIXI.Container());
   }
 
   /**
@@ -31,6 +37,42 @@ export default class ChexDrawingLayer extends PIXI.Container {
 
     // Draw or toggle the requested layer
     await this.#toggleOrDrawLayer(layerType);
+    this.drawSettlements();
+  }
+
+  /**
+   * Draw a marker with the name of every settlement on this scene.
+   */
+  drawSettlements() {
+    for (const child of this.settlementMarkers.removeChildren()) child.destroy({children: true});
+    const size = canvas.grid.size;
+    const style = CONFIG.canvasTextStyle.clone();
+    style.fontSize = Math.max(14, Math.round(size * 0.2));
+
+    for (const {realmId, settlement} of allSettlements()) {
+      if (settlement.sceneId !== canvas.scene?.id || settlement.hexKey === "") continue;
+      const hex = chex.manager.hexes.get(Number(settlement.hexKey));
+      if (!hex) continue;
+      const {x, y} = hex.center;
+      const rank = chex.settlementSizes[settlement.size]?.rank ?? 1;
+      const radius = size * (0.08 + 0.03 * Math.min(rank, 5));
+
+      const marker = new PIXI.Graphics();
+      // the outline shows how happy the settlement was last turn
+      const happiness = settlement.happiness ?? 100;
+      const outline = happiness >= 80 ? 0x2e7d32 : happiness >= 50 ? 0xf9a825 : 0xc62828;
+      marker.lineStyle({width: Math.max(3, size * 0.04), color: outline, alpha: 1});
+      marker.beginFill(Color.from(chex.realms[realmId]?.color || C.FALLBACK_COLOR), 1);
+      marker.drawCircle(x, y, radius);
+      marker.endFill();
+      this.settlementMarkers.addChild(marker);
+
+      const label = new foundry.canvas.containers.PreciseText(settlement.name, style);
+      label.anchor.set(0.5, 0);
+      label.position.set(x, y + radius + 2);
+      this.settlementMarkers.addChild(label);
+    }
+    this.addChild(this.settlementMarkers); // keep on top of the hex groups
   }
 
   /** Returns "terrain", "realm", or "travel" based on current mode */

@@ -1,6 +1,8 @@
 import * as C from "./const.mjs";
 import ChexHex from "./hex.mjs";
-import ChexFormulaParser, { KEY_INCOME } from "./formula-parser.mjs";
+import ChexFormulaParser from "./formula-parser.mjs";
+import ChexData from "./chex-data.mjs";
+import { findSettlementAt } from "./economy/realm-store.mjs";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
@@ -86,14 +88,10 @@ export default class ChexHexHUD extends Application {
 
       const improvements = data.improvements.reduce((arr, o) => {
         if (isGM || o.show) {
-          let special = chex.improvements[o.id]?.special || "";
-          if (special.startsWith(KEY_INCOME)) {
-            special = special.substring(KEY_INCOME.length + 1);
-          }
           arr.push({
             label: chex.improvements[o.id]?.label || C.FALLBACK_LABEL,
             img: chex.improvements[o.id]?.img || C.FALLBACK_IMAGE,
-            special: special,
+            special: this.#describeImprovement(o, data),
             visiFrag: o.show ? visibleFrag : hiddenFrag
           });
         }
@@ -136,8 +134,16 @@ export default class ChexHexHUD extends Application {
         return arr;
       }, []);
 
+      const found = findSettlementAt(this.hex.sceneId, ChexData.getKey(this.hex.offset));
+      const settlement = found ? {
+        name: found.settlement.name,
+        size: chex.settlementSizes[found.settlement.size]?.label ?? found.settlement.size,
+        color: chex.realms[found.realmId]?.color || C.FALLBACK_COLOR
+      } : null;
+
       return {
         id: this.options.id,
+        settlement,
         cssClass: this.options.classes.join(" "),
         hex: this.hex,
 
@@ -153,6 +159,22 @@ export default class ChexHexHUD extends Application {
       }
     }
   
+    /**
+     * Short description of what an improvement on a hex does, e.g. "Ore +2" or "Travel -1".
+     */
+    #describeImprovement(instance, data) {
+      const improvement = chex.improvements[instance.id];
+      const parts = [];
+      if (improvement?.extracts && instance.resource) {
+        const amount = ChexFormulaParser.getResources({...data, improvements: [instance]})[instance.resource] ?? 0;
+        parts.push(`${chex.resources[instance.resource]?.label || C.FALLBACK_LABEL} +${amount}`);
+      }
+      if (improvement?.travel) {
+        parts.push(`${game.i18n.localize("CHEX.HUD.Travel")} ${improvement.travel > 0 ? "+" : ""}${improvement.travel}`);
+      }
+      return parts.join(", ");
+    }
+
     /** @override */
     setPosition({left, top}={}) {
       const position = {

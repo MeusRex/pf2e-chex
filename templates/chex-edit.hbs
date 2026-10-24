@@ -26,6 +26,34 @@
     </fieldset>
 
     <fieldset>
+        <legend>{{localize 'CHEX.ECONOMY.Settlement.Title'}}</legend>
+        {{#if settlement}}
+        <div class="form-group">
+            <label>{{settlement.name}} <span class="chex-muted">({{settlement.sizeLabel}}, {{settlement.realmLabel}})</span></label>
+            <div class="form-fields">
+                <button type="button" data-action="openSettlement"><i class="fa-solid fa-city"></i> {{localize 'CHEX.ECONOMY.Settlement.Open'}}</button>
+                <button type="button" data-action="unplaceSettlement" data-tooltip="CHEX.ECONOMY.Settlement.Unplace"><i class="fa-solid fa-location-pin-lock"></i></button>
+            </div>
+        </div>
+        {{else if canFound}}
+        <div class="form-group">
+            <button type="button" data-action="foundSettlement"><i class="fa-solid fa-flag"></i> {{localize 'CHEX.ECONOMY.Settlement.Found'}}</button>
+        </div>
+        {{#if unplaced.length}}
+        <div class="form-group">
+            <select class="chex-unplaced-settlement">
+                {{selectOptions unplaced valueAttr="id" labelAttr="name"}}
+            </select>
+            <button type="button" data-action="placeSettlement"><i class="fa-solid fa-location-dot"></i> {{localize 'CHEX.ECONOMY.Settlement.PlaceHere'}}</button>
+        </div>
+        {{/if}}
+        <p class="hint">{{localize 'CHEX.ECONOMY.Settlement.ImmediateHint'}}</p>
+        {{else}}
+        <p class="hint">{{localize 'CHEX.ECONOMY.Settlement.ClaimFirst'}}</p>
+        {{/if}}
+    </fieldset>
+
+    <fieldset>
         <legend>
             {{localize 'CHEX.HEXEDIT.Improvements'}}
             <button type="button" data-action="addImprovement" class="chex-add-button">
@@ -33,7 +61,7 @@
             </button>
         </legend>
         {{#each hex.improvements as |item i|}}
-            {{> (lookup @root "improvementsFrag") id=i key=item.id show=item.show improvements=@root.improvements}}
+            {{> (lookup @root "improvementsFrag") id=i key=item.id resource=item.resource show=item.show improvements=@root.improvements extractables=@root.extractables}}
         {{/each}}
     </fieldset>
 
@@ -57,7 +85,7 @@
             </button>
         </legend>
         {{#each hex.resources as |item3 i3|}}
-            {{> (lookup @root "resourcesFrag") id=i key=item3.id amount=item3.amount show=item3.show resources=@root.resources}}
+            {{> (lookup @root "resourcesFrag") id=i3 key=item3.id amount=item3.amount show=item3.show resources=@root.resources}}
         {{/each}}
     </fieldset>
 

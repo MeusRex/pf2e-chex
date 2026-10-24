@@ -15,6 +15,12 @@
                 <span class="chex-key">{{localize "CHEX.CUSTOMIZER.Color"}}</span>
                 <input type="color" name="realms.{{id}}.color" value="{{this.color}}">
             </p>
+            <p class="chex-item">
+                <span data-tooltip="CHEX.CUSTOMIZER.OwnersTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.Owners"}}</span>
+                <select name="realms.{{id}}.owners" multiple>
+                    {{selectOptions ../users selected=this.owners valueAttr="id" labelAttr="name"}}
+                </select>
+            </p>
         </div>
     </div>
 {{/with}}
