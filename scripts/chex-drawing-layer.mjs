@@ -1,5 +1,5 @@
 import * as C from "./const.mjs";
-import ChexFormulaParser from "./formula-parser.mjs";
+import { currentTravel } from "./travel.mjs";
 import { allSettlements, getDefs } from "./economy/realm-store.mjs";
 import { hexProduction } from "./economy/engine.mjs";
 import ChexData from "./chex-data.mjs";
@@ -365,7 +365,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
         break;
       case "travel":
         for (const hex of chex.manager.hexes) {
-          const tid = ChexFormulaParser.getTravel(hex.hexData);
+          const tid = currentTravel(hex.hexData);
           if (!groups[`travel-${tid}`]) groups[`travel-${tid}`] = [];
           groups[`travel-${tid}`].push(hex);
         }

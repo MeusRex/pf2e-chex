@@ -16,7 +16,7 @@ export default class SettlementSheet extends HandlebarsApplicationMixin(Applicat
     }
 
     static DEFAULT_OPTIONS = {
-        classes: ["chex-economy", "chex-economy-live", "chex-settlement"],
+        classes: ["chex-app", "chex-live", "chex-settlement"],
         window: {
             icon: "fa-solid fa-city",
             resizable: true

@@ -40,7 +40,7 @@
 
     <div class="chex-scroll">
         <section>
-            <h3 data-tooltip="CHEX.ECONOMY.Settlement.NeedsTT">{{localize "CHEX.ECONOMY.Field.needs"}}</h3>
+            <h3 data-tooltip="CHEX.ECONOMY.Settlement.NeedsTT">{{localize "CHEX.CONFIG.Field.needs"}}</h3>
             <ul class="chex-needs">
                 {{#each needs}}
                 <li class="{{#if this.met}}chex-good{{else}}chex-bad{{/if}}">
@@ -61,8 +61,8 @@
                     <tr data-uid="{{this.uid}}" class="{{#unless this.active}}chex-inactive{{/unless}}">
                         <td class="chex-icon-cell"><img src="{{this.img}}"></td>
                         <td>{{this.label}}</td>
-                        <td data-tooltip="CHEX.ECONOMY.Field.upkeep">{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
-                        <td data-tooltip="CHEX.ECONOMY.Field.production">{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.production sign="+"}}</td>
+                        <td data-tooltip="CHEX.CONFIG.Field.upkeep">{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
+                        <td data-tooltip="CHEX.CONFIG.Field.production">{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.production sign="+"}}</td>
                         <td>{{#unless this.active}}<span class="chex-bad" data-tooltip="CHEX.ECONOMY.Settlement.IdleTT"><i class="fa-solid fa-pause"></i> {{localize "CHEX.ECONOMY.Settlement.Idle"}}</span>{{/unless}}</td>
                         <td><a class="chex-row-control" data-action="demolish" data-tooltip="CHEX.ECONOMY.Settlement.Demolish"><i class="fa-solid fa-hammer"></i></a></td>
                     </tr>
@@ -79,10 +79,10 @@
                 <thead>
                     <tr>
                         <th colspan="2"></th>
-                        <th>{{localize "CHEX.ECONOMY.Field.cost"}}</th>
-                        <th>{{localize "CHEX.ECONOMY.Field.upkeep"}}</th>
-                        <th>{{localize "CHEX.ECONOMY.Field.production"}}</th>
-                        <th>{{localize "CHEX.ECONOMY.Field.lots"}}</th>
+                        <th>{{localize "CHEX.CONFIG.Field.cost"}}</th>
+                        <th>{{localize "CHEX.CONFIG.Field.upkeep"}}</th>
+                        <th>{{localize "CHEX.CONFIG.Field.production"}}</th>
+                        <th>{{localize "CHEX.CONFIG.Field.lots"}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -91,9 +91,9 @@
                     <tr class="{{#if this.locked}}chex-inactive{{/if}}">
                         <td class="chex-icon-cell"><img src="{{this.img}}"></td>
                         <td>{{this.label}}{{#if this.minSize}}<br><span class="chex-muted">{{this.minSize}}+</span>{{/if}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.cost}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.production sign="+"}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.cost}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.production sign="+"}}</td>
                         <td>{{this.lots}}</td>
                         <td {{#if this.reason}}data-tooltip="{{this.reason}}"{{/if}}>
                             <button type="button" data-action="build" data-building="{{this.id}}" {{#if this.reason}}disabled{{/if}}>

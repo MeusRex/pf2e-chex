@@ -1,10 +1,7 @@
 {
     "CHEX": {
         "HUD": {
-            "Hex": "Hex",
-            "Terrain": "Terrain",
             "Travel": "Travel Dif.",
-            "TravelMultiplier": "Travel Cost",
             "Explored": "Explored",
             "Cleared": "Cleared",
             "Claimed": "Owner"
@@ -22,80 +19,31 @@
             "Claimed": "Claimed",
             "ClaimedTooltip": "Has any country or faction liad claim to this hex?",
             "Improvements": "Improvements",
-            "Add": "Add",
-            "Delete": "Delete",
             "ShowToPlayersTooltip": "If checked, this item will be visible to players",
             "Name": "A custom name for this feature, e.g. the name of a river.",
-            "Resources": "Resources",
+            "Resources": "Deposits",
             "Amount": "Amount",
             "Forageables": "Forageables",
-            "Save": "Save",
             "Features": "Features",
             "ExtractedTooltip": "Resource extracted by this improvement. Leave on automatic to use a matching deposit of the hex or roll one according to the spawn weights.",
-            "ExtractedAuto": "(automatic)"
+            "ExtractedAuto": "(automatic)",
+            "Title": "Hex {hex}",
+            "State": "State"
         },
         "TOOLS": {
-            "ToggleHexTool": "Toggle Chex Overlay",
-            "ShowKingdomTool": "Show Kingdom Overlay",
-            "ShowTerrainTool": "Show Terrain Overlay",
-            "ShowTravelTool": "Show Travel Overlay",
-            "ChexTools": "Chex",
-            "EnableChex": "Add/Remove Chex to current Scene",
-            "RealmSelector": "Realm Selector",
-            "Settings": "Settings",
-            "TerrainSelector": "Terrain Palette",
-            "Dummy": "This button prevents an error by existing",
-            "EconomyConfig": "Economy Configuration",
+            "ChexTools": "cHex",
+            "Overlay": "cHex Overlay",
+            "MapView": "Map View",
             "Kingdom": "Kingdom Economy",
-            "MapView": "Map View Options",
-            "Brush": "Improvement & Resource Brush"
-        },
-        "CUSTOMIZER": {
-            "Title": "Chex Customizer",
-            "Id": "ID",
-            "Label": "Label",
-            "Image": "Image",
-            "Formula": "Formula",
-            "Realms": "Realms",
-            "Travels": "Travels",
-            "Terrains": "Terrains",
-            "ToolIcon": "Tool Icon",
-            "Travel": "Travel",
-            "Color": "Color",
-            "Special": "Special",
-            "Multiplier": "Multiplier",
-            "IdTT": "Internal identifier, ONLY use letters and numbers. DO NOT use spaces. Make sure that it is unique within its group.",
-            "FormulaTT": "Chex allows for certain formulas that modify behavior. So far the following two exist: travel: X where x is either a positive or negative number. When determining the Travel modifier for a hex with this improvement, the difficulty will go up or down by x steps. income: r: x (multiple r: x are allowed) r is a resource. For example lumber, healing_potions. They will be listed in the report.",
-            "ToolIconTT": "FontAwesome icon to use for drawing tool for this terrain. Generally is should always include fa-solid followed by some other key. Go to the FontAwesome website to see what exists.",
-            "TravelTT": "The ID of the travel that is the default difficulty for this terrain.",
-            "MultiplierTT": "How many times more time does it take to travel here?",
-            "SpecialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula",
-            "PickIconTT": "Open Filebrowser to select an image",
-            "PlayerRealm": "Player Kingdom",
-            "PlayerRealmTT": "The realm the players manage. They can open its kingdom view and settlements, build, trade and manage its drains. All other realms are run by the GM.",
-            "NoPlayerRealm": "No player kingdom"
-        },
-        "TERRAINSELECTOR": {
-            "Title": "Terrain Palette",
-            "PaintBucket": "Paint Bucket Mode"
-        },
-        "REALMSELECTOR": {
-            "Title": "Realm Palette",
-            "IncomeReport": "Income Report"
-        },
-        "PAINTBUCKET": {
-            "ConfirmTitle": "Confirm Paint Bucket",
-            "ConfirmMessage": "This will change {hexCount} hex(es) from {fromTerrain} to {toTerrain}, starting from hex {startHex}. Continue?",
-            "PreviewNote": "Affected hexes are highlighted on the map in the target color.",
-            "Confirm": "Confirm",
-            "Cancel": "Cancel"
+            "Paint": "Paint Hexes",
+            "Config": "cHex Configuration",
+            "AddChex": "Add cHex to this Scene",
+            "RemoveChex": "Remove cHex from this Scene"
         },
         "REMOVE": {
             "Title": "Remove Chex",
-            "Info": "Removes all Chex related data from this scene. This can't be undone.",
-            "Cancel": "Cancel"
+            "Info": "Removes all Chex related data from this scene. This can't be undone."
         },
-        "CHANGELOG": "v1.1.0: Removed code that would active PF2e Kingdoms/nChex will now only show seen hexes when token vision is enabled/n",
         "ECONOMY": {
             "Kind": {
                 "raw": "Raw",
@@ -124,61 +72,6 @@
                 "TradeCantAfford": "One of the realms can no longer afford this trade.",
                 "UnknownOffer": "This offer or agreement no longer exists.",
                 "UnknownRealm": "Unknown realm."
-            },
-            "Config": {
-                "Title": "Economy Configuration",
-                "Tab": {
-                    "resources": "Resources",
-                    "improvements": "Improvements",
-                    "buildings": "Buildings",
-                    "sizes": "Settlement Sizes"
-                },
-                "AddDefaults": "Add Missing Defaults",
-                "DefaultsAdded": "Added {count} default entries. Save to keep them.",
-                "Export": "Export",
-                "Import": "Import",
-                "ImportHint": "Select a JSON file exported from the economy configuration. It replaces the unsaved entries of every category it contains.",
-                "ImportFailed": "Import failed: {error}",
-                "InvalidId": "Invalid or duplicate ID \"{id}\" in {tab}. IDs may only contain letters, numbers, - and _.",
-                "ResourcesHint": "Raw resources are found on the map and extracted by improvements. Goods are made by buildings. Changing an ID breaks existing references to it.",
-                "ImprovementsHint": "Improvements are placed on hexes. Extracting improvements produce one of their raw resources every turn for the realm that claimed the hex. Click the Extracts cell to choose them.",
-                "BuildingsHint": "Buildings are constructed in settlements. Their cost is paid once, upkeep every turn. Buildings that can't pay their upkeep are idle for the turn.",
-                "SizesHint": "Settlements consume their needs every turn. Their happiness is the percentage of needs that were met.",
-                "EditExtraction": "Choose what this improvement extracts",
-                "ExtractionTitle": "Extraction: {name}",
-                "ExtractionHint": "A category selects all of its resources, including ones added later. Toggle single resources to narrow it down or to combine resources of different categories. When placed on a hex, a matching deposit is used, otherwise one of the selected resources is rolled by spawn weight.",
-                "All": "all",
-                "Uncategorized": "Without category"
-            },
-            "Field": {
-                "kind": "Kind",
-                "category": "Category",
-                "categoryTT": "Where raw resources are found. Improvements extract resources of one category.",
-                "group": "Group",
-                "groupTT": "Optional. Needs and costs can ask for any resource of a group, e.g. food.",
-                "spawnWeight": "Spawn",
-                "spawnWeightTT": "Relative likelihood of being rolled when an improvement is placed on a hex without a matching deposit. 0 means never.",
-                "tradeValue": "Value",
-                "tradeValueTT": "Used to compare offers in trades.",
-                "extracts": "Extracts",
-                "extractsTT": "Raw resources this improvement can extract. Click to choose.",
-                "yield": "Yield",
-                "yieldTT": "Units produced per turn. Multiplied by the amount of a deposit on the hex.",
-                "travel": "Travel",
-                "travelTT": "Steps by which the travel difficulty of the hex changes. -1 makes travel easier by one step.",
-                "lots": "Lots",
-                "lotsTT": "Lots the building occupies.",
-                "sizeLotsTT": "Lots available for buildings.",
-                "minSize": "Min. Size",
-                "minSizeTT": "Smallest settlement size this can be built in.",
-                "maxCount": "Max.",
-                "maxCountTT": "Maximum number per settlement. 0 for unlimited.",
-                "cost": "Cost",
-                "upkeep": "Upkeep / Turn",
-                "production": "Production / Turn",
-                "needs": "Needs / Turn",
-                "rank": "Rank",
-                "rankTT": "Order of sizes, higher is bigger. Used for minimum size of buildings."
             },
             "AmountsHint": "Leave 0 for resources that aren't involved.",
             "ConfirmDelete": "Delete <strong>{name}</strong>? This can't be undone.",
@@ -254,7 +147,6 @@
                 "Build": "Build",
                 "Found": "Found Settlement Here",
                 "PlaceHere": "Place Here",
-                "ImmediateHint": "Settlement changes apply immediately. Unsaved changes in this window are discarded.",
                 "ClaimFirst": "Save a claim for this hex to found a settlement here.",
                 "Transferred": "<strong>{name}</strong> now belongs to <strong>{to}</strong> (before: {from}). Its buildings came along, the stockpile of {from} did not."
             },
@@ -301,13 +193,119 @@
                 "resources": "Resources",
                 "production": "Production"
             },
-            "OverlayOff": "Enable the cHex overlay to see these on the map."
+            "OverlayOff": "Enable the cHex overlay to see these on the map.",
+            "ColorByTitle": "Color by",
+            "ColorBy": {
+                "realm": "Realm",
+                "terrain": "Terrain",
+                "travel": "Travel"
+            },
+            "Show": "Show"
         },
-        "BRUSH": {
-            "Title": "Brush",
+        "Add": "Add",
+        "Delete": "Delete",
+        "Save": "Save",
+        "Id": "ID",
+        "IdTT": "Internal identifier, ONLY use letters and numbers. DO NOT use spaces. Make sure that it is unique within its group.",
+        "Label": "Label",
+        "Color": "Color",
+        "PickImage": "Click to choose an image",
+        "Error": {
+            "InvalidGrid": "cHex only works with the grid types Hexagonal Rows - Odd and Hexagonal Columns - Odd."
+        },
+        "CONFIG": {
+            "Title": "cHex Configuration",
+            "Tab": {
+                "realms": "Realms",
+                "terrains": "Terrains",
+                "travels": "Travel",
+                "features": "Features",
+                "resources": "Resources",
+                "improvements": "Improvements",
+                "buildings": "Buildings",
+                "sizes": "Settlement Sizes"
+            },
+            "AddDefaults": "Add Missing Defaults",
+            "DefaultsAdded": "Added {count} default entries. Save to keep them.",
+            "Export": "Export",
+            "Import": "Import",
+            "ImportHint": "Select a JSON file exported from the cHex configuration. It replaces the unsaved entries of every category it contains.",
+            "ImportFailed": "Import failed: {error}",
+            "InvalidId": "Invalid or duplicate ID \"{id}\" in {tab}. IDs may only contain letters, numbers, - and _.",
+            "ResourcesHint": "Raw resources are found on the map and extracted by improvements. Goods are made by buildings. Changing an ID breaks existing references to it.",
+            "ImprovementsHint": "Improvements are placed on hexes. Extracting improvements produce one of their raw resources every turn for the realm that claimed the hex. Click the Extracts cell to choose them.",
+            "BuildingsHint": "Buildings are constructed in settlements. Their cost is paid once, upkeep every turn. Buildings that can't pay their upkeep are idle for the turn.",
+            "SizesHint": "Settlements consume their needs every turn. Their happiness is the percentage of needs that were met.",
+            "EditExtraction": "Choose what this improvement extracts",
+            "ExtractionTitle": "Extraction: {name}",
+            "ExtractionHint": "A category selects all of its resources, including ones added later. Toggle single resources to narrow it down or to combine resources of different categories. When placed on a hex, a matching deposit is used, otherwise one of the selected resources is rolled by spawn weight.",
+            "All": "all",
+            "Uncategorized": "Without category",
+            "Field": {
+                "kind": "Kind",
+                "category": "Category",
+                "categoryTT": "Where raw resources are found. Improvements extract resources of one category.",
+                "group": "Group",
+                "groupTT": "Optional. Needs and costs can ask for any resource of a group, e.g. food.",
+                "spawnWeight": "Spawn",
+                "spawnWeightTT": "Relative likelihood of being rolled when an improvement is placed on a hex without a matching deposit. 0 means never.",
+                "tradeValue": "Value",
+                "tradeValueTT": "Used to compare offers in trades.",
+                "extracts": "Extracts",
+                "extractsTT": "Raw resources this improvement can extract. Click to choose.",
+                "yield": "Yield",
+                "yieldTT": "Units produced per turn. Multiplied by the amount of a deposit on the hex.",
+                "travel": "Travel",
+                "travelTT": "Steps by which the travel difficulty of the hex changes. -1 makes travel easier by one step.",
+                "lots": "Lots",
+                "lotsTT": "Lots the building occupies.",
+                "sizeLotsTT": "Lots available for buildings.",
+                "minSize": "Min. Size",
+                "minSizeTT": "Smallest settlement size this can be built in.",
+                "maxCount": "Max.",
+                "maxCountTT": "Maximum number per settlement. 0 for unlimited.",
+                "cost": "Cost",
+                "upkeep": "Upkeep / Turn",
+                "production": "Production / Turn",
+                "needs": "Needs / Turn",
+                "rank": "Rank",
+                "rankTT": "Order of sizes, higher is bigger. Used for minimum size of buildings.",
+                "defaultTravel": "Default Travel",
+                "defaultTravelTT": "The ID of the travel that is the default difficulty for this terrain.",
+                "multiplier": "Multiplier",
+                "multiplierTT": "How many times more time does it take to travel here?",
+                "special": "Special",
+                "specialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula"
+            },
+            "Hint": {
+                "realms": "Realms claim hexes and have an economy. The player kingdom is managed by the players, all other realms by the GM.",
+                "terrains": "Terrains color the map and set the default travel of hexes painted with them.",
+                "travels": "Travel types and how much longer travel takes. Improvements like roads shift between the non-special types, ordered by multiplier.",
+                "features": "Features are things on a hex that rarely change, like rivers or ruins. They can be named per hex."
+            },
+            "PlayerRealm": "Player Kingdom",
+            "PlayerRealmTT": "The realm the players manage. They can open its kingdom view and settlements, build, trade and manage its drains. All other realms are run by the GM.",
+            "NoPlayerRealm": "No player kingdom"
+        },
+        "PAINT": {
+            "Title": "Paint",
+            "Tab": {
+                "terrain": "Terrain",
+                "realm": "Realm",
+                "improvements": "Improvements",
+                "resources": "Resources"
+            },
+            "Unclaimed": "Unclaimed",
+            "Bucket": "Fill area",
+            "BucketTT": "Click a hex to change all connected hexes with the same terrain or claim.",
             "Extracts": "Extracts",
             "Visible": "Visible to players",
-            "Hint": "Click a hex to add the selection or update it, Shift+click to remove it. Works while the cHex tools are active. Painting a deposit makes extracting improvements on the hex use it."
+            "Hint": {
+                "area": "Click or drag over hexes to paint them. Works while the cHex controls are active.",
+                "click": "Click a hex to add the selection or update it, Shift+click to remove it. Painting a deposit makes extracting improvements on the hex use it."
+            },
+            "FillTitle": "Fill Area",
+            "FillConfirm": "Change {count} connected hex(es) from {from} to {to}, starting at {start}? They are highlighted on the map."
         }
     }
 }

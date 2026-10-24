@@ -2,7 +2,7 @@
 <div class="chex-amount-list">
     <header>
         <span>{{localize label}}</span>
-        <a class="chex-row-control" data-action="addEntry" data-path="{{path}}" data-tooltip="CHEX.HEXEDIT.Add"><i class="fa-solid fa-plus"></i></a>
+        <a class="chex-row-control" data-action="addEntry" data-path="{{path}}" data-tooltip="CHEX.Add"><i class="fa-solid fa-plus"></i></a>
     </header>
     {{#each entries as |e j|}}
     <div class="chex-amount-row">
@@ -10,7 +10,7 @@
             {{selectOptions ../options selected=e.id valueAttr="id" labelAttr="label" blank=""}}
         </select>
         <input type="number" name="{{../path}}.{{j}}.amount" value="{{e.amount}}" step="1">
-        <a class="chex-row-control" data-action="deleteEntry" data-path="{{../path}}" data-index="{{j}}" data-tooltip="CHEX.HEXEDIT.Delete"><i class="fa-solid fa-times"></i></a>
+        <a class="chex-row-control" data-action="deleteEntry" data-path="{{../path}}" data-index="{{j}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-times"></i></a>
     </div>
     {{/each}}
 </div>

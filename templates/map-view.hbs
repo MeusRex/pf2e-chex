@@ -1,0 +1,30 @@
+<div class="chex-panel">
+    <h4>{{localize "CHEX.MAPVIEW.ColorByTitle"}}</h4>
+    {{#each colorBy}}
+    <button type="button" class="chex-option {{#if this.active}}active{{/if}}" data-action="setColorBy" data-value="{{this.id}}">
+        <i class="{{this.icon}}"></i>
+        <span>{{localize this.label}}</span>
+        {{#if this.active}}<i class="fa-solid fa-check chex-option-state"></i>{{/if}}
+    </button>
+    {{/each}}
+
+    <h4>{{localize "CHEX.MAPVIEW.Show"}}</h4>
+    <button type="button" class="chex-option {{#if settlements}}active{{/if}}" data-action="toggleSettlements">
+        <i class="{{settlementIcon}}"></i>
+        <span>{{localize "CHEX.MAPVIEW.Settlements"}}</span>
+        <i class="fa-solid {{#if settlements}}fa-toggle-on{{else}}fa-toggle-off{{/if}} chex-option-state"></i>
+    </button>
+
+    <h4>{{localize "CHEX.MAPVIEW.HexDetails"}}</h4>
+    {{#each details}}
+    <button type="button" class="chex-option {{#if this.active}}active{{/if}}" data-action="setDetails" data-value="{{this.id}}">
+        <i class="{{this.icon}}"></i>
+        <span>{{localize this.label}}</span>
+        {{#if this.active}}<i class="fa-solid fa-check chex-option-state"></i>{{/if}}
+    </button>
+    {{/each}}
+
+    {{#if overlayOff}}
+    <p class="hint"><i class="fa-solid fa-circle-info"></i> {{localize "CHEX.MAPVIEW.OverlayOff"}}</p>
+    {{/if}}
+</div>

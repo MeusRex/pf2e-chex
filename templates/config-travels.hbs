@@ -1,0 +1,28 @@
+<section class="tab {{tab.cssClass}}" data-tab="travels" data-group="primary">
+    <p class="hint">{{localize "CHEX.CONFIG.Hint.travels"}}</p>
+    <table class="chex-table chex-config-table">
+        <thead>
+            <tr>
+                <th>{{localize "CHEX.Color"}}</th>
+                <th>{{localize "CHEX.Id"}}</th>
+                <th>{{localize "CHEX.Label"}}</th>
+                <th data-tooltip="CHEX.CONFIG.Field.multiplierTT">{{localize "CHEX.CONFIG.Field.multiplier"}}</th>
+                <th data-tooltip="CHEX.CONFIG.Field.specialTT">{{localize "CHEX.CONFIG.Field.special"}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each draft.travels as |t i|}}
+            <tr>
+                <td><input type="color" name="travels.{{i}}.color" value="{{t.color}}"></td>
+                <td><input type="text" name="travels.{{i}}.id" value="{{t.id}}" data-tooltip="CHEX.IdTT"></td>
+                <td><input type="text" name="travels.{{i}}.label" value="{{t.label}}"></td>
+                <td><input type="number" name="travels.{{i}}.multiplier" value="{{t.multiplier}}" min="0" step="any"></td>
+                <td class="chex-center"><input type="checkbox" name="travels.{{i}}.special" {{checked t.special}}></td>
+                <td><a class="chex-row-control" data-action="deleteRow" data-category="travels" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button type="button" data-action="addRow" data-category="travels"><i class="fa-solid fa-plus"></i> {{localize "CHEX.Add"}}</button>
+</section>

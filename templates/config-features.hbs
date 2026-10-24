@@ -1,0 +1,27 @@
+<section class="tab {{tab.cssClass}}" data-tab="features" data-group="primary">
+    <p class="hint">{{localize "CHEX.CONFIG.Hint.features"}}</p>
+    <table class="chex-table chex-config-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>{{localize "CHEX.Id"}}</th>
+                <th>{{localize "CHEX.Label"}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each draft.features as |f i|}}
+            <tr>
+                <td>
+                    <img class="chex-config-img" src="{{f.img}}" data-action="pickImage" data-path="features.{{i}}.img" data-tooltip="CHEX.PickImage">
+                    <input type="hidden" name="features.{{i}}.img" value="{{f.img}}">
+                </td>
+                <td><input type="text" name="features.{{i}}.id" value="{{f.id}}" data-tooltip="CHEX.IdTT"></td>
+                <td><input type="text" name="features.{{i}}.label" value="{{f.label}}"></td>
+                <td><a class="chex-row-control" data-action="deleteRow" data-category="features" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button type="button" data-action="addRow" data-category="features"><i class="fa-solid fa-plus"></i> {{localize "CHEX.Add"}}</button>
+</section>

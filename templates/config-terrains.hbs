@@ -1,0 +1,35 @@
+<section class="tab {{tab.cssClass}}" data-tab="terrains" data-group="primary">
+    <p class="hint">{{localize "CHEX.CONFIG.Hint.terrains"}}</p>
+    <table class="chex-table chex-config-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>{{localize "CHEX.Id"}}</th>
+                <th>{{localize "CHEX.Label"}}</th>
+                <th>{{localize "CHEX.Color"}}</th>
+                <th data-tooltip="CHEX.CONFIG.Field.defaultTravelTT">{{localize "CHEX.CONFIG.Field.defaultTravel"}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each draft.terrains as |t i|}}
+            <tr>
+                <td>
+                    <img class="chex-config-img" src="{{t.img}}" data-action="pickImage" data-path="terrains.{{i}}.img" data-tooltip="CHEX.PickImage">
+                    <input type="hidden" name="terrains.{{i}}.img" value="{{t.img}}">
+                </td>
+                <td><input type="text" name="terrains.{{i}}.id" value="{{t.id}}" data-tooltip="CHEX.IdTT"></td>
+                <td><input type="text" name="terrains.{{i}}.label" value="{{t.label}}"></td>
+                <td><input type="color" name="terrains.{{i}}.color" value="{{t.color}}"></td>
+                <td>
+                    <select name="terrains.{{i}}.travel">
+                        {{selectOptions @root.travelOptions selected=t.travel valueAttr="id" labelAttr="label"}}
+                    </select>
+                </td>
+                <td><a class="chex-row-control" data-action="deleteRow" data-category="terrains" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button type="button" data-action="addRow" data-category="terrains"><i class="fa-solid fa-plus"></i> {{localize "CHEX.Add"}}</button>
+</section>

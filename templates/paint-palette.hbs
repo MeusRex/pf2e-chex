@@ -1,0 +1,53 @@
+<div class="chex-panel">
+    <nav class="chex-segmented">
+        {{#each tabs}}
+        <button type="button" class="{{#if this.active}}active{{/if}}" data-action="setTab" data-tab="{{this.id}}" data-tooltip="{{this.label}}">
+            <i class="{{this.icon}}"></i>
+        </button>
+        {{/each}}
+    </nav>
+
+    <div class="chex-icon-grid">
+        {{#each items}}
+        <a class="chex-icon-item {{#if this.active}}active{{/if}}" data-action="select" data-id="{{this.id}}" data-tooltip="{{this.label}}"
+           {{#if this.color}}style="--item-color: {{this.color}}"{{/if}}>
+            {{#if this.img}}<img src="{{this.img}}" alt="{{this.label}}">
+            {{else if this.swatch}}<span class="chex-swatch"></span>
+            {{else}}<i class="{{this.icon}}"></i>{{/if}}
+        </a>
+        {{/each}}
+    </div>
+
+    <div class="chex-fields">
+        {{#if isArea}}
+        <label data-tooltip="CHEX.PAINT.BucketTT">
+            <span><i class="{{bucketIcon}}"></i> {{localize "CHEX.PAINT.Bucket"}}</span>
+            <input type="checkbox" name="bucket" {{checked bucket}}>
+        </label>
+        {{/if}}
+        {{#if isImprovements}}
+        {{#if extracting}}
+        <label data-tooltip="CHEX.HEXEDIT.ExtractedTooltip">
+            <span>{{localize "CHEX.PAINT.Extracts"}}</span>
+            <select name="extracted">
+                {{selectOptions candidates selected=extracted valueAttr="id" labelAttr="label" blank=(localize "CHEX.HEXEDIT.ExtractedAuto")}}
+            </select>
+        </label>
+        {{/if}}
+        {{/if}}
+        {{#if isResources}}
+        <label>
+            <span>{{localize "CHEX.HEXEDIT.Amount"}}</span>
+            <input type="number" name="amount" value="{{amount}}" min="1" step="1">
+        </label>
+        {{/if}}
+        {{#unless isArea}}
+        <label data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip">
+            <span>{{localize "CHEX.PAINT.Visible"}}</span>
+            <input type="checkbox" name="show" {{checked show}}>
+        </label>
+        {{/unless}}
+    </div>
+
+    <p class="hint">{{localize hint}}</p>
+</div>

@@ -1,0 +1,124 @@
+{{!-- the visibility toggle of an entry --}}
+{{#*inline "eye"}}
+<label class="chex-eye" data-tooltip="CHEX.HEXEDIT.ShowToPlayersTooltip">
+    <input type="checkbox" name="{{name}}" {{checked checked}}>
+    <i class="fa-solid fa-eye"></i><i class="fa-solid fa-eye-slash"></i>
+</label>
+{{/inline}}
+
+<div class="chex-scroll">
+    <section>
+        <h3><i class="{{icons.terrain}}"></i> {{localize "CHEX.HEXEDIT.State"}}</h3>
+        <div class="chex-fields">
+            <label>
+                <span>{{localize "CHEX.CONFIG.Tab.terrains"}}</span>
+                <select name="terrain">{{selectOptions terrains selected=hex.terrain valueAttr="id" labelAttr="label"}}</select>
+            </label>
+            <label>
+                <span>{{localize "CHEX.HUD.Travel"}}</span>
+                <select name="travel">{{selectOptions travels selected=hex.travel valueAttr="id" labelAttr="label"}}</select>
+            </label>
+            <label data-tooltip="CHEX.HEXEDIT.ClaimedTooltip">
+                <span>{{localize "CHEX.HEXEDIT.Claimed"}}</span>
+                <select name="claimed">{{selectOptions realms selected=hex.claimed valueAttr="id" labelAttr="label" blank=""}}</select>
+            </label>
+            <label data-tooltip="CHEX.HEXEDIT.ExplorationTooltip">
+                <span>{{localize "CHEX.HEXEDIT.Exploration"}}</span>
+                <select name="exploration">{{selectOptions explorationStates selected=hex.exploration valueAttr="value" labelAttr="label" localize=true}}</select>
+            </label>
+            <label data-tooltip="CHEX.HEXEDIT.ClearedTooltip">
+                <span>{{localize "CHEX.HEXEDIT.Cleared"}}</span>
+                <input type="checkbox" name="cleared" {{checked hex.cleared}}>
+            </label>
+        </div>
+    </section>
+
+    <section>
+        <h3><i class="{{icons.settlement}}"></i> {{localize "CHEX.ECONOMY.Settlement.Title"}}</h3>
+        {{#if settlement}}
+        <div class="chex-entry-row">
+            <span class="chex-grow">{{settlement.name}} <span class="chex-muted">({{settlement.sizeLabel}}, {{settlement.realmLabel}})</span></span>
+            <button type="button" data-action="openSettlement"><i class="{{icons.settlement}}"></i> {{localize "CHEX.ECONOMY.Settlement.Open"}}</button>
+            <a class="chex-row-control" data-action="unplaceSettlement" data-tooltip="CHEX.ECONOMY.Settlement.Unplace"><i class="fa-solid fa-location-pin-lock"></i></a>
+        </div>
+        {{else if canFound}}
+        <div class="chex-entry-row">
+            <button type="button" data-action="foundSettlement"><i class="fa-solid fa-flag"></i> {{localize "CHEX.ECONOMY.Settlement.Found"}}</button>
+            {{#if unplaced.length}}
+            <select class="chex-unplaced-settlement chex-grow">{{selectOptions unplaced valueAttr="id" labelAttr="name"}}</select>
+            <button type="button" data-action="placeSettlement"><i class="fa-solid fa-location-dot"></i> {{localize "CHEX.ECONOMY.Settlement.PlaceHere"}}</button>
+            {{/if}}
+        </div>
+        {{else}}
+        <p class="hint">{{localize "CHEX.ECONOMY.Settlement.ClaimFirst"}}</p>
+        {{/if}}
+    </section>
+
+    <section>
+        <h3>
+            <i class="{{icons.improvement}}"></i> {{localize "CHEX.HEXEDIT.Improvements"}}
+            <a class="chex-row-control" data-action="addRow" data-list="improvements" data-tooltip="CHEX.Add"><i class="fa-solid fa-plus"></i></a>
+        </h3>
+        {{#each improvements as |e i|}}
+        <div class="chex-entry-row">
+            <img src="{{e.img}}">
+            <select name="improvements.{{i}}.id" class="chex-grow" data-rerender>{{selectOptions @root.improvementOptions selected=e.id valueAttr="id" labelAttr="label" blank=""}}</select>
+            {{#if e.extracting}}
+            <select name="improvements.{{i}}.resource" data-tooltip="CHEX.HEXEDIT.ExtractedTooltip">
+                {{selectOptions e.candidates selected=e.resource valueAttr="id" labelAttr="label" blank=(localize "CHEX.HEXEDIT.ExtractedAuto")}}
+            </select>
+            {{else}}<input type="hidden" name="improvements.{{i}}.resource" value="">{{/if}}
+            {{> eye name=(concat "improvements." i ".show") checked=e.show}}
+            <a class="chex-row-control" data-action="deleteRow" data-list="improvements" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a>
+        </div>
+        {{/each}}
+    </section>
+
+    <section>
+        <h3>
+            <i class="{{icons.resource}}"></i> {{localize "CHEX.HEXEDIT.Resources"}}
+            <a class="chex-row-control" data-action="addRow" data-list="resources" data-tooltip="CHEX.Add"><i class="fa-solid fa-plus"></i></a>
+        </h3>
+        {{#each resources as |e i|}}
+        <div class="chex-entry-row">
+            <img src="{{e.img}}">
+            <select name="resources.{{i}}.id" class="chex-grow" data-rerender>{{selectOptions @root.resourceOptions selected=e.id valueAttr="id" labelAttr="label" blank=""}}</select>
+            <input type="number" name="resources.{{i}}.amount" value="{{e.amount}}" min="1" step="1" data-tooltip="CHEX.HEXEDIT.Amount">
+            {{> eye name=(concat "resources." i ".show") checked=e.show}}
+            <a class="chex-row-control" data-action="deleteRow" data-list="resources" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a>
+        </div>
+        {{/each}}
+    </section>
+
+    <section>
+        <h3>
+            <i class="fa-solid fa-gift"></i> {{localize "CHEX.HEXEDIT.Forageables"}}
+            <a class="chex-row-control" data-action="addRow" data-list="forageables" data-tooltip="CHEX.Add"><i class="fa-solid fa-plus"></i></a>
+        </h3>
+        {{#each forageables as |e i|}}
+        <div class="chex-entry-row">
+            <img src="{{e.img}}">
+            <select name="forageables.{{i}}.id" class="chex-grow" data-rerender>{{selectOptions @root.resourceOptions selected=e.id valueAttr="id" labelAttr="label" blank=""}}</select>
+            <input type="number" name="forageables.{{i}}.amount" value="{{e.amount}}" min="1" step="1" data-tooltip="CHEX.HEXEDIT.Amount">
+            {{> eye name=(concat "forageables." i ".show") checked=e.show}}
+            <a class="chex-row-control" data-action="deleteRow" data-list="forageables" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a>
+        </div>
+        {{/each}}
+    </section>
+
+    <section>
+        <h3>
+            <i class="{{icons.feature}}"></i> {{localize "CHEX.HEXEDIT.Features"}}
+            <a class="chex-row-control" data-action="addRow" data-list="features" data-tooltip="CHEX.Add"><i class="fa-solid fa-plus"></i></a>
+        </h3>
+        {{#each features as |e i|}}
+        <div class="chex-entry-row">
+            <img src="{{e.img}}">
+            <select name="features.{{i}}.id" data-rerender>{{selectOptions @root.featureOptions selected=e.id valueAttr="id" labelAttr="label" blank=""}}</select>
+            <input type="text" name="features.{{i}}.name" value="{{e.name}}" class="chex-grow" placeholder="{{localize "CHEX.HEXEDIT.Name"}}">
+            {{> eye name=(concat "features." i ".show") checked=e.show}}
+            <a class="chex-row-control" data-action="deleteRow" data-list="features" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a>
+        </div>
+        {{/each}}
+    </section>
+</div>

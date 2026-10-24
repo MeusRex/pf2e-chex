@@ -1,73 +1,106 @@
 import * as C from "../const.mjs";
+import { Realm } from "../customizables/realms.mjs";
+import { Terrain } from "../customizables/terrain.mjs";
+import { Travel } from "../customizables/travel.mjs";
+import { Feature } from "../customizables/features.mjs";
 import { Resource, RESOURCE_CATEGORIES, RESOURCE_KINDS } from "../customizables/resources.mjs";
 import { Improvement } from "../customizables/improvements.mjs";
 import { Building } from "../customizables/buildings.mjs";
 import { SettlementSize } from "../customizables/settlement-sizes.mjs";
 import { addAmounts, GROUP_PREFIX } from "../economy/engine.mjs";
+import { PLAYER_REALM_SETTING } from "../economy/realm-store.mjs";
+import { TEMPLATES } from "./economy-ui.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
-const TEMPLATES = "modules/pf2e-chex/templates/economy";
 const ID_PATTERN = /^[A-Za-z0-9_-]+$/;
 
-// fields holding {resourceId: amount} maps, per category
-const AMOUNT_FIELDS = {
-    resources: [],
-    improvements: [],
-    buildings: ["cost", "upkeep", "production"],
-    sizes: ["needs"]
+/**
+ * Everything configurable, by tab.
+ * setting: world setting, source: current definitions, blank: new entry,
+ * amounts: fields holding {resourceId: amount} maps, numbers: numeric fields.
+ */
+const CATEGORIES = {
+    realms: {
+        icon: C.ICONS.realm, setting: "Realm", source: () => chex.realms, defaults: () => Realm.getDefaults(),
+        blank: id => new Realm(id, "", "#888888")
+    },
+    terrains: {
+        icon: C.ICONS.terrain, setting: "Terrain", source: () => chex.terrains, defaults: () => Terrain.getDefaults(),
+        blank: id => new Terrain(id, "", "icons/svg/mountain.svg", Object.keys(chex.travels)[0] ?? "", "#888888")
+    },
+    travels: {
+        icon: C.ICONS.travel, setting: "Travel", source: () => chex.travels, defaults: () => Travel.getDefaults(),
+        blank: id => new Travel(id, "", 1, "#888888", false), numbers: ["multiplier"]
+    },
+    features: {
+        icon: C.ICONS.feature, setting: "Feature", source: () => chex.features, defaults: () => Feature.getDefaults(),
+        blank: id => new Feature(id, "", "icons/svg/waterfall.svg")
+    },
+    resources: {
+        icon: C.ICONS.resource, setting: "Resource", source: () => chex.resources, defaults: () => Resource.getDefaults(),
+        blank: id => new Resource(id, "", "icons/svg/item-bag.svg"), numbers: ["spawnWeight", "tradeValue"]
+    },
+    improvements: {
+        icon: C.ICONS.improvement, setting: "Improvement", source: () => chex.improvements, defaults: () => Improvement.getDefaults(),
+        blank: id => new Improvement(id, "", "icons/svg/hazard.svg"), numbers: ["yield", "travel"]
+    },
+    buildings: {
+        icon: C.ICONS.building, setting: "Building", source: () => chex.buildings, defaults: () => Building.getDefaults(),
+        blank: id => new Building(id, "", "icons/svg/house.svg"), amounts: ["cost", "upkeep", "production"], numbers: ["lots", "maxCount"]
+    },
+    sizes: {
+        icon: C.ICONS.settlement, setting: "SettlementSize", source: () => chex.settlementSizes, defaults: () => SettlementSize.getDefaults(),
+        blank: id => new SettlementSize(id, ""), amounts: ["needs"], numbers: ["rank", "lots"]
+    }
 };
 
+const amountFields = category => CATEGORIES[category].amounts ?? [];
+
 /**
- * Configuration of resources, improvements, buildings and settlement sizes.
+ * The cHex configuration: realms, terrains, travel, features and the economy.
  * Edits a draft, which is only saved on submit.
  */
-export default class EconomyConfig extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class ChexConfig extends HandlebarsApplicationMixin(ApplicationV2) {
     static DEFAULT_OPTIONS = {
-        id: "chex-economy-config",
+        id: "chex-config",
         tag: "form",
-        classes: ["chex-economy", "chex-economy-config"],
+        classes: ["chex-app", "chex-config"],
         window: {
-            title: "CHEX.ECONOMY.Config.Title",
-            icon: "fa-solid fa-coins",
+            title: "CHEX.CONFIG.Title",
+            icon: C.ICONS.config,
             resizable: true
         },
-        position: {width: 960, height: 720},
+        position: {width: 980, height: 740},
         form: {
-            handler: EconomyConfig.#onSubmit,
+            handler: ChexConfig.#onSubmit,
             closeOnSubmit: true
         },
         actions: {
-            addRow: EconomyConfig.#onAddRow,
-            deleteRow: EconomyConfig.#onDeleteRow,
-            addEntry: EconomyConfig.#onAddEntry,
-            deleteEntry: EconomyConfig.#onDeleteEntry,
-            pickImage: EconomyConfig.#onPickImage,
-            editExtraction: EconomyConfig.#onEditExtraction,
-            addDefaults: EconomyConfig.#onAddDefaults,
-            exportJson: EconomyConfig.#onExport,
-            importJson: EconomyConfig.#onImport
+            addRow: ChexConfig.#onAddRow,
+            deleteRow: ChexConfig.#onDeleteRow,
+            addEntry: ChexConfig.#onAddEntry,
+            deleteEntry: ChexConfig.#onDeleteEntry,
+            pickImage: ChexConfig.#onPickImage,
+            editExtraction: ChexConfig.#onEditExtraction,
+            addDefaults: ChexConfig.#onAddDefaults,
+            exportJson: ChexConfig.#onExport,
+            importJson: ChexConfig.#onImport
         }
     };
 
     static TABS = {
         primary: {
-            tabs: [
-                {id: "resources", icon: "fa-solid fa-cubes"},
-                {id: "improvements", icon: "fa-solid fa-person-digging"},
-                {id: "buildings", icon: "fa-solid fa-building"},
-                {id: "sizes", icon: "fa-solid fa-city"}
-            ],
-            initial: "resources",
-            labelPrefix: "CHEX.ECONOMY.Config.Tab"
+            tabs: Object.entries(CATEGORIES).map(([id, {icon}]) => ({id, icon})),
+            initial: "realms",
+            labelPrefix: "CHEX.CONFIG.Tab"
         }
     };
 
     static PARTS = {
         tabs: {template: "templates/generic/tab-navigation.hbs"},
-        resources: {template: `${TEMPLATES}/config-resources.hbs`, scrollable: [""]},
-        improvements: {template: `${TEMPLATES}/config-improvements.hbs`, scrollable: [""]},
-        buildings: {template: `${TEMPLATES}/config-buildings.hbs`, scrollable: [""], templates: [`${TEMPLATES}/amount-list.hbs`]},
-        sizes: {template: `${TEMPLATES}/config-sizes.hbs`, scrollable: [""], templates: [`${TEMPLATES}/amount-list.hbs`]},
+        ...Object.fromEntries(Object.keys(CATEGORIES).map(id => [id, {
+            template: `${TEMPLATES}/config-${id}.hbs`, scrollable: [""], templates: [`${TEMPLATES}/amount-list.hbs`]
+        }])),
         footer: {template: "templates/generic/form-footer.hbs"}
     };
 
@@ -75,23 +108,20 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
      * Open the configuration, or bring it to front if already open.
      */
     static open() {
-        const app = foundry.applications.instances.get(EconomyConfig.DEFAULT_OPTIONS.id) ?? new EconomyConfig();
+        const app = foundry.applications.instances.get(ChexConfig.DEFAULT_OPTIONS.id) ?? new ChexConfig();
         return app.render({force: true});
     }
 
     /**
      * Working copy. Each category is an array, amount maps are arrays of {id, amount}.
      */
-    #draft = {
-        resources: EconomyConfig.#toDraft("resources", chex.resources),
-        improvements: EconomyConfig.#toDraft("improvements", chex.improvements),
-        buildings: EconomyConfig.#toDraft("buildings", chex.buildings),
-        sizes: EconomyConfig.#toDraft("sizes", chex.settlementSizes)
-    };
+    #draft = Object.fromEntries(Object.entries(CATEGORIES).map(([id, c]) => [id, ChexConfig.#toDraft(id, c.source())]));
+
+    #playerRealm = game.settings.get(C.MODULE_ID, PLAYER_REALM_SETTING);
 
     static #toDraft(category, definitions) {
         return Object.values(foundry.utils.deepClone(definitions ?? {})).map(def => {
-            for (const field of AMOUNT_FIELDS[category]) {
+            for (const field of amountFields(category)) {
                 def[field] = Object.entries(def[field] ?? {}).map(([id, amount]) => ({id, amount}));
             }
             return def;
@@ -102,12 +132,13 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
         const result = {};
         for (const entry of entries) {
             const def = {...entry};
-            for (const field of AMOUNT_FIELDS[category]) {
+            for (const field of amountFields(category)) {
                 def[field] = (entry[field] ?? []).reduce((map, {id, amount}) => {
                     if (id && Number(amount)) addAmounts(map, {[id]: Number(amount)});
                     return map;
                 }, {});
             }
+            for (const field of CATEGORIES[category].numbers ?? []) def[field] = Number(def[field]) || 0;
             result[def.id] = def;
         }
         return result;
@@ -124,8 +155,10 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
 
         return Object.assign(context, {
             draft: this.#draft,
+            playerRealm: this.#playerRealm,
             kinds: RESOURCE_KINDS,
             categories: RESOURCE_CATEGORIES,
+            travelOptions: this.#draft.travels.map(t => ({id: t.id, label: t.label || t.id})),
             improvementRows: this.#draft.improvements.map(m => ({...m, extraction: this.#extractionSummary(m)})),
             resourceOptions,
             needOptions: [
@@ -134,10 +167,10 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
             ],
             sizeOptions: this.#draft.sizes.map(s => ({id: s.id, label: s.label || s.id})),
             buttons: [
-                {type: "button", icon: "fa-solid fa-wand-magic-sparkles", label: "CHEX.ECONOMY.Config.AddDefaults", action: "addDefaults"},
-                {type: "button", icon: "fa-solid fa-file-export", label: "CHEX.ECONOMY.Config.Export", action: "exportJson"},
-                {type: "button", icon: "fa-solid fa-file-import", label: "CHEX.ECONOMY.Config.Import", action: "importJson"},
-                {type: "submit", icon: "fa-solid fa-save", label: "CHEX.HEXEDIT.Save"}
+                {type: "button", icon: "fa-solid fa-wand-magic-sparkles", label: "CHEX.CONFIG.AddDefaults", action: "addDefaults"},
+                {type: "button", icon: "fa-solid fa-file-export", label: "CHEX.CONFIG.Export", action: "exportJson"},
+                {type: "button", icon: "fa-solid fa-file-import", label: "CHEX.CONFIG.Import", action: "importJson"},
+                {type: "submit", icon: "fa-solid fa-save", label: "CHEX.Save"}
             ]
         });
     }
@@ -172,26 +205,25 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
         if (!this.form) return;
         const data = foundry.utils.expandObject(new foundry.applications.ux.FormDataExtended(this.form).object);
         const toArray = obj => obj ? Object.keys(obj).sort((a, b) => a - b).map(k => obj[k]) : [];
-        for (const category of Object.keys(AMOUNT_FIELDS)) {
+        for (const category of Object.keys(CATEGORIES)) {
             this.#draft[category] = toArray(data[category]).map(entry => {
-                for (const field of AMOUNT_FIELDS[category]) entry[field] = toArray(entry[field]);
+                for (const field of amountFields(category)) entry[field] = toArray(entry[field]);
                 if (category === "improvements") entry.allowed = String(entry.allowed ?? "").split(",").filter(a => a);
                 return entry;
             });
         }
+        // the radio buttons refer to rows, as ids may have been edited
+        const row = data.playerRealm === "" || data.playerRealm == null ? null : this.#draft.realms[Number(data.playerRealm)];
+        this.#playerRealm = row?.id ?? "";
     }
 
     static #onAddRow(event, target) {
         this.#sync();
         const category = target.dataset.category;
         const id = foundry.utils.randomID(8);
-        const blank = {
-            resources: () => new Resource(id, "", "icons/svg/item-bag.svg"),
-            improvements: () => new Improvement(id, "", "icons/svg/hazard.svg"),
-            buildings: () => new Building(id, "", "icons/svg/house.svg"),
-            sizes: () => new SettlementSize(id, "", {rank: this.#draft.sizes.length + 1})
-        }[category]();
-        this.#draft[category].push(...EconomyConfig.#toDraft(category, {[id]: blank}));
+        const blank = CATEGORIES[category].blank(id);
+        if (category === "sizes") blank.rank = this.#draft.sizes.length + 1;
+        this.#draft[category].push(...ChexConfig.#toDraft(category, {[id]: blank}));
         this.render();
     }
 
@@ -224,7 +256,7 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
         const raw = this.#draft.resources.filter(r => r.kind === "raw");
         const selected = r => allowed.length ? allowed.includes(r.id) : (!!improvement.extracts && r.category === improvement.extracts);
         const groups = [...Object.keys(RESOURCE_CATEGORIES), ""].map(category => ({
-            label: category ? RESOURCE_CATEGORIES[category] : "CHEX.ECONOMY.Config.Uncategorized",
+            label: category ? RESOURCE_CATEGORIES[category] : "CHEX.CONFIG.Uncategorized",
             resources: raw.filter(r => (r.category || "") === category)
                 .map(r => ({id: r.id, label: r.label || r.id, img: r.img, category: r.category || "", selected: selected(r)}))
         })).filter(g => g.resources.length);
@@ -232,14 +264,15 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
         const content = await foundry.applications.handlebars.renderTemplate(`${TEMPLATES}/extraction-dialog.hbs`, {
             extracts: improvement.extracts ?? "",
             categories: RESOURCE_CATEGORIES,
+            noneIcon: C.ICONS.none,
             groups
         });
         const data = await foundry.applications.api.DialogV2.input({
-            window: {title: game.i18n.format("CHEX.ECONOMY.Config.ExtractionTitle", {name: improvement.label || improvement.id}), icon: "fa-solid fa-person-digging"},
+            window: {title: game.i18n.format("CHEX.CONFIG.ExtractionTitle", {name: improvement.label || improvement.id}), icon: C.ICONS.improvement},
             position: {width: 560},
-            classes: ["chex-economy", "chex-extraction-dialog"],
+            classes: ["chex-app", "chex-extraction-dialog"],
             content,
-            render: (event, dialog) => EconomyConfig.#activateExtractionDialog(dialog.element),
+            render: (event, dialog) => ChexConfig.#activateExtractionDialog(dialog.element),
             rejectClose: false
         });
         if (!data) return;
@@ -292,81 +325,66 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
      */
     static #onAddDefaults() {
         this.#sync();
-        const defaults = {
-            resources: Resource.getDefaults(),
-            improvements: Improvement.getDefaults(),
-            buildings: Building.getDefaults(),
-            sizes: SettlementSize.getDefaults()
-        };
         let added = 0;
-        for (const [category, definitions] of Object.entries(defaults)) {
+        for (const [category, {defaults}] of Object.entries(CATEGORIES)) {
             const existing = new Set(this.#draft[category].map(e => e.id));
-            const missing = Object.fromEntries(Object.entries(definitions).filter(([id]) => !existing.has(id)));
+            const missing = Object.fromEntries(Object.entries(defaults()).filter(([id]) => !existing.has(id)));
             added += Object.keys(missing).length;
-            this.#draft[category].push(...EconomyConfig.#toDraft(category, missing));
+            this.#draft[category].push(...ChexConfig.#toDraft(category, missing));
         }
-        ui.notifications.info(game.i18n.format("CHEX.ECONOMY.Config.DefaultsAdded", {count: added}));
+        ui.notifications.info(game.i18n.format("CHEX.CONFIG.DefaultsAdded", {count: added}));
         this.render();
     }
 
     static #onExport() {
         this.#sync();
-        const data = Object.fromEntries(Object.keys(AMOUNT_FIELDS).map(c => [c, EconomyConfig.#fromDraft(c, this.#draft[c])]));
-        foundry.utils.saveDataToFile(JSON.stringify(data, null, 2), "application/json", "chex-economy.json");
+        const data = Object.fromEntries(Object.keys(CATEGORIES).map(c => [c, ChexConfig.#fromDraft(c, this.#draft[c])]));
+        foundry.utils.saveDataToFile(JSON.stringify(data, null, 2), "application/json", "chex-config.json");
     }
 
     static async #onImport() {
         const file = await foundry.applications.api.DialogV2.prompt({
-            window: {title: "CHEX.ECONOMY.Config.Import"},
-            content: `<p>${game.i18n.localize("CHEX.ECONOMY.Config.ImportHint")}</p><input type="file" name="file" accept=".json">`,
+            window: {title: "CHEX.CONFIG.Import"},
+            content: `<p>${game.i18n.localize("CHEX.CONFIG.ImportHint")}</p><input type="file" name="file" accept=".json">`,
             ok: {callback: (event, button) => button.form.elements.file.files[0]}
         }).catch(() => null);
         if (!file) return;
         try {
             const data = JSON.parse(await foundry.utils.readTextFromFile(file));
-            for (const category of Object.keys(AMOUNT_FIELDS)) {
-                if (data[category]) this.#draft[category] = EconomyConfig.#toDraft(category, data[category]);
+            for (const category of Object.keys(CATEGORIES)) {
+                if (data[category]) this.#draft[category] = ChexConfig.#toDraft(category, data[category]);
             }
             this.render();
         } catch (error) {
-            ui.notifications.error(game.i18n.format("CHEX.ECONOMY.Config.ImportFailed", {error: error.message}));
+            ui.notifications.error(game.i18n.format("CHEX.CONFIG.ImportFailed", {error: error.message}));
         }
     }
 
     /**
-     * @this {EconomyConfig}
+     * @this {ChexConfig}
      */
     static async #onSubmit(event, form, formData) {
         this.#sync();
-        for (const category of Object.keys(AMOUNT_FIELDS)) {
+        for (const category of Object.keys(CATEGORIES)) {
             const ids = this.#draft[category].map(e => e.id?.trim());
             const invalid = ids.find(id => !id || !ID_PATTERN.test(id));
             const duplicate = ids.find((id, i) => ids.indexOf(id) !== i);
             if (invalid !== undefined || duplicate) {
                 // ApplicationV2 shows the error and keeps the window open
-                throw new Error(game.i18n.format("CHEX.ECONOMY.Config.InvalidId", {
+                throw new Error(game.i18n.format("CHEX.CONFIG.InvalidId", {
                     id: invalid ?? duplicate,
-                    tab: game.i18n.localize(`CHEX.ECONOMY.Config.Tab.${category}`)
+                    tab: game.i18n.localize(`CHEX.CONFIG.Tab.${category}`)
                 }));
             }
         }
 
-        const numeric = (entry, fields) => fields.forEach(f => entry[f] = Number(entry[f]) || 0);
-        const resources = EconomyConfig.#fromDraft("resources", this.#draft.resources);
-        Object.values(resources).forEach(r => {
-            numeric(r, ["spawnWeight", "tradeValue"]);
-            if (r.kind !== "raw") r.category = "";
-        });
-        const improvements = EconomyConfig.#fromDraft("improvements", this.#draft.improvements);
-        Object.values(improvements).forEach(i => numeric(i, ["yield", "travel"]));
-        const buildings = EconomyConfig.#fromDraft("buildings", this.#draft.buildings);
-        Object.values(buildings).forEach(b => numeric(b, ["lots", "maxCount"]));
-        const sizes = EconomyConfig.#fromDraft("sizes", this.#draft.sizes);
-        Object.values(sizes).forEach(s => numeric(s, ["rank", "lots"]));
+        const values = Object.fromEntries(Object.keys(CATEGORIES).map(c => [c, ChexConfig.#fromDraft(c, this.#draft[c])]));
+        for (const r of Object.values(values.resources)) if (r.kind !== "raw") r.category = "";
+        for (const t of Object.values(values.travels)) t.special = !!t.special;
 
-        await game.settings.set(C.MODULE_ID, "Resource", resources);
-        await game.settings.set(C.MODULE_ID, "Improvement", improvements);
-        await game.settings.set(C.MODULE_ID, "Building", buildings);
-        await game.settings.set(C.MODULE_ID, "SettlementSize", sizes);
+        for (const [category, {setting}] of Object.entries(CATEGORIES)) {
+            await game.settings.set(C.MODULE_ID, setting, values[category]);
+        }
+        await game.settings.set(C.MODULE_ID, PLAYER_REALM_SETTING, values.realms[this.#playerRealm] ? this.#playerRealm : "");
     }
 }

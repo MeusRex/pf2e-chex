@@ -1,23 +1,23 @@
-cHex is a Foundry VTT module that improves on the existing grid system.
+cHex is a Foundry VTT (v14+) module that adds a persistent hex map to scenes: terrain, travel difficulty, realms,
+improvements, resources and settlements, plus a system-agnostic kingdom economy. It complements kingdom rules like
+PF2e Kingmaker without reading or writing system data.
 
-It enables a persistent hexagonal grid linked to a scene, which tracks terrain, traveling difficulty, improvements, ownership and so on...
-It is designed in a way that makes it highly customizable:
+## Map
+- **cHex Overlay** (token controls): colors hexes by realm, terrain or travel and shows details of the hovered hex.
+- **Map View** (token controls): choose the coloring, show settlements, and show improvements, resources or production per hex.
+- **Paint** (GM): paint terrain and realms by click, drag or area fill, and place improvements and resource deposits with single clicks.
+- **Hex editor** (GM, double-click a hex): terrain, travel, claim, exploration, settlement, improvements, deposits, forageables and features.
 
-Additional Terrains, features, realms (kingdoms and empires) and resources can be configured and linked to the grid.
-![image](https://github.com/MeusRex/pf2e-chex/assets/12465271/c982023f-2b22-49e1-a490-743562f0ba5e)
+## Economy
+- Raw resources come from improvements on claimed hexes (mines, farms, fisheries…). Without a deposit, a resource of the right
+  category is rolled by spawn weight.
+- Settlements have a size, needs and buildings that cost, consume and produce resources. Happiness is the share of needs met.
+- The **kingdom view** shows the stockpile with a preview of the next turn, settlements, work sites, drains like armies, and trades.
+- **Trade** between realms, once or every turn. One realm can be the player kingdom, which players manage themselves.
+- **End Turn** applies production, upkeep, needs, drains and trade agreements and posts a report.
 
-A drawing palette allows for quick and easy drawing of realms and terrain:
-![image](https://github.com/MeusRex/pf2e-chex/assets/12465271/3441820e-d94e-422d-b3bb-ad52109613d5)
+## Configuration
+Everything is configurable in one window (cHex controls → gear, or the module settings): realms, terrains, travel, features,
+resources, improvements, buildings and settlement sizes, with import/export.
 
-A number of different layers allows for a quick and easy overview:
-![image](https://github.com/MeusRex/pf2e-chex/assets/12465271/72c38d4a-8a29-42c3-babe-e1249038b843)
-So far the layers are:
-- Realm layer
-- Terrain layer
-- Travel difficulty layer
-
-Improvements can provide a multitude of resources and even decrease the difficulty of travel in the hex:
-![image](https://github.com/MeusRex/pf2e-chex/assets/12465271/ae2cdcf5-797d-42ba-a45c-ef612879d286)
-
-The realm palette tool allows to generate a report of the produced resources:
-![image](https://github.com/MeusRex/pf2e-chex/assets/12465271/72ae3d7b-3aa1-46ee-9d17-2d71f145f250)
+Details: [docs/economy-plan.md](docs/economy-plan.md)

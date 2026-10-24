@@ -1,0 +1,27 @@
+<section class="tab {{tab.cssClass}}" data-tab="buildings" data-group="primary">
+    <p class="hint">{{localize "CHEX.CONFIG.BuildingsHint"}}</p>
+    {{#each draft.buildings as |b i|}}
+    <div class="chex-config-card">
+        <div class="chex-config-card-header">
+            <img class="chex-config-img" src="{{b.img}}" data-action="pickImage" data-path="buildings.{{i}}.img" data-tooltip="CHEX.PickImage">
+            <input type="hidden" name="buildings.{{i}}.img" value="{{b.img}}">
+            <label>{{localize "CHEX.Id"}} <input type="text" name="buildings.{{i}}.id" value="{{b.id}}" data-tooltip="CHEX.IdTT"></label>
+            <label>{{localize "CHEX.Label"}} <input type="text" name="buildings.{{i}}.label" value="{{b.label}}"></label>
+            <label data-tooltip="CHEX.CONFIG.Field.lotsTT">{{localize "CHEX.CONFIG.Field.lots"}} <input type="number" name="buildings.{{i}}.lots" value="{{b.lots}}" min="0" step="1"></label>
+            <label data-tooltip="CHEX.CONFIG.Field.minSizeTT">{{localize "CHEX.CONFIG.Field.minSize"}}
+                <select name="buildings.{{i}}.minSize">
+                    {{selectOptions @root.sizeOptions selected=b.minSize valueAttr="id" labelAttr="label" blank=""}}
+                </select>
+            </label>
+            <label data-tooltip="CHEX.CONFIG.Field.maxCountTT">{{localize "CHEX.CONFIG.Field.maxCount"}} <input type="number" name="buildings.{{i}}.maxCount" value="{{b.maxCount}}" min="0" step="1"></label>
+            <a class="chex-row-control" data-action="deleteRow" data-category="buildings" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a>
+        </div>
+        <div class="chex-config-card-body">
+            {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.cost" path=(concat "buildings." i ".cost") entries=b.cost options=@root.needOptions}}
+            {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.upkeep" path=(concat "buildings." i ".upkeep") entries=b.upkeep options=@root.needOptions}}
+            {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.production" path=(concat "buildings." i ".production") entries=b.production options=@root.resourceOptions}}
+        </div>
+    </div>
+    {{/each}}
+    <button type="button" data-action="addRow" data-category="buildings"><i class="fa-solid fa-plus"></i> {{localize "CHEX.Add"}}</button>
+</section>

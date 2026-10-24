@@ -1,0 +1,32 @@
+<section class="tab {{tab.cssClass}}" data-tab="realms" data-group="primary">
+    <p class="hint">{{localize "CHEX.CONFIG.Hint.realms"}}</p>
+    <table class="chex-table chex-config-table">
+        <thead>
+            <tr>
+                <th>{{localize "CHEX.Color"}}</th>
+                <th>{{localize "CHEX.Id"}}</th>
+                <th>{{localize "CHEX.Label"}}</th>
+                <th data-tooltip="CHEX.CONFIG.PlayerRealmTT">{{localize "CHEX.CONFIG.PlayerRealm"}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each draft.realms as |r i|}}
+            <tr>
+                <td><input type="color" name="realms.{{i}}.color" value="{{r.color}}"></td>
+                <td><input type="text" name="realms.{{i}}.id" value="{{r.id}}" data-tooltip="CHEX.IdTT"></td>
+                <td><input type="text" name="realms.{{i}}.label" value="{{r.label}}"></td>
+                <td class="chex-center"><input type="radio" name="playerRealm" value="{{i}}" {{checked (eq r.id @root.playerRealm)}}></td>
+                <td><a class="chex-row-control" data-action="deleteRow" data-category="realms" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td></td>
+                <td colspan="2" class="chex-muted">{{localize "CHEX.CONFIG.NoPlayerRealm"}}</td>
+                <td class="chex-center"><input type="radio" name="playerRealm" value="" {{checked (eq "" @root.playerRealm)}}></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" data-action="addRow" data-category="realms"><i class="fa-solid fa-plus"></i> {{localize "CHEX.Add"}}</button>
+</section>

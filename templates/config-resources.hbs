@@ -1,16 +1,16 @@
 <section class="tab {{tab.cssClass}}" data-tab="resources" data-group="primary">
-    <p class="hint">{{localize "CHEX.ECONOMY.Config.ResourcesHint"}}</p>
+    <p class="hint">{{localize "CHEX.CONFIG.ResourcesHint"}}</p>
     <table class="chex-config-table">
         <thead>
             <tr>
                 <th></th>
-                <th>{{localize "CHEX.CUSTOMIZER.Id"}}</th>
-                <th>{{localize "CHEX.CUSTOMIZER.Label"}}</th>
-                <th>{{localize "CHEX.ECONOMY.Field.kind"}}</th>
-                <th data-tooltip="CHEX.ECONOMY.Field.categoryTT">{{localize "CHEX.ECONOMY.Field.category"}}</th>
-                <th data-tooltip="CHEX.ECONOMY.Field.groupTT">{{localize "CHEX.ECONOMY.Field.group"}}</th>
-                <th data-tooltip="CHEX.ECONOMY.Field.spawnWeightTT">{{localize "CHEX.ECONOMY.Field.spawnWeight"}}</th>
-                <th data-tooltip="CHEX.ECONOMY.Field.tradeValueTT">{{localize "CHEX.ECONOMY.Field.tradeValue"}}</th>
+                <th>{{localize "CHEX.Id"}}</th>
+                <th>{{localize "CHEX.Label"}}</th>
+                <th>{{localize "CHEX.CONFIG.Field.kind"}}</th>
+                <th data-tooltip="CHEX.CONFIG.Field.categoryTT">{{localize "CHEX.CONFIG.Field.category"}}</th>
+                <th data-tooltip="CHEX.CONFIG.Field.groupTT">{{localize "CHEX.CONFIG.Field.group"}}</th>
+                <th data-tooltip="CHEX.CONFIG.Field.spawnWeightTT">{{localize "CHEX.CONFIG.Field.spawnWeight"}}</th>
+                <th data-tooltip="CHEX.CONFIG.Field.tradeValueTT">{{localize "CHEX.CONFIG.Field.tradeValue"}}</th>
                 <th></th>
             </tr>
         </thead>
@@ -18,10 +18,10 @@
             {{#each draft.resources as |r i|}}
             <tr>
                 <td>
-                    <img class="chex-config-img" src="{{r.img}}" data-action="pickImage" data-path="resources.{{i}}.img" data-tooltip="CHEX.CUSTOMIZER.PickIconTT">
+                    <img class="chex-config-img" src="{{r.img}}" data-action="pickImage" data-path="resources.{{i}}.img" data-tooltip="CHEX.PickImage">
                     <input type="hidden" name="resources.{{i}}.img" value="{{r.img}}">
                 </td>
-                <td><input type="text" name="resources.{{i}}.id" value="{{r.id}}" data-tooltip="CHEX.CUSTOMIZER.IdTT"></td>
+                <td><input type="text" name="resources.{{i}}.id" value="{{r.id}}" data-tooltip="CHEX.IdTT"></td>
                 <td><input type="text" name="resources.{{i}}.label" value="{{r.label}}"></td>
                 <td>
                     <select name="resources.{{i}}.kind">
@@ -36,10 +36,10 @@
                 <td><input type="text" name="resources.{{i}}.group" value="{{r.group}}"></td>
                 <td><input type="number" name="resources.{{i}}.spawnWeight" value="{{r.spawnWeight}}" min="0" step="1"></td>
                 <td><input type="number" name="resources.{{i}}.tradeValue" value="{{r.tradeValue}}" min="0" step="any"></td>
-                <td><a class="chex-row-control" data-action="deleteRow" data-category="resources" data-index="{{i}}" data-tooltip="CHEX.HEXEDIT.Delete"><i class="fa-solid fa-trash"></i></a></td>
+                <td><a class="chex-row-control" data-action="deleteRow" data-category="resources" data-index="{{i}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-    <button type="button" data-action="addRow" data-category="resources"><i class="fa-solid fa-plus"></i> {{localize "CHEX.HEXEDIT.Add"}}</button>
+    <button type="button" data-action="addRow" data-category="resources"><i class="fa-solid fa-plus"></i> {{localize "CHEX.Add"}}</button>
 </section>

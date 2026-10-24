@@ -5,7 +5,7 @@
     <header class="chex-kingdom-header" style="--realm-color: {{realm.color}}">
         <div class="chex-realm-swatch"></div>
         <div class="chex-kingdom-stats">
-            {{#if isPlayerRealm}}<span class="chex-badge" data-tooltip="CHEX.CUSTOMIZER.PlayerRealmTT"><i class="fa-solid fa-users"></i> {{localize "CHEX.ECONOMY.Kingdom.PlayerKingdom"}}</span>{{/if}}
+            {{#if isPlayerRealm}}<span class="chex-badge" data-tooltip="CHEX.CONFIG.PlayerRealmTT"><i class="fa-solid fa-users"></i> {{localize "CHEX.ECONOMY.Kingdom.PlayerKingdom"}}</span>{{/if}}
             <span data-tooltip="CHEX.ECONOMY.Kingdom.TurnTT"><i class="fa-solid fa-hourglass-half"></i> {{localize "CHEX.ECONOMY.Kingdom.Turn"}} {{state.turn}}</span>
             <span data-tooltip="CHEX.ECONOMY.Kingdom.HappinessTT">
                 <i class="fa-solid fa-face-smile"></i> {{localize "CHEX.ECONOMY.Happiness"}} {{state.happiness}}%
@@ -73,9 +73,9 @@
             <table class="chex-table">
                 <thead>
                     <tr>
-                        <th>{{localize "CHEX.CUSTOMIZER.Label"}}</th>
+                        <th>{{localize "CHEX.Label"}}</th>
                         <th>{{localize "CHEX.ECONOMY.Settlement.Size"}}</th>
-                        <th>{{localize "CHEX.ECONOMY.Field.lots"}}</th>
+                        <th>{{localize "CHEX.CONFIG.Field.lots"}}</th>
                         <th>{{localize "CHEX.ECONOMY.Happiness"}}</th>
                         <th>{{localize "CHEX.ECONOMY.Settlement.Location"}}</th>
                         <th></th>
@@ -136,8 +136,8 @@
                     {{#each incomingOffers}}
                     <tr data-offer-id="{{this.id}}" data-from="{{this.from}}" class="chex-highlight">
                         <td><i class="fa-solid fa-envelope"></i> {{this.fromLabel}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.give}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.receive}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.give}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.receive}}</td>
                         <td>{{#if this.recurring}}<span data-tooltip="CHEX.ECONOMY.Trade.RecurringTT"><i class="fa-solid fa-repeat"></i></span>{{/if}}</td>
                         <td class="chex-controls">
                             {{#if @root.canManage}}
@@ -150,8 +150,8 @@
                     {{#each outgoingOffers}}
                     <tr data-offer-id="{{this.id}}">
                         <td><i class="fa-solid fa-paper-plane"></i> {{this.partnerLabel}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.give}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.receive}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.give}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.receive}}</td>
                         <td>{{#if this.recurring}}<span data-tooltip="CHEX.ECONOMY.Trade.RecurringTT"><i class="fa-solid fa-repeat"></i></span>{{/if}} <span class="chex-muted">{{localize "CHEX.ECONOMY.Trade.Pending"}}</span></td>
                         <td class="chex-controls">
                             {{#if @root.canManage}}<a class="chex-row-control" data-action="cancelOffer" data-tooltip="CHEX.ECONOMY.Trade.Withdraw"><i class="fa-solid fa-trash"></i></a>{{/if}}
@@ -161,8 +161,8 @@
                     {{#each agreements}}
                     <tr data-agreement-id="{{this.id}}" data-owner="{{this.owner}}">
                         <td><i class="fa-solid fa-handshake"></i> {{this.partnerLabel}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.give sign="−"}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.receive sign="+"}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.give sign="−"}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.receive sign="+"}}</td>
                         <td>
                             <span data-tooltip="CHEX.ECONOMY.Trade.AgreementTT"><i class="fa-solid fa-repeat"></i></span>
                             {{#if (eq this.executed false)}}<span class="chex-bad" data-tooltip="CHEX.ECONOMY.Trade.FailedTT"><i class="fa-solid fa-circle-exclamation"></i></span>{{/if}}
@@ -189,7 +189,7 @@
                     <tr data-drain-id="{{this.id}}" class="{{#unless this.active}}chex-inactive{{/unless}}">
                         <td class="chex-icon-cell"><img src="{{this.img}}"></td>
                         <td>{{this.name}}</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.upkeep sign="−"}}</td>
                         <td>
                             {{#unless this.paid}}<span class="chex-bad" data-tooltip="CHEX.ECONOMY.Kingdom.UnpaidTT"><i class="fa-solid fa-circle-exclamation"></i> {{localize "CHEX.ECONOMY.Kingdom.Unpaid"}}</span>{{/unless}}
                             {{#unless this.willPay}}<span class="chex-bad" data-tooltip="CHEX.ECONOMY.Kingdom.WillNotPayTT"><i class="fa-solid fa-triangle-exclamation"></i></span>{{/unless}}
@@ -198,7 +198,7 @@
                         <td class="chex-controls">
                             <a class="chex-row-control" data-action="toggleDrain" data-tooltip="CHEX.ECONOMY.Kingdom.ToggleDrain"><i class="fa-solid {{#if this.active}}fa-toggle-on{{else}}fa-toggle-off{{/if}}"></i></a>
                             <a class="chex-row-control" data-action="editDrain" data-tooltip="CHEX.ECONOMY.Kingdom.EditDrain"><i class="fa-solid fa-pen"></i></a>
-                            <a class="chex-row-control" data-action="deleteDrain" data-tooltip="CHEX.HEXEDIT.Delete"><i class="fa-solid fa-trash"></i></a>
+                            <a class="chex-row-control" data-action="deleteDrain" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a>
                         </td>
                         {{/if}}
                     </tr>
@@ -217,7 +217,7 @@
                     <tr>
                         <td>{{localize "CHEX.ECONOMY.Kingdom.Turn"}} {{this.turn}}</td>
                         <td>{{this.happiness}}%</td>
-                        <td>{{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=this.net}}</td>
+                        <td>{{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=this.net}}</td>
                     </tr>
                     {{/each}}
                 </tbody>

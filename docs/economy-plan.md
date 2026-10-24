@@ -28,7 +28,7 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 - Definitions: world settings (`Resource`, `Improvement`, `Building`, `SettlementSize`). Old settings are migrated on load.
 - Realm state: world setting `RealmState`. All mutations go through the GM query `pf2e-chex.realm`
   (`CONFIG.queries`), which validates permissions (GM, or players for the player kingdom) and applies the change atomically.
-- Player kingdom: world setting `PlayerRealm`, chosen in the Customizer → Realms. Players manage that realm; the GM manages all.
+- Player kingdom: world setting `PlayerRealm`, chosen in the configuration → Realms. Players manage that realm; the GM manages all.
 
 ## Phases
 
@@ -39,21 +39,32 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 4. ✅ **End Turn** – apply simulation, chat report, turn log.
 5. ✅ **Trade** – trade screen between realms, GM or player acceptance, recurring agreements.
 6. ✅ **Map view** – settlement markers on the overlay (outline colored by happiness); per-user Map View panel with a settlements toggle and one of improvements / resources / production per hex.
+7. ✅ **UI cleanup** – everything on ApplicationV2 with one style (`.chex-app`), Foundry v14+. One configuration window,
+   one paint palette, Map View replaces the overlay mode buttons, hex editor and HUD rebuilt, income report removed.
 
 ## Usage
 
-- **Setup (GM):** cHex controls → *Economy Configuration* (coins icon), or module settings. Choose the player kingdom in the
-  cHex Customizer → Realms.
-- **Kingdom view:** token controls → crown icon (players: the player kingdom), or the Kingdom button of the realm palette.
-- **Settlements:** found them on a claimed hex in the hex editor (GM double-click), or create them in the kingdom view
-  and place them later. Players open a settlement by double-clicking its hex with the cHex overlay enabled.
-- **Brush (GM):** cHex controls → paintbrush. Pick an improvement (optionally with a fixed extracted resource) or a resource deposit with amount, then click hexes to add/update, Shift+click to remove.
-- **Map View:** token controls → layers icon (with the cHex overlay enabled). Settlements on/off, plus improvements, resources or production per hex. Players only see what is marked visible to them.
-- **Trade:** *Trade* button in the kingdom view. Offers appear in the partner's kingdom view. Other realms
-  are answered by the GM.
-- **End Turn (GM):** in the kingdom view of each realm. Posts a report whispered to the GM (and the players for the player kingdom).
-- **Macros:** `chex.openKingdom(realmId)`, `chex.openSettlement(realmId, settlementId)`, `chex.openTrade(realmId, partnerId)`,
-  `chex.economy` (store API).
+**Token controls (everyone, on cHex scenes):**
+- **cHex Overlay** – shows the overlay and the hex HUD on hover.
+- **Map View** – color by realm / terrain / travel, settlements on/off, and improvements, resources or production per hex.
+  Stored per user. Players only see what is marked visible to them.
+- **Kingdom Economy** – the kingdom view (players: the player kingdom).
+
+**cHex controls (GM):**
+- **Paint** – tabs Terrain / Realm (click or drag; *Fill area* fills connected hexes after a confirmation) and
+  Improvements / Resources (click to add or update, Shift+click to remove).
+- **Configuration** – realms (incl. the player kingdom), terrains, travel, features, resources, improvements, buildings,
+  settlement sizes. Import/export as JSON, add missing defaults. Also in the module settings.
+- **Add / Remove cHex** on the current scene.
+
+**On the map:** double-click a hex to edit it (GM). Players open a settlement by double-clicking its hex.
+
+**Economy:** settlements are founded on a claimed hex in the hex editor or in the kingdom view. Trade via the *Trade* button
+in the kingdom view; offers appear in the partner's kingdom view, other realms are answered by the GM. *End Turn* (GM) in
+the kingdom view posts a report whispered to the GM (and the players for the player kingdom).
+
+**Macros:** `chex.openKingdom(realmId)`, `chex.openSettlement(realmId, settlementId)`, `chex.openTrade(realmId, partnerId)`,
+`chex.openConfig()`, `chex.economy` (store API).
 
 ## Tests
 

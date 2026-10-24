@@ -17,7 +17,7 @@ export default class KingdomView extends HandlebarsApplicationMixin(ApplicationV
     }
 
     static DEFAULT_OPTIONS = {
-        classes: ["chex-economy", "chex-economy-live", "chex-kingdom"],
+        classes: ["chex-app", "chex-live", "chex-kingdom"],
         window: {
             icon: "fa-solid fa-crown",
             resizable: true
@@ -231,7 +231,7 @@ export default class KingdomView extends HandlebarsApplicationMixin(ApplicationV
     async #editDrain(drainId) {
         const drain = Store.getRealmState(this.realmId).drains[drainId] ?? {name: "", img: "", upkeep: {}};
         const header = `
-            <div class="form-group"><label>${game.i18n.localize("CHEX.CUSTOMIZER.Label")}</label>
+            <div class="form-group"><label>${game.i18n.localize("CHEX.Label")}</label>
                 <input type="text" name="name" value="${foundry.utils.escapeHTML(drain.name ?? "")}" required></div>
             <input type="hidden" name="img" value="${foundry.utils.escapeHTML(drain.img ?? "")}">`;
         const data = await UI.editAmounts({
@@ -255,7 +255,7 @@ export default class KingdomView extends HandlebarsApplicationMixin(ApplicationV
         const data = await foundry.applications.api.DialogV2.input({
             window: {title: "CHEX.ECONOMY.Kingdom.CreateSettlement", icon: "fa-solid fa-city"},
             content: `
-                <div class="form-group"><label>${game.i18n.localize("CHEX.CUSTOMIZER.Label")}</label><input type="text" name="name" required autofocus></div>
+                <div class="form-group"><label>${game.i18n.localize("CHEX.Label")}</label><input type="text" name="name" required autofocus></div>
                 <div class="form-group"><label>${game.i18n.localize("CHEX.ECONOMY.Settlement.Size")}</label><select name="size">${options}</select></div>
                 <p class="hint">${game.i18n.localize("CHEX.ECONOMY.Kingdom.CreateSettlementHint")}</p>`,
             rejectClose: false

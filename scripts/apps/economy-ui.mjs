@@ -2,7 +2,7 @@ import * as C from "../const.mjs";
 import { GROUP_PREFIX } from "../economy/engine.mjs";
 import { canManage } from "../economy/realm-store.mjs";
 
-export const TEMPLATES = "modules/pf2e-chex/templates/economy";
+export const TEMPLATES = "modules/pf2e-chex/templates";
 const GROUP_IMAGE = "icons/svg/item-bag.svg";
 
 /**
@@ -97,7 +97,7 @@ export async function editAmounts({title, values = {}, groups = true, header = "
     const data = await foundry.applications.api.DialogV2.input({
         window: {title, icon: "fa-solid fa-scale-balanced"},
         position: {width: 520},
-        classes: ["chex-economy", "chex-amount-dialog"],
+        classes: ["chex-app", "chex-amount-dialog"],
         content,
         rejectClose: false
     });
@@ -128,6 +128,6 @@ export function confirm(title, content) {
  */
 export const refreshEconomyApps = foundry.utils.debounce(() => {
     for (const app of foundry.applications.instances.values()) {
-        if (app.options.classes?.includes("chex-economy-live") && app.rendered) app.render();
+        if (app.options.classes?.includes("chex-live") && app.rendered) app.render();
     }
 }, 100);

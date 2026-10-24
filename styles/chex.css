@@ -1,573 +1,91 @@
-#chex-hud {
-  background: rgba(0, 0, 0, 0.8);
-  color: #EEE;
-  padding: 0.5rem 1.5rem;
-  font-size: 2rem;
-  border: 2px solid #000;
-  border-radius: 1rem;
-}
+/* ==========================================================================
+   cHex – one style for all windows (ApplicationV2, class .chex-app)
+   ========================================================================== */
 
-#chex-hud div.group {
-  border-image: linear-gradient(to right, transparent, #999 10%, 90%, transparent) 1 / 2px 0 0 0;
-}
-
-#chex-hud div.group p.item {
-  min-height: 32px;
-  margin: 0;
-  padding: 0.4rem 0;
-}
-#chex-hud div.group p.item i {
-  padding: 14px 0 0 0;
-  flex: 0 0 5rem;
-  text-align: center;
-}
-#chex-hud div.group p.item:first-child {
-  padding-top: 1rem;
-}
-#chex-hud div.group p.item:last-child {
-  padding-bottom: 1rem;
-}
-#chex-hud .flex {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  white-space: nowrap;
-}
-#chex-hud .flex div {
-  flex: 100%;
-}
-#chex-hud .flex img.terrain {
-  margin: 1rem 0;
-  flex: 0 0 160px;
-  width: 160px;
-  height: 160px;
-  border-radius: 10px;
-}
-#chex-hud p.item {
-  border-radius: 50px;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: nowrap;
-}
-#chex-hud p.item span {
-  align-self: center;
-}
-#chex-hud p.item .key {
-  flex: 1;
-  text-align: left;
-}
-#chex-hud p.item .value {
-  text-align: right;
-  width: 100%;
-}
-#chex-hud p.item .gray {
-  color: #a0a0a0;
-}
-#chex-hud p.item img {
-  height: 4rem;
-  border-radius: 24px;
-}
-
-
-.chex-delete {
-  max-width: 24px;
-  max-height: 24px;
-  line-height: 22px;
-  align-items: center;
-  vertical-align: middle;
-  padding: 0px 0px 0px 3px;
-}
-
-.chex-add-button {
-  font-size: 11px;
-  height: 25px;
-  width: fit-content;
-  line-height: initial;
-}
-
-.chex-open-filepicker {
-  max-width: 24px;
-  max-height: 24px;
-  line-height: 22px;
-  align-items: center;
-  vertical-align: middle;
-  padding: 0px 0px 0px 3px;
-}
-
-.chex-flex {
-  display: flex;
-  gap: 2px;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.chex-img-preview {
-  max-width: 100%;
-  max-height: 100px;
-  align-self: center;
-}
-
-
-.chex-item {
-  display: flex;
-  align-items: center;
-  margin: 0px;
-}
-
-.chex-key {
-  font-weight: bold;
-  margin-right: 10px;
-  min-width: 60px;
-}
-
-.chex-grid-container {
-  display: grid;
-  grid-template-columns: 50px 1fr 100px; /* Adjust column widths as needed */
-  column-gap: 6px;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.chex-item-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.chex-icon-path {
-  flex: 1; /* Take remaining space in the container */
-}
-
-.chex-button-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.chex-terrain-selector-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.chex-paint-bucket-option {
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  border: 1px solid var(--color-border-light-tertiary);
-}
-
-.chex-paint-bucket-option label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.chex-paint-bucket-option input[type="checkbox"] {
-  margin: 0;
-}
-
-.chex-terrain-selector {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-}
-
-/* Style for each button */
-.chex-terrain-selector button {
-  margin-bottom: 4px; /* Adjust the margin as needed */
-  width: 30px;
-  padding: 0px 0px 0px 4px;
-}
-
-.chex-terrain-selector button.active {
-  border: 1px solid var(--color-border-highlight-alt);
-  border-bottom: 1px solid var(--color-border-highlight);
-  box-shadow: 0 0 5px var(--color-shadow-highlight);
-}
-
-.chex-realm-select {
-  width: 100%;
-}
-
-.chex-preview-note {
-  font-size: 11px;
-  color: #666;
-  font-style: italic;
-  margin: 8px 0;
-  text-align: center;
-}
 /* ---------------------------------------- */
-/*  Economy                                 */
+/*  Base                                    */
 /* ---------------------------------------- */
 
-.chex-economy .window-content {
+.chex-app {
+  --chex-accent: var(--color-warm-2, #c9593f);
+  --chex-good: var(--color-level-success, #2e7d32);
+  --chex-bad: var(--color-level-error, #c62828);
+  --chex-muted: var(--color-text-subtle, #888);
+  --chex-border: var(--color-border, #999);
+  --chex-row: rgba(0, 0, 0, 0.04);
+}
+
+.chex-app .window-content {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.chex-economy section.tab {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 4px;
+.chex-app h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0.25rem;
+  border-bottom: 1px solid var(--chex-border);
+  font-family: var(--font-body, inherit);
+  font-size: var(--font-size-16, 16px);
+  font-weight: bold;
 }
 
-.chex-economy section.tab:not(.active) {
-  display: none;
+.chex-app h4 {
+  margin: 0.5rem 0 0.25rem;
+  border-bottom: 1px solid var(--chex-border);
+  font-family: var(--font-body, inherit);
+  font-size: var(--font-size-13, 13px);
+  font-weight: bold;
 }
 
-.chex-economy .hint {
-  color: var(--color-text-subtle, #777);
+.chex-app h3 .chex-row-control {
+  margin-left: auto;
   font-size: var(--font-size-12, 12px);
-  margin: 0 0 0.5rem;
 }
 
-.chex-economy .chex-config-img {
-  width: 32px;
-  height: 32px;
-  border: none;
-  cursor: pointer;
-  object-fit: contain;
+.chex-app .hint {
+  color: var(--chex-muted);
+  font-size: var(--font-size-12, 12px);
+  margin: 0.25rem 0;
 }
 
-.chex-economy .chex-row-control {
+/* text states */
+.chex-app .chex-good { color: var(--chex-good); }
+.chex-app .chex-bad { color: var(--chex-bad); }
+.chex-app .chex-muted { color: var(--chex-muted); }
+.chex-app .chex-inactive { opacity: 0.55; }
+.chex-app .chex-highlight { background: rgba(255, 200, 0, 0.12); }
+.chex-app .chex-center { text-align: center; }
+.chex-app .chex-grow { flex: 1; min-width: 0; }
+.chex-app .chex-danger { margin-left: auto; }
+
+.chex-app .chex-row-control {
   cursor: pointer;
   padding: 0 4px;
 }
 
-.chex-config-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.chex-config-table th,
-.chex-config-table td {
-  padding: 2px 4px;
-  vertical-align: middle;
-  text-align: left;
-}
-
-.chex-config-table input[type="number"] {
-  width: 4rem;
-}
-
-.chex-config-table select.chex-multi {
-  height: 4.5rem;
-  min-width: 8rem;
-}
-
-.chex-config-card {
-  border: 1px solid var(--color-border, #999);
-  border-radius: 4px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.chex-config-card-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.chex-config-card-header label {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  white-space: nowrap;
-}
-
-.chex-config-card-header input[type="number"] {
-  width: 4rem;
-}
-
-.chex-config-card-header input[type="text"] {
-  width: 9rem;
-}
-
-.chex-config-card-header .chex-row-control {
-  margin-left: auto;
-}
-
-.chex-config-card-body {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.chex-amount-list {
-  flex: 1;
-  min-width: 12rem;
-}
-
-.chex-amount-list header {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  border-bottom: 1px solid var(--color-border, #999);
-  margin-bottom: 0.25rem;
-}
-
-.chex-amount-row {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-bottom: 2px;
-}
-
-.chex-amount-row select {
-  flex: 1;
-}
-
-.chex-amount-row input[type="number"] {
-  width: 3.5rem;
-}
-
-.chex-economy .chex-good { color: var(--color-level-success, #2e7d32); }
-.chex-economy .chex-bad { color: var(--color-level-error, #c62828); }
-.chex-economy .chex-muted { color: var(--color-text-subtle, #888); }
-.chex-economy .chex-danger { margin-left: auto; }
-.chex-economy .chex-inactive { opacity: 0.55; }
-.chex-economy .chex-highlight { background: rgba(255, 200, 0, 0.12); }
-
-.chex-economy h3 {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin: 0.75rem 0 0.25rem;
-  border-bottom: 1px solid var(--color-border, #999);
-}
-
-.chex-economy h3 .chex-row-control {
-  margin-left: auto;
-  font-size: var(--font-size-12, 12px);
-}
-
-.chex-kingdom-content,
-.chex-settlement-content,
-.chex-trade-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
-.chex-economy .chex-scroll {
+.chex-app .chex-scroll {
   flex: 1;
   overflow-y: auto;
   min-height: 0;
   padding-right: 4px;
 }
 
-.chex-kingdom-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--realm-color, #888);
-}
-
-.chex-realm-swatch {
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  background: var(--realm-color, #888);
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  flex: none;
-}
-
-.chex-kingdom-stats {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
+/* tabs of tabbed windows */
+.chex-app section.tab {
   flex: 1;
-}
-
-.chex-kingdom-actions {
-  display: flex;
-  gap: 0.25rem;
-}
-
-.chex-kingdom-actions button {
-  white-space: nowrap;
-}
-
-.chex-location {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0;
-}
-
-.chex-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0;
-}
-
-.chex-table th,
-.chex-table td {
-  padding: 2px 4px;
-  text-align: left;
-  vertical-align: middle;
-}
-
-.chex-table tbody tr:nth-child(even) {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-.chex-table .chex-icon-cell {
-  width: 28px;
-}
-
-.chex-table .chex-icon-cell img {
-  width: 24px;
-  height: 24px;
-  border: none;
-  object-fit: contain;
-  vertical-align: middle;
-}
-
-.chex-table .chex-controls {
-  white-space: nowrap;
-  text-align: right;
-}
-
-.chex-construct button {
-  white-space: nowrap;
-}
-
-.chex-shortages {
-  border: 1px solid var(--color-level-error, #c62828);
-  border-radius: 4px;
-  padding: 0 0.5rem 0.25rem;
-  margin-top: 0.5rem;
-}
-
-.chex-shortages h3 {
-  border: none;
-  color: var(--color-level-error, #c62828);
-}
-
-.chex-shortages ul,
-.chex-sites,
-.chex-needs {
-  margin: 0;
-  padding-left: 1.25rem;
-}
-
-.chex-sites,
-.chex-needs {
-  list-style: none;
-  padding-left: 0;
-}
-
-.chex-sites li,
-.chex-needs li {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 1px 0;
-}
-
-.chex-sites img,
-.chex-needs img {
-  width: 20px;
-  height: 20px;
-  border: none;
-}
-
-.chex-amounts {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.chex-amount {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  white-space: nowrap;
-}
-
-.chex-amount img {
-  width: 18px;
-  height: 18px;
-  border: none;
-  object-fit: contain;
-}
-
-.chex-drop-hint {
-  margin-top: 0.25rem;
-}
-
-.chex-trade-table input[type="number"] {
-  width: 4.5rem;
-}
-
-.chex-trade-summary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0;
-  border-top: 1px solid var(--color-border, #999);
-}
-
-.chex-trade-summary label {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.chex-amount-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-  gap: 0.25rem 0.75rem;
-  max-height: 24rem;
   overflow-y: auto;
+  padding-right: 4px;
 }
 
-.chex-amount-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+.chex-app section.tab:not(.active) {
+  display: none;
 }
 
-.chex-amount-cell img {
-  width: 22px;
-  height: 22px;
-  border: none;
-}
-
-.chex-amount-cell span {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.chex-amount-cell input {
-  width: 3.5rem;
-  flex: none;
-}
-
-.chex-turn-report img {
-  border: none;
-}
-
-.chex-economy h3 {
-  font-size: var(--font-size-16, 16px);
-  font-family: var(--font-body, inherit);
-  font-weight: bold;
-}
-
-.chex-economy .form-footer {
+/* footer buttons in one row */
+.chex-app .form-footer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -575,17 +93,337 @@
   flex: none;
 }
 
-.chex-economy .form-footer button {
+.chex-app .form-footer button {
   flex: 1;
   white-space: nowrap;
 }
 
-.chex-economy-config .form-footer button[type="submit"] {
+.chex-app .form-footer button[type="submit"] {
   flex: 2;
 }
 
-/* improvement extraction: summary cell and dialog */
-.chex-extraction-summary {
+/* ---------------------------------------- */
+/*  Tables                                  */
+/* ---------------------------------------- */
+
+.chex-app .chex-table,
+.chex-app .chex-config-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.chex-app .chex-table th,
+.chex-app .chex-table td,
+.chex-app .chex-config-table th,
+.chex-app .chex-config-table td {
+  padding: 2px 4px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.chex-app .chex-table tbody tr:nth-child(even),
+.chex-app .chex-config-table tbody tr:nth-child(even) {
+  background: var(--chex-row);
+}
+
+.chex-app .chex-table .chex-icon-cell {
+  width: 28px;
+}
+
+.chex-app .chex-table .chex-icon-cell img {
+  width: 24px;
+  height: 24px;
+  border: none;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.chex-app .chex-table .chex-controls {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.chex-app .chex-config-table input[type="number"] {
+  width: 4.5rem;
+}
+
+.chex-app .chex-config-img {
+  width: 32px;
+  height: 32px;
+  border: none;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+/* ---------------------------------------- */
+/*  Panels: map view, paint palette         */
+/* ---------------------------------------- */
+
+.chex-app .chex-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.chex-app .chex-panel h4:first-child {
+  margin-top: 0;
+}
+
+/* a row button that is on or off */
+.chex-app .chex-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  opacity: 0.7;
+}
+
+.chex-app .chex-option.active {
+  opacity: 1;
+  border-color: var(--chex-accent);
+}
+
+.chex-app .chex-option .chex-option-state {
+  margin-left: auto;
+}
+
+/* buttons of which exactly one is active */
+.chex-app .chex-segmented,
+.chex-app .chex-presets {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0 0 0.25rem;
+}
+
+.chex-app .chex-segmented button,
+.chex-app .chex-presets button {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.chex-app .chex-segmented button.active,
+.chex-app .chex-presets button.active {
+  background: var(--chex-accent);
+  color: var(--color-light-1, #fff);
+}
+
+/* grid of selectable icons */
+.chex-app .chex-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
+}
+
+.chex-app .chex-icon-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 42px;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-bottom-color: var(--item-color, transparent);
+  border-radius: 4px;
+  opacity: 0.6;
+}
+
+.chex-app .chex-icon-item img {
+  width: 34px;
+  height: 34px;
+  border: none;
+}
+
+.chex-app .chex-icon-item i {
+  font-size: 1.4rem;
+}
+
+.chex-app .chex-icon-item.active {
+  opacity: 1;
+  border-color: var(--chex-accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chex-app .chex-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--item-color, #888);
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+/* label – input rows */
+.chex-app .chex-fields label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.chex-app .chex-fields select,
+.chex-app .chex-fields input[type="number"] {
+  width: 10rem;
+}
+
+/* ---------------------------------------- */
+/*  Entry rows (hex editor)                 */
+/* ---------------------------------------- */
+
+.chex-app .chex-entry-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 3px;
+}
+
+.chex-app .chex-entry-row img {
+  width: 28px;
+  height: 28px;
+  border: none;
+  flex: none;
+}
+
+.chex-app .chex-entry-row input[type="number"] {
+  width: 3.5rem;
+  flex: none;
+}
+
+.chex-app .chex-entry-row select:not(.chex-grow) {
+  width: 9rem;
+}
+
+/* visibility toggle: a checkbox shown as an eye */
+.chex-app .chex-eye {
+  cursor: pointer;
+  width: 1.5rem;
+  text-align: center;
+  flex: none;
+}
+
+.chex-app .chex-eye input { display: none; }
+.chex-app .chex-eye .fa-eye { display: none; }
+.chex-app .chex-eye .fa-eye-slash { color: var(--chex-muted); }
+.chex-app .chex-eye:has(input:checked) .fa-eye { display: inline; }
+.chex-app .chex-eye:has(input:checked) .fa-eye-slash { display: none; }
+
+/* ---------------------------------------- */
+/*  Amounts                                 */
+/* ---------------------------------------- */
+
+.chex-app .chex-amounts {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chex-app .chex-amount {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.chex-app .chex-amount img {
+  width: 18px;
+  height: 18px;
+  border: none;
+  object-fit: contain;
+}
+
+/* editable list of amounts (buildings, sizes) */
+.chex-app .chex-amount-list {
+  flex: 1;
+  min-width: 12rem;
+}
+
+.chex-app .chex-amount-list header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 1px solid var(--chex-border);
+  margin-bottom: 0.25rem;
+}
+
+.chex-app .chex-amount-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 2px;
+}
+
+.chex-app .chex-amount-row select { flex: 1; }
+.chex-app .chex-amount-row input[type="number"] { width: 3.5rem; }
+
+/* amount dialog */
+.chex-app .chex-amount-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.25rem 0.75rem;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.chex-app .chex-amount-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.chex-app .chex-amount-cell img {
+  width: 22px;
+  height: 22px;
+  border: none;
+}
+
+.chex-app .chex-amount-cell span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chex-app .chex-amount-cell input {
+  width: 3.5rem;
+  flex: none;
+}
+
+/* ---------------------------------------- */
+/*  Configuration                           */
+/* ---------------------------------------- */
+
+.chex-config .chex-config-card {
+  border: 1px solid var(--chex-border);
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.chex-config .chex-config-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chex-config .chex-config-card-header label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.chex-config .chex-config-card-header input[type="number"] { width: 4rem; }
+.chex-config .chex-config-card-header input[type="text"] { width: 9rem; }
+.chex-config .chex-config-card-header .chex-row-control { margin-left: auto; }
+
+.chex-config .chex-config-card-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.chex-config .chex-extraction-summary {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
@@ -593,35 +431,20 @@
   cursor: pointer;
 }
 
-.chex-extraction-summary img {
+.chex-config .chex-extraction-summary img {
   width: 20px;
   height: 20px;
   border: none;
 }
 
-.chex-presets {
-  display: flex;
-  gap: 0.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.chex-presets button.active {
-  background: var(--color-warm-2, #c9593f);
-  color: var(--color-light-1, #fff);
-}
-
-.chex-extraction-dialog h4 {
-  margin: 0.5rem 0 0.25rem;
-  border-bottom: 1px solid var(--color-border, #999);
-}
-
-.chex-toggle-grid {
+/* extraction dialog: resources that can be toggled */
+.chex-app .chex-toggle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
   gap: 0.25rem;
 }
 
-.chex-toggle {
+.chex-app .chex-toggle {
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -633,110 +456,201 @@
   filter: grayscale(1);
 }
 
-.chex-toggle input {
-  display: none;
-}
+.chex-app .chex-toggle input { display: none; }
 
-.chex-toggle img {
+.chex-app .chex-toggle img {
   width: 28px;
   height: 28px;
   border: none;
 }
 
-.chex-toggle:has(input:checked) {
+.chex-app .chex-toggle:has(input:checked) {
   opacity: 1;
   filter: none;
-  border-color: var(--color-warm-2, #c9593f);
+  border-color: var(--chex-accent);
   background: rgba(255, 255, 255, 0.05);
 }
 
-.chex-badge {
+/* ---------------------------------------- */
+/*  Kingdom, settlement, trade              */
+/* ---------------------------------------- */
+
+.chex-kingdom-content,
+.chex-settlement-content,
+.chex-trade-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.chex-app .chex-kingdom-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--realm-color, #888);
+}
+
+.chex-app .chex-realm-swatch {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--realm-color, #888);
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  flex: none;
+}
+
+.chex-app .chex-kingdom-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.chex-app .chex-kingdom-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.chex-app .chex-kingdom-actions button { white-space: nowrap; }
+
+.chex-app .chex-badge {
   padding: 1px 6px;
   border-radius: 8px;
   border: 1px solid var(--realm-color, #888);
   font-size: var(--font-size-12, 12px);
 }
 
-/* map view panel */
-.chex-map-view-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.chex-map-view-content h4 {
-  margin: 0.5rem 0 0;
-  border-bottom: 1px solid var(--color-border, #999);
-}
-
-.chex-map-option {
+.chex-app .chex-location {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  justify-content: flex-start;
-  opacity: 0.7;
+  padding: 0.25rem 0;
 }
 
-.chex-map-option.active {
-  opacity: 1;
-  border-color: var(--color-warm-2, #c9593f);
-}
-
-.chex-map-option .chex-map-option-state {
-  margin-left: auto;
-}
-
-/* brush palette */
-.chex-brush-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.chex-brush-content .chex-presets {
-  margin: 0;
-}
-
-.chex-brush-content .chex-presets button {
-  flex: 1;
-}
-
-.chex-brush-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-  gap: 4px;
-}
-
-.chex-brush-item {
-  display: flex;
-  justify-content: center;
-  padding: 2px;
-  border: 2px solid transparent;
+.chex-app .chex-shortages {
+  border: 1px solid var(--chex-bad);
   border-radius: 4px;
-  opacity: 0.6;
+  padding: 0 0.5rem 0.25rem;
+  margin-top: 0.5rem;
 }
 
-.chex-brush-item img {
-  width: 34px;
-  height: 34px;
+.chex-app .chex-shortages h3 {
+  border: none;
+  color: var(--chex-bad);
+}
+
+.chex-app .chex-shortages ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.chex-app .chex-sites,
+.chex-app .chex-needs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chex-app .chex-sites li,
+.chex-app .chex-needs li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1px 0;
+}
+
+.chex-app .chex-sites img,
+.chex-app .chex-needs img {
+  width: 20px;
+  height: 20px;
   border: none;
 }
 
-.chex-brush-item.active {
-  opacity: 1;
-  border-color: var(--color-warm-2, #c9593f);
-  background: rgba(255, 255, 255, 0.05);
+.chex-app .chex-construct button { white-space: nowrap; }
+.chex-app .chex-drop-hint { margin-top: 0.25rem; }
+.chex-app .chex-trade-table input[type="number"] { width: 4.5rem; }
+
+.chex-app .chex-trade-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--chex-border);
 }
 
-.chex-brush-options label {
+.chex-app .chex-trade-summary label {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.chex-turn-report img { border: none; }
+
+/* ---------------------------------------- */
+/*  Hex HUD (drawn on the canvas)           */
+/* ---------------------------------------- */
+
+#chex-hud {
+  min-width: 420px;
+  max-width: 640px;
+  background: rgba(10, 10, 12, 0.88);
+  color: #eee;
+  padding: 0.75rem 1rem;
+  font-size: 1.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+#chex-hud .chex-muted { color: #a0a0a0; }
+#chex-hud .chex-grow { flex: 1; }
+
+#chex-hud .chex-hud-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#chex-hud .chex-hud-terrain {
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 10px;
+}
+
+#chex-hud .chex-hud-title {
+  display: flex;
+  flex-direction: column;
+}
+
+#chex-hud .chex-hud-title strong {
+  font-size: 1.8rem;
+}
+
+#chex-hud .chex-hud-group {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+#chex-hud .chex-hud-group p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  gap: 0.75rem;
+  margin: 0.2rem 0;
+  white-space: nowrap;
 }
 
-.chex-brush-options select,
-.chex-brush-options input[type="number"] {
-  width: 9rem;
+#chex-hud .chex-hud-group img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 6px;
 }

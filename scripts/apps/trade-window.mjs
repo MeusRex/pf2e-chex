@@ -16,7 +16,7 @@ export default class TradeWindow extends HandlebarsApplicationMixin(ApplicationV
 
     static DEFAULT_OPTIONS = {
         tag: "form",
-        classes: ["chex-economy", "chex-trade"],
+        classes: ["chex-app", "chex-trade"],
         window: {
             icon: "fa-solid fa-scale-balanced",
             resizable: true

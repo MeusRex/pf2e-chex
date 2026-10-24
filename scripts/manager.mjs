@@ -1,28 +1,23 @@
-import Customizer from "./customizer.mjs";
-import DeleteCertain from "./delete-certain.mjs";
 import ChexLayer from "./chex-layer.mjs";
-import RealmPalette from "./realm-palette.mjs";
-import TerrainPalette from "./terrain-palette.mjs";
-import PaintBucketConfirm from "./paint-bucket-confirm.mjs";
 import * as C from "./const.mjs";
 import ChexData from "./chex-data.mjs";
-import ChexHexEdit from "./chex-edit.mjs";
-import ChexHexHUD from "./chex-hud.mjs";
 import ChexHex from "./hex.mjs";
 import ChexDrawingLayer from "./chex-drawing-layer.mjs";
 import ChexSceneData from "./scene-data.mjs";
 import ChexOffset from "./chex-offset.mjs";
-import EconomyConfig from "./apps/economy-config.mjs";
+import ChexConfig from "./apps/config.mjs";
+import HexEditor from "./apps/hex-editor.mjs";
+import HexHUD from "./apps/hex-hud.mjs";
 import MapViewPanel from "./apps/map-view.mjs";
-import BrushPalette from "./apps/brush.mjs";
+import PaintPalette from "./apps/paint-palette.mjs";
 import KingdomView from "./apps/kingdom-view.mjs";
 import SettlementSheet from "./apps/settlement-sheet.mjs";
-import { manageableRealms, pickRealm } from "./apps/economy-ui.mjs";
+import { confirm, manageableRealms, pickRealm } from "./apps/economy-ui.mjs";
 import { canManage, findSettlementAt } from "./economy/realm-store.mjs";
 
 export default class ChexManager {
     constructor() {
-        this.hud = new ChexHexHUD();
+        this.hud = new HexHUD();
     }
     /**
      * @type {ChexDrawingLayer}
@@ -31,6 +26,9 @@ export default class ChexManager {
 
     hoveredHex;
 
+    /**
+     * @type {HexHUD}
+     */
     hud;
 
     hexes = new Collection();
@@ -44,6 +42,13 @@ export default class ChexManager {
 
     get active() {
         return (canvas.scene && this.sceneData);
+    }
+
+    /**
+     * What the overlay colors hexes by, see the map view.
+     */
+    get mode() {
+        return MapViewPanel.view.colorBy;
     }
 
     #initHexes() {
@@ -61,82 +66,22 @@ export default class ChexManager {
         }
     }
 
-    #chexToolkit;
-    #enableChexTool;
-    #showChexDetailsTool;
-    #showKingdomTool;
-    #showTerrainTool;
-    #showTravelTool;
-
-    mode = C.MODE_REALM;
-
     _extendSceneControlButtons(controls) {
         const tokenControls = controls["tokens"];
 
         if (this.active) {
-
-            this.#showChexDetailsTool = {
-                name: "showChexDetailsTool",
-                title: "CHEX.TOOLS.ToggleHexTool",
-                icon: "fa-solid fa-hexagon-image",
+            tokenControls.tools["chexOverlay"] = {
+                name: "chexOverlay",
+                title: "CHEX.TOOLS.Overlay",
+                icon: C.ICONS.overlay,
                 toggle: true,
-                active: this.hud.enabled ?? false,
-                onChange: () => {this.hud.toggle()}
+                active: this.hud.enabled,
+                onChange: (event, active) => this.hud.toggle(active)
             };
-
-            this.#showKingdomTool = {
-                name: "showKingdomTool",
-                title: "CHEX.TOOLS.ShowKingdomTool",
-                icon: "fa-solid fa-bank",
-                toggle: false,
-                active: this.mode === C.MODE_REALM,
-                onChange: () => {
-                    this.mode = C.MODE_REALM;
-                    this.#showKingdomTool.active = true;
-                    this.#showTerrainTool.active = false;
-                    this.#showTravelTool.active = false;
-                    this.#refreshKingdomLayer();
-                }
-            }
-
-            this.#showTerrainTool = {
-                name: "showTerrainTool",
-                title: "CHEX.TOOLS.ShowTerrainTool",
-                icon: "fa-solid fa-mountain",
-                toggle: false,
-                active: this.mode === C.MODE_TERRAIN,
-                onChange: () => {
-                    this.mode = C.MODE_TERRAIN; 
-                    this.#showTerrainTool.active = true;
-                    this.#showKingdomTool.active = false;
-                    this.#showTravelTool.active = false;
-                    this.#refreshKingdomLayer();
-                }
-            }
-
-            this.#showTravelTool = {
-                name: "showTravelTool",
-                title: "CHEX.TOOLS.ShowTravelTool",
-                icon: "fa-solid fa-road",
-                toggle: false,
-                active: this.mode === C.MODE_TRAVEL,
-                onChange: () => {
-                    this.mode = C.MODE_TRAVEL;
-                    this.#showTravelTool.active = true;
-                    this.#showKingdomTool.active = false;
-                    this.#showTerrainTool.active = false;
-                    this.#refreshKingdomLayer();
-                }
-            }
-
-            tokenControls.tools["showChexDetailsTool"] = this.#showChexDetailsTool;
-            tokenControls.tools["showKingdomTool"] = this.#showKingdomTool;
-            tokenControls.tools["showTerrainTool"] = this.#showTerrainTool;
-            tokenControls.tools["showTravelTool"] = this.#showTravelTool;
             tokenControls.tools["chexMapView"] = {
                 name: "chexMapView",
                 title: "CHEX.TOOLS.MapView",
-                icon: "fa-solid fa-layer-group",
+                icon: C.ICONS.mapView,
                 button: true,
                 onChange: (event, active) => {if (active) MapViewPanel.toggle()}
             };
@@ -146,7 +91,7 @@ export default class ChexManager {
             tokenControls.tools["chexKingdom"] = {
                 name: "chexKingdom",
                 title: "CHEX.TOOLS.Kingdom",
-                icon: "fa-solid fa-crown",
+                icon: C.ICONS.kingdom,
                 button: true,
                 onChange: async (event, active) => {
                     if (!active) return;
@@ -156,165 +101,70 @@ export default class ChexManager {
             };
         }
 
-        if (game.user.isGM) {
-            
-            const chexTools = {
-                name: "chexTools",
-                title: "CHEX.TOOLS.ChexTools",
-                icon: "fa-solid fa-hexagon-image",
-                layer: "chex",
-                onChange: (event, active) => {if (active){
-                    canvas.chex.activate();
-                }},
-                tools: {
-// This button exists because Foundry VTT v13 has a mandatory "activeTool" parameter which will immediately activate the button when switching to these tools.
-// Enabling/Disabling Chex, launching the settings, or launching one of the edit tools would be awkward, so instead there's just this dead button.
-// Sadly, it logs an error if it's not visible in v13, but this was addressed in v14. Leaving in place with the hopes of maintaining v13+v14 compatibility.
-                    chexDummy: {
-                        name: "chexDummy",
-                        title: "CHEX.TOOLS.Dummy",
-                        icon: "fa-solid fa-thumbs-up",
-                        button: true,
-                        toggle: false,
-                        visible: true,
-                        onChange: (event,active) => {},
-                    },
-                    chexEnable: {
-                        name: "chexEnable",
-                        title: "CHEX.TOOLS.EnableChex",
-                        icon: "fa-solid fa-chart-area",
-                        toggle: true,
-                        active: this.active,
-                        onChange: async (event, active) => {if (active){this.#enableChex()}}
-                    },
-                    chexSettings: {
-                        name: "chexSettings",
-                        title: "CHEX.TOOLS.Settings",
-                        icon: "fa-solid fa-cog",
-                        button: true,
-                        toggle: false,
-                        onChange: async (event,active) => {if (active){this.#showSettings()}}
-                    },
-                    chexEconomyConfig: {
-                        name: "chexEconomyConfig",
-                        title: "CHEX.TOOLS.EconomyConfig",
-                        icon: "fa-solid fa-coins",
-                        button: true,
-                        toggle: false,
-                        onChange: (event, active) => {if (active) EconomyConfig.open()}
-                    }
-                },
-                activeTool: "chexDummy"
-            }
-
-            controls.chexTools = chexTools;
-            if (this.active) {
-                chexTools.tools["chexTerrainSelector"] = {
-                    name: "chexTerrainSelector",
-                    title: "CHEX.TOOLS.TerrainSelector",
-                    icon: "fa-solid fa-mountain",
-                    button: true,
-                    toggle: false,
-                    onChange: async (event, active) => {if (active) 
-                        { 
-                            if (chex.realmSelector)
-                                chex.realmSelector.close();
-                            chex.brush?.close();
-                            if (!chex.terrainSelector) 
-                                new TerrainPalette().render(true);
-                            if (this.#showChexDetailsTool.active != true)
-                                {
-                                    this.hud.toggle();
-                                };
-                            this.#showChexDetailsTool.active = true;
-                            this.#showTerrainTool.active = true;
-                            this.mode = C.MODE_TERRAIN; 
-                            this.#showKingdomTool.active = false;
-                            this.#showTravelTool.active = false;
-                            this.#refreshKingdomLayer();
-                        }
-                    }
-                };
-                chexTools.tools["chexRealmSelector"] ={
-                    name: "chexRealmSelector",
-                    title: "CHEX.TOOLS.RealmSelector",
-                    icon: "fa-solid fa-bank",
-                    button: true,
-                    toggle: false,
-                    onChange: async (event, active) => {if (active)
-                        {
-                            if (chex.terrainSelector)
-                                chex.terrainSelector.close(); 
-                            chex.brush?.close();
-                            if (!chex.realmSelector) 
-                                new RealmPalette().render(true);
-                            if (this.#showChexDetailsTool.active != true)
-                                {
-                                    this.hud.toggle();
-                                };
-                            this.#showChexDetailsTool.active = true;
-                            this.#showKingdomTool.active = true;
-                            this.mode = C.MODE_REALM;
-                            this.#showTerrainTool.active = false;
-                            this.#showTravelTool.active = false;
-                            this.#refreshKingdomLayer();
- 
-                        }
-                    }
-                };
-                chexTools.tools["chexBrush"] = {
-                    name: "chexBrush",
-                    title: "CHEX.TOOLS.Brush",
-                    icon: "fa-solid fa-paintbrush",
-                    button: true,
-                    toggle: false,
-                    onChange: (event, active) => {if (active) {
-                        chex.terrainSelector?.close();
-                        chex.realmSelector?.close();
-                        // the brush needs hovered hexes, which only exist while the overlay is on
-                        if (this.#showChexDetailsTool.active != true) this.hud.toggle();
-                        this.#showChexDetailsTool.active = true;
-                        BrushPalette.open();
-                    }}
-                };
-            }
+        if (!game.user.isGM) return;
+        const tools = {};
+        if (this.active) {
+            tools.chexPaint = {
+                name: "chexPaint",
+                title: "CHEX.TOOLS.Paint",
+                icon: C.ICONS.paint,
+                button: true,
+                onChange: (event, active) => {if (active) this.#openPaint()}
+            };
         }
+        tools.chexConfig = {
+            name: "chexConfig",
+            title: "CHEX.TOOLS.Config",
+            icon: C.ICONS.config,
+            button: true,
+            onChange: (event, active) => {if (active) ChexConfig.open()}
+        };
+        tools.chexEnable = {
+            name: "chexEnable",
+            title: this.active ? "CHEX.TOOLS.RemoveChex" : "CHEX.TOOLS.AddChex",
+            icon: C.ICONS.power,
+            button: true,
+            onChange: (event, active) => {if (active) this.#enableChex()}
+        };
+        controls.chexTools = {
+            name: "chexTools",
+            title: "CHEX.TOOLS.ChexTools",
+            icon: C.ICONS.overlay,
+            layer: "chex",
+            onChange: (event, active) => {if (active) canvas.chex.activate()},
+            tools
+        };
     }
 
     get isValidGrid() {
         return canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDR || canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDQ;
     }
 
-    #showSettings() {
-        if (!chex.customizer) {
-            const customizer = new Customizer();
-            customizer.render(true);
+    /**
+     * Open the paint palette. Painting needs hovered hexes, which only exist while the overlay is on.
+     */
+    #openPaint() {
+        if (!this.hud.enabled) {
+            this.hud.toggle(true);
+            ui.controls.render();
         }
-    }
-
-    #refreshKingdomLayer() {
-        if (this.kingdomLayer)
-            this.kingdomLayer.draw();
+        PaintPalette.open();
     }
 
     async #enableChex() {
         if (this.active) {
-            // remove chex
-            new DeleteCertain(canvas.scene).render(true);
+            const ok = await confirm(game.i18n.localize("CHEX.REMOVE.Title"), game.i18n.localize("CHEX.REMOVE.Info"));
+            if (!ok) return;
+            await canvas.scene.unsetFlag(C.MODULE_ID, C.CHEX_DATA_KEY);
+            location.reload();
+        }
+        else if (this.isValidGrid) {
+            await ChexSceneData.create(canvas.scene);
+            location.reload();
         }
         else {
-            if (this.isValidGrid) {
-                // add chex
-                const sceneData = await ChexSceneData.create(canvas.scene)
-                location.reload();
-            }
-            else {
-                // message that it wont work with other grids currently
-                ui.notifications.warn("Currently, Chex only works for Hexagonal Rows - Odd, or Hexagonal Columns - Odd");
-            }
+            ui.notifications.warn("CHEX.Error.InvalidGrid", {localize: true});
         }
-
-        this._onReady();
     }
 
     _updateScene(document, change) {
@@ -335,12 +185,13 @@ export default class ChexManager {
 
         if (!this.kingdomLayer) {
             this.kingdomLayer = new ChexDrawingLayer();
-            
+
             if (canvas.scene.tokenVision)
                 canvas.rendered.environment.effects.addChildAt(chex.manager.kingdomLayer, 1);
-            else 
+            else
                 canvas.interface.grid.addChild(this.kingdomLayer);
         }
+        this.kingdomLayer.visible = this.hud.enabled;
         this.kingdomLayer.draw();
         canvas.interface.grid.addHighlightLayer(C.HIGHLIGHT_LAYER);
 
@@ -386,12 +237,8 @@ export default class ChexManager {
             this.hud.clear();
         }
         else if ( hex !== this.hoveredHex ) {
-            if (this.#isMouseDown) {
-                this.#paintTerrainDeferred(hex);
-            }
+            if (this.#isMouseDown) this.#paintStroke(hex);
             this.hud.activate(hex);
-
-            // canvas.app.renderer.extract.pixels(canvas.effects.visibility.explored.children[0].texture, new PIXI.Rectangle(4001, 0, 1, 1))
         }
         this.hoveredHex = hex || null;
     }
@@ -404,27 +251,14 @@ export default class ChexManager {
         }
         this.#isMouseDown = true;
 
-        // improvement / resource brush
-        if (chex.brush && canvas.activeLayer.name === ChexLayer.name) {
-            chex.brush.apply(this.hoveredHex, !!event.shiftKey);
+        // painting with the palette
+        if (chex.paint && canvas.activeLayer.name === ChexLayer.name) {
+            if (!chex.paint.click(this.hoveredHex, !!event.shiftKey)) this.#paintStroke(this.hoveredHex);
             return;
         }
-
-        // Check for paint bucket mode first
-        if (chex.terrainSelector && chex.terrainSelector.paintBucketMode && 
-            chex.terrainSelector.activeTerrainTool && this.mode === C.MODE_TERRAIN && 
-            canvas.activeLayer.name === ChexLayer.name) {
-            this.#executePaintBucket(this.hoveredHex, chex.terrainSelector.activeTerrainTool);
-            return;
-        }
-
-        // Normal painting mode
-        if (this.#paintTerrainDeferred(this.hoveredHex)) return;
 
         if ( !this.#isDoubleClick() ) return;
-        const hex = this.hoveredHex;
-        const app = new ChexHexEdit(hex);
-        app.render(true, {left: event.x + 100, top: event.y - 50});
+        HexEditor.open(this.hoveredHex, {left: event.x + 100, top: event.y - 50});
     }
 
     #isDoubleClick() {
@@ -446,119 +280,50 @@ export default class ChexManager {
 
     #onMouseUp(event) {
         this.#isMouseDown = false;
-        this.#paintTerrainDeferredEnd();
+        this.#commitStroke();
     }
 
+    /**
+     * Hexes of the terrain or realm stroke being painted. Saved at once when the mouse is released.
+     * @type {{hex: ChexHex, key: number, patch: object}[]}
+     */
     pendingPatches = [];
-    #paintTerrainDeferredEnd() {
-        if (this.pendingPatches.length > 0) {
-            const patches = this.pendingPatches.reduce((result, item) => {
-                result.hexes[item.key] = item.patch;
-                return result;
-            }, { hexes: {} });
 
-            canvas.scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, patches);
+    #paintStroke(hex) {
+        if (!chex.paint || canvas.activeLayer.name !== ChexLayer.name) return;
+        const patch = chex.paint.strokePatch(hex);
+        if (patch) this.pendingPatches.push({hex, key: ChexData.getKey(hex.offset), patch});
+    }
+
+    #commitStroke() {
+        if (this.pendingPatches.length) {
+            const hexes = Object.fromEntries(this.pendingPatches.map(({key, patch}) => [key, patch]));
+            canvas.scene.setFlag(C.MODULE_ID, C.CHEX_DATA_KEY, {hexes});
         }
-
         this.pendingPatches = [];
     }
 
-    #paintTerrainDeferred(hex) {
-        if (hex && canvas.activeLayer.name === ChexLayer.name) {
-            const key = ChexData.getKey(hex.offset);
-            
-            // Skip deferred painting if paint bucket mode is active
-            if (chex.terrainSelector && chex.terrainSelector.paintBucketMode && this.mode === C.MODE_TERRAIN) {
-                return false;
-            }
-            
-            // correct layer, first check terrain painter
-            if (chex.terrainSelector && chex.terrainSelector.activeTerrainTool && this.mode === C.MODE_TERRAIN) {
-                const activeTerrainTool = chex.terrainSelector.activeTerrainTool;
-                if (chex.terrains[activeTerrainTool] && hex.hexData.terrain !== activeTerrainTool) {
-                    const patch = {
-                        terrain: activeTerrainTool,
-                        travel: chex.terrains[activeTerrainTool].travel
-                    };
-                    
-                    this.pendingPatches.push({
-                        hex: hex,
-                        key: key,
-                        patch: patch
-                    });
-                    return true;
-                }
-            }
-            else if (chex.realmSelector && chex.realmSelector.activeRealmTool && this.mode === C.MODE_REALM) {
-                const activeRealmTool = chex.realmSelector.activeRealmTool;
-                if (chex.realms[activeRealmTool] && hex.hexData.claimed !== activeRealmTool) {
-                    const patch = {
-                        claimed: activeRealmTool
-                    };
-
-                    this.pendingPatches.push({
-                        hex: hex,
-                        key: key,
-                        patch: patch
-                    });
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     /**
-     * Execute paint bucket fill operation
-     * @param {ChexHex} startHex - The hex where the paint bucket was clicked
-     * @param {string} targetTerrain - The terrain type to fill with
+     * All hexes connected to a start hex that fulfil a condition, including the start hex.
+     * @param {ChexHex} start
+     * @param {(hex: ChexHex) => boolean} matches
+     * @returns {ChexHex[]}
      */
-    async #executePaintBucket(startHex, targetTerrain) {
-        const originalTerrain = startHex.hexData.terrain;
-        
-        // Don't fill if the target terrain is the same as the original
-        if (originalTerrain === targetTerrain) {
-            return;
-        }
-
-        // Find all connected hexes with the same terrain
-        const affectedHexes = this.#floodFill(startHex, originalTerrain);
-        
-        // Show confirmation dialog
-        new PaintBucketConfirm(startHex, targetTerrain, affectedHexes).render(true);
-    }
-
-    /**
-     * Flood fill algorithm to find all connected hexes of the same terrain
-     * @param {ChexHex} startHex - Starting hex
-     * @param {string} targetTerrain - Terrain type to match
-     * @returns {ChexHex[]} Array of connected hexes
-     */
-    #floodFill(startHex, targetTerrain) {
+    floodFill(start, matches) {
         const visited = new Set();
         const result = [];
-        const queue = [startHex];
-        
+        const queue = [start];
         while (queue.length > 0) {
-            const currentHex = queue.shift();
-            const key = ChexData.getKey(currentHex.offset);
-            
+            const hex = queue.shift();
+            const key = ChexData.getKey(hex.offset);
             if (visited.has(key)) continue;
-            if (currentHex.hexData.terrain !== targetTerrain) continue;
-            
             visited.add(key);
-            result.push(currentHex);
-            
-            // Add adjacent hexes to queue
-            const neighbors = this.#getAdjacentHexes(currentHex);
-            for (const neighbor of neighbors) {
-                const neighborKey = ChexData.getKey(neighbor.offset);
-                if (!visited.has(neighborKey)) {
-                    queue.push(neighbor);
-                }
+            if (!matches(hex)) continue;
+            result.push(hex);
+            for (const neighbor of this.#getAdjacentHexes(hex)) {
+                if (!visited.has(ChexData.getKey(neighbor.offset))) queue.push(neighbor);
             }
         }
-        
         return result;
     }
 
@@ -570,17 +335,17 @@ export default class ChexManager {
     #getAdjacentHexes(hex) {
         const adjacent = [];
         const { i, j } = hex.offset;
-        
+
         // Hex adjacency patterns depend on grid type and whether row/col is odd/even
         let directions = [];
-        
+
         if (canvas.grid.type === foundry.CONST.GRID_TYPES.HEXODDR) {
             // Hexagonal Rows - Odd
             if (i % 2 === 0) {
                 // Even row
                 directions = [
                     [-1, -1], [-1, 0],  // NW, NE
-                    [0, -1],  [0, 1],   // W, E  
+                    [0, -1],  [0, 1],   // W, E
                     [1, -1],  [1, 0]    // SW, SE
                 ];
             } else {
@@ -601,7 +366,7 @@ export default class ChexManager {
                     [1, 0],   [1, 1]    // S, SE
                 ];
             } else {
-                // Odd column  
+                // Odd column
                 directions = [
                     [-1, -1], [-1, 0],  // NW, N
                     [-1, 1],  [0, -1],  // NE, W
@@ -609,13 +374,13 @@ export default class ChexManager {
                 ];
             }
         }
-        
+
         for (const [di, dj] of directions) {
             const newI = i + di;
             const newJ = j + dj;
-            
+
             // Check bounds
-            if (newI >= 0 && newI < this.sceneData.numRows && 
+            if (newI >= 0 && newI < this.sceneData.numRows &&
                 newJ >= 0 && newJ < this.sceneData.numCols) {
                 const neighborKey = ChexData.getKey({i: newI, j: newJ});
                 const neighborHex = this.hexes.get(neighborKey);
@@ -624,11 +389,8 @@ export default class ChexManager {
                 }
             }
         }
-        
-        return adjacent;
-    }
 
-    _updateVisibility(visibility) {
+        return adjacent;
     }
 
     getHexFromPoint(point) {

@@ -1,4 +1,4 @@
-<div class="chex-economy chex-turn-report">
+<div class="chex-app chex-turn-report">
     <h3 style="border-left: 4px solid {{realm.color}}; padding-left: 4px;">
         {{realm.label}} — {{localize "CHEX.ECONOMY.Kingdom.Turn"}} {{turn}}
     </h3>
@@ -26,7 +26,7 @@
     {{/if}}
 
     <p><strong>{{localize "CHEX.ECONOMY.Kingdom.Produced"}}</strong></p>
-    {{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=produced sign="+"}}
+    {{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=produced sign="+"}}
     <p><strong>{{localize "CHEX.ECONOMY.Report.NetChange"}}</strong></p>
-    {{> "modules/pf2e-chex/templates/economy/amounts-inline.hbs" amounts=net}}
+    {{> "modules/pf2e-chex/templates/amounts-inline.hbs" amounts=net}}
 </div>
