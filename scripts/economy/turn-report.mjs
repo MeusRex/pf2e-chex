@@ -1,9 +1,9 @@
 import * as E from "./engine.mjs";
-import { getRealmState } from "./realm-store.mjs";
+import { getRealmState, managers } from "./realm-store.mjs";
 import * as UI from "../apps/economy-ui.mjs";
 
 /**
- * Post the result of an ended turn to the chat, whispered to the GMs and the realm's owners.
+ * Post the result of an ended turn to the chat, whispered to the GMs and, for the player kingdom, the players.
  * @param {string} realmId
  * @param {object} result   result of simulateTurn
  * @param {object} before   stockpile before the turn
@@ -41,7 +41,7 @@ export async function postTurnReport(realmId, result, before) {
         net: UI.amountList(E.netChange(before, result.stockpile))
     });
 
-    const whisper = game.users.filter(u => u.isGM || realm.owners?.includes(u.id)).map(u => u.id);
+    const whisper = managers(realmId).map(u => u.id);
     return ChatMessage.implementation.create({
         content,
         whisper,

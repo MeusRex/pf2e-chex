@@ -69,8 +69,9 @@
             "MultiplierTT": "How many times more time does it take to travel here?",
             "SpecialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula",
             "PickIconTT": "Open Filebrowser to select an image",
-            "Owners": "Owners",
-            "OwnersTT": "Players managing the economy of this realm: building, trading and drains. GMs can always manage every realm. Hold Ctrl to select several."
+            "PlayerRealm": "Player Kingdom",
+            "PlayerRealmTT": "The realm the players manage. They can open its kingdom view and settlements, build, trade and manage its drains. All other realms are run by the GM.",
+            "NoPlayerRealm": "No player kingdom"
         },
         "TERRAINSELECTOR": {
             "Title": "Terrain Palette",
@@ -138,9 +139,14 @@
                 "ImportFailed": "Import failed: {error}",
                 "InvalidId": "Invalid or duplicate ID \"{id}\" in {tab}. IDs may only contain letters, numbers, - and _.",
                 "ResourcesHint": "Raw resources are found on the map and extracted by improvements. Goods are made by buildings. Changing an ID breaks existing references to it.",
-                "ImprovementsHint": "Improvements are placed on hexes. Extracting improvements produce a raw resource of their category every turn for the realm that claimed the hex.",
+                "ImprovementsHint": "Improvements are placed on hexes. Extracting improvements produce one of their raw resources every turn for the realm that claimed the hex. Click the Extracts cell to choose them.",
                 "BuildingsHint": "Buildings are constructed in settlements. Their cost is paid once, upkeep every turn. Buildings that can't pay their upkeep are idle for the turn.",
-                "SizesHint": "Settlements consume their needs every turn. Their happiness is the percentage of needs that were met."
+                "SizesHint": "Settlements consume their needs every turn. Their happiness is the percentage of needs that were met.",
+                "EditExtraction": "Choose what this improvement extracts",
+                "ExtractionTitle": "Extraction: {name}",
+                "ExtractionHint": "A category selects all of its resources, including ones added later. Toggle single resources to narrow it down or to combine resources of different categories. When placed on a hex, a matching deposit is used, otherwise one of the selected resources is rolled by spawn weight.",
+                "All": "all",
+                "Uncategorized": "Without category"
             },
             "Field": {
                 "kind": "Kind",
@@ -153,9 +159,7 @@
                 "tradeValue": "Value",
                 "tradeValueTT": "Used to compare offers in trades.",
                 "extracts": "Extracts",
-                "extractsTT": "Category of raw resources this improvement extracts.",
-                "allowed": "Only",
-                "allowedTT": "Optional. Limits which resources of the category this improvement can extract. Hold Ctrl to select several.",
+                "extractsTT": "Raw resources this improvement can extract. Click to choose.",
                 "yield": "Yield",
                 "yieldTT": "Units produced per turn. Multiplied by the amount of a deposit on the hex.",
                 "travel": "Travel",
@@ -177,7 +181,7 @@
             "AmountsHint": "Leave 0 for resources that aren't involved.",
             "ConfirmDelete": "Delete <strong>{name}</strong>? This can't be undone.",
             "Happiness": "Happiness",
-            "NoRealms": "You don't manage any realm. The GM can make you an owner of a realm in the cHex settings.",
+            "NoRealms": "There is no player kingdom yet. The GM chooses it in the cHex settings under Realms.",
             "Realm": "Realm",
             "Resource": "Resource",
             "Kingdom": {
@@ -220,7 +224,8 @@
                 "Unpaid": "Unpaid",
                 "UnpaidTT": "Couldn't be paid last turn.",
                 "WillNotPayTT": "Can't be paid next turn.",
-                "History": "History"
+                "History": "History",
+                "PlayerKingdom": "Player Kingdom"
             },
             "Settlement": {
                 "Title": "Settlement",
@@ -248,7 +253,8 @@
                 "Found": "Found Settlement Here",
                 "PlaceHere": "Place Here",
                 "ImmediateHint": "Settlement changes apply immediately. Unsaved changes in this window are discarded.",
-                "ClaimFirst": "Save a claim for this hex to found a settlement here."
+                "ClaimFirst": "Save a claim for this hex to found a settlement here.",
+                "Transferred": "<strong>{name}</strong> now belongs to <strong>{to}</strong> (before: {from}). Its buildings came along, the stockpile of {from} did not."
             },
             "Report": {
                 "Idle": "Idle buildings",

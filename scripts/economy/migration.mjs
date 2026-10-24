@@ -1,7 +1,7 @@
 import * as C from "../const.mjs";
 import { Resource } from "../customizables/resources.mjs";
 import { Improvement } from "../customizables/improvements.mjs";
-import { pickExtractedResource } from "./engine.mjs";
+import { extractionCandidates, isExtracting, pickExtractedResource } from "./engine.mjs";
 
 // formulas of the improvement defaults before v4. Unchanged ones are replaced by the new defaults.
 const LEGACY_IMPROVEMENT_FORMULAS = {
@@ -82,24 +82,15 @@ export function migrateImprovements(saved, resources) {
     return result;
 }
 
-export function migrateRealms(saved) {
-    const result = {};
-    for (const [id, realm] of Object.entries(saved ?? {})) {
-        result[id] = {...realm, owners: Array.isArray(realm.owners) ? realm.owners : []};
-    }
-    return result;
-}
-
 /**
  * Migrate definitions in memory. Called during setup.
  * @returns {boolean} whether something changed and should be saved
  */
 export function migrateDefinitions() {
-    const before = JSON.stringify([chex.resources, chex.improvements, chex.realms]);
+    const before = JSON.stringify([chex.resources, chex.improvements]);
     chex.resources = migrateResources(chex.resources);
     chex.improvements = migrateImprovements(chex.improvements, chex.resources);
-    chex.realms = migrateRealms(chex.realms);
-    return before !== JSON.stringify([chex.resources, chex.improvements, chex.realms]);
+    return before !== JSON.stringify([chex.resources, chex.improvements]);
 }
 
 /**
@@ -112,8 +103,7 @@ export async function persistMigration(definitionsChanged) {
     if (definitionsChanged) {
         await game.settings.set(C.MODULE_ID, "Resource", chex.resources);
         await game.settings.set(C.MODULE_ID, "Improvement", chex.improvements);
-        await game.settings.set(C.MODULE_ID, "Realm", chex.realms);
-        console.log("cHex | Migrated resource, improvement and realm definitions");
+        console.log("cHex | Migrated resource and improvement definitions");
     }
 
     for (const scene of game.scenes) {
@@ -139,15 +129,18 @@ export function assignExtraction(hexData) {
     let changed = false;
     const improvements = (hexData.improvements ?? []).map(instance => {
         const improvement = chex.improvements[instance.id];
-        if (!improvement?.extracts) {
+        if (!isExtracting(improvement)) {
             if (instance.resource) {
                 changed = true;
                 return {...instance, resource: ""};
             }
             return instance;
         }
+        // keep manual choices of the GM, as long as they fit the improvement's category or selection
         const current = chex.resources[instance.resource];
-        if (current && current.category === improvement.extracts) return instance;
+        const fits = current?.kind === "raw" && (current.category === improvement.extracts
+            || extractionCandidates(improvement, chex.resources).some(c => c.id === current.id));
+        if (fits) return instance;
         changed = true;
         return {...instance, resource: pickExtractedResource(improvement, hexData, chex.resources)};
     });

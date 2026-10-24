@@ -7,14 +7,13 @@
                 <th>{{localize "CHEX.CUSTOMIZER.Id"}}</th>
                 <th>{{localize "CHEX.CUSTOMIZER.Label"}}</th>
                 <th data-tooltip="CHEX.ECONOMY.Field.extractsTT">{{localize "CHEX.ECONOMY.Field.extracts"}}</th>
-                <th data-tooltip="CHEX.ECONOMY.Field.allowedTT">{{localize "CHEX.ECONOMY.Field.allowed"}}</th>
                 <th data-tooltip="CHEX.ECONOMY.Field.yieldTT">{{localize "CHEX.ECONOMY.Field.yield"}}</th>
                 <th data-tooltip="CHEX.ECONOMY.Field.travelTT">{{localize "CHEX.ECONOMY.Field.travel"}}</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            {{#each draft.improvements as |m i|}}
+            {{#each improvementRows as |m i|}}
             <tr>
                 <td>
                     <img class="chex-config-img" src="{{m.img}}" data-action="pickImage" data-path="improvements.{{i}}.img" data-tooltip="CHEX.CUSTOMIZER.PickIconTT">
@@ -22,15 +21,15 @@
                 </td>
                 <td><input type="text" name="improvements.{{i}}.id" value="{{m.id}}" data-tooltip="CHEX.CUSTOMIZER.IdTT"></td>
                 <td><input type="text" name="improvements.{{i}}.label" value="{{m.label}}"></td>
-                <td>
-                    <select name="improvements.{{i}}.extracts">
-                        {{selectOptions @root.categories selected=m.extracts localize=true blank=(localize "CHEX.ECONOMY.Nothing")}}
-                    </select>
-                </td>
-                <td>
-                    <select name="improvements.{{i}}.allowed" multiple class="chex-multi">
-                        {{selectOptions @root.rawResources selected=m.allowed valueAttr="id" labelAttr="label"}}
-                    </select>
+                <td class="chex-extraction-cell">
+                    <input type="hidden" name="improvements.{{i}}.extracts" value="{{m.extracts}}">
+                    <input type="hidden" name="improvements.{{i}}.allowed" value="{{m.extraction.allowedText}}">
+                    <a class="chex-extraction-summary" data-action="editExtraction" data-index="{{i}}" data-tooltip="CHEX.ECONOMY.Config.EditExtraction">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        {{#if m.extraction.category}}<span>{{m.extraction.category}}{{#if m.extraction.all}}: {{localize "CHEX.ECONOMY.Config.All"}}{{/if}}</span>{{/if}}
+                        {{#each m.extraction.resources}}<img src="{{this.img}}" data-tooltip="{{this.label}}">{{/each}}
+                        {{#unless (or m.extraction.category m.extraction.resources.length)}}<span class="chex-muted">{{localize "CHEX.ECONOMY.Nothing"}}</span>{{/unless}}
+                    </a>
                 </td>
                 <td><input type="number" name="improvements.{{i}}.yield" value="{{m.yield}}" min="0" step="1"></td>
                 <td><input type="number" name="improvements.{{i}}.travel" value="{{m.travel}}" step="1"></td>

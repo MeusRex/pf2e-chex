@@ -8,7 +8,7 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 | Concept | Description |
 |---|---|
 | **Resource** | `kind`: `raw` or `goods`. Raw resources have a `category` (`underground`, `surface`, `water`) and a `spawnWeight`. Optional `group` (e.g. `food`, `luxury`) lets needs be satisfied by any member. `tradeValue` is used by the trade screen. |
-| **Improvement** | Hex improvement. `extracts` a category (Mine → underground, Farm → surface, Fishery → water), optionally limited to `allowed` resources. Produces `yield` per turn. `travel` shifts travel difficulty (Road: −1). |
+| **Improvement** | Hex improvement. `extracts` a category (Mine → underground, Farm → surface, Fishery → water), meaning all raw resources of it, or an explicit `allowed` list (may span categories). Produces `yield` per turn. `travel` shifts travel difficulty (Road: −1). |
 | **Extraction** | When an extracting improvement is placed, a matching deposit on the hex is used; otherwise a resource of the category is rolled using the spawn weights. The result is stored on the hex improvement (`resource`) so it stays stable; the GM may change it. Output = `yield × deposit amount` (deposit amount defaults to 1). |
 | **Building** | Built in a settlement. `cost` (paid once), `upkeep` and `production` per turn, `lots`, `minSize`, `maxCount`. A building whose upkeep cannot be paid is idle that turn. |
 | **Settlement size** | `rank`, `lots`, `needs` per turn. Needs may reference a resource or a group (`group:food`). |
@@ -27,8 +27,8 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 
 - Definitions: world settings (`Resource`, `Improvement`, `Building`, `SettlementSize`). Old settings are migrated on load.
 - Realm state: world setting `RealmState`. All mutations go through the GM query `pf2e-chex.realm`
-  (`CONFIG.queries`), which validates permissions (GM or realm owner) and applies the change atomically.
-- Realm owners: `owners` (user ids) on each realm, set in the Customizer.
+  (`CONFIG.queries`), which validates permissions (GM, or players for the player kingdom) and applies the change atomically.
+- Player kingdom: world setting `PlayerRealm`, chosen in the Customizer → Realms. Players manage that realm; the GM manages all.
 
 ## Phases
 
@@ -37,19 +37,19 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 2. ✅ **Kingdom view** – stockpile with next-turn preview, settlements, work sites, drains (actor drop).
 3. ✅ **Settlement screen & map** – settlement section in hex editor, HUD info, open from map, build/demolish.
 4. ✅ **End Turn** – apply simulation, chat report, turn log.
-5. ✅ **Trade** – trade screen between realms, GM/owner acceptance, recurring agreements.
+5. ✅ **Trade** – trade screen between realms, GM or player acceptance, recurring agreements.
 6. ✅ **Map view** – settlement markers on the overlay, outline colored by happiness.
 
 ## Usage
 
-- **Setup (GM):** cHex controls → *Economy Configuration* (coins icon), or module settings. Set realm owners in the
+- **Setup (GM):** cHex controls → *Economy Configuration* (coins icon), or module settings. Choose the player kingdom in the
   cHex Customizer → Realms.
-- **Kingdom view:** token controls → crown icon (anyone owning a realm), or the Kingdom button of the realm palette.
+- **Kingdom view:** token controls → crown icon (players: the player kingdom), or the Kingdom button of the realm palette.
 - **Settlements:** found them on a claimed hex in the hex editor (GM double-click), or create them in the kingdom view
   and place them later. Players open a settlement by double-clicking its hex with the cHex overlay enabled.
-- **Trade:** *Trade* button in the kingdom view. Offers appear in the partner's kingdom view. Realms without owners
+- **Trade:** *Trade* button in the kingdom view. Offers appear in the partner's kingdom view. Other realms
   are answered by the GM.
-- **End Turn (GM):** in the kingdom view of each realm. Posts a report whispered to the GM and the realm's owners.
+- **End Turn (GM):** in the kingdom view of each realm. Posts a report whispered to the GM (and the players for the player kingdom).
 - **Macros:** `chex.openKingdom(realmId)`, `chex.openSettlement(realmId, settlementId)`, `chex.openTrade(realmId, partnerId)`,
   `chex.economy` (store API).
 

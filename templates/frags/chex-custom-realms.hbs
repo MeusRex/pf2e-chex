@@ -16,10 +16,8 @@
                 <input type="color" name="realms.{{id}}.color" value="{{this.color}}">
             </p>
             <p class="chex-item">
-                <span data-tooltip="CHEX.CUSTOMIZER.OwnersTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.Owners"}}</span>
-                <select name="realms.{{id}}.owners" multiple>
-                    {{selectOptions ../users selected=this.owners valueAttr="id" labelAttr="name"}}
-                </select>
+                <span data-tooltip="CHEX.CUSTOMIZER.PlayerRealmTT" class="chex-key">{{localize "CHEX.CUSTOMIZER.PlayerRealm"}}</span>
+                <input type="radio" name="playerRealm" value="{{id}}" {{checked (eq id ../playerRealm)}}>
             </p>
         </div>
     </div>

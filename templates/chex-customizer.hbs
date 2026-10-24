@@ -27,8 +27,11 @@
                 <span>{{localize 'CHEX.HEXEDIT.Add'}}</span>
             </button>
         </legend>
+        <p class="chex-item">
+            <label><input type="radio" name="playerRealm" value="" {{checked (eq playerRealm "")}}> {{localize "CHEX.CUSTOMIZER.NoPlayerRealm"}}</label>
+        </p>
         {{#each realms}}
-            {{> (lookup @root "realmsFrag") realm=this users=@root.users }}
+            {{> (lookup @root "realmsFrag") realm=this playerRealm=@root.playerRealm }}
         {{/each}}
     </fieldset>
 

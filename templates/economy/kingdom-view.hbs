@@ -5,6 +5,7 @@
     <header class="chex-kingdom-header" style="--realm-color: {{realm.color}}">
         <div class="chex-realm-swatch"></div>
         <div class="chex-kingdom-stats">
+            {{#if isPlayerRealm}}<span class="chex-badge" data-tooltip="CHEX.CUSTOMIZER.PlayerRealmTT"><i class="fa-solid fa-users"></i> {{localize "CHEX.ECONOMY.Kingdom.PlayerKingdom"}}</span>{{/if}}
             <span data-tooltip="CHEX.ECONOMY.Kingdom.TurnTT"><i class="fa-solid fa-hourglass-half"></i> {{localize "CHEX.ECONOMY.Kingdom.Turn"}} {{state.turn}}</span>
             <span data-tooltip="CHEX.ECONOMY.Kingdom.HappinessTT">
                 <i class="fa-solid fa-face-smile"></i> {{localize "CHEX.ECONOMY.Happiness"}} {{state.happiness}}%

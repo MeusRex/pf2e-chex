@@ -15,6 +15,7 @@ import { Building } from "./customizables/buildings.mjs";
 import { SettlementSize } from "./customizables/settlement-sizes.mjs";
 import { migrateDefinitions, persistMigration } from "./economy/migration.mjs";
 import * as RealmStore from "./economy/realm-store.mjs";
+import { followClaims } from "./economy/claims.mjs";
 import EconomyConfig from "./apps/economy-config.mjs";
 import KingdomView from "./apps/kingdom-view.mjs";
 import SettlementSheet from "./apps/settlement-sheet.mjs";
@@ -132,6 +133,20 @@ Hooks.once("init", function() {
         }
     });
 
+    // the realm the players manage
+    game.settings.register(MODULE_ID, RealmStore.PLAYER_REALM_SETTING, {
+        name: RealmStore.PLAYER_REALM_SETTING,
+        scope: "world",
+        config: false,
+        requiresReload: false,
+        type: String,
+        default: "",
+        onChange: () => {
+            Hooks.callAll("chexEconomyChanged");
+            ui.controls?.render({reset: true});
+        }
+    });
+
     // per realm: stockpile, settlements, drains. Only changed through RealmStore.request
     game.settings.register(MODULE_ID, RealmStore.REALM_STATE_SETTING, {
         name: RealmStore.REALM_STATE_SETTING,
@@ -200,5 +215,7 @@ Hooks.on("chexEconomyChanged", () => {
 });
 Hooks.on("updateScene", (document, change) => {
     // claims and improvements change the production of realms
-    if (foundry.utils.hasProperty(change, `flags.${MODULE_ID}`)) refreshEconomyApps();
+    if (!foundry.utils.hasProperty(change, `flags.${MODULE_ID}`)) return;
+    refreshEconomyApps();
+    followClaims(document, change);
 });

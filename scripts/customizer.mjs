@@ -54,7 +54,7 @@ export default class Customizer extends FormApplication {
         realms: chex.realms,
         terrains: chex.terrains,
         travels: chex.travels,
-        users: game.users.filter(u => !u.isGM).map(u => ({id: u.id, name: u.name}))
+        playerRealm: game.settings.get(C.MODULE_ID, "PlayerRealm")
       });
   }
 
@@ -69,13 +69,13 @@ export default class Customizer extends FormApplication {
       formData = foundry.utils.expandObject(formData);
       const features = formData.features ? Object.values(formData.features) : [];
       const realms = formData.realms ? Object.values(formData.realms) : [];
-      for (const realm of realms) realm.owners = [realm.owners ?? []].flat().filter(o => o);
       const terrains = formData.terrains ? Object.values(formData.terrains) : [];
       const travels = formData.travels ? Object.values(formData.travels) : [];
 
       // update settings
       await game.settings.set(C.MODULE_ID, Feature.name, this._zip(features));
       await game.settings.set(C.MODULE_ID, Realm.name, this._zip(realms));
+      await game.settings.set(C.MODULE_ID, "PlayerRealm", realms.some(r => r.id === formData.playerRealm) ? formData.playerRealm : "");
       await game.settings.set(C.MODULE_ID, Terrain.name, this._zip(terrains));
       await game.settings.set(C.MODULE_ID, Travel.name, this._zip(travels));
     }
@@ -149,7 +149,7 @@ export default class Customizer extends FormApplication {
         realm.id = foundry.utils.randomID();
         const html = await foundry.applications.handlebars.renderTemplate(Customizer.realmsFrag, {
           realm: realm,
-          users: game.users.filter(u => !u.isGM).map(u => ({id: u.id, name: u.name}))
+          playerRealm: game.settings.get(C.MODULE_ID, "PlayerRealm")
         });
         this._attach(html, control);
         break;

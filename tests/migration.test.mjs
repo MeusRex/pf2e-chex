@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { migrateImprovements, migrateResources, migrateRealms } from "../scripts/economy/migration.mjs";
+import { migrateImprovements, migrateResources } from "../scripts/economy/migration.mjs";
 
 const legacyResources = {
     stone: {id: "stone", label: "Stone", img: "a.webp"},
@@ -54,8 +54,4 @@ test("migration is idempotent", () => {
     const once = migrateImprovements({mine: {id: "mine", label: "Mine", img: "m", special: "income: ore: +1"}}, resources);
     assert.deepEqual(migrateImprovements(once, resources), once);
     assert.deepEqual(migrateResources(resources), resources);
-});
-
-test("realms get owners", () => {
-    assert.deepEqual(migrateRealms({a: {id: "a", label: "A", color: "#fff"}}).a.owners, []);
 });

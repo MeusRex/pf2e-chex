@@ -42,6 +42,7 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
             addEntry: EconomyConfig.#onAddEntry,
             deleteEntry: EconomyConfig.#onDeleteEntry,
             pickImage: EconomyConfig.#onPickImage,
+            editExtraction: EconomyConfig.#onEditExtraction,
             addDefaults: EconomyConfig.#onAddDefaults,
             exportJson: EconomyConfig.#onExport,
             importJson: EconomyConfig.#onImport
@@ -125,7 +126,7 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
             draft: this.#draft,
             kinds: RESOURCE_KINDS,
             categories: RESOURCE_CATEGORIES,
-            rawResources: resources.filter(r => r.kind === "raw").map(r => ({id: r.id, label: r.label || r.id})),
+            improvementRows: this.#draft.improvements.map(m => ({...m, extraction: this.#extractionSummary(m)})),
             resourceOptions,
             needOptions: [
                 ...groups.map(g => ({id: `${GROUP_PREFIX}${g}`, label: game.i18n.format("CHEX.ECONOMY.AnyOfGroup", {group: g})})),
@@ -139,6 +140,20 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
                 {type: "submit", icon: "fa-solid fa-save", label: "CHEX.HEXEDIT.Save"}
             ]
         });
+    }
+
+    /**
+     * What an improvement extracts, for the improvements table.
+     */
+    #extractionSummary(improvement) {
+        const allowed = improvement.allowed ?? [];
+        const raw = this.#draft.resources.filter(r => r.kind === "raw");
+        return {
+            category: improvement.extracts ? game.i18n.localize(RESOURCE_CATEGORIES[improvement.extracts] ?? improvement.extracts) : "",
+            all: !!improvement.extracts && !allowed.length,
+            resources: raw.filter(r => allowed.includes(r.id)).map(r => ({label: r.label || r.id, img: r.img})),
+            allowedText: allowed.join(",")
+        };
     }
 
     /** @override */
@@ -160,7 +175,7 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
         for (const category of Object.keys(AMOUNT_FIELDS)) {
             this.#draft[category] = toArray(data[category]).map(entry => {
                 for (const field of AMOUNT_FIELDS[category]) entry[field] = toArray(entry[field]);
-                if (category === "improvements") entry.allowed = [entry.allowed ?? []].flat().filter(a => a);
+                if (category === "improvements") entry.allowed = String(entry.allowed ?? "").split(",").filter(a => a);
                 return entry;
             });
         }
@@ -196,6 +211,67 @@ export default class EconomyConfig extends HandlebarsApplicationMixin(Applicatio
         this.#sync();
         foundry.utils.getProperty(this.#draft, target.dataset.path).splice(Number(target.dataset.index), 1);
         this.render();
+    }
+
+    /**
+     * Dialog to choose what an improvement extracts. Category buttons preselect all raw resources of that category,
+     * single resources can then be toggled.
+     */
+    static async #onEditExtraction(event, target) {
+        this.#sync();
+        const improvement = this.#draft.improvements[Number(target.dataset.index)];
+        const allowed = improvement.allowed ?? [];
+        const raw = this.#draft.resources.filter(r => r.kind === "raw");
+        const selected = r => allowed.length ? allowed.includes(r.id) : (!!improvement.extracts && r.category === improvement.extracts);
+        const groups = [...Object.keys(RESOURCE_CATEGORIES), ""].map(category => ({
+            label: category ? RESOURCE_CATEGORIES[category] : "CHEX.ECONOMY.Config.Uncategorized",
+            resources: raw.filter(r => (r.category || "") === category)
+                .map(r => ({id: r.id, label: r.label || r.id, img: r.img, category: r.category || "", selected: selected(r)}))
+        })).filter(g => g.resources.length);
+
+        const content = await foundry.applications.handlebars.renderTemplate(`${TEMPLATES}/extraction-dialog.hbs`, {
+            extracts: improvement.extracts ?? "",
+            categories: RESOURCE_CATEGORIES,
+            groups
+        });
+        const data = await foundry.applications.api.DialogV2.input({
+            window: {title: game.i18n.format("CHEX.ECONOMY.Config.ExtractionTitle", {name: improvement.label || improvement.id}), icon: "fa-solid fa-person-digging"},
+            position: {width: 560},
+            classes: ["chex-economy", "chex-extraction-dialog"],
+            content,
+            render: (event, dialog) => EconomyConfig.#activateExtractionDialog(dialog.element),
+            rejectClose: false
+        });
+        if (!data) return;
+
+        const extracts = data.extracts ?? "";
+        let chosen = Object.entries(data).filter(([key, value]) => key.startsWith("allowed.") && value).map(([key]) => key.slice("allowed.".length));
+        const ofCategory = raw.filter(r => r.category === extracts).map(r => r.id);
+        // exactly the whole category: store as "all of the category", so resources added later are included
+        if (extracts && chosen.length === ofCategory.length && chosen.every(id => ofCategory.includes(id))) chosen = [];
+        improvement.extracts = extracts;
+        improvement.allowed = chosen;
+        this.render();
+    }
+
+    static #activateExtractionDialog(element) {
+        const presetInput = element.querySelector("input[name=extracts]");
+        const presets = element.querySelectorAll("[data-preset]");
+        const update = () => {
+            const any = [...element.querySelectorAll(".chex-toggle input")].some(i => i.checked);
+            // nothing selected means nothing is extracted
+            if (!any) presetInput.value = "";
+            presets.forEach(b => b.classList.toggle("active", b.dataset.preset === presetInput.value));
+        };
+        presets.forEach(button => button.addEventListener("click", () => {
+            presetInput.value = button.dataset.preset;
+            for (const toggle of element.querySelectorAll(".chex-toggle input")) {
+                toggle.checked = !!button.dataset.preset && toggle.closest(".chex-toggle").dataset.category === button.dataset.preset;
+            }
+            update();
+        }));
+        element.querySelectorAll(".chex-toggle input").forEach(toggle => toggle.addEventListener("change", update));
+        update();
     }
 
     static #onPickImage(event, target) {

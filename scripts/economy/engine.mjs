@@ -22,14 +22,22 @@ export function addAmounts(target, source = {}, factor = 1) {
 }
 
 /**
- * Raw resources an improvement may extract.
+ * Does the improvement extract resources at all?
+ */
+export function isExtracting(improvement) {
+    return !!improvement && (!!improvement.extracts || (improvement.allowed?.length ?? 0) > 0);
+}
+
+/**
+ * Raw resources an improvement may extract: the explicitly allowed ones,
+ * otherwise all raw resources of its category.
  */
 export function extractionCandidates(improvement, resources) {
-    if (!improvement?.extracts) return [];
+    if (!isExtracting(improvement)) return [];
+    const raw = Object.values(resources).filter(r => r.kind === "raw");
     const allowed = improvement.allowed ?? [];
-    return Object.values(resources).filter(r => r.kind === "raw"
-        && r.category === improvement.extracts
-        && (allowed.length === 0 || allowed.includes(r.id)));
+    if (allowed.length) return raw.filter(r => allowed.includes(r.id));
+    return raw.filter(r => r.category === improvement.extracts);
 }
 
 /**
@@ -68,7 +76,7 @@ export function hexProduction(hexes, realmId, defs) {
         if (!data || data.claimed !== realmId) continue;
         for (const instance of data.improvements ?? []) {
             const improvement = defs.improvements[instance.id];
-            if (!improvement?.extracts || !instance.resource) continue;
+            if (!isExtracting(improvement) || !instance.resource) continue;
             const deposit = (data.resources ?? []).find(d => d.id === instance.resource);
             const amount = (Number(improvement.yield) || 0) * (deposit ? (Number(deposit.amount) || 1) : 1);
             if (amount <= 0) continue;

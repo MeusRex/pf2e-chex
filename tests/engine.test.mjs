@@ -44,6 +44,16 @@ test("allowed list restricts candidates", () => {
     }
 });
 
+test("an explicit selection may span categories, a category alone means all of it", () => {
+    const mixed = {extracts: "", allowed: ["fish", "stone"]};
+    assert.ok(E.isExtracting(mixed));
+    assert.deepEqual(E.extractionCandidates(mixed, defs.resources).map(r => r.id).sort(), ["fish", "stone"]);
+    const water = {extracts: "water", allowed: []};
+    assert.deepEqual(E.extractionCandidates(water, defs.resources).map(r => r.id).sort(), ["fish", "pearls", "salt", "whaleoil"]);
+    assert.equal(E.isExtracting({extracts: "", allowed: []}), false);
+    assert.equal(E.pickExtractedResource(mixed, {resources: [{id: "stone", amount: 1}]}, defs.resources), "stone");
+});
+
 test("hex production only counts the realm's claimed hexes and multiplies deposits", () => {
     const hexes = [
         {sceneId: "s", key: "1", data: {claimed: "a", improvements: [{id: "mine", resource: "ore"}], resources: [{id: "ore", amount: 3}]}},

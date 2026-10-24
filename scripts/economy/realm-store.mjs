@@ -29,11 +29,28 @@ export function getRealmState(realmId) {
     return foundry.utils.mergeObject(emptyRealmState(), foundry.utils.deepClone(all[realmId] ?? {}));
 }
 
+export const PLAYER_REALM_SETTING = "PlayerRealm";
+
 /**
- * Can the user change the economy of the realm?
+ * Id of the realm the players manage, or "".
+ */
+export function playerRealm() {
+    const id = game.settings.get(C.MODULE_ID, PLAYER_REALM_SETTING);
+    return chex.realms[id] ? id : "";
+}
+
+/**
+ * Can the user change the economy of the realm? GMs manage every realm, players the player kingdom.
  */
 export function canManage(user, realmId) {
-    return user.isGM || !!chex.realms[realmId]?.owners?.includes(user.id);
+    return user.isGM || (!!realmId && realmId === playerRealm());
+}
+
+/**
+ * Users that manage a realm, e.g. to whisper them.
+ */
+export function managers(realmId) {
+    return game.users.filter(u => canManage(u, realmId));
 }
 
 /**
@@ -113,7 +130,7 @@ export function incomingAgreements(realmId) {
 
 /**
  * Operations change a realm state in place and may return a result for the caller.
- * gm: only the GM may run it, otherwise realm owners may too.
+ * gm: only the GM may run it, otherwise players may too if it's the player kingdom.
  */
 const OPERATIONS = {
     setStockpile: {gm: true, run(state, {stockpile}) {
@@ -138,6 +155,14 @@ const OPERATIONS = {
         for (const field of ["name", "size", "sceneId", "hexKey"]) {
             if (field in changes) settlement[field] = changes[field];
         }
+    }},
+
+    // hand a settlement with its buildings to another realm. The stockpile stays with the old realm.
+    transferSettlement: {gm: true, run(state, {realmId, settlementId, to}, {all}) {
+        const settlement = requireSettlement(state, settlementId);
+        if (!all[to] || to === realmId) throw new Error(game.i18n.localize("CHEX.ECONOMY.Error.UnknownRealm"));
+        delete state.settlements[settlementId];
+        all[to].settlements[settlementId] = settlement;
     }},
 
     deleteSettlement: {gm: true, run(state, {settlementId}) {

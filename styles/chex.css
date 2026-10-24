@@ -583,3 +583,76 @@
 .chex-economy-config .form-footer button[type="submit"] {
   flex: 2;
 }
+
+/* improvement extraction: summary cell and dialog */
+.chex-extraction-summary {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.chex-extraction-summary img {
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.chex-presets {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.chex-presets button.active {
+  background: var(--color-warm-2, #c9593f);
+  color: var(--color-light-1, #fff);
+}
+
+.chex-extraction-dialog h4 {
+  margin: 0.5rem 0 0.25rem;
+  border-bottom: 1px solid var(--color-border, #999);
+}
+
+.chex-toggle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.25rem;
+}
+
+.chex-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 2px 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.45;
+  filter: grayscale(1);
+}
+
+.chex-toggle input {
+  display: none;
+}
+
+.chex-toggle img {
+  width: 28px;
+  height: 28px;
+  border: none;
+}
+
+.chex-toggle:has(input:checked) {
+  opacity: 1;
+  filter: none;
+  border-color: var(--color-warm-2, #c9593f);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chex-badge {
+  padding: 1px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--realm-color, #888);
+  font-size: var(--font-size-12, 12px);
+}

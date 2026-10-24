@@ -1,0 +1,20 @@
+<input type="hidden" name="extracts" value="{{extracts}}">
+<p class="hint">{{localize "CHEX.ECONOMY.Config.ExtractionHint"}}</p>
+<div class="chex-presets">
+    <button type="button" data-preset=""><i class="fa-solid fa-ban"></i> {{localize "CHEX.ECONOMY.Nothing"}}</button>
+    {{#each categories as |label category|}}
+    <button type="button" data-preset="{{category}}">{{localize label}}</button>
+    {{/each}}
+</div>
+{{#each groups}}
+<h4>{{localize this.label}}</h4>
+<div class="chex-toggle-grid">
+    {{#each this.resources}}
+    <label class="chex-toggle" data-category="{{this.category}}" data-tooltip="{{this.label}}">
+        <input type="checkbox" name="allowed.{{this.id}}" {{checked this.selected}}>
+        <img src="{{this.img}}" alt="{{this.label}}">
+        <span>{{this.label}}</span>
+    </label>
+    {{/each}}
+</div>
+{{/each}}

@@ -3,6 +3,7 @@ import ChexHex from "./hex.mjs";
 import ChexFormulaParser from "./formula-parser.mjs";
 import ChexData from "./chex-data.mjs";
 import { findSettlementAt } from "./economy/realm-store.mjs";
+import { isExtracting } from "./economy/engine.mjs";
 
 /**
  * An Application instance that renders a HUD for a single hex on the Stolen Lands region map.
@@ -165,7 +166,7 @@ export default class ChexHexHUD extends Application {
     #describeImprovement(instance, data) {
       const improvement = chex.improvements[instance.id];
       const parts = [];
-      if (improvement?.extracts && instance.resource) {
+      if (isExtracting(improvement) && instance.resource) {
         const amount = ChexFormulaParser.getResources({...data, improvements: [instance]})[instance.resource] ?? 0;
         parts.push(`${chex.resources[instance.resource]?.label || C.FALLBACK_LABEL} +${amount}`);
       }

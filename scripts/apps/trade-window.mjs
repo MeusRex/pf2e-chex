@@ -5,7 +5,7 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
  * Compose a trade offer from one realm to another.
- * The partner's managers (owners, or the GM for realms without owners) accept or decline it in their kingdom view.
+ * The partner's managers (the players for the player kingdom, otherwise the GM) accept or decline it in its kingdom view.
  */
 export default class TradeWindow extends HandlebarsApplicationMixin(ApplicationV2) {
     constructor(options = {}) {
@@ -126,7 +126,7 @@ export default class TradeWindow extends HandlebarsApplicationMixin(ApplicationV
      */
     static async #notify(from, to) {
         const realm = chex.realms[to];
-        const whisper = game.users.filter(u => u.isGM || realm.owners?.includes(u.id)).map(u => u.id);
+        const whisper = Store.managers(to).map(u => u.id);
         const content = `<p><i class="fa-solid fa-scale-balanced"></i> ${game.i18n.format("CHEX.ECONOMY.Trade.Notification", {
             from: foundry.utils.escapeHTML(chex.realms[from].label),
             to: foundry.utils.escapeHTML(realm.label)
