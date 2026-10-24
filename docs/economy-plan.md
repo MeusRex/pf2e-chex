@@ -47,6 +47,7 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 - **Kingdom view:** token controls → crown icon (players: the player kingdom), or the Kingdom button of the realm palette.
 - **Settlements:** found them on a claimed hex in the hex editor (GM double-click), or create them in the kingdom view
   and place them later. Players open a settlement by double-clicking its hex with the cHex overlay enabled.
+- **Brush (GM):** cHex controls → paintbrush. Pick an improvement (optionally with a fixed extracted resource) or a resource deposit with amount, then click hexes to add/update, Shift+click to remove.
 - **Map View:** token controls → layers icon (with the cHex overlay enabled). Settlements on/off, plus improvements, resources or production per hex. Players only see what is marked visible to them.
 - **Trade:** *Trade* button in the kingdom view. Offers appear in the partner's kingdom view. Other realms
   are answered by the GM.

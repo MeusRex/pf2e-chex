@@ -47,7 +47,8 @@
             "Dummy": "This button prevents an error by existing",
             "EconomyConfig": "Economy Configuration",
             "Kingdom": "Kingdom Economy",
-            "MapView": "Map View Options"
+            "MapView": "Map View Options",
+            "Brush": "Improvement & Resource Brush"
         },
         "CUSTOMIZER": {
             "Title": "Chex Customizer",
@@ -301,6 +302,12 @@
                 "production": "Production"
             },
             "OverlayOff": "Enable the cHex overlay to see these on the map."
+        },
+        "BRUSH": {
+            "Title": "Brush",
+            "Extracts": "Extracts",
+            "Visible": "Visible to players",
+            "Hint": "Click a hex to add the selection or update it, Shift+click to remove it. Works while the cHex tools are active. Painting a deposit makes extracting improvements on the hex use it."
         }
     }
 }

@@ -14,6 +14,7 @@ import ChexSceneData from "./scene-data.mjs";
 import ChexOffset from "./chex-offset.mjs";
 import EconomyConfig from "./apps/economy-config.mjs";
 import MapViewPanel from "./apps/map-view.mjs";
+import BrushPalette from "./apps/brush.mjs";
 import KingdomView from "./apps/kingdom-view.mjs";
 import SettlementSheet from "./apps/settlement-sheet.mjs";
 import { manageableRealms, pickRealm } from "./apps/economy-ui.mjs";
@@ -218,6 +219,7 @@ export default class ChexManager {
                         { 
                             if (chex.realmSelector)
                                 chex.realmSelector.close();
+                            chex.brush?.close();
                             if (!chex.terrainSelector) 
                                 new TerrainPalette().render(true);
                             if (this.#showChexDetailsTool.active != true)
@@ -243,6 +245,7 @@ export default class ChexManager {
                         {
                             if (chex.terrainSelector)
                                 chex.terrainSelector.close(); 
+                            chex.brush?.close();
                             if (!chex.realmSelector) 
                                 new RealmPalette().render(true);
                             if (this.#showChexDetailsTool.active != true)
@@ -258,6 +261,21 @@ export default class ChexManager {
  
                         }
                     }
+                };
+                chexTools.tools["chexBrush"] = {
+                    name: "chexBrush",
+                    title: "CHEX.TOOLS.Brush",
+                    icon: "fa-solid fa-paintbrush",
+                    button: true,
+                    toggle: false,
+                    onChange: (event, active) => {if (active) {
+                        chex.terrainSelector?.close();
+                        chex.realmSelector?.close();
+                        // the brush needs hovered hexes, which only exist while the overlay is on
+                        if (this.#showChexDetailsTool.active != true) this.hud.toggle();
+                        this.#showChexDetailsTool.active = true;
+                        BrushPalette.open();
+                    }}
                 };
             }
         }
@@ -385,6 +403,12 @@ export default class ChexManager {
             return;
         }
         this.#isMouseDown = true;
+
+        // improvement / resource brush
+        if (chex.brush && canvas.activeLayer.name === ChexLayer.name) {
+            chex.brush.apply(this.hoveredHex, !!event.shiftKey);
+            return;
+        }
 
         // Check for paint bucket mode first
         if (chex.terrainSelector && chex.terrainSelector.paintBucketMode && 

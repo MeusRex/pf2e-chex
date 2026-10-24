@@ -685,3 +685,58 @@
 .chex-map-option .chex-map-option-state {
   margin-left: auto;
 }
+
+/* brush palette */
+.chex-brush-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chex-brush-content .chex-presets {
+  margin: 0;
+}
+
+.chex-brush-content .chex-presets button {
+  flex: 1;
+}
+
+.chex-brush-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
+}
+
+.chex-brush-item {
+  display: flex;
+  justify-content: center;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  opacity: 0.6;
+}
+
+.chex-brush-item img {
+  width: 34px;
+  height: 34px;
+  border: none;
+}
+
+.chex-brush-item.active {
+  opacity: 1;
+  border-color: var(--color-warm-2, #c9593f);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chex-brush-options label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.chex-brush-options select,
+.chex-brush-options input[type="number"] {
+  width: 9rem;
+}
