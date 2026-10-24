@@ -46,7 +46,8 @@
             "TerrainSelector": "Terrain Palette",
             "Dummy": "This button prevents an error by existing",
             "EconomyConfig": "Economy Configuration",
-            "Kingdom": "Kingdom Economy"
+            "Kingdom": "Kingdom Economy",
+            "MapView": "Map View Options"
         },
         "CUSTOMIZER": {
             "Title": "Chex Customizer",
@@ -288,6 +289,18 @@
                 "CancelAgreementConfirm": "Cancel this trade agreement?",
                 "Notification": "<strong>{from}</strong> offers a trade to <strong>{to}</strong>. Open the kingdom view of {to} to respond."
             }
+        },
+        "MAPVIEW": {
+            "Title": "Map View",
+            "Settlements": "Settlements",
+            "HexDetails": "Hex details",
+            "Details": {
+                "none": "Nothing",
+                "improvements": "Improvements",
+                "resources": "Resources",
+                "production": "Production"
+            },
+            "OverlayOff": "Enable the cHex overlay to see these on the map."
         }
     }
 }

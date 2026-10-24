@@ -1,6 +1,8 @@
 import * as C from "./const.mjs";
 import ChexFormulaParser from "./formula-parser.mjs";
-import { allSettlements } from "./economy/realm-store.mjs";
+import { allSettlements, getDefs } from "./economy/realm-store.mjs";
+import { hexProduction } from "./economy/engine.mjs";
+import ChexData from "./chex-data.mjs";
 
 export default class ChexDrawingLayer extends PIXI.Container {
   constructor() {
@@ -15,16 +17,34 @@ export default class ChexDrawingLayer extends PIXI.Container {
     this._graphicsByType = new Map();
 
     /**
+     * Icons of improvements, resources or production per hex, see the map view options.
+     */
+    this.detailMarkers = this.addChild(new PIXI.Container());
+
+    /**
      * Markers of the settlements on this scene, drawn on top of every mode.
      */
     this.settlementMarkers = this.addChild(new PIXI.Container());
   }
 
   /**
+   * Counter to drop outdated detail drawings, as loading textures is asynchronous.
+   */
+  #detailsDrawId = 0;
+
+  /**
    * Draw or toggle the layer for the current mode.
    * Keeps previously drawn layers in the cache and avoids unnecessary redraws.
    */
-  async draw() {
+  draw() {
+    // draws run one after another, otherwise overlapping draws destroy the same cached graphics twice
+    this.#drawing = this.#drawing.then(() => this.#draw()).catch(err => console.error("cHex | Drawing failed", err));
+    return this.#drawing;
+  }
+
+  #drawing = Promise.resolve();
+
+  async #draw() {
     this.mask = canvas.primary.mask;
 
     const layerType = this.#getLayerTypeFromMode();
@@ -37,7 +57,19 @@ export default class ChexDrawingLayer extends PIXI.Container {
 
     // Draw or toggle the requested layer
     await this.#toggleOrDrawLayer(layerType);
+    await this.drawOverlays();
+  }
+
+  /**
+   * Draw settlements and hex details according to the map view options of this user.
+   */
+  async drawOverlays() {
     this.drawSettlements();
+    await this.drawDetails();
+  }
+
+  get mapView() {
+    return game.settings.get(C.MODULE_ID, C.MAP_VIEW_SETTING);
   }
 
   /**
@@ -45,6 +77,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
    */
   drawSettlements() {
     for (const child of this.settlementMarkers.removeChildren()) child.destroy({children: true});
+    this.settlementMarkers.visible = this.mapView.settlements !== false;
     const size = canvas.grid.size;
     const style = CONFIG.canvasTextStyle.clone();
     style.fontSize = Math.max(14, Math.round(size * 0.2));
@@ -72,7 +105,96 @@ export default class ChexDrawingLayer extends PIXI.Container {
       label.position.set(x, y + radius + 2);
       this.settlementMarkers.addChild(label);
     }
-    this.addChild(this.settlementMarkers); // keep on top of the hex groups
+    // keep on top of the hex groups
+    this.addChild(this.detailMarkers);
+    this.addChild(this.settlementMarkers);
+  }
+
+  /**
+   * Draw a row of icons on every hex that has improvements, resources or production, depending on the map view.
+   */
+  async drawDetails() {
+    const drawId = ++this.#detailsDrawId;
+    const mode = this.mapView.details ?? C.MAP_DETAILS.NONE;
+    const entries = [];
+    if (mode !== C.MAP_DETAILS.NONE) {
+      for (const hex of chex.manager.hexes) {
+        const items = this.#detailItems(mode, hex.hexData);
+        if (items.length) entries.push({hex, items});
+      }
+    }
+
+    const sources = [...new Set(entries.flatMap(e => e.items.map(i => i.img)))];
+    await Promise.all(sources.map(src => foundry.canvas.loadTexture(src, {fallback: C.FALLBACK_IMAGE})));
+    if (drawId !== this.#detailsDrawId) return;
+
+    for (const child of this.detailMarkers.removeChildren()) child.destroy({children: true});
+    const size = canvas.grid.size;
+    const iconSize = Math.round(size * 0.26);
+    const gap = Math.round(iconSize * 0.12);
+    const style = CONFIG.canvasTextStyle.clone();
+    style.fontSize = Math.max(12, Math.round(size * 0.13));
+
+    // on settlement hexes the icons move up, to make room for the marker
+    const settlementHexes = new Set(this.settlementMarkers.visible ? allSettlements()
+      .filter(({settlement}) => settlement.sceneId === canvas.scene?.id)
+      .map(({settlement}) => String(settlement.hexKey)) : []);
+
+    for (const {hex, items} of entries) {
+      const {x, y} = hex.center;
+      const width = items.length * iconSize + (items.length - 1) * gap;
+      const top = settlementHexes.has(String(ChexData.getKey(hex.offset))) ? y - size * 0.42 : y - iconSize / 2;
+      const group = new PIXI.Container();
+
+      const background = new PIXI.Graphics();
+      background.beginFill(0x000000, 0.45);
+      background.drawRoundedRect(x - width / 2 - gap, top - gap, width + 2 * gap, iconSize + 2 * gap, gap * 2);
+      background.endFill();
+      group.addChild(background);
+
+      items.forEach((item, i) => {
+        const left = x - width / 2 + i * (iconSize + gap);
+        const texture = foundry.canvas.getTexture(item.img) ?? foundry.canvas.getTexture(C.FALLBACK_IMAGE);
+        if (texture) {
+          const icon = new PIXI.Sprite(texture);
+          icon.width = icon.height = iconSize;
+          icon.position.set(left, top);
+          group.addChild(icon);
+        }
+        if (item.text) {
+          const label = new foundry.canvas.containers.PreciseText(item.text, style);
+          label.anchor.set(1, 1);
+          label.position.set(left + iconSize + gap, top + iconSize + gap);
+          group.addChild(label);
+        }
+      });
+      this.detailMarkers.addChild(group);
+    }
+  }
+
+  /**
+   * Icons to show on a hex. Players only see what the GM made visible.
+   * @returns {{img: string, text?: string}[]}
+   */
+  #detailItems(mode, data) {
+    const visible = entry => game.user.isGM || entry.show;
+    switch (mode) {
+      case C.MAP_DETAILS.IMPROVEMENTS:
+        return (data.improvements ?? []).filter(i => i.id && visible(i))
+          .map(i => ({img: chex.improvements[i.id]?.img || C.FALLBACK_IMAGE}));
+      case C.MAP_DETAILS.RESOURCES:
+        return (data.resources ?? []).filter(r => r.id && visible(r))
+          .map(r => ({img: chex.resources[r.id]?.img || C.FALLBACK_IMAGE, text: Number(r.amount) > 1 ? `×${r.amount}` : ""}));
+      case C.MAP_DETAILS.PRODUCTION: {
+        // production only counts for claimed hexes. Buildings of settlements are not shown here.
+        if (!data.claimed) return [];
+        const improvements = (data.improvements ?? []).filter(visible);
+        const {total} = hexProduction([{data: {...data, improvements}}], data.claimed, getDefs());
+        return Object.entries(total).map(([id, amount]) => ({img: chex.resources[id]?.img || C.FALLBACK_IMAGE, text: `+${amount}`}));
+      }
+      default:
+        return [];
+    }
   }
 
   /** Returns "terrain", "realm", or "travel" based on current mode */

@@ -656,3 +656,32 @@
   border: 1px solid var(--realm-color, #888);
   font-size: var(--font-size-12, 12px);
 }
+
+/* map view panel */
+.chex-map-view-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.chex-map-view-content h4 {
+  margin: 0.5rem 0 0;
+  border-bottom: 1px solid var(--color-border, #999);
+}
+
+.chex-map-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  opacity: 0.7;
+}
+
+.chex-map-option.active {
+  opacity: 1;
+  border-color: var(--color-warm-2, #c9593f);
+}
+
+.chex-map-option .chex-map-option-state {
+  margin-left: auto;
+}

@@ -147,6 +147,20 @@ Hooks.once("init", function() {
         }
     });
 
+    // what the overlay shows besides its colors, per user
+    game.settings.register(MODULE_ID, C.MAP_VIEW_SETTING, {
+        name: C.MAP_VIEW_SETTING,
+        scope: "user",
+        config: false,
+        requiresReload: false,
+        type: Object,
+        default: {settlements: true, details: C.MAP_DETAILS.NONE},
+        onChange: () => {
+            chex.manager?.kingdomLayer?.drawOverlays();
+            foundry.applications.instances.get("chex-map-view")?.render();
+        }
+    });
+
     // per realm: stockpile, settlements, drains. Only changed through RealmStore.request
     game.settings.register(MODULE_ID, RealmStore.REALM_STATE_SETTING, {
         name: RealmStore.REALM_STATE_SETTING,
@@ -211,7 +225,7 @@ Hooks.on("updateScene", (document, change) => chex.manager._updateScene(document
 
 Hooks.on("chexEconomyChanged", () => {
     refreshEconomyApps();
-    chex.manager?.kingdomLayer?.drawSettlements();
+    chex.manager?.kingdomLayer?.drawOverlays();
 });
 Hooks.on("updateScene", (document, change) => {
     // claims and improvements change the production of realms

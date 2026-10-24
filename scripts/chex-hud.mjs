@@ -52,6 +52,8 @@ export default class ChexHexHUD extends Application {
         chex.manager.kingdomLayer.visible = false;
         this.clear();
       }
+      // the map view panel hints when the overlay is off
+      foundry.applications.instances.get("chex-map-view")?.render();
     }
   
     /* -------------------------------------------- */

@@ -13,6 +13,7 @@ import ChexDrawingLayer from "./chex-drawing-layer.mjs";
 import ChexSceneData from "./scene-data.mjs";
 import ChexOffset from "./chex-offset.mjs";
 import EconomyConfig from "./apps/economy-config.mjs";
+import MapViewPanel from "./apps/map-view.mjs";
 import KingdomView from "./apps/kingdom-view.mjs";
 import SettlementSheet from "./apps/settlement-sheet.mjs";
 import { manageableRealms, pickRealm } from "./apps/economy-ui.mjs";
@@ -131,6 +132,13 @@ export default class ChexManager {
             tokenControls.tools["showKingdomTool"] = this.#showKingdomTool;
             tokenControls.tools["showTerrainTool"] = this.#showTerrainTool;
             tokenControls.tools["showTravelTool"] = this.#showTravelTool;
+            tokenControls.tools["chexMapView"] = {
+                name: "chexMapView",
+                title: "CHEX.TOOLS.MapView",
+                icon: "fa-solid fa-layer-group",
+                button: true,
+                onChange: (event, active) => {if (active) MapViewPanel.toggle()}
+            };
         }
 
         if (manageableRealms().length) {

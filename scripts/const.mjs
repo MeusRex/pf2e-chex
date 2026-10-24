@@ -8,6 +8,13 @@ export const FALLBACK_COLOR = "#ff0000";
 export const FALLBACK_LABEL = "Missing Data";
 export const FALLBACK_IMAGE = "icons/sundries/flags/banner-flag-pirate.webp";
 export const FALLBACK_MULTIPLIER = 1;
+export const MAP_VIEW_SETTING = "mapView";
+export const MAP_DETAILS = Object.freeze({
+    NONE: "none",
+    IMPROVEMENTS: "improvements",
+    RESOURCES: "resources",
+    PRODUCTION: "production"
+});
 
 export const EXPLORATION_STATES = Object.freeze({
     NONE: {value: 0, label: "CHEX.EXPLORATION_STATES.None"},

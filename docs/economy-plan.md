@@ -38,7 +38,7 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 3. ✅ **Settlement screen & map** – settlement section in hex editor, HUD info, open from map, build/demolish.
 4. ✅ **End Turn** – apply simulation, chat report, turn log.
 5. ✅ **Trade** – trade screen between realms, GM or player acceptance, recurring agreements.
-6. ✅ **Map view** – settlement markers on the overlay, outline colored by happiness.
+6. ✅ **Map view** – settlement markers on the overlay (outline colored by happiness); per-user Map View panel with a settlements toggle and one of improvements / resources / production per hex.
 
 ## Usage
 
@@ -47,6 +47,7 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 - **Kingdom view:** token controls → crown icon (players: the player kingdom), or the Kingdom button of the realm palette.
 - **Settlements:** found them on a claimed hex in the hex editor (GM double-click), or create them in the kingdom view
   and place them later. Players open a settlement by double-clicking its hex with the cHex overlay enabled.
+- **Map View:** token controls → layers icon (with the cHex overlay enabled). Settlements on/off, plus improvements, resources or production per hex. Players only see what is marked visible to them.
 - **Trade:** *Trade* button in the kingdom view. Offers appear in the partner's kingdom view. Other realms
   are answered by the GM.
 - **End Turn (GM):** in the kingdom view of each realm. Posts a report whispered to the GM (and the players for the player kingdom).
