@@ -307,6 +307,45 @@
             },
             "FillTitle": "Fill Area",
             "FillConfirm": "Change {count} connected hex(es) from {from} to {to}, starting at {start}? They are highlighted on the map."
+        },
+        "CHANGES": {
+            "Title": "cHex {version}: What's New",
+            "Intro": "The most important changes of this version. You only see this once.",
+            "Ok": "Got it",
+            "Entries": {
+                "Economy": {
+                    "Title": "Kingdom economy",
+                    "Text": "Realms have a stockpile, settlements with buildings and happiness, drains like armies and an End Turn with a chat report. Open it with the crown in the token controls."
+                },
+                "Trade": {
+                    "Title": "Trade and the player kingdom",
+                    "Text": "Realms trade once or every turn. Choose a player kingdom in the configuration; players manage it themselves."
+                },
+                "Resources": {
+                    "Title": "Resources and improvements",
+                    "Text": "Raw resources are found underground, on the surface or in water. Mines, farms and fisheries extract a deposit of the hex or roll one. Old improvement formulas were converted."
+                },
+                "Paint": {
+                    "Title": "One paint palette",
+                    "Text": "Paint terrain, realms, improvements and resources from one palette, including filling whole areas. It replaces the terrain and realm palettes."
+                },
+                "MapView": {
+                    "Title": "Map View",
+                    "Text": "Choose what the overlay colors by and show settlements, improvements, resources or production on the map. Stored per user."
+                },
+                "Config": {
+                    "Title": "One configuration window",
+                    "Text": "Realms with heraldry, terrains, travel, features and the economy are configured in one window with import and export."
+                },
+                "Hex": {
+                    "Title": "Hex editor and overlay",
+                    "Text": "The hex editor and the hover overlay were rebuilt. Double-click a hex to edit it."
+                },
+                "Foundry": {
+                    "Title": "Foundry v14 required",
+                    "Text": "cHex now requires Foundry VTT version 14."
+                }
+            }
         }
     }
 }

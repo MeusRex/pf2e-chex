@@ -1,0 +1,12 @@
+<p class="hint">{{localize "CHEX.CHANGES.Intro"}}</p>
+<ul class="chex-changes">
+    {{#each entries}}
+    <li>
+        <i class="{{this.icon}}"></i>
+        <div>
+            <strong>{{localize this.title}}</strong>
+            <p>{{localize this.text}}</p>
+        </div>
+    </li>
+    {{/each}}
+</ul>

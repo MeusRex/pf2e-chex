@@ -5,7 +5,7 @@
     "authors": [
       { "name": "cedi" }
     ],
-    "version": "3.1.0",
+    "version": "4.0.0",
     "compatibility": {
       "minimum": "14",
       "verified": "14.360",
@@ -29,7 +29,7 @@
     ],
     "protected": false,
     "url": "https://github.com/MeusRex/pf2e-chex",
-    "download": "https://github.com/MeusRex/pf2e-chex/archive/refs/tags/chex-v3.1.0.zip",
+    "download": "https://github.com/MeusRex/pf2e-chex/archive/refs/tags/chex-v4.0.0.zip",
     "manifest": "https://raw.githubusercontent.com/meusrex/pf2e-chex/main/module.json"
   }
   

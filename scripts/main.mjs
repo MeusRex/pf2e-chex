@@ -17,6 +17,7 @@ import KingdomView from "./apps/kingdom-view.mjs";
 import SettlementSheet from "./apps/settlement-sheet.mjs";
 import TradeWindow from "./apps/trade-window.mjs";
 import { refreshEconomyApps, TEMPLATES } from "./apps/economy-ui.mjs";
+import { CHANGELOG_SETTING, showChangelog } from "./changelog.mjs";
 
 const MODULE_ID = C.MODULE_ID;
 
@@ -82,6 +83,15 @@ Hooks.once("init", function() {
         }
     });
 
+    // the version whose changelog this user has seen
+    game.settings.register(MODULE_ID, CHANGELOG_SETTING, {
+        name: CHANGELOG_SETTING,
+        scope: "user",
+        config: false,
+        type: String,
+        default: ""
+    });
+
     // per realm: stockpile, settlements, drains. Only changed through RealmStore.request
     game.settings.register(MODULE_ID, RealmStore.REALM_STATE_SETTING, {
         name: RealmStore.REALM_STATE_SETTING,
@@ -129,6 +139,7 @@ Hooks.once("setup", function() {
 
 Hooks.once("ready", async function() {
     await persistMigration(definitionsMigrated);
+    showChangelog();
 });
 
 Hooks.on("canvasReady", () => chex.manager._onReady());
