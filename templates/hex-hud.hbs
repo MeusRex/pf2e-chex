@@ -5,44 +5,48 @@
             <strong>{{name}}</strong>
             <span>{{terrain.label}}</span>
         </div>
+        {{#if claim}}
+        <img class="chex-heraldry chex-hud-heraldry" src="{{claim.img}}" style="--item-color: {{claim.color}}" alt="{{claim.label}}">
+        {{/if}}
     </header>
 
-    <div class="chex-hud-group">
-        <p><span class="chex-muted">{{localize "CHEX.HUD.Travel"}}</span><span>{{travel.label}} · ×{{travel.multiplier}}</span></p>
-        {{#if exploration}}<p><span class="chex-muted">{{localize "CHEX.HUD.Explored"}}</span><span>{{localize exploration}}</span></p>{{/if}}
-        {{#if cleared}}<p><span class="chex-muted">{{localize "CHEX.HUD.Cleared"}}</span><i class="fa-solid fa-check"></i></p>{{/if}}
-        {{#if claim}}<p><span class="chex-muted">{{localize "CHEX.HUD.Claimed"}}</span><span style="color: {{claim.color}};"><i class="{{icons.realm}}"></i> {{claim.label}}</span></p>{{/if}}
-        {{#if settlement}}<p><span class="chex-muted">{{settlement.size}}</span><span style="color: {{settlement.color}};"><i class="{{icons.settlement}}"></i> {{settlement.name}}</span></p>{{/if}}
+    <div class="chex-hud-group chex-hud-info">
+        <span class="chex-muted">{{localize "CHEX.HUD.Travel"}}</span><span>{{travel.label}} · ×{{travel.multiplier}}</span>
+        {{#if exploration}}<span class="chex-muted">{{localize "CHEX.HUD.Explored"}}</span><span>{{localize exploration}}</span>{{/if}}
+        {{#if cleared}}<span class="chex-muted">{{localize "CHEX.HUD.Cleared"}}</span><span><i class="fa-solid fa-check"></i></span>{{/if}}
+        {{#if claim}}<span class="chex-muted">{{localize "CHEX.HUD.Claimed"}}</span><span style="color: {{claim.color}};">{{claim.label}}</span>{{/if}}
+        {{#if settlement}}<span class="chex-muted">{{settlement.size}}</span><span style="color: {{settlement.color}};"><i class="{{icons.settlement}}"></i> {{settlement.name}}</span>{{/if}}
     </div>
 
+    {{!-- lists: icon | label | value | visibility (GM). One grid per list, so labels line up --}}
     {{#if improvements.length}}
-    <div class="chex-hud-group">
+    <div class="chex-hud-group chex-hud-list {{#if isGM}}gm{{/if}}">
         {{#each improvements}}
-        <p><img src="{{this.img}}"><span class="chex-grow">{{this.label}}</span><span class="chex-muted">{{this.effect}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}</p>
+        <img src="{{this.img}}"><span>{{this.label}}</span><span class="chex-muted">{{this.effect}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}
         {{/each}}
     </div>
     {{/if}}
 
     {{#if resources.length}}
-    <div class="chex-hud-group">
+    <div class="chex-hud-group chex-hud-list {{#if isGM}}gm{{/if}}">
         {{#each resources}}
-        <p><img src="{{this.img}}"><span class="chex-grow">{{this.label}}</span><span>×{{this.amount}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}</p>
+        <img src="{{this.img}}"><span>{{this.label}}</span><span>×{{this.amount}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}
         {{/each}}
     </div>
     {{/if}}
 
     {{#if forageables.length}}
-    <div class="chex-hud-group">
+    <div class="chex-hud-group chex-hud-list {{#if isGM}}gm{{/if}}">
         {{#each forageables}}
-        <p><img src="{{this.img}}"><span class="chex-grow">{{this.label}}</span><span><i class="fa-solid fa-gift"></i> {{this.amount}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}</p>
+        <img src="{{this.img}}"><span>{{this.label}}</span><span><i class="fa-solid fa-gift"></i> {{this.amount}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}
         {{/each}}
     </div>
     {{/if}}
 
     {{#if features.length}}
-    <div class="chex-hud-group">
+    <div class="chex-hud-group chex-hud-list {{#if isGM}}gm{{/if}}">
         {{#each features}}
-        <p><img src="{{this.img}}"><span class="chex-grow">{{this.label}}</span><span>{{this.name}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}</p>
+        <img src="{{this.img}}"><span>{{this.label}}</span><span>{{this.name}}</span>{{#if ../isGM}}<i class="fa-solid {{this.eye}}"></i>{{/if}}
         {{/each}}
     </div>
     {{/if}}

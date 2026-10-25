@@ -1,0 +1,8 @@
+<div class="chex-icon-grid chex-labeled">
+    {{#each realms}}
+    <a class="chex-icon-item" data-realm="{{this.id}}" style="--item-color: {{this.color}}">
+        <img src="{{this.img}}" alt="{{this.label}}">
+        <span>{{this.label}}</span>
+    </a>
+    {{/each}}
+</div>

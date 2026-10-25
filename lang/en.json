@@ -285,7 +285,8 @@
             },
             "PlayerRealm": "Player Kingdom",
             "PlayerRealmTT": "The realm the players manage. They can open its kingdom view and settlements, build, trade and manage its drains. All other realms are run by the GM.",
-            "NoPlayerRealm": "No player kingdom"
+            "NoPlayerRealm": "No player kingdom",
+            "HeraldryTT": "Flag or heraldry of the realm. Click to choose an image. It is shown together with the realm color."
         },
         "PAINT": {
             "Title": "Paint",

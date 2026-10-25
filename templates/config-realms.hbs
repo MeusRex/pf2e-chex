@@ -3,6 +3,7 @@
     <table class="chex-table chex-config-table">
         <thead>
             <tr>
+                <th></th>
                 <th>{{localize "CHEX.Color"}}</th>
                 <th>{{localize "CHEX.Id"}}</th>
                 <th>{{localize "CHEX.Label"}}</th>
@@ -13,6 +14,10 @@
         <tbody>
             {{#each draft.realms as |r i|}}
             <tr>
+                <td>
+                    <img class="chex-config-img chex-heraldry" src="{{r.img}}" style="--item-color: {{r.color}}" data-action="pickImage" data-path="realms.{{i}}.img" data-tooltip="CHEX.CONFIG.HeraldryTT">
+                    <input type="hidden" name="realms.{{i}}.img" value="{{r.img}}">
+                </td>
                 <td><input type="color" name="realms.{{i}}.color" value="{{r.color}}"></td>
                 <td><input type="text" name="realms.{{i}}.id" value="{{r.id}}" data-tooltip="CHEX.IdTT"></td>
                 <td><input type="text" name="realms.{{i}}.label" value="{{r.label}}"></td>
@@ -21,6 +26,7 @@
             </tr>
             {{/each}}
             <tr>
+                <td></td>
                 <td></td>
                 <td colspan="2" class="chex-muted">{{localize "CHEX.CONFIG.NoPlayerRealm"}}</td>
                 <td class="chex-center"><input type="radio" name="playerRealm" value="" {{checked (eq "" @root.playerRealm)}}></td>

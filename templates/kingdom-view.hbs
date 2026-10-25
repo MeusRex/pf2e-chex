@@ -3,7 +3,7 @@
     <p>{{localize "CHEX.ECONOMY.Kingdom.Missing"}}</p>
 {{else}}
     <header class="chex-kingdom-header" style="--realm-color: {{realm.color}}">
-        <div class="chex-realm-swatch"></div>
+        <img class="chex-heraldry" src="{{realmImg}}" alt="{{realm.label}}">
         <div class="chex-kingdom-stats">
             {{#if isPlayerRealm}}<span class="chex-badge" data-tooltip="CHEX.CONFIG.PlayerRealmTT"><i class="fa-solid fa-users"></i> {{localize "CHEX.ECONOMY.Kingdom.PlayerKingdom"}}</span>{{/if}}
             <span data-tooltip="CHEX.ECONOMY.Kingdom.TurnTT"><i class="fa-solid fa-hourglass-half"></i> {{localize "CHEX.ECONOMY.Kingdom.Turn"}} {{state.turn}}</span>

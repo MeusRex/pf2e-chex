@@ -1,6 +1,7 @@
 import * as C from "../const.mjs";
 import { Resource } from "../customizables/resources.mjs";
 import { Improvement } from "../customizables/improvements.mjs";
+import { DEFAULT_REALM_IMAGE } from "../customizables/realms.mjs";
 import { extractionCandidates, isExtracting, pickExtractedResource } from "./engine.mjs";
 
 // formulas of the improvement defaults before v4. Unchanged ones are replaced by the new defaults.
@@ -86,11 +87,19 @@ export function migrateImprovements(saved, resources) {
  * Migrate definitions in memory. Called during setup.
  * @returns {boolean} whether something changed and should be saved
  */
+/**
+ * Realms got a flag or heraldry image.
+ */
+export function migrateRealms(saved) {
+    return Object.fromEntries(Object.entries(saved ?? {}).map(([id, realm]) => [id, {...realm, img: realm.img || DEFAULT_REALM_IMAGE}]));
+}
+
 export function migrateDefinitions() {
-    const before = JSON.stringify([chex.resources, chex.improvements]);
+    const before = JSON.stringify([chex.resources, chex.improvements, chex.realms]);
     chex.resources = migrateResources(chex.resources);
     chex.improvements = migrateImprovements(chex.improvements, chex.resources);
-    return before !== JSON.stringify([chex.resources, chex.improvements]);
+    chex.realms = migrateRealms(chex.realms);
+    return before !== JSON.stringify([chex.resources, chex.improvements, chex.realms]);
 }
 
 /**
@@ -103,7 +112,8 @@ export async function persistMigration(definitionsChanged) {
     if (definitionsChanged) {
         await game.settings.set(C.MODULE_ID, "Resource", chex.resources);
         await game.settings.set(C.MODULE_ID, "Improvement", chex.improvements);
-        console.log("cHex | Migrated resource and improvement definitions");
+        await game.settings.set(C.MODULE_ID, "Realm", chex.realms);
+        console.log("cHex | Migrated resource, improvement and realm definitions");
     }
 
     for (const scene of game.scenes) {

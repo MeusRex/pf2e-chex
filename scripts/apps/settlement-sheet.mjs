@@ -93,6 +93,7 @@ export default class SettlementSheet extends HandlebarsApplicationMixin(Applicat
         return Object.assign(context, {
             settlement,
             realm: chex.realms[this.realmId],
+            realmImg: UI.realmImg(chex.realms[this.realmId]),
             isGM,
             sizes: Object.values(defs.sizes).sort((a, b) => a.rank - b.rank),
             sizeLabel: size?.label ?? settlement.size,

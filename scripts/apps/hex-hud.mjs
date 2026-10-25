@@ -3,7 +3,7 @@ import ChexData from "../chex-data.mjs";
 import { hexProduction, isExtracting } from "../economy/engine.mjs";
 import { findSettlementAt, getDefs } from "../economy/realm-store.mjs";
 import { currentTravel } from "../travel.mjs";
-import { TEMPLATES } from "./economy-ui.mjs";
+import { realmImg, TEMPLATES } from "./economy-ui.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -116,7 +116,7 @@ export default class HexHUD extends HandlebarsApplicationMixin(ApplicationV2) {
             exploration: data.exploration > 0
                 ? Object.values(C.EXPLORATION_STATES).find(v => v.value === data.exploration)?.label : null,
             cleared: data.cleared,
-            claim: realm ? {label: realm.label, color: realm.color} : null,
+            claim: realm ? {label: realm.label, color: realm.color, img: realmImg(realm)} : null,
             settlement: found ? {
                 name: found.settlement.name,
                 size: chex.settlementSizes[found.settlement.size]?.label ?? found.settlement.size,

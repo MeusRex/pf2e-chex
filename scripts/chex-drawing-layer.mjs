@@ -3,6 +3,7 @@ import { currentTravel } from "./travel.mjs";
 import { allSettlements, getDefs } from "./economy/realm-store.mjs";
 import { hexProduction } from "./economy/engine.mjs";
 import ChexData from "./chex-data.mjs";
+import { realmImg } from "./apps/economy-ui.mjs";
 
 export default class ChexDrawingLayer extends PIXI.Container {
   constructor() {
@@ -31,6 +32,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
    * Counter to drop outdated detail drawings, as loading textures is asynchronous.
    */
   #detailsDrawId = 0;
+  #settlementsDrawId = 0;
 
   /**
    * Draw or toggle the layer for the current mode.
@@ -64,7 +66,7 @@ export default class ChexDrawingLayer extends PIXI.Container {
    * Draw settlements and hex details according to the map view options of this user.
    */
   async drawOverlays() {
-    this.drawSettlements();
+    await this.drawSettlements();
     await this.drawDetails();
   }
 
@@ -75,14 +77,20 @@ export default class ChexDrawingLayer extends PIXI.Container {
   /**
    * Draw a marker with the name of every settlement on this scene.
    */
-  drawSettlements() {
+  async drawSettlements() {
+    const drawId = ++this.#settlementsDrawId;
+    const settlements = allSettlements().filter(({settlement}) => settlement.sceneId === canvas.scene?.id && settlement.hexKey !== "");
+    const sources = [...new Set(settlements.map(({realmId}) => realmImg(chex.realms[realmId])))];
+    await Promise.all(sources.map(src => foundry.canvas.loadTexture(src, {fallback: C.FALLBACK_IMAGE})));
+    if (drawId !== this.#settlementsDrawId) return;
+
     for (const child of this.settlementMarkers.removeChildren()) child.destroy({children: true});
     this.settlementMarkers.visible = this.mapView.settlements !== false;
     const size = canvas.grid.size;
     const style = CONFIG.canvasTextStyle.clone();
     style.fontSize = Math.max(14, Math.round(size * 0.2));
 
-    for (const {realmId, settlement} of allSettlements()) {
+    for (const {realmId, settlement} of settlements) {
       if (settlement.sceneId !== canvas.scene?.id || settlement.hexKey === "") continue;
       const hex = chex.manager.hexes.get(Number(settlement.hexKey));
       if (!hex) continue;
@@ -99,6 +107,16 @@ export default class ChexDrawingLayer extends PIXI.Container {
       marker.drawCircle(x, y, radius);
       marker.endFill();
       this.settlementMarkers.addChild(marker);
+
+      // the realm's heraldry inside its color
+      const texture = foundry.canvas.getTexture(realmImg(chex.realms[realmId]));
+      if (texture) {
+        const heraldry = new PIXI.Sprite(texture);
+        heraldry.anchor.set(0.5);
+        heraldry.width = heraldry.height = radius * 1.4;
+        heraldry.position.set(x, y);
+        this.settlementMarkers.addChild(heraldry);
+      }
 
       const label = new foundry.canvas.containers.PreciseText(settlement.name, style);
       label.anchor.set(0.5, 0);

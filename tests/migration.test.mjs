@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { migrateImprovements, migrateResources } from "../scripts/economy/migration.mjs";
+import { migrateImprovements, migrateRealms, migrateResources } from "../scripts/economy/migration.mjs";
 
 const legacyResources = {
     stone: {id: "stone", label: "Stone", img: "a.webp"},
@@ -47,6 +47,12 @@ test("custom formulas are converted", () => {
     assert.equal(improvements.bigmine.yield, 3);
     assert.equal(improvements.bridge.travel, -2);
     assert.equal(improvements.statue.extracts, "");
+});
+
+test("realms without heraldry get a default flag", () => {
+    const realms = migrateRealms({a: {id: "a", label: "A", color: "#fff"}, b: {id: "b", label: "B", color: "#000", img: "x.webp"}});
+    assert.ok(realms.a.img.endsWith(".webp"));
+    assert.equal(realms.b.img, "x.webp");
 });
 
 test("migration is idempotent", () => {

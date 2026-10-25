@@ -12,7 +12,6 @@
         <a class="chex-icon-item {{#if this.active}}active{{/if}}" data-action="select" data-id="{{this.id}}" data-tooltip="{{this.label}}"
            {{#if this.color}}style="--item-color: {{this.color}}"{{/if}}>
             {{#if this.img}}<img src="{{this.img}}" alt="{{this.label}}">
-            {{else if this.swatch}}<span class="chex-swatch"></span>
             {{else}}<i class="{{this.icon}}"></i>{{/if}}
         </a>
         {{/each}}

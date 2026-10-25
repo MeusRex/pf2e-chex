@@ -79,6 +79,7 @@ export default class KingdomView extends HandlebarsApplicationMixin(ApplicationV
             isGM,
             canManage,
             isPlayerRealm: Store.playerRealm() === this.realmId,
+            realmImg: UI.realmImg(realm),
             preview,
             stockpile: this.#stockpileRows(state, preview),
             shortages: this.#shortages(state, preview),

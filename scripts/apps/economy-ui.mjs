@@ -1,6 +1,7 @@
 import * as C from "../const.mjs";
 import { GROUP_PREFIX } from "../economy/engine.mjs";
 import { canManage } from "../economy/realm-store.mjs";
+import { DEFAULT_REALM_IMAGE } from "../customizables/realms.mjs";
 
 export const TEMPLATES = "modules/pf2e-chex/templates";
 const GROUP_IMAGE = "icons/svg/item-bag.svg";
@@ -71,13 +72,36 @@ export async function pickRealm() {
         return null;
     }
     if (realms.length === 1) return realms[0].id;
-    const options = realms.map(r => `<option value="${r.id}">${foundry.utils.escapeHTML(r.label)}</option>`).join("");
-    const data = await foundry.applications.api.DialogV2.input({
-        window: {title: "CHEX.ECONOMY.Kingdom.Pick", icon: "fa-solid fa-crown"},
-        content: `<div class="form-group"><label>${game.i18n.localize("CHEX.ECONOMY.Realm")}</label><select name="realm">${options}</select></div>`,
+
+    // a click on a realm picks it right away
+    const content = await foundry.applications.handlebars.renderTemplate(`${TEMPLATES}/realm-picker.hbs`, {
+        realms: realms.map(r => ({id: r.id, label: r.label, color: r.color, img: realmImg(r)}))
+    });
+    let picked = null;
+    await foundry.applications.api.DialogV2.wait({
+        window: {title: "CHEX.ECONOMY.Kingdom.Pick", icon: C.ICONS.kingdom},
+        classes: ["chex-app", "chex-realm-picker"],
+        position: {width: 420},
+        content,
+        buttons: [{action: "cancel", label: "Cancel", icon: "fa-solid fa-xmark"}],
+        render: (event, dialog) => {
+            for (const tile of dialog.element.querySelectorAll("[data-realm]")) {
+                tile.addEventListener("click", () => {
+                    picked = tile.dataset.realm;
+                    dialog.close();
+                });
+            }
+        },
         rejectClose: false
     });
-    return data?.realm ?? null;
+    return picked;
+}
+
+/**
+ * The flag or heraldry of a realm.
+ */
+export function realmImg(realm) {
+    return realm?.img || DEFAULT_REALM_IMAGE;
 }
 
 /**

@@ -2,7 +2,7 @@ import * as C from "../const.mjs";
 import ChexData from "../chex-data.mjs";
 import { extractionCandidates, isExtracting } from "../economy/engine.mjs";
 import { assignExtraction } from "../economy/migration.mjs";
-import { confirm, TEMPLATES } from "./economy-ui.mjs";
+import { confirm, realmImg, TEMPLATES } from "./economy-ui.mjs";
 import MapViewPanel from "./map-view.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -106,7 +106,7 @@ export default class PaintPalette extends HandlebarsApplicationMixin(Application
             case PAINT_TABS.REALM:
                 return [
                     {id: "", label: game.i18n.localize("CHEX.PAINT.Unclaimed"), icon: C.ICONS.none},
-                    ...Object.values(chex.realms).map(r => ({id: r.id, label: r.label, color: r.color, swatch: true}))
+                    ...Object.values(chex.realms).map(r => ({id: r.id, label: r.label, color: r.color, img: realmImg(r)}))
                 ].map(i => ({...i, active: i.id === selected}));
             case PAINT_TABS.IMPROVEMENTS:
                 return Object.values(chex.improvements).map(i => ({id: i.id, label: i.label, img: i.img}));
