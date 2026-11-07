@@ -46,7 +46,7 @@ const CATEGORIES = {
     },
     buildings: {
         icon: C.ICONS.building, setting: "Building", source: () => chex.buildings, defaults: () => Building.getDefaults(),
-        blank: id => new Building(id, "", "icons/svg/house.svg"), amounts: ["cost", "upkeep", "production"], numbers: ["lots", "maxCount"]
+        blank: id => new Building(id, "", "icons/svg/house.svg"), amounts: ["cost", "upkeep"], numbers: ["lots", "maxCount"], recipes: true
     },
     sizes: {
         icon: C.ICONS.settlement, setting: "SettlementSize", source: () => chex.settlementSizes, defaults: () => SettlementSize.getDefaults(),
@@ -82,6 +82,9 @@ export default class ChexConfig extends HandlebarsApplicationMixin(ApplicationV2
             deleteEntry: ChexConfig.#onDeleteEntry,
             pickImage: ChexConfig.#onPickImage,
             editExtraction: ChexConfig.#onEditExtraction,
+            addRecipe: ChexConfig.#onAddRecipe,
+            deleteRecipe: ChexConfig.#onDeleteRecipe,
+            moveRecipe: ChexConfig.#onMoveRecipe,
             addDefaults: ChexConfig.#onAddDefaults,
             exportJson: ChexConfig.#onExport,
             importJson: ChexConfig.#onImport
@@ -120,23 +123,27 @@ export default class ChexConfig extends HandlebarsApplicationMixin(ApplicationV2
     #playerRealm = game.settings.get(C.MODULE_ID, PLAYER_REALM_SETTING);
 
     static #toDraft(category, definitions) {
+        const toList = map => Object.entries(map ?? {}).map(([id, amount]) => ({id, amount}));
         return Object.values(foundry.utils.deepClone(definitions ?? {})).map(def => {
-            for (const field of amountFields(category)) {
-                def[field] = Object.entries(def[field] ?? {}).map(([id, amount]) => ({id, amount}));
+            for (const field of amountFields(category)) def[field] = toList(def[field]);
+            if (CATEGORIES[category].recipes) {
+                def.recipes = (def.recipes ?? []).map(r => ({...r, inputs: toList(r.inputs), outputs: toList(r.outputs)}));
             }
             return def;
         });
     }
 
     static #fromDraft(category, entries) {
+        const toMap = list => (list ?? []).reduce((map, {id, amount}) => {
+            if (id && Number(amount)) addAmounts(map, {[id]: Number(amount)});
+            return map;
+        }, {});
         const result = {};
         for (const entry of entries) {
             const def = {...entry};
-            for (const field of amountFields(category)) {
-                def[field] = (entry[field] ?? []).reduce((map, {id, amount}) => {
-                    if (id && Number(amount)) addAmounts(map, {[id]: Number(amount)});
-                    return map;
-                }, {});
+            for (const field of amountFields(category)) def[field] = toMap(entry[field]);
+            if (CATEGORIES[category].recipes) {
+                def.recipes = (entry.recipes ?? []).map(r => ({id: r.id, label: r.label ?? "", inputs: toMap(r.inputs), outputs: toMap(r.outputs)}));
             }
             for (const field of CATEGORIES[category].numbers ?? []) def[field] = Number(def[field]) || 0;
             result[def.id] = def;
@@ -208,6 +215,9 @@ export default class ChexConfig extends HandlebarsApplicationMixin(ApplicationV2
         for (const category of Object.keys(CATEGORIES)) {
             this.#draft[category] = toArray(data[category]).map(entry => {
                 for (const field of amountFields(category)) entry[field] = toArray(entry[field]);
+                if (CATEGORIES[category].recipes) {
+                    entry.recipes = toArray(entry.recipes).map(r => ({...r, inputs: toArray(r.inputs), outputs: toArray(r.outputs)}));
+                }
                 if (category === "improvements") entry.allowed = String(entry.allowed ?? "").split(",").filter(a => a);
                 return entry;
             });
@@ -224,6 +234,31 @@ export default class ChexConfig extends HandlebarsApplicationMixin(ApplicationV2
         const blank = CATEGORIES[category].blank(id);
         if (category === "sizes") blank.rank = this.#draft.sizes.length + 1;
         this.#draft[category].push(...ChexConfig.#toDraft(category, {[id]: blank}));
+        this.render();
+    }
+
+    static #onAddRecipe(event, target) {
+        this.#sync();
+        this.#draft.buildings[Number(target.dataset.index)].recipes.push({id: foundry.utils.randomID(6), label: "", inputs: [], outputs: []});
+        this.render();
+    }
+
+    static #onDeleteRecipe(event, target) {
+        this.#sync();
+        this.#draft.buildings[Number(target.dataset.index)].recipes.splice(Number(target.dataset.recipe), 1);
+        this.render();
+    }
+
+    /**
+     * Recipes are tried in order by "auto", so their order is their priority.
+     */
+    static #onMoveRecipe(event, target) {
+        this.#sync();
+        const recipes = this.#draft.buildings[Number(target.dataset.index)].recipes;
+        const from = Number(target.dataset.recipe);
+        const to = from + Number(target.dataset.direction);
+        if (to < 0 || to >= recipes.length) return;
+        [recipes[from], recipes[to]] = [recipes[to], recipes[from]];
         this.render();
     }
 

@@ -742,3 +742,56 @@
 .chex-app .chex-changes p {
   margin: 0.1rem 0 0;
 }
+
+/* ---------------------------------------- */
+/*  Recipes                                 */
+/* ---------------------------------------- */
+
+.chex-config .chex-recipe-list {
+  margin-top: 0.5rem;
+  counter-reset: recipe;
+}
+
+.chex-config .chex-recipe-list > header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 1px solid var(--chex-border);
+  margin-bottom: 0.25rem;
+}
+
+.chex-config .chex-recipe-edit {
+  border-left: 3px solid var(--chex-border);
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  counter-increment: recipe;
+}
+
+.chex-config .chex-recipe-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.chex-config .chex-recipe-number::before {
+  content: counter(recipe) ".";
+}
+
+.chex-config .chex-recipe-head input[type="text"] {
+  flex: 1;
+}
+
+.chex-config .chex-recipe-arrow {
+  align-self: center;
+}
+
+.chex-app .chex-recipe {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.chex-app .chex-recipes > div + div {
+  margin-top: 2px;
+}

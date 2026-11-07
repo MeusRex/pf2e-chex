@@ -71,7 +71,8 @@
                 "HexOccupied": "There already is a settlement on this hex.",
                 "TradeCantAfford": "One of the realms can no longer afford this trade.",
                 "UnknownOffer": "This offer or agreement no longer exists.",
-                "UnknownRealm": "Unknown realm."
+                "UnknownRealm": "Unknown realm.",
+                "UnknownRecipe": "Unknown recipe."
             },
             "AmountsHint": "Leave 0 for resources that aren't involved.",
             "ConfirmDelete": "Delete <strong>{name}</strong>? This can't be undone.",
@@ -148,7 +149,9 @@
                 "Found": "Found Settlement Here",
                 "PlaceHere": "Place Here",
                 "ClaimFirst": "Save a claim for this hex to found a settlement here.",
-                "Transferred": "<strong>{name}</strong> now belongs to <strong>{to}</strong> (before: {from}). Its buildings came along, the stockpile of {from} did not."
+                "Transferred": "<strong>{name}</strong> now belongs to <strong>{to}</strong> (before: {from}). Its buildings came along, the stockpile of {from} did not.",
+                "AutoRecipe": "Auto",
+                "RecipeTT": "What this building makes. Auto runs the first recipe whose inputs are in stock, in the order set in the configuration."
             },
             "Report": {
                 "Idle": "Idle buildings",
@@ -234,7 +237,7 @@
             "InvalidId": "Invalid or duplicate ID \"{id}\" in {tab}. IDs may only contain letters, numbers, - and _.",
             "ResourcesHint": "Raw resources are found on the map and extracted by improvements. Goods are made by buildings. Changing an ID breaks existing references to it.",
             "ImprovementsHint": "Improvements are placed on hexes. Extracting improvements produce one of their raw resources every turn for the realm that claimed the hex. Click the Extracts cell to choose them.",
-            "BuildingsHint": "Buildings are constructed in settlements. Their cost is paid once, upkeep every turn. Buildings that can't pay their upkeep are idle for the turn.",
+            "BuildingsHint": "Buildings are constructed in settlements. Their cost is paid once. Each turn one recipe runs, paying its inputs and the upkeep; if that is not possible, the building is idle.",
             "SizesHint": "Settlements consume their needs every turn. Their happiness is the percentage of needs that were met.",
             "EditExtraction": "Choose what this improvement extracts",
             "ExtractionTitle": "Extraction: {name}",
@@ -266,7 +269,6 @@
                 "maxCountTT": "Maximum number per settlement. 0 for unlimited.",
                 "cost": "Cost",
                 "upkeep": "Upkeep / Turn",
-                "production": "Production / Turn",
                 "needs": "Needs / Turn",
                 "rank": "Rank",
                 "rankTT": "Order of sizes, higher is bigger. Used for minimum size of buildings.",
@@ -275,7 +277,11 @@
                 "multiplier": "Multiplier",
                 "multiplierTT": "How many times more time does it take to travel here?",
                 "special": "Special",
-                "specialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula"
+                "specialTT": "Is this a special travel type? If true, it will be skipped when an improvement lowers or increases the travel difficulty via its formula",
+                "recipes": "Recipes",
+                "recipesTT": "What the building can make. One recipe runs per turn: the one chosen in the settlement, or with Auto the first one whose inputs and upkeep can be paid. The order is the priority.",
+                "inputs": "Inputs",
+                "outputs": "Outputs"
             },
             "Hint": {
                 "realms": "Realms claim hexes and have an economy. The player kingdom is managed by the players, all other realms by the GM.",
@@ -286,7 +292,11 @@
             "PlayerRealm": "Player Kingdom",
             "PlayerRealmTT": "The realm the players manage. They can open its kingdom view and settlements, build, trade and manage its drains. All other realms are run by the GM.",
             "NoPlayerRealm": "No player kingdom",
-            "HeraldryTT": "Flag or heraldry of the realm. Click to choose an image. It is shown together with the realm color."
+            "HeraldryTT": "Flag or heraldry of the realm. Click to choose an image. It is shown together with the realm color.",
+            "AddRecipe": "Add recipe",
+            "MoveUp": "Higher priority",
+            "MoveDown": "Lower priority",
+            "NoRecipes": "No recipes: the building only costs its upkeep."
         },
         "PAINT": {
             "Title": "Paint",
@@ -315,7 +325,7 @@
             "Entries": {
                 "Economy": {
                     "Title": "Kingdom economy",
-                    "Text": "Realms have a stockpile, settlements with buildings and happiness, drains like armies and an End Turn with a chat report. Open it with the crown in the token controls."
+                    "Text": "Realms have a stockpile, settlements with buildings and happiness, drains like armies and an End Turn with a chat report. Buildings can have several recipes, e.g. a weaver using fibers or wool. Open it with the crown in the token controls."
                 },
                 "Trade": {
                     "Title": "Trade and the player kingdom",

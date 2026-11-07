@@ -10,7 +10,7 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 | **Resource** | `kind`: `raw` or `goods`. Raw resources have a `category` (`underground`, `surface`, `water`) and a `spawnWeight`. Optional `group` (e.g. `food`, `luxury`) lets needs be satisfied by any member. `tradeValue` is used by the trade screen. |
 | **Improvement** | Hex improvement. `extracts` a category (Mine → underground, Farm → surface, Fishery → water), meaning all raw resources of it, or an explicit `allowed` list (may span categories). Produces `yield` per turn. `travel` shifts travel difficulty (Road: −1). |
 | **Extraction** | When an extracting improvement is placed, a matching deposit on the hex is used; otherwise a resource of the category is rolled using the spawn weights. The result is stored on the hex improvement (`resource`) so it stays stable; the GM may change it. Output = `yield × deposit amount` (deposit amount defaults to 1). |
-| **Building** | Built in a settlement. `cost` (paid once), `upkeep` and `production` per turn, `lots`, `minSize`, `maxCount`. A building whose upkeep cannot be paid is idle that turn. |
+| **Building** | Built in a settlement. `cost` (paid once), optional `upkeep` per turn, `lots`, `minSize`, `maxCount`, and an ordered list of `recipes` (`inputs` → `outputs`). One recipe runs per turn: the one chosen for the building instance, or with *Auto* the first whose inputs and upkeep can be paid. Otherwise the building is idle that turn. |
 | **Settlement size** | `rank`, `lots`, `needs` per turn. Needs may reference a resource or a group (`group:food`). |
 | **Realm state** | Per realm: stockpile, settlements (located on a hex), drains (armies etc., optionally linked to any actor), turn log. Storage is unlimited. |
 | **Happiness** | Per settlement: % of needed units delivered last turn. Kingdom happiness: all delivered / all needed. |
@@ -18,7 +18,7 @@ game-system data; it complements whatever kingdom rules the table uses (e.g. PF2
 ## Turn order (End Turn)
 
 1. Hex production of claimed hexes (all cHex scenes) is added.
-2. Building upkeep is paid (all-or-nothing per building); production of active buildings is added afterwards.
+2. Each building runs one recipe, paying upkeep and inputs all-or-nothing (Auto: first affordable recipe in priority order); outputs of all buildings are added afterwards.
 3. Settlement needs: specific resources first, then groups. Shortages are shared proportionally → happiness.
 4. Drains are paid all-or-nothing in order; unpaid drains are flagged.
 5. Chat report; state saved. The same simulation without saving drives the "next turn" preview.

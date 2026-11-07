@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { migrateImprovements, migrateRealms, migrateResources } from "../scripts/economy/migration.mjs";
+import { migrateBuildings, migrateImprovements, migrateRealms, migrateResources } from "../scripts/economy/migration.mjs";
 
 const legacyResources = {
     stone: {id: "stone", label: "Stone", img: "a.webp"},
@@ -53,6 +53,18 @@ test("realms without heraldry get a default flag", () => {
     const realms = migrateRealms({a: {id: "a", label: "A", color: "#fff"}, b: {id: "b", label: "B", color: "#000", img: "x.webp"}});
     assert.ok(realms.a.img.endsWith(".webp"));
     assert.equal(realms.b.img, "x.webp");
+});
+
+test("buildings get one recipe from their former upkeep and production", () => {
+    const buildings = migrateBuildings({
+        smithy: {id: "smithy", label: "Smithy", cost: {stone: 2}, upkeep: {ore: 1}, production: {tools: 2}, lots: 1},
+        statue: {id: "statue", label: "Statue", cost: {stone: 5}, upkeep: {}, production: {}, lots: 1}
+    });
+    assert.deepEqual(buildings.smithy.recipes, [{id: "default", label: "Smithy", inputs: {ore: 1}, outputs: {tools: 2}}]);
+    assert.deepEqual(buildings.smithy.upkeep, {});
+    assert.equal(buildings.smithy.production, undefined);
+    assert.deepEqual(buildings.statue.recipes, []);
+    assert.deepEqual(migrateBuildings(buildings), buildings, "idempotent");
 });
 
 test("migration is idempotent", () => {

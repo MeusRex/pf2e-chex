@@ -170,6 +170,36 @@ export function exchange(stockA, giveA, stockB, giveB, resources) {
     return true;
 }
 
+export const AUTO_RECIPE = "auto";
+
+/**
+ * The recipes a building instance may run: its chosen one, or all in order of priority for "auto".
+ */
+export function recipeCandidates(building, choice = AUTO_RECIPE) {
+    const recipes = building?.recipes ?? [];
+    if (choice && choice !== AUTO_RECIPE) return recipes.filter(r => r.id === choice);
+    return recipes;
+}
+
+/**
+ * Run one recipe of a building: the first candidate whose upkeep and inputs can be paid in full.
+ * Buildings without recipes only pay their upkeep.
+ * @returns {{recipe: string, paid: Record<string, number>, outputs: Record<string, number>}|null} null if idle
+ */
+export function runBuilding(stock, building, choice, resources) {
+    const recipes = building.recipes ?? [];
+    if (!recipes.length) {
+        const paid = tryPay(stock, building.upkeep, resources);
+        return paid ? {recipe: "", paid, outputs: {}} : null;
+    }
+    for (const recipe of recipeCandidates(building, choice)) {
+        const cost = addAmounts(addAmounts({}, building.upkeep), recipe.inputs);
+        const paid = tryPay(stock, cost, resources);
+        if (paid) return {recipe: recipe.id, paid, outputs: {...recipe.outputs}};
+    }
+    return null;
+}
+
 /**
  * Lots used by the buildings of a settlement.
  */
@@ -214,6 +244,7 @@ export function simulateTurn(state, defs, hexIncome = {}, {partners = {}} = {}) 
         trades: {},
         partnerStockpiles: {},
         buildings: {},
+        recipes: {},
         settlements: {},
         drains: {},
         happiness: 100,
@@ -233,17 +264,19 @@ export function simulateTurn(state, defs, hexIncome = {}, {partners = {}} = {}) 
     // 1. hexes
     addAmounts(stock, hexIncome);
 
-    // 2. buildings: pay upkeep, then add production of active buildings
+    // 2. buildings: run a recipe (paying upkeep and inputs), then add the outputs of all buildings that ran
     const pending = {};
     for (const settlement of settlements) {
         const states = result.buildings[settlement.id] = {};
+        const recipes = result.recipes[settlement.id] = {};
         for (const instance of settlement.buildings ?? []) {
             const building = defs.buildings[instance.type];
-            const paid = building ? tryPay(stock, building.upkeep, resources) : null;
-            states[instance.uid] = !!paid;
-            if (!paid) continue;
-            addAmounts(result.consumed.buildings, paid);
-            addAmounts(pending, building.production);
+            const run = building ? runBuilding(stock, building, instance.recipe, resources) : null;
+            states[instance.uid] = !!run;
+            if (!run) continue;
+            recipes[instance.uid] = run.recipe;
+            addAmounts(result.consumed.buildings, run.paid);
+            addAmounts(pending, run.outputs);
         }
     }
     addAmounts(stock, pending);

@@ -19,7 +19,31 @@
         <div class="chex-config-card-body">
             {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.cost" path=(concat "buildings." i ".cost") entries=b.cost options=@root.needOptions}}
             {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.upkeep" path=(concat "buildings." i ".upkeep") entries=b.upkeep options=@root.needOptions}}
-            {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.production" path=(concat "buildings." i ".production") entries=b.production options=@root.resourceOptions}}
+        </div>
+        <div class="chex-recipe-list">
+            <header>
+                <span data-tooltip="CHEX.CONFIG.Field.recipesTT">{{localize "CHEX.CONFIG.Field.recipes"}}</span>
+                <a class="chex-row-control" data-action="addRecipe" data-index="{{i}}" data-tooltip="CHEX.CONFIG.AddRecipe"><i class="fa-solid fa-plus"></i></a>
+            </header>
+            {{#each b.recipes as |r j|}}
+            <div class="chex-recipe-edit">
+                <div class="chex-recipe-head">
+                    <span class="chex-muted chex-recipe-number"></span>
+                    <input type="hidden" name="buildings.{{i}}.recipes.{{j}}.id" value="{{r.id}}">
+                    <input type="text" name="buildings.{{i}}.recipes.{{j}}.label" value="{{r.label}}" placeholder="{{localize "CHEX.Label"}}">
+                    <a class="chex-row-control" data-action="moveRecipe" data-index="{{i}}" data-recipe="{{j}}" data-direction="-1" data-tooltip="CHEX.CONFIG.MoveUp"><i class="fa-solid fa-arrow-up"></i></a>
+                    <a class="chex-row-control" data-action="moveRecipe" data-index="{{i}}" data-recipe="{{j}}" data-direction="1" data-tooltip="CHEX.CONFIG.MoveDown"><i class="fa-solid fa-arrow-down"></i></a>
+                    <a class="chex-row-control" data-action="deleteRecipe" data-index="{{i}}" data-recipe="{{j}}" data-tooltip="CHEX.Delete"><i class="fa-solid fa-trash"></i></a>
+                </div>
+                <div class="chex-config-card-body">
+                    {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.inputs" path=(concat "buildings." i ".recipes." j ".inputs") entries=r.inputs options=@root.needOptions}}
+                    <i class="fa-solid fa-arrow-right chex-muted chex-recipe-arrow"></i>
+                    {{> "modules/pf2e-chex/templates/amount-list.hbs" label="CHEX.CONFIG.Field.outputs" path=(concat "buildings." i ".recipes." j ".outputs") entries=r.outputs options=@root.resourceOptions}}
+                </div>
+            </div>
+            {{else}}
+            <p class="hint">{{localize "CHEX.CONFIG.NoRecipes"}}</p>
+            {{/each}}
         </div>
     </div>
     {{/each}}

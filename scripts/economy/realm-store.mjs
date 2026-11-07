@@ -176,7 +176,17 @@ const OPERATIONS = {
         const reason = E.canBuild(state.stockpile, settlement, building, defs);
         if (reason) throw new Error(game.i18n.localize(reason));
         E.tryPay(state.stockpile, defs.buildings[building].cost, defs.resources);
-        settlement.buildings.push({uid: foundry.utils.randomID(), type: building});
+        settlement.buildings.push({uid: foundry.utils.randomID(), type: building, recipe: E.AUTO_RECIPE});
+    }},
+
+    setRecipe: {gm: false, run(state, {settlementId, uid, recipe}) {
+        const instance = requireSettlement(state, settlementId).buildings.find(b => b.uid === uid);
+        if (!instance) throw new Error(game.i18n.localize("CHEX.ECONOMY.Error.UnknownBuilding"));
+        const building = chex.buildings[instance.type];
+        if (recipe !== E.AUTO_RECIPE && !building?.recipes?.some(r => r.id === recipe)) {
+            throw new Error(game.i18n.localize("CHEX.ECONOMY.Error.UnknownRecipe"));
+        }
+        instance.recipe = recipe;
     }},
 
     demolish: {gm: false, run(state, {settlementId, uid}) {

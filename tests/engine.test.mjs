@@ -137,6 +137,33 @@ test("exchange is all or nothing", () => {
     assert.deepEqual([a, b], [{fish: 1}, {stone: 1}]);
 });
 
+test("auto runs the first recipe that can be paid, a fixed recipe only itself", () => {
+    const settlement = (recipe) => ({id: "t", size: "village", buildings: [{uid: "w", type: "weaver", recipe}]});
+    // no fibers: auto falls back to wool from livestock
+    let result = E.simulateTurn({stockpile: {livestock: 3, food: 5}, settlements: {t: settlement("auto")}}, defs);
+    assert.equal(result.recipes.t.w, "wool");
+    assert.equal(result.produced.buildings.cloth, 1);
+    // enough fibers: the first recipe wins
+    result = E.simulateTurn({stockpile: {fibers: 2, livestock: 3, food: 5}, settlements: {t: settlement(undefined)}}, defs);
+    assert.equal(result.recipes.t.w, "fibers");
+    assert.equal(result.stockpile.livestock, 3);
+    // fixed to linen without fibers: idle
+    result = E.simulateTurn({stockpile: {livestock: 3, food: 5}, settlements: {t: settlement("fibers")}}, defs);
+    assert.equal(result.buildings.t.w, false);
+    assert.equal(result.produced.buildings.cloth, undefined);
+});
+
+test("upkeep is paid together with the recipe inputs", () => {
+    const buildings = {...defs.buildings, mill: {id: "mill", lots: 1, upkeep: {food: 1}, recipes: [{id: "r", inputs: {lumber: 1}, outputs: {tools: 1}}]}};
+    const state = {stockpile: {lumber: 1, food: 1}, settlements: {t: {id: "t", size: "camp", buildings: [{uid: "m", type: "mill"}]}}};
+    const sizes = {...defs.sizes, camp: {id: "camp", rank: 0, lots: 1, needs: {}}};
+    const result = E.simulateTurn(state, {...defs, buildings, sizes});
+    assert.deepEqual(result.stockpile, {tools: 1});
+    const poor = E.simulateTurn({...state, stockpile: {lumber: 1}}, {...defs, buildings, sizes});
+    assert.equal(poor.buildings.t.m, false);
+    assert.deepEqual(poor.stockpile, {lumber: 1});
+});
+
 test("settlements without needs are fully happy", () => {
     const sizes = {...defs.sizes, camp: {id: "camp", rank: 0, lots: 1, needs: {}}};
     const result = E.simulateTurn({settlements: {c: {id: "c", size: "camp"}}}, {...defs, sizes});

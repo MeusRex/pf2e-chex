@@ -94,12 +94,25 @@ export function migrateRealms(saved) {
     return Object.fromEntries(Object.entries(saved ?? {}).map(([id, realm]) => [id, {...realm, img: realm.img || DEFAULT_REALM_IMAGE}]));
 }
 
+/**
+ * Buildings got recipes. Their former upkeep and production become one recipe, so they work as before.
+ */
+export function migrateBuildings(saved) {
+    return Object.fromEntries(Object.entries(saved ?? {}).map(([id, building]) => {
+        if (Array.isArray(building.recipes)) return [id, building];
+        const {production = {}, upkeep = {}, ...rest} = building;
+        const hasRecipe = Object.keys(production).length || Object.keys(upkeep).length;
+        return [id, {...rest, upkeep: {}, recipes: hasRecipe ? [{id: "default", label: building.label ?? "", inputs: upkeep, outputs: production}] : []}];
+    }));
+}
+
 export function migrateDefinitions() {
-    const before = JSON.stringify([chex.resources, chex.improvements, chex.realms]);
+    const before = JSON.stringify([chex.resources, chex.improvements, chex.realms, chex.buildings]);
     chex.resources = migrateResources(chex.resources);
     chex.improvements = migrateImprovements(chex.improvements, chex.resources);
     chex.realms = migrateRealms(chex.realms);
-    return before !== JSON.stringify([chex.resources, chex.improvements, chex.realms]);
+    chex.buildings = migrateBuildings(chex.buildings);
+    return before !== JSON.stringify([chex.resources, chex.improvements, chex.realms, chex.buildings]);
 }
 
 /**
@@ -113,7 +126,8 @@ export async function persistMigration(definitionsChanged) {
         await game.settings.set(C.MODULE_ID, "Resource", chex.resources);
         await game.settings.set(C.MODULE_ID, "Improvement", chex.improvements);
         await game.settings.set(C.MODULE_ID, "Realm", chex.realms);
-        console.log("cHex | Migrated resource, improvement and realm definitions");
+        await game.settings.set(C.MODULE_ID, "Building", chex.buildings);
+        console.log("cHex | Migrated resource, improvement, realm and building definitions");
     }
 
     for (const scene of game.scenes) {

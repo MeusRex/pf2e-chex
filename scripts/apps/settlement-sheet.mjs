@@ -84,6 +84,13 @@ export default class SettlementSheet extends HandlebarsApplicationMixin(Applicat
         const {preview} = Store.previewTurn(this.realmId);
         const result = preview.settlements[settlement.id];
         const active = preview.buildings[settlement.id] ?? {};
+        const running = preview.recipes[settlement.id] ?? {};
+        const recipeView = recipe => recipe && ({
+            id: recipe.id,
+            label: recipe.label || recipe.id,
+            inputs: UI.amountList(recipe.inputs),
+            outputs: UI.amountList(recipe.outputs)
+        });
         const scene = game.scenes.get(settlement.sceneId);
         const isGM = game.user.isGM;
 
@@ -110,13 +117,20 @@ export default class SettlementSheet extends HandlebarsApplicationMixin(Applicat
             }),
             buildings: settlement.buildings.map(instance => {
                 const building = defs.buildings[instance.type];
+                const recipes = building?.recipes ?? [];
+                const choice = instance.recipe || E.AUTO_RECIPE;
+                // the recipe that runs next turn, or if idle the one it would need
+                const shown = recipes.find(r => r.id === running[instance.uid]) ?? E.recipeCandidates(building, choice)[0];
                 return {
                     uid: instance.uid,
                     label: building?.label ?? instance.type,
                     img: building?.img ?? C.FALLBACK_IMAGE,
-                    lots: building?.lots ?? 0,
                     upkeep: UI.amountList(building?.upkeep),
-                    production: UI.amountList(building?.production),
+                    choices: recipes.length > 1
+                        ? [{id: E.AUTO_RECIPE, label: game.i18n.localize("CHEX.ECONOMY.Settlement.AutoRecipe")}, ...recipes.map(r => ({id: r.id, label: r.label || r.id}))]
+                        : null,
+                    choice,
+                    recipe: recipeView(shown),
                     active: active[instance.uid] !== false,
                     missing: !building
                 };
@@ -131,7 +145,7 @@ export default class SettlementSheet extends HandlebarsApplicationMixin(Applicat
                     minSize: defs.sizes[building.minSize]?.label ?? "",
                     cost: UI.amountList(building.cost),
                     upkeep: UI.amountList(building.upkeep),
-                    production: UI.amountList(building.production),
+                    recipes: (building.recipes ?? []).map(recipeView),
                     reason: reason ? game.i18n.localize(reason) : null,
                     // hide buildings the settlement can never have at its size
                     locked: reason === "CHEX.ECONOMY.Error.TooSmall"
@@ -146,6 +160,12 @@ export default class SettlementSheet extends HandlebarsApplicationMixin(Applicat
         this.element.querySelector("select[name=size]")?.addEventListener("change", async event => {
             await Store.request(this.realmId, "updateSettlement", {settlementId: this.settlementId, changes: {size: event.target.value}});
         });
+        for (const select of this.element.querySelectorAll("select[name=recipe]")) {
+            select.addEventListener("change", async event => {
+                const uid = event.target.closest("[data-uid]").dataset.uid;
+                await Store.request(this.realmId, "setRecipe", {settlementId: this.settlementId, uid, recipe: event.target.value});
+            });
+        }
     }
 
     /* -------------------------------------------- */
